@@ -17,6 +17,7 @@
 		C725444E2C91854F00580224 /* RogueWordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725444D2C91854F00580224 /* RogueWordTests.swift */; };
 		C72544582C91854F00580224 /* RogueWordUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544572C91854F00580224 /* RogueWordUITests.swift */; };
 		C725445A2C91854F00580224 /* RogueWordUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544592C91854F00580224 /* RogueWordUITestsLaunchTests.swift */; };
+		C72544672C91895D00580224 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C72544662C91895D00580224 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C72544532C91854F00580224 /* RogueWordUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RogueWordUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544572C91854F00580224 /* RogueWordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITests.swift; sourceTree = "<group>"; };
 		C72544592C91854F00580224 /* RogueWordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C72544662C91895D00580224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				C72544392C91854D00580224 /* Main.storyboard */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
+				C72544662C91895D00580224 /* GoogleService-Info.plist */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
 			);
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72544402C91854F00580224 /* Assets.xcassets in Resources */,
+				C72544672C91895D00580224 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,
 				C725443B2C91854D00580224 /* Base in Resources */,
 			);
@@ -453,6 +457,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -480,6 +485,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
