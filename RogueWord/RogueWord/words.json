@@ -1,0 +1,6007 @@
+{
+    "wordType": {
+        "1": {
+            "english": "a",
+            "chinese": "一",
+            "property": "art.",
+            "sentence": "I saw a bird flying in the sky."
+        },
+        "2": {
+            "english": "a few",
+            "chinese": "幾個;為數不多的",
+            "property": "quant.",
+            "sentence": "There are a few cookies left on the plate."
+        },
+        "3": {
+            "english": "a little",
+            "chinese": "少量的;稍許的",
+            "property": "quant.",
+            "sentence": "I need a little help with my homework."
+        },
+        "4": {
+            "english": "a lot",
+            "chinese": "大量的;許多的",
+            "property": "quant.",
+            "sentence": "They have a lot of books in their library."
+        },
+        "5": {
+            "english": "able",
+            "chinese": "能;可;會",
+            "property": "adj.",
+            "sentence": "She is able to solve the problem easily."
+        },
+        "6": {
+            "english": "about",
+            "chinese": "關於",
+            "property": "prep.",
+            "sentence": "We are talking about the new project."
+        },
+        "7": {
+            "english": "above",
+            "chinese": "在…上面",
+            "property": "prep.",
+            "sentence": "The sun is shining above the clouds."
+        },
+        "8": {
+            "english": "afraid",
+            "chinese": "害怕的",
+            "property": "adj.",
+            "sentence": "I am afraid of heights."
+        },
+        "9": {
+            "english": "after",
+            "chinese": "在…之後",
+            "property": "prep.",
+            "sentence": "We will go for a walk after dinner."
+        },
+        "10": {
+            "english": "afternoon",
+            "chinese": "下午",
+            "property": "n.",
+            "sentence": "I usually take a nap in the afternoon."
+        },
+        "11": {
+            "english": "again",
+            "chinese": "再一次",
+            "property": "adv.",
+            "sentence": "Please try again if you don't succeed."
+        },
+        "12": {
+            "english": "age",
+            "chinese": "年齡",
+            "property": "n.",
+            "sentence": "Her age is not a secret."
+        },
+        "13": {
+            "english": "ago",
+            "chinese": "以前",
+            "property": "adv.",
+            "sentence": "I saw him two days ago."
+        },
+        "14": {
+            "english": "agree",
+            "chinese": "同意",
+            "property": "v.",
+            "sentence": "I agree with your suggestion."
+        },
+        "15": {
+            "english": "air",
+            "chinese": "空氣",
+            "property": "n.",
+            "sentence": "The air is fresh in the morning."
+        },
+        "16": {
+            "english": "airplane",
+            "chinese": "飛機",
+            "property": "n.",
+            "sentence": "The airplane took off on time."
+        },
+        "17": {
+            "english": "airport",
+            "chinese": "機場",
+            "property": "n.",
+            "sentence": "She arrived at the airport early."
+        },
+        "18": {
+            "english": "all",
+            "chinese": "所有的",
+            "property": "adj.",
+            "sentence": "All the students were present."
+        },
+        "19": {
+            "english": "almost",
+            "chinese": "幾乎",
+            "property": "adv.",
+            "sentence": "I am almost done with my work."
+        },
+        "20": {
+            "english": "along",
+            "chinese": "沿著",
+            "property": "prep.",
+            "sentence": "We walked along the river."
+        },
+        "21": {
+            "english": "already",
+            "chinese": "已經;先前",
+            "property": "adv.",
+            "sentence": "She has already finished her homework."
+        },
+        "22": {
+            "english": "also",
+            "chinese": "也,亦;還",
+            "property": "adv.",
+            "sentence": "He is also coming to the party."
+        },
+        "23": {
+            "english": "always",
+            "chinese": "總是,經常",
+            "property": "adv.",
+            "sentence": "She always wakes up early."
+        },
+        "24": {
+            "english": "a.m.",
+            "chinese": "上午",
+            "property": "abbr.",
+            "sentence": "I will see you at 10 a.m."
+        },
+        "25": {
+            "english": "America",
+            "chinese": "美國",
+            "property": "n.",
+            "sentence": "She wants to visit America next year."
+        },
+        "26": {
+            "english": "American",
+            "chinese": "美國的;美洲的",
+            "property": "adj.",
+            "sentence": "He is an American citizen."
+        },
+        "27": {
+            "english": "and",
+            "chinese": "和,及,與,同;又",
+            "property": "conj.",
+            "sentence": "I like apples and bananas."
+        },
+        "28": {
+            "english": "angry",
+            "chinese": "發怒的,生氣的",
+            "property": "adj.",
+            "sentence": "She was angry at her brother."
+        },
+        "29": {
+            "english": "animal",
+            "chinese": "動物",
+            "property": "n.",
+            "sentence": "The lion is a wild animal."
+        },
+        "30": {
+            "english": "another",
+            "chinese": "又一,再一",
+            "property": "adj.",
+            "sentence": "I would like another cup of coffee."
+        },
+        "31": {
+            "english": "answer",
+            "chinese": "回答;答覆;覆信",
+            "property": "n.",
+            "sentence": "She gave me a clear answer."
+        },
+        "32": {
+            "english": "any",
+            "chinese": "任一,每一",
+            "property": "adj.",
+            "sentence": "You can choose any book from the shelf."
+        },
+        "33": {
+            "english": "anyone",
+            "chinese": "(用於疑問句或if子句時)誰,任何人",
+            "property": "pron.",
+            "sentence": "Does anyone know the answer?"
+        },
+        "34": {
+            "english": "anything",
+            "chinese": "(用於疑問句或if子句時)什麼東西,什麼事情",
+            "property": "pron.",
+            "sentence": "Is there anything I can help you with?"
+        },
+        "35": {
+            "english": "apartment",
+            "chinese": "【美】(一戶)公寓房間",
+            "property": "n.",
+            "sentence": "She lives in a small apartment in the city."
+        },
+        "36": {
+            "english": "appear",
+            "chinese": "出現;顯露",
+            "property": "v.",
+            "sentence": "A strange light appeared in the sky."
+        },
+        "37": {
+            "english": "apple",
+            "chinese": "蘋果",
+            "property": "n.",
+            "sentence": "I eat an apple every morning."
+        },
+        "38": {
+            "english": "April",
+            "chinese": "四月",
+            "property": "n.",
+            "sentence": "My birthday is in April."
+        },
+        "39": {
+            "english": "arm",
+            "chinese": "臂",
+            "property": "n.",
+            "sentence": "He hurt his arm while playing basketball."
+        },
+        "40": {
+            "english": "around",
+            "chinese": "到處,四處",
+            "property": "adv.",
+            "sentence": "The children were running around the park."
+        },
+        "41": {
+            "english": "arrive",
+            "chinese": "到達;到來",
+            "property": "v.",
+            "sentence": "We will arrive at the station in 10 minutes."
+        },
+        "42": {
+            "english": "art",
+            "chinese": "藝術;美術",
+            "property": "n.",
+            "sentence": "She studies modern art at the university."
+        },
+        "43": {
+            "english": "as",
+            "chinese": "跟…一樣地,同樣地",
+            "property": "conj.",
+            "sentence": "She is as tall as her brother."
+        },
+        "44": {
+            "english": "ask",
+            "chinese": "問;詢問",
+            "property": "v.",
+            "sentence": "Can I ask you a question?"
+        },
+        "45": {
+            "english": "at",
+            "chinese": "在…地點",
+            "property": "prep.",
+            "sentence": "She is waiting for you at the entrance."
+        },
+        "46": {
+            "english": "August",
+            "chinese": "八月",
+            "property": "n.",
+            "sentence": "We have a family vacation in August."
+        },
+        "47": {
+            "english": "aunt",
+            "chinese": "伯母;嬸母;姑母;姨母;舅母",
+            "property": "n.",
+            "sentence": "My aunt is visiting us this weekend."
+        },
+        "48": {
+            "english": "autumn",
+            "chinese": "秋季,秋天",
+            "property": "n.",
+            "sentence": "Autumn is my favorite season."
+        },
+        "49": {
+            "english": "away",
+            "chinese": "離開",
+            "property": "adv.",
+            "sentence": "He is away on a business trip."
+        },
+        "50": {
+            "english": "baby",
+            "chinese": "嬰兒",
+            "property": "n.",
+            "sentence": "The baby is sleeping peacefully."
+        },
+        "51": {
+            "english": "back",
+            "chinese": "背脊,背部",
+            "property": "n.",
+            "sentence": "He hurt his back while lifting the box."
+        },
+        "52": {
+            "english": "bad",
+            "chinese": "壞的,不好的;拙劣的;令人不悅的",
+            "property": "adj.",
+            "sentence": "She had a bad day at work."
+        },
+        "53": {
+            "english": "bag",
+            "chinese": "袋;提袋",
+            "property": "n.",
+            "sentence": "She carried her books in a large bag."
+        },
+        "54": {
+            "english": "bakery",
+            "chinese": "麵包(糕點)烘房;麵包(糕點)店",
+            "property": "n.",
+            "sentence": "We bought fresh bread from the bakery."
+        },
+        "55": {
+            "english": "ball",
+            "chinese": "球;球狀體",
+            "property": "n.",
+            "sentence": "The children are playing with a ball."
+        },
+        "56": {
+            "english": "banana",
+            "chinese": "香蕉",
+            "property": "n.",
+            "sentence": "He had a banana for breakfast."
+        },
+        "57": {
+            "english": "band",
+            "chinese": "帶,細繩;箍",
+            "property": "n.",
+            "sentence": "She tied her hair with a rubber band."
+        },
+        "58": {
+            "english": "bank",
+            "chinese": "銀行",
+            "property": "n.",
+            "sentence": "I need to go to the bank to withdraw some money."
+        },
+        "59": {
+            "english": "baseball",
+            "chinese": "棒球運動",
+            "property": "n.",
+            "sentence": "They played a game of baseball in the park."
+        },
+        "60": {
+            "english": "basket",
+            "chinese": "籃,簍,筐",
+            "property": "n.",
+            "sentence": "She put the vegetables in the basket."
+        },
+        
+        "61": {
+            "english": "basketball",
+            "chinese": "籃球運動",
+            "property": "n.",
+            "sentence": "He enjoys playing basketball after school."
+        },
+        "62": {
+            "english": "bath",
+            "chinese": "浴缸,澡盆",
+            "property": "n.",
+            "sentence": "She took a relaxing bath after a long day."
+        },
+        "63": {
+            "english": "bathroom",
+            "chinese": "浴室",
+            "property": "n.",
+            "sentence": "The bathroom is on the second floor."
+        },
+        "64": {
+            "english": "be",
+            "chinese": "(與動詞的現在分詞連用,構成各種進行時態)正在…,在…",
+            "property": "v.",
+            "sentence": "She is being very quiet today."
+        },
+        "65": {
+            "english": "beach",
+            "chinese": "海灘;海濱度假地",
+            "property": "n.",
+            "sentence": "They spent the weekend at the beach."
+        },
+        "66": {
+            "english": "bear",
+            "chinese": "熊;支持,承受",
+            "property": "n., v.",
+            "sentence": "The bear was roaming the forest, and he could bear the weight of the heavy box."
+        },
+        "67": {
+            "english": "beautiful",
+            "chinese": "美麗的,漂亮的",
+            "property": "adj.",
+            "sentence": "The sunset was beautiful."
+        },
+        "68": {
+            "english": "because",
+            "chinese": "因為",
+            "property": "conj.",
+            "sentence": "She stayed home because it was raining."
+        },
+        "69": {
+            "english": "become",
+            "chinese": "變成,成為",
+            "property": "v.",
+            "sentence": "He has become a successful lawyer."
+        },
+        "70": {
+            "english": "bed",
+            "chinese": "床;睡眠處",
+            "property": "n.",
+            "sentence": "I need to buy a new bed for my room."
+        },
+        "71": {
+            "english": "bedroom",
+            "chinese": "臥室,寢室",
+            "property": "n.",
+            "sentence": "Her bedroom is very cozy."
+        },
+        "72": {
+            "english": "bee",
+            "chinese": "蜜蜂,蜂",
+            "property": "n.",
+            "sentence": "The bee landed on the flower."
+        },
+        "73": {
+            "english": "beef",
+            "chinese": "牛肉",
+            "property": "n.",
+            "sentence": "They had beef for dinner."
+        },
+        "74": {
+            "english": "before",
+            "chinese": "在…以前",
+            "property": "prep.",
+            "sentence": "He finished the report before the deadline."
+        },
+        "75": {
+            "english": "begin",
+            "chinese": "開始,著手",
+            "property": "v.",
+            "sentence": "Let's begin the meeting at 9 a.m."
+        },
+        "76": {
+            "english": "behind",
+            "chinese": "在…的背後",
+            "property": "prep.",
+            "sentence": "She was standing behind the door."
+        },
+        "77": {
+            "english": "believe",
+            "chinese": "相信;信任",
+            "property": "v.",
+            "sentence": "I believe that he is telling the truth."
+        },
+        "78": {
+            "english": "bell",
+            "chinese": "鐘;鈴;門鈴",
+            "property": "n.",
+            "sentence": "I heard the school bell ringing."
+        },
+        "79": {
+            "english": "belong",
+            "chinese": "應被放置(在某處)",
+            "property": "v.",
+            "sentence": "The keys belong on the shelf."
+        },
+        "80": {
+            "english": "below",
+            "chinese": "在下面;到下面",
+            "property": "adv.",
+            "sentence": "The temperature dropped below freezing."
+        },
+        "81": {
+            "english": "belt",
+            "chinese": "腰帶;帶;帶狀物",
+            "property": "n.",
+            "sentence": "He wore a leather belt with his jeans."
+        },
+        "82": {
+            "english": "beside",
+            "chinese": "在…近旁",
+            "property": "prep.",
+            "sentence": "She sat beside him during the movie."
+        },
+        "83": {
+            "english": "between",
+            "chinese": "在…之間",
+            "property": "prep.",
+            "sentence": "The book is between the two shelves."
+        },
+        "84": {
+            "english": "bicycle",
+            "chinese": "腳踏車,自行車",
+            "property": "n.",
+            "sentence": "He rode his bicycle to school."
+        },
+        "85": {
+            "english": "big",
+            "chinese": "大的,巨大的",
+            "property": "adj.",
+            "sentence": "The elephant is a big animal."
+        },
+        "86": {
+            "english": "bird",
+            "chinese": "鳥;禽",
+            "property": "n.",
+            "sentence": "A bird was singing in the tree."
+        },
+        "87": {
+            "english": "birthday",
+            "chinese": "生日",
+            "property": "n.",
+            "sentence": "Her birthday is in June."
+        },
+        "88": {
+            "english": "bite",
+            "chinese": "咬;啃",
+            "property": "v.",
+            "sentence": "The dog tried to bite the stranger."
+        },
+        "89": {
+            "english": "black",
+            "chinese": "黑色的;漆黑的",
+            "property": "adj.",
+            "sentence": "She wore a black dress to the party."
+        },
+        "90": {
+            "english": "blackboard",
+            "chinese": "黑板",
+            "property": "n.",
+            "sentence": "The teacher wrote on the blackboard."
+        },
+        "91": {
+            "english": "blind",
+            "chinese": "瞎的,盲的",
+            "property": "adj.",
+            "sentence": "The blind man used a cane to walk."
+        },
+        "92": {
+            "english": "block",
+            "chinese": "塊;積木",
+            "property": "n.",
+            "sentence": "The children built a tower with blocks."
+        },
+        "93": {
+            "english": "blow",
+            "chinese": "吹,刮",
+            "property": "v.",
+            "sentence": "The wind began to blow harder."
+        },
+        "94": {
+            "english": "blue",
+            "chinese": "藍色的;天藍色的",
+            "property": "adj.",
+            "sentence": "The sky was clear and blue."
+        },
+        "95": {
+            "english": "boat",
+            "chinese": "小船",
+            "property": "n.",
+            "sentence": "They rowed a boat across the lake."
+        },
+        "96": {
+            "english": "body",
+            "chinese": "(人,動物的)身體;肉體",
+            "property": "n.",
+            "sentence": "He exercises regularly to keep his body fit."
+        },
+        "97": {
+            "english": "book",
+            "chinese": "書,書本,書籍",
+            "property": "n.",
+            "sentence": "She borrowed a book from the library."
+        },
+        "98": {
+            "english": "bookstore",
+            "chinese": "書店",
+            "property": "n.",
+            "sentence": "I went to the bookstore to buy a new novel."
+        },
+        "99": {
+            "english": "bored",
+            "chinese": "形容人感到無聊",
+            "property": "adj.",
+            "sentence": "He felt bored during the long lecture."
+        },
+        "100": {
+            "english": "boring",
+            "chinese": "形容無聊的人、事、物",
+            "property": "adj.",
+            "sentence": "The movie was so boring that I fell asleep."
+        },
+        "101": {
+            "english": "born",
+            "chinese": "出生的,誕生的",
+            "property": "adj.",
+            "sentence": "She was born in the month of May."
+        },
+        "102": {
+            "english": "borrow",
+            "chinese": "借,借入",
+            "property": "v.",
+            "sentence": "Can I borrow a pen from you?"
+        },
+        "103": {
+            "english": "boss",
+            "chinese": "老板;上司",
+            "property": "n.",
+            "sentence": "Her boss gave her a promotion."
+        },
+        "104": {
+            "english": "both",
+            "chinese": "兩…(都),兩個…(都)",
+            "property": "adj.",
+            "sentence": "Both students passed the exam."
+        },
+        "105": {
+            "english": "bottle",
+            "chinese": "瓶子",
+            "property": "n.",
+            "sentence": "She poured water into a glass bottle."
+        },
+        "106": {
+            "english": "bottom",
+            "chinese": "底;底部;下端",
+            "property": "n.",
+            "sentence": "The toy fell to the bottom of the pool."
+        },
+        "107": {
+            "english": "bowl",
+            "chinese": "碗",
+            "property": "n.",
+            "sentence": "She filled her bowl with soup."
+        },
+        "108": {
+            "english": "box",
+            "chinese": "箱;盒;匣",
+            "property": "n.",
+            "sentence": "The gift came in a small box."
+        },
+        "109": {
+            "english": "boy",
+            "chinese": "少年,男孩",
+            "property": "n.",
+            "sentence": "The boy was playing in the park."
+        },
+        "110": {
+            "english": "bread",
+            "chinese": "麵包",
+            "property": "n.",
+            "sentence": "She baked a loaf of bread."
+        },
+        "111": {
+            "english": "break",
+            "chinese": "打破;折斷;使碎裂",
+            "property": "v.",
+            "sentence": "He accidentally broke the vase."
+        },
+        "112": {
+            "english": "breakfast",
+            "chinese": "早餐,早飯",
+            "property": "n.",
+            "sentence": "I had eggs for breakfast this morning."
+        },
+        "113": {
+            "english": "bridge",
+            "chinese": "橋,橋樑",
+            "property": "n.",
+            "sentence": "The bridge connects the two islands."
+        },
+        "114": {
+            "english": "bright",
+            "chinese": "明亮的;發亮的;晴朗的",
+            "property": "adj.",
+            "sentence": "The stars were bright in the night sky."
+        },
+        "115": {
+            "english": "bring",
+            "chinese": "帶來,拿來",
+            "property": "v.",
+            "sentence": "Can you bring the book to me tomorrow?"
+        },
+        "116": {
+            "english": "brother",
+            "chinese": "兄弟;兄,弟",
+            "property": "n.",
+            "sentence": "My brother and I went hiking last weekend."
+        },
+        "117": {
+            "english": "brown",
+            "chinese": "褐色的,棕色的",
+            "property": "adj.",
+            "sentence": "She bought a brown leather jacket."
+        },
+        "118": {
+            "english": "brush",
+            "chinese": "刷,刷子",
+            "property": "n.",
+            "sentence": "He used a brush to paint the wall."
+        },
+        "119": {
+            "english": "build",
+            "chinese": "建築;造",
+            "property": "v.",
+            "sentence": "They plan to build a new house next year."
+        },
+        "120": {
+            "english": "burn",
+            "chinese": "發熱;發光",
+            "property": "v.",
+            "sentence": "The fire continued to burn throughout the night."
+        },
+        "121": {
+            "english": "bus",
+            "chinese": "巴士;公車",
+            "property": "n.",
+            "sentence": "He takes the bus to work every day."
+        },
+        "122": {
+            "english": "business",
+            "chinese": "職業;日常工作",
+            "property": "n.",
+            "sentence": "She runs a successful business."
+        },
+        "123": {
+            "english": "businessman",
+            "chinese": "商人;實業家",
+            "property": "n.",
+            "sentence": "The businessman traveled to New York for a meeting."
+        },
+        "124": {
+            "english": "busy",
+            "chinese": "忙碌的,繁忙的",
+            "property": "adj.",
+            "sentence": "He is too busy to meet with us today."
+        },
+        "125": {
+            "english": "but",
+            "chinese": "但是",
+            "property": "conj.",
+            "sentence": "I wanted to go, but I was too tired."
+        },
+        "126": {
+            "english": "butter",
+            "chinese": "奶油;黃油",
+            "property": "n.",
+            "sentence": "She spread butter on the bread."
+        },
+        "127": {
+            "english": "buy",
+            "chinese": "買,購買",
+            "property": "v.",
+            "sentence": "I need to buy some groceries."
+        },
+        "128": {
+            "english": "by",
+            "chinese": "被,由",
+            "property": "prep.",
+            "sentence": "The book was written by a famous author."
+        },
+        "129": {
+            "english": "cake",
+            "chinese": "蛋糕,糕餅",
+            "property": "n.",
+            "sentence": "She baked a chocolate cake for the party."
+        },
+        "130": {
+            "english": "call",
+            "chinese": "(大聲)叫喊,呼叫",
+            "property": "v.",
+            "sentence": "He called his friend to ask for help."
+        },
+        "131": {
+            "english": "camera",
+            "chinese": "照相機;電影攝影機",
+            "property": "n.",
+            "sentence": "She used a camera to take pictures during her trip."
+        },
+        "132": {
+            "english": "camp",
+            "chinese": "野營;營地",
+            "property": "n.",
+            "sentence": "We set up camp by the river."
+        },
+        "133": {
+            "english": "can",
+            "chinese": "能,會",
+            "property": "v.",
+            "sentence": "She can play the piano very well."
+        },
+        "134": {
+            "english": "candy",
+            "chinese": "糖果",
+            "property": "n.",
+            "sentence": "The children were given candy on Halloween."
+        },
+        "135": {
+            "english": "cap",
+            "chinese": "無邊便帽;制服帽",
+            "property": "n.",
+            "sentence": "He wore a baseball cap to the game."
+        },
+        "136": {
+            "english": "car",
+            "chinese": "汽車",
+            "property": "n.",
+            "sentence": "She drives a red car."
+        },
+        "137": {
+            "english": "card",
+            "chinese": "紙牌",
+            "property": "n.",
+            "sentence": "They played cards all night."
+        },
+        "138": {
+            "english": "care",
+            "chinese": "看護;保護",
+            "property": "n.",
+            "sentence": "She takes good care of her pets."
+        },
+        "139": {
+            "english": "careful",
+            "chinese": "仔細的;小心的",
+            "property": "adj.",
+            "sentence": "Please be careful when crossing the street."
+        },
+        "140": {
+            "english": "carry",
+            "chinese": "挑,抱,背,提,扛,搬",
+            "property": "v.",
+            "sentence": "She carried the heavy boxes to the car."
+        },
+        "141": {
+            "english": "case",
+            "chinese": "事實,實情",
+            "property": "n.",
+            "sentence": "In this case, we need more information."
+        },
+        "142": {
+            "english": "cat",
+            "chinese": "貓",
+            "property": "n.",
+            "sentence": "The cat is sleeping on the couch."
+        },
+        "143": {
+            "english": "catch",
+            "chinese": "接住,抓住",
+            "property": "v.",
+            "sentence": "He managed to catch the ball just in time."
+        },
+        "144": {
+            "english": "celebrate",
+            "chinese": "慶祝",
+            "property": "v.",
+            "sentence": "We will celebrate her birthday next week."
+        },
+        "145": {
+            "english": "cell phone",
+            "chinese": "行動電話, 手機",
+            "property": "n.",
+            "sentence": "He forgot his cell phone at home."
+        },
+        "146": {
+            "english": "cent",
+            "chinese": "分(貨幣單位)",
+            "property": "n.",
+            "sentence": "A soda costs seventy-five cents."
+        },
+        "147": {
+            "english": "center",
+            "chinese": "中心;中央",
+            "property": "n.",
+            "sentence": "The shopping center is located downtown."
+        },
+        "148": {
+            "english": "chair",
+            "chinese": "椅子",
+            "property": "n.",
+            "sentence": "He sat on the chair next to the window."
+        },
+        "149": {
+            "english": "chalk",
+            "chinese": "粉筆",
+            "property": "n.",
+            "sentence": "The teacher wrote on the board with a piece of chalk."
+        },
+        "150": {
+            "english": "chance",
+            "chinese": "機會;可能性",
+            "property": "n.",
+            "sentence": "There is a good chance it will rain tomorrow."
+        },
+        "151": {
+            "english": "change",
+            "chinese": "改變;更改",
+            "property": "v.",
+            "sentence": "She decided to change her hairstyle."
+        },
+        "152": {
+            "english": "cheap",
+            "chinese": "便宜的,價廉的",
+            "property": "adj.",
+            "sentence": "The shoes were cheap, but they didn't last long."
+        },
+        "153": {
+            "english": "cheat",
+            "chinese": "欺騙;騙取,詐取",
+            "property": "v.",
+            "sentence": "He was caught cheating on the test."
+        },
+        "154": {
+            "english": "check",
+            "chinese": "檢查,檢驗,核對",
+            "property": "v.",
+            "sentence": "Please check the document for any errors."
+        },
+        "155": {
+            "english": "cheer",
+            "chinese": "歡呼,喝采",
+            "property": "v.",
+            "sentence": "The crowd cheered when their team won the game."
+        },
+        "156": {
+            "english": "cheese",
+            "chinese": "乳酪,乾酪",
+            "property": "n.",
+            "sentence": "She put cheese on her sandwich."
+        },
+        "157": {
+            "english": "chicken",
+            "chinese": "(小)雞;小鳥",
+            "property": "n.",
+            "sentence": "They are raising chickens on their farm."
+        },
+        "158": {
+            "english": "child",
+            "chinese": "小孩,兒童,幼兒",
+            "property": "n.",
+            "sentence": "The child is playing with toys."
+        },
+        "159": {
+            "english": "China",
+            "chinese": "中國",
+            "property": "n.",
+            "sentence": "She plans to visit China next year."
+        },
+        "160": {
+            "english": "Chinese",
+            "chinese": "中國的",
+            "property": "adj.",
+            "sentence": "She enjoys eating Chinese food."
+        },
+        "161": {
+            "english": "chocolate",
+            "chinese": "巧克力",
+            "property": "n.",
+            "sentence": "She bought a box of chocolates as a gift."
+        },
+        "162": {
+            "english": "chopsticks",
+            "chinese": "筷子",
+            "property": "n.",
+            "sentence": "He learned how to eat with chopsticks."
+        },
+        "163": {
+            "english": "Christmas",
+            "chinese": "聖誕節",
+            "property": "n.",
+            "sentence": "They decorated the house for Christmas."
+        },
+        "164": {
+            "english": "church",
+            "chinese": "教堂,禮拜堂",
+            "property": "n.",
+            "sentence": "They go to church every Sunday."
+        },
+        "165": {
+            "english": "circle",
+            "chinese": "圓;圓圈",
+            "property": "n.",
+            "sentence": "She drew a circle on the paper."
+        },
+        "166": {
+            "english": "city",
+            "chinese": "城市,都市",
+            "property": "n.",
+            "sentence": "New York is a very big city."
+        },
+        "167": {
+            "english": "class",
+            "chinese": "班級;課程",
+            "property": "n.",
+            "sentence": "She is taking a science class this semester."
+        },
+        "168": {
+            "english": "classmate",
+            "chinese": "同班同學",
+            "property": "n.",
+            "sentence": "She met her old classmate at the reunion."
+        },
+        "169": {
+            "english": "classroom",
+            "chinese": "教室",
+            "property": "n.",
+            "sentence": "The students are waiting in the classroom."
+        },
+        "170": {
+            "english": "clean",
+            "chinese": "清潔的;未污染的",
+            "property": "adj.",
+            "sentence": "The house looks very clean after they cleaned it."
+        },
+        "171": {
+            "english": "clear",
+            "chinese": "清澈的,透明的",
+            "property": "adj.",
+            "sentence": "The water in the lake is very clear."
+        },
+        "172": {
+            "english": "climb",
+            "chinese": "爬,攀登",
+            "property": "v.",
+            "sentence": "They decided to climb the mountain."
+        },
+        "173": {
+            "english": "clock",
+            "chinese": "時鐘",
+            "property": "n.",
+            "sentence": "The clock on the wall shows 3 o'clock."
+        },
+        "174": {
+            "english": "close",
+            "chinese": "關閉;蓋上",
+            "property": "v.",
+            "sentence": "Please close the door when you leave."
+        },
+        "175": {
+            "english": "clothes",
+            "chinese": "衣服;服裝",
+            "property": "n.",
+            "sentence": "She bought new clothes for the party."
+        },
+        "176": {
+            "english": "cloudy",
+            "chinese": "多雲的,陰天的",
+            "property": "adj.",
+            "sentence": "It was cloudy, so we couldn't see the stars."
+        },
+        "177": {
+            "english": "club",
+            "chinese": "俱樂部;會社",
+            "property": "n.",
+            "sentence": "She is a member of the chess club."
+        },
+        "178": {
+            "english": "coat",
+            "chinese": "外套,大衣",
+            "property": "n.",
+            "sentence": "He put on his coat before leaving the house."
+        },
+        "179": {
+            "english": "coffee",
+            "chinese": "咖啡",
+            "property": "n.",
+            "sentence": "I like to drink coffee in the morning."
+        },
+        "180": {
+            "english": "Coke",
+            "chinese": "可口可樂",
+            "property": "n.",
+            "sentence": "He ordered a Coke with his meal."
+        },
+        "181": {
+            "english": "cold",
+            "chinese": "冷的,寒冷的",
+            "property": "adj.",
+            "sentence": "It was so cold outside that we had to wear jackets."
+        },
+        "182": {
+            "english": "collect",
+            "chinese": "收集,採集",
+            "property": "v.",
+            "sentence": "She likes to collect stamps from different countries."
+        },
+        "183": {
+            "english": "color",
+            "chinese": "顏色",
+            "property": "n.",
+            "sentence": "Blue is her favorite color."
+        },
+        "184": {
+            "english": "come",
+            "chinese": "來;來到",
+            "property": "v.",
+            "sentence": "She will come to the party later."
+        },
+        "185": {
+            "english": "comfortable",
+            "chinese": "舒適的",
+            "property": "adj.",
+            "sentence": "This chair is very comfortable to sit on."
+        },
+        "186": {
+            "english": "comic",
+            "chinese": "喜劇的;喜劇般的",
+            "property": "adj.",
+            "sentence": "He enjoys watching comic movies."
+        },
+        "187": {
+            "english": "common",
+            "chinese": "普通的;常見的",
+            "property": "adj.",
+            "sentence": "It is common to see people jogging in the park."
+        },
+        "188": {
+            "english": "computer",
+            "chinese": "電腦",
+            "property": "n.",
+            "sentence": "He bought a new computer for his office."
+        },
+        "189": {
+            "english": "convenient",
+            "chinese": "方便的",
+            "property": "adj.",
+            "sentence": "The store is very convenient because it's close to my house."
+        },
+        "190": {
+            "english": "cook",
+            "chinese": "烹調,煮",
+            "property": "v.",
+            "sentence": "She likes to cook dinner for her family."
+        },
+        "191": {
+            "english": "cookie",
+            "chinese": "甜餅乾",
+            "property": "n.",
+            "sentence": "He ate a chocolate chip cookie after lunch."
+        },
+        "192": {
+            "english": "cool",
+            "chinese": "涼快的",
+            "property": "adj.",
+            "sentence": "The weather is cool and pleasant today."
+        },
+        "193": {
+            "english": "copy",
+            "chinese": "副本;複製品",
+            "property": "n.",
+            "sentence": "He made a copy of the report for everyone."
+        },
+        "194": {
+            "english": "correct",
+            "chinese": "正確的,對的",
+            "property": "adj.",
+            "sentence": "The answer to the question is correct."
+        },
+        "195": {
+            "english": "cost",
+            "chinese": "費用;成本",
+            "property": "n.",
+            "sentence": "The cost of living has increased this year."
+        },
+        "196": {
+            "english": "couch",
+            "chinese": "長沙發;睡椅",
+            "property": "n.",
+            "sentence": "They bought a new couch for the living room."
+        },
+        "197": {
+            "english": "count",
+            "chinese": "計算,數",
+            "property": "v.",
+            "sentence": "The teacher asked the students to count from one to ten."
+        },
+        "198": {
+            "english": "country",
+            "chinese": "國家",
+            "property": "n.",
+            "sentence": "Japan is a beautiful country."
+        },
+        "199": {
+            "english": "cousin",
+            "chinese": "堂(或表)兄弟;堂(或表)姐妹",
+            "property": "n.",
+            "sentence": "I spent the summer with my cousin."
+        },
+        "200": {
+            "english": "cover",
+            "chinese": "遮蓋;覆蓋",
+            "property": "v.",
+            "sentence": "She covered the pot with a lid while cooking."
+        },
+        
+        "201": {
+            "english": "cow",
+            "chinese": "母牛;奶牛",
+            "property": "n.",
+            "sentence": "The cow is grazing in the field."
+        },
+        "202": {
+            "english": "crazy",
+            "chinese": "瘋狂的;蠢的;古怪的",
+            "property": "adj.",
+            "sentence": "He had a crazy idea to travel around the world."
+        },
+        "203": {
+            "english": "cross",
+            "chinese": "十字形;十字形記號",
+            "property": "n.",
+            "sentence": "She made a cross on the paper to mark the spot."
+        },
+        "204": {
+            "english": "cry",
+            "chinese": "哭",
+            "property": "v.",
+            "sentence": "The baby began to cry when he was hungry."
+        },
+        "205": {
+            "english": "cup",
+            "chinese": "杯子",
+            "property": "n.",
+            "sentence": "She drank a cup of tea in the morning."
+        },
+        "206": {
+            "english": "cut",
+            "chinese": "切;割;剪;削;砍",
+            "property": "v.",
+            "sentence": "He used a knife to cut the vegetables."
+        },
+        "207": {
+            "english": "cute",
+            "chinese": "可愛的;小巧玲瓏的",
+            "property": "adj.",
+            "sentence": "The puppy is very cute and playful."
+        },
+        "208": {
+            "english": "dance",
+            "chinese": "跳舞,舞蹈",
+            "property": "v.",
+            "sentence": "They danced all night at the party."
+        },
+        "209": {
+            "english": "dangerous",
+            "chinese": "危險的;不安全的",
+            "property": "adj.",
+            "sentence": "Climbing that mountain can be dangerous without proper equipment."
+        },
+        "210": {
+            "english": "dark",
+            "chinese": "暗;黑暗的",
+            "property": "adj.",
+            "sentence": "It was too dark to see anything outside."
+        },
+        "211": {
+            "english": "date",
+            "chinese": "日期,日子",
+            "property": "n.",
+            "sentence": "Please write the date on the top of the page."
+        },
+        "212": {
+            "english": "daughter",
+            "chinese": "女兒;養女;媳婦",
+            "property": "n.",
+            "sentence": "Her daughter is starting school next year."
+        },
+        "213": {
+            "english": "day",
+            "chinese": "一天(24小時),日",
+            "property": "n.",
+            "sentence": "She works eight hours a day."
+        },
+        "214": {
+            "english": "dead",
+            "chinese": "死的;枯的",
+            "property": "adj.",
+            "sentence": "The tree in the garden is dead."
+        },
+        "215": {
+            "english": "dear",
+            "chinese": "親愛的;可愛的",
+            "property": "adj.",
+            "sentence": "She wrote a letter to her dear friend."
+        },
+        "216": {
+            "english": "December",
+            "chinese": "十二月",
+            "property": "n.",
+            "sentence": "Christmas is celebrated in December."
+        },
+        "217": {
+            "english": "decide",
+            "chinese": "決定;決意",
+            "property": "v.",
+            "sentence": "They decided to go to the beach for the weekend."
+        },
+        "218": {
+            "english": "delicious",
+            "chinese": "美味的;香噴噴的",
+            "property": "adj.",
+            "sentence": "The cake she made was absolutely delicious."
+        },
+        "219": {
+            "english": "department store",
+            "chinese": "百貨公司",
+            "property": "n.",
+            "sentence": "She bought new clothes at the department store."
+        },
+        "220": {
+            "english": "desk",
+            "chinese": "書桌;辦公桌;寫字臺",
+            "property": "n.",
+            "sentence": "He left his papers on the desk."
+        },
+        "221": {
+            "english": "dictionary",
+            "chinese": "字典,辭典",
+            "property": "n.",
+            "sentence": "She looked up the word in the dictionary."
+        },
+        "222": {
+            "english": "die",
+            "chinese": "死",
+            "property": "v.",
+            "sentence": "The plant will die if you don't water it."
+        },
+        "223": {
+            "english": "different",
+            "chinese": "不同的",
+            "property": "adj.",
+            "sentence": "This book is very different from the one I read last week."
+        },
+        "224": {
+            "english": "difficult",
+            "chinese": "困難的",
+            "property": "adj.",
+            "sentence": "The math problem was very difficult to solve."
+        },
+        "225": {
+            "english": "dig",
+            "chinese": "掘(土);挖(洞,溝等)",
+            "property": "v.",
+            "sentence": "They dug a hole in the garden to plant a tree."
+        },
+        "226": {
+            "english": "dining room",
+            "chinese": "餐廳",
+            "property": "n.",
+            "sentence": "The family ate dinner together in the dining room."
+        },
+        "227": {
+            "english": "dinner",
+            "chinese": "晚餐;正餐",
+            "property": "n.",
+            "sentence": "We had pasta for dinner."
+        },
+        "228": {
+            "english": "dirty",
+            "chinese": "髒的,污穢的",
+            "property": "adj.",
+            "sentence": "His clothes were dirty after playing in the mud."
+        },
+        "229": {
+            "english": "dish",
+            "chinese": "碟,盤",
+            "property": "n.",
+            "sentence": "She served the food on a large dish."
+        },
+        "230": {
+            "english": "do",
+            "chinese": "做,幹,製作;實行",
+            "property": "v.",
+            "sentence": "I need to do my homework before dinner."
+        },
+        "231": {
+            "english": "doctor",
+            "chinese": "醫生,醫師",
+            "property": "n.",
+            "sentence": "She went to the doctor because she wasn't feeling well."
+        },
+        "232": {
+            "english": "dog",
+            "chinese": "狗",
+            "property": "n.",
+            "sentence": "The dog barked at the stranger."
+        },
+        "233": {
+            "english": "doll",
+            "chinese": "玩偶,洋娃娃",
+            "property": "n.",
+            "sentence": "She gave her little sister a new doll."
+        },
+        "234": {
+            "english": "dollar",
+            "chinese": "(美,加等國)元",
+            "property": "n.",
+            "sentence": "The book costs ten dollars."
+        },
+        "235": {
+            "english": "door",
+            "chinese": "門",
+            "property": "n.",
+            "sentence": "Please close the door when you leave."
+        },
+        "236": {
+            "english": "down",
+            "chinese": "向下;向樓下",
+            "property": "adv.",
+            "sentence": "He ran down the stairs to answer the phone."
+        },
+        "237": {
+            "english": "dozen",
+            "chinese": "一打,十二個",
+            "property": "n.",
+            "sentence": "She bought a dozen eggs from the market."
+        },
+        "238": {
+            "english": "draw",
+            "chinese": "劃,畫,繪製",
+            "property": "v.",
+            "sentence": "She likes to draw pictures of animals."
+        },
+        "239": {
+            "english": "dream",
+            "chinese": "夢",
+            "property": "n.",
+            "sentence": "I had a strange dream last night."
+        },
+        "240": {
+            "english": "dress",
+            "chinese": "給…穿衣;打扮",
+            "property": "v.",
+            "sentence": "She dressed her daughter in a beautiful dress."
+        },
+        "241": {
+            "english": "drink",
+            "chinese": "飲,喝",
+            "property": "v.",
+            "sentence": "He likes to drink coffee in the morning."
+        },
+        "242": {
+            "english": "drive",
+            "chinese": "駕車旅行;(開車)兜風;車程",
+            "property": "n.",
+            "sentence": "We took a drive through the countryside."
+        },
+        "243": {
+            "english": "driver",
+            "chinese": "駕駛員,司機",
+            "property": "n.",
+            "sentence": "The taxi driver was very friendly."
+        },
+        "244": {
+            "english": "drop",
+            "chinese": "(一)滴",
+            "property": "n.",
+            "sentence": "A drop of water fell from the leaf."
+        },
+        "245": {
+            "english": "dry",
+            "chinese": "乾的;乾燥的",
+            "property": "adj.",
+            "sentence": "The clothes were dry after hanging in the sun."
+        },
+        "246": {
+            "english": "during",
+            "chinese": "在…的整個期間",
+            "property": "prep.",
+            "sentence": "It rained during the night."
+        },
+        "247": {
+            "english": "each",
+            "chinese": "各;各自的;每",
+            "property": "adj.",
+            "sentence": "Each student received a certificate."
+        },
+        "248": {
+            "english": "ear",
+            "chinese": "耳",
+            "property": "n.",
+            "sentence": "She whispered in his ear."
+        },
+        "249": {
+            "english": "early",
+            "chinese": "早的;提早的",
+            "property": "adj.",
+            "sentence": "He arrived early to the meeting."
+        },
+        "250": {
+            "english": "earth",
+            "chinese": "地球",
+            "property": "n.",
+            "sentence": "The Earth is the third planet from the sun."
+        },
+        "251": {
+            "english": "east",
+            "chinese": "東,東方",
+            "property": "n.",
+            "sentence": "The sun rises in the east."
+        },
+        "252": {
+            "english": "easy",
+            "chinese": "容易的;不費力的",
+            "property": "adj.",
+            "sentence": "The test was easy for her."
+        },
+        "253": {
+            "english": "eat",
+            "chinese": "吃;喝",
+            "property": "v.",
+            "sentence": "They eat lunch together every day."
+        },
+        "254": {
+            "english": "egg",
+            "chinese": "蛋;雞蛋",
+            "property": "n.",
+            "sentence": "She fried an egg for breakfast."
+        },
+        "255": {
+            "english": "eight",
+            "chinese": "八",
+            "property": "n.",
+            "sentence": "She has eight books on her shelf."
+        },
+        "256": {
+            "english": "eighteen",
+            "chinese": "十八",
+            "property": "n.",
+            "sentence": "He will turn eighteen next year."
+        },
+        "257": {
+            "english": "eighth",
+            "chinese": "第八的,第八個的",
+            "property": "adj.",
+            "sentence": "She came in eighth place in the race."
+        },
+        "258": {
+            "english": "eighty",
+            "chinese": "八十",
+            "property": "n.",
+            "sentence": "The building is eighty years old."
+        },
+        "259": {
+            "english": "either",
+            "chinese": "(兩者之中)任一的",
+            "property": "adj.",
+            "sentence": "You can choose either the red or blue shirt."
+        },
+        "260": {
+            "english": "elementary school",
+            "chinese": "小學",
+            "property": "n.",
+            "sentence": "Her son just started elementary school."
+        },
+        "261": {
+            "english": "elephant",
+            "chinese": "象",
+            "property": "n.",
+            "sentence": "The elephant is the largest land animal."
+        },
+        "262": {
+            "english": "eleven",
+            "chinese": "十一的,十一個的",
+            "property": "n.",
+            "sentence": "The meeting starts at eleven o'clock."
+        },
+        "263": {
+            "english": "else",
+            "chinese": "其他,另外",
+            "property": "adv.",
+            "sentence": "Is there anything else you need?"
+        },
+        "264": {
+            "english": "e-mail",
+            "chinese": "電子郵件",
+            "property": "n.",
+            "sentence": "I sent her an e-mail with the details."
+        },
+        "265": {
+            "english": "end",
+            "chinese": "末端;盡頭;最後部分",
+            "property": "n.",
+            "sentence": "They reached the end of the road."
+        },
+        "266": {
+            "english": "English",
+            "chinese": "英國的;英語的",
+            "property": "adj.",
+            "sentence": "She is studying English literature at the university."
+        },
+        "267": {
+            "english": "enjoy",
+            "chinese": "欣賞;享受;喜愛",
+            "property": "v.",
+            "sentence": "They enjoy going to the beach on weekends."
+        },
+        "268": {
+            "english": "enough",
+            "chinese": "足夠的,充足的",
+            "property": "adj.",
+            "sentence": "Do you have enough money to buy the tickets?"
+        },
+        "269": {
+            "english": "enter",
+            "chinese": "進入",
+            "property": "v.",
+            "sentence": "She entered the room quietly."
+        },
+        "270": {
+            "english": "eraser",
+            "chinese": "擦除器(如黑板擦、橡皮擦等)",
+            "property": "n.",
+            "sentence": "He used an eraser to remove the pencil marks."
+        },
+        "271": {
+            "english": "eve",
+            "chinese": "前夜,前夕",
+            "property": "n.",
+            "sentence": "They celebrate Christmas Eve with a big family dinner."
+        },
+        "272": {
+            "english": "even",
+            "chinese": "甚至;平的,平坦的",
+            "property": "adv., adj.",
+            "sentence": "Even the youngest child participated in the event."
+        },
+        "273": {
+            "english": "evening",
+            "chinese": "傍晚;晚上",
+            "property": "n.",
+            "sentence": "They went for a walk in the evening."
+        },
+        "274": {
+            "english": "ever",
+            "chinese": "在任何時候;從來",
+            "property": "adv.",
+            "sentence": "Have you ever been to Paris?"
+        },
+        "275": {
+            "english": "every",
+            "chinese": "每一,每個;一切的,全部的",
+            "property": "adj.",
+            "sentence": "She goes to the gym every morning."
+        },
+        "276": {
+            "english": "everyone",
+            "chinese": "每人,人人",
+            "property": "pron.",
+            "sentence": "Everyone was happy with the results."
+        },
+        "277": {
+            "english": "everything",
+            "chinese": "每件事,事事,一切事物",
+            "property": "pron.",
+            "sentence": "Everything is ready for the party."
+        },
+        "278": {
+            "english": "example",
+            "chinese": "例子;樣本;樣品",
+            "property": "n.",
+            "sentence": "The teacher gave an example to explain the concept."
+        },
+        "279": {
+            "english": "excellent",
+            "chinese": "出色的;傑出的",
+            "property": "adj.",
+            "sentence": "She did an excellent job on the project."
+        },
+        "280": {
+            "english": "except",
+            "chinese": "除…之外",
+            "property": "prep.",
+            "sentence": "Everyone was invited except for Tom."
+        },
+        "281": {
+            "english": "excited",
+            "chinese": "興奮的;激動的",
+            "property": "adj.",
+            "sentence": "She was excited about the upcoming trip."
+        },
+        "282": {
+            "english": "exciting",
+            "chinese": "令人興奮的;令人激動的",
+            "property": "adj.",
+            "sentence": "The football game was really exciting."
+        },
+        "283": {
+            "english": "excuse",
+            "chinese": "原諒",
+            "property": "v.",
+            "sentence": "Please excuse me for being late."
+        },
+        "284": {
+            "english": "exercise",
+            "chinese": "運動,鍛鍊",
+            "property": "n.",
+            "sentence": "Regular exercise is important for good health."
+        },
+        "285": {
+            "english": "expensive",
+            "chinese": "昂貴的;花錢的",
+            "property": "adj.",
+            "sentence": "That car is too expensive for me to buy."
+        },
+        "286": {
+            "english": "experience",
+            "chinese": "經驗,體驗",
+            "property": "n.",
+            "sentence": "She has a lot of experience in teaching."
+        },
+        "287": {
+            "english": "eye",
+            "chinese": "眼睛",
+            "property": "n.",
+            "sentence": "She closed her eyes and fell asleep."
+        },
+        "288": {
+            "english": "face",
+            "chinese": "臉,面孔",
+            "property": "n.",
+            "sentence": "His face lit up when he saw his friends."
+        },
+        "289": {
+            "english": "fact",
+            "chinese": "事實",
+            "property": "n.",
+            "sentence": "It's a fact that the earth revolves around the sun."
+        },
+        "290": {
+            "english": "factory",
+            "chinese": "工廠,製造廠",
+            "property": "n.",
+            "sentence": "He works in a factory that makes cars."
+        },
+        "291": {
+            "english": "fall",
+            "chinese": "落下;跌倒",
+            "property": "n.",
+            "sentence": "She had a bad fall while skiing."
+        },
+        "292": {
+            "english": "family",
+            "chinese": "家,家庭;家人",
+            "property": "n.",
+            "sentence": "We spent the holidays with family."
+        },
+        "293": {
+            "english": "famous",
+            "chinese": "著名的,出名的",
+            "property": "adj.",
+            "sentence": "He is a famous actor."
+        },
+        "294": {
+            "english": "fan",
+            "chinese": "扇子;風扇;鼓風機",
+            "property": "n.",
+            "sentence": "The fan kept the room cool on the hot day."
+        },
+        "295": {
+            "english": "farm",
+            "chinese": "農場;飼養場;畜牧場",
+            "property": "n.",
+            "sentence": "They own a large farm where they grow vegetables."
+        },
+        "296": {
+            "english": "farmer",
+            "chinese": "農夫;農場主",
+            "property": "n.",
+            "sentence": "The farmer wakes up early to take care of the animals."
+        },
+        "297": {
+            "english": "fast",
+            "chinese": "快的;迅速的",
+            "property": "adj.",
+            "sentence": "He drives a very fast car."
+        },
+        "298": {
+            "english": "fat",
+            "chinese": "肥胖的",
+            "property": "adj.",
+            "sentence": "The cat became fat after eating too much food."
+        },
+        "299": {
+            "english": "father",
+            "chinese": "父親",
+            "property": "n.",
+            "sentence": "My father enjoys reading the newspaper in the morning."
+        },
+        "300": {
+            "english": "favorite",
+            "chinese": "特別喜愛的人(或物);受寵的人",
+            "property": "n.",
+            "sentence": "Ice cream is my favorite dessert."
+        },
+        "301": {
+            "english": "February",
+            "chinese": "二月",
+            "property": "n.",
+            "sentence": "My birthday is in February."
+        },
+        "302": {
+            "english": "feel",
+            "chinese": "感受;觸摸",
+            "property": "v.",
+            "sentence": "I feel happy today."
+        },
+        "303": {
+            "english": "festival",
+            "chinese": "節日,喜慶日",
+            "property": "n.",
+            "sentence": "The music festival was a lot of fun."
+        },
+        "304": {
+            "english": "few",
+            "chinese": "很少數的;幾乎沒有的",
+            "property": "adj.",
+            "sentence": "Few people attended the meeting."
+        },
+        "305": {
+            "english": "fifteen",
+            "chinese": "十五的;十五個的",
+            "property": "n.",
+            "sentence": "There are fifteen apples in the basket."
+        },
+        "306": {
+            "english": "fifth",
+            "chinese": "第五的",
+            "property": "adj.",
+            "sentence": "She finished in fifth place in the race."
+        },
+        "307": {
+            "english": "fifty",
+            "chinese": "五十的;五十個的",
+            "property": "n.",
+            "sentence": "He saved fifty dollars last month."
+        },
+        "308": {
+            "english": "fill",
+            "chinese": "裝滿;填滿;使充滿",
+            "property": "v.",
+            "sentence": "Please fill the glass with water."
+        },
+        "309": {
+            "english": "finally",
+            "chinese": "最後,終於",
+            "property": "adv.",
+            "sentence": "She finally finished her homework."
+        },
+        "310": {
+            "english": "find",
+            "chinese": "找到,尋得;發現",
+            "property": "v.",
+            "sentence": "He couldn't find his keys anywhere."
+        },
+        "311": {
+            "english": "fine",
+            "chinese": "美好的,優秀的;傑出的",
+            "property": "adj.",
+            "sentence": "The weather was fine today."
+        },
+        "312": {
+            "english": "finger",
+            "chinese": "手指;大拇指以外的手指",
+            "property": "n.",
+            "sentence": "He cut his finger while chopping vegetables."
+        },
+        "313": {
+            "english": "finish",
+            "chinese": "結束;完成",
+            "property": "v.",
+            "sentence": "She will finish reading the book tomorrow."
+        },
+        "314": {
+            "english": "fire",
+            "chinese": "火",
+            "property": "n.",
+            "sentence": "They sat around the campfire to stay warm."
+        },
+        "315": {
+            "english": "first",
+            "chinese": "第一的;第一流的",
+            "property": "adj.",
+            "sentence": "She won first place in the competition."
+        },
+        "316": {
+            "english": "fish",
+            "chinese": "魚;魚類",
+            "property": "n.",
+            "sentence": "They caught three fish in the lake."
+        },
+        "317": {
+            "english": "fisherman",
+            "chinese": "漁人,漁夫",
+            "property": "n.",
+            "sentence": "The fisherman went out to sea early in the morning."
+        },
+        "318": {
+            "english": "five",
+            "chinese": "五的;五個的",
+            "property": "n.",
+            "sentence": "There are five people in my family."
+        },
+        "319": {
+            "english": "fix",
+            "chinese": "使固定;修理;牢記",
+            "property": "v.",
+            "sentence": "He needs to fix the broken chair."
+        },
+        "320": {
+            "english": "floor",
+            "chinese": "地板,地面",
+            "property": "n.",
+            "sentence": "The floor in the kitchen is very clean."
+        },
+        "321": {
+            "english": "flower",
+            "chinese": "花;花卉",
+            "property": "n.",
+            "sentence": "She picked a beautiful flower from the garden."
+        },
+        "322": {
+            "english": "fly",
+            "chinese": "飛;飛行",
+            "property": "v.",
+            "sentence": "Birds fly south for the winter."
+        },
+        "323": {
+            "english": "follow",
+            "chinese": "跟隨",
+            "property": "v.",
+            "sentence": "The dog followed its owner home."
+        },
+        "324": {
+            "english": "food",
+            "chinese": "食物,食品",
+            "property": "n.",
+            "sentence": "They brought a lot of food to the picnic."
+        },
+        "325": {
+            "english": "foot",
+            "chinese": "腳,足",
+            "property": "n.",
+            "sentence": "He injured his foot while playing soccer."
+        },
+        "326": {
+            "english": "for",
+            "chinese": "為,為了",
+            "property": "prep.",
+            "sentence": "This gift is for you."
+        },
+        "327": {
+            "english": "foreign",
+            "chinese": "外國的",
+            "property": "adj.",
+            "sentence": "She is studying foreign languages at university."
+        },
+        "328": {
+            "english": "foreigner",
+            "chinese": "外國人",
+            "property": "n.",
+            "sentence": "He felt like a foreigner in the new country."
+        },
+        "329": {
+            "english": "forget",
+            "chinese": "忘記",
+            "property": "v.",
+            "sentence": "Don't forget to bring your keys."
+        },
+        "330": {
+            "english": "fork",
+            "chinese": "叉子",
+            "property": "n.",
+            "sentence": "She used a fork to eat her salad."
+        },
+        "331": {
+            "english": "forty",
+            "chinese": "四十的;四十個的",
+            "property": "n.",
+            "sentence": "He turned forty years old last week."
+        },
+        "332": {
+            "english": "four",
+            "chinese": "四的;四個的",
+            "property": "n.",
+            "sentence": "There are four chairs around the table."
+        },
+        "333": {
+            "english": "fourteen",
+            "chinese": "十四",
+            "property": "n.",
+            "sentence": "She is fourteen years old."
+        },
+        "334": {
+            "english": "fourth",
+            "chinese": "第四的;第四個的",
+            "property": "adj.",
+            "sentence": "He came in fourth place in the race."
+        },
+        "335": {
+            "english": "free",
+            "chinese": "自由的;不受控制的",
+            "property": "adj.",
+            "sentence": "She is free to make her own choices."
+        },
+        "336": {
+            "english": "fresh",
+            "chinese": "新鮮的;未經加工處理過的",
+            "property": "adj.",
+            "sentence": "They sell fresh fruits and vegetables at the market."
+        },
+        "337": {
+            "english": "Friday",
+            "chinese": "星期五",
+            "property": "n.",
+            "sentence": "We are going out for dinner on Friday."
+        },
+        "338": {
+            "english": "friend",
+            "chinese": "朋友,友人",
+            "property": "n.",
+            "sentence": "She is my best friend."
+        },
+        "339": {
+            "english": "friendly",
+            "chinese": "友好的,親切的",
+            "property": "adj.",
+            "sentence": "The staff at the hotel were very friendly."
+        },
+        "340": {
+            "english": "from",
+            "chinese": "從…起,始於",
+            "property": "prep.",
+            "sentence": "She is from Japan."
+        },
+        "341": {
+            "english": "front",
+            "chinese": "前面;正面",
+            "property": "n.",
+            "sentence": "They are waiting in front of the building."
+        },
+        "342": {
+            "english": "fruit",
+            "chinese": "水果",
+            "property": "n.",
+            "sentence": "Apples are my favorite fruit."
+        },
+        "343": {
+            "english": "full",
+            "chinese": "滿的;充滿的",
+            "property": "adj.",
+            "sentence": "The glass is full of water."
+        },
+        "344": {
+            "english": "fun",
+            "chinese": "娛樂,樂趣",
+            "property": "n.",
+            "sentence": "The party was a lot of fun."
+        },
+        "345": {
+            "english": "funny",
+            "chinese": "有趣的;滑稽可笑的",
+            "property": "adj.",
+            "sentence": "That comedian is really funny."
+        },
+        "346": {
+            "english": "future",
+            "chinese": "未來,將來",
+            "property": "n.",
+            "sentence": "We are excited about the future."
+        },
+        "347": {
+            "english": "game",
+            "chinese": "遊戲;運動",
+            "property": "n.",
+            "sentence": "They played a fun game of basketball."
+        },
+        "348": {
+            "english": "garbage",
+            "chinese": "垃圾;剩菜;廢物",
+            "property": "n.",
+            "sentence": "Please take out the garbage before you leave."
+        },
+        "349": {
+            "english": "garden",
+            "chinese": "花園;菜園;果園;庭院",
+            "property": "n.",
+            "sentence": "She grows vegetables in her garden."
+        },
+        "350": {
+            "english": "gas",
+            "chinese": "氣體",
+            "property": "n.",
+            "sentence": "They need to buy more gas for the car."
+        },
+        "351": {
+            "english": "get",
+            "chinese": "獲得;得到;贏得",
+            "property": "v.",
+            "sentence": "He will get a new job next month."
+        },
+        "352": {
+            "english": "gift",
+            "chinese": "禮品",
+            "property": "n.",
+            "sentence": "She gave him a beautiful gift for his birthday."
+        },
+        "353": {
+            "english": "girl",
+            "chinese": "姑娘,少女",
+            "property": "n.",
+            "sentence": "The girl is playing in the park."
+        },
+        "354": {
+            "english": "give",
+            "chinese": "給;送給",
+            "property": "v.",
+            "sentence": "She will give him a present for his birthday."
+        },
+        "355": {
+            "english": "glad",
+            "chinese": "高興的,快活的",
+            "property": "adj.",
+            "sentence": "I am glad you came to the party."
+        },
+        "356": {
+            "english": "glass",
+            "chinese": "玻璃",
+            "property": "n.",
+            "sentence": "The window is made of glass."
+        },
+        "357": {
+            "english": "glove",
+            "chinese": "手套",
+            "property": "n.",
+            "sentence": "He wore gloves to protect his hands."
+        },
+        "358": {
+            "english": "go",
+            "chinese": "去;離去",
+            "property": "v.",
+            "sentence": "They will go to the beach this weekend."
+        },
+        "359": {
+            "english": "goat",
+            "chinese": "山羊",
+            "property": "n.",
+            "sentence": "The farmer has a goat on his farm."
+        },
+        "360": {
+            "english": "good",
+            "chinese": "好的,令人滿意的",
+            "property": "adj.",
+            "sentence": "She had a good time at the concert."
+        },
+        "361": {
+            "english": "good-bye",
+            "chinese": "再見",
+            "property": "n.",
+            "sentence": "They said good-bye before leaving."
+        },
+        "362": {
+            "english": "grade",
+            "chinese": "等級;級別;階段",
+            "property": "n.",
+            "sentence": "She received a high grade on her exam."
+        },
+        "363": {
+            "english": "grandfather",
+            "chinese": "祖父;外祖父",
+            "property": "n.",
+            "sentence": "Her grandfather told her stories about his childhood."
+        },
+        "364": {
+            "english": "grandmother",
+            "chinese": "祖母;外祖母",
+            "property": "n.",
+            "sentence": "Her grandmother makes the best apple pie."
+        },
+        "365": {
+            "english": "grass",
+            "chinese": "草;牧草",
+            "property": "n.",
+            "sentence": "The children played on the grass."
+        },
+        "366": {
+            "english": "gray",
+            "chinese": "灰色的;偏灰的",
+            "property": "adj.",
+            "sentence": "The sky was gray before the rain started."
+        },
+        "367": {
+            "english": "great",
+            "chinese": "大的;巨大的",
+            "property": "adj.",
+            "sentence": "She did a great job on her presentation."
+        },
+        "368": {
+            "english": "green",
+            "chinese": "綠的;青蔥的",
+            "property": "adj.",
+            "sentence": "The trees are green in spring."
+        },
+        "369": {
+            "english": "ground",
+            "chinese": "地面",
+            "property": "n.",
+            "sentence": "The ground was wet after the rain."
+        },
+        "370": {
+            "english": "group",
+            "chinese": "群;組;類",
+            "property": "n.",
+            "sentence": "They formed a group to work on the project together."
+        },
+        "371": {
+            "english": "grow",
+            "chinese": "成長,生長;發育",
+            "property": "v.",
+            "sentence": "The plant will grow taller if you give it enough sunlight."
+        },
+        "372": {
+            "english": "guess",
+            "chinese": "猜測;推測",
+            "property": "v.",
+            "sentence": "Can you guess the answer to the riddle?"
+        },
+        "373": {
+            "english": "habit",
+            "chinese": "習慣",
+            "property": "n.",
+            "sentence": "She has a habit of drinking coffee every morning."
+        },
+        "374": {
+            "english": "hair",
+            "chinese": "毛髮;頭髮",
+            "property": "n.",
+            "sentence": "She brushes her hair every night."
+        },
+        "375": {
+            "english": "half",
+            "chinese": "一半,二分之一",
+            "property": "n.",
+            "sentence": "She ate half of the pizza."
+        },
+        "376": {
+            "english": "ham",
+            "chinese": "火腿",
+            "property": "n.",
+            "sentence": "They had ham for breakfast."
+        },
+        "377": {
+            "english": "hamburger",
+            "chinese": "漢堡牛排",
+            "property": "n.",
+            "sentence": "He ordered a hamburger with fries."
+        },
+        "378": {
+            "english": "hand",
+            "chinese": "手",
+            "property": "n.",
+            "sentence": "She waved her hand to say hello."
+        },
+        "379": {
+            "english": "handsome",
+            "chinese": "英俊的;健美的",
+            "property": "adj.",
+            "sentence": "The actor was very handsome."
+        },
+        "380": {
+            "english": "happen",
+            "chinese": "發生",
+            "property": "v.",
+            "sentence": "I wonder what will happen next."
+        },
+        "381": {
+            "english": "happy",
+            "chinese": "高興的;樂意的",
+            "property": "adj.",
+            "sentence": "She felt happy after hearing the good news."
+        },
+        "382": {
+            "english": "hard",
+            "chinese": "硬的,堅固的",
+            "property": "adj.",
+            "sentence": "The rock was very hard."
+        },
+        "383": {
+            "english": "hard-working",
+            "chinese": "努力工作的,勤勉的",
+            "property": "adj.",
+            "sentence": "She is a hard-working student."
+        },
+        "384": {
+            "english": "hat",
+            "chinese": "帽子",
+            "property": "n.",
+            "sentence": "He wore a hat to protect himself from the sun."
+        },
+        "385": {
+            "english": "hate",
+            "chinese": "仇恨,憎恨",
+            "property": "v.",
+            "sentence": "She hates waking up early in the morning."
+        },
+        "386": {
+            "english": "have",
+            "chinese": "(構成完成時態)已經;曾經",
+            "property": "v.",
+            "sentence": "They have finished their homework."
+        },
+        "387": {
+            "english": "he",
+            "chinese": "他",
+            "property": "pron.",
+            "sentence": "He is my best friend."
+        },
+        "388": {
+            "english": "head",
+            "chinese": "頭",
+            "property": "n.",
+            "sentence": "She nodded her head in agreement."
+        },
+        "389": {
+            "english": "headache",
+            "chinese": "頭痛",
+            "property": "n.",
+            "sentence": "She took medicine to relieve her headache."
+        },
+        "390": {
+            "english": "health",
+            "chinese": "健康",
+            "property": "n.",
+            "sentence": "Exercise is important for good health."
+        },
+        "391": {
+            "english": "healthy",
+            "chinese": "健康的;健全的",
+            "property": "adj.",
+            "sentence": "She follows a healthy diet."
+        },
+        "392": {
+            "english": "hear",
+            "chinese": "聽見;聽",
+            "property": "v.",
+            "sentence": "Can you hear the music from here?"
+        },
+        "393": {
+            "english": "heart",
+            "chinese": "心臟;胸",
+            "property": "n.",
+            "sentence": "His heart was beating fast during the race."
+        },
+        "394": {
+            "english": "heat",
+            "chinese": "把…加熱",
+            "property": "v.",
+            "sentence": "She used the stove to heat up the soup."
+        },
+        "395": {
+            "english": "heavy",
+            "chinese": "重的,沈的",
+            "property": "adj.",
+            "sentence": "The suitcase was too heavy to carry."
+        },
+        "396": {
+            "english": "hello",
+            "chinese": "喂,你好",
+            "property": "interj.",
+            "sentence": "She said hello to her neighbor."
+        },
+        "397": {
+            "english": "help",
+            "chinese": "幫助",
+            "property": "v.",
+            "sentence": "He offered to help me with my homework."
+        },
+        "398": {
+            "english": "helpful",
+            "chinese": "有幫助的,有益的",
+            "property": "adj.",
+            "sentence": "Her advice was very helpful."
+        },
+        "399": {
+            "english": "here",
+            "chinese": "這裡,在這裡;向這裡",
+            "property": "adv.",
+            "sentence": "Come over here and sit down."
+        },
+        "400": {
+            "english": "hi",
+            "chinese": "嗨;你好",
+            "property": "interj.",
+            "sentence": "She waved and said hi when she saw her friend."
+        },
+        "401": {
+            "english": "hide",
+            "chinese": "把…藏起來,隱藏",
+            "property": "v.",
+            "sentence": "He tried to hide the gift from his sister."
+        },
+        "402": {
+            "english": "high",
+            "chinese": "高的",
+            "property": "adj.",
+            "sentence": "The mountain is very high."
+        },
+        "403": {
+            "english": "hill",
+            "chinese": "小山;丘陵",
+            "property": "n.",
+            "sentence": "They climbed to the top of the hill."
+        },
+        "404": {
+            "english": "history",
+            "chinese": "歷史;史學",
+            "property": "n.",
+            "sentence": "She is studying ancient history in school."
+        },
+        "405": {
+            "english": "hit",
+            "chinese": "打,打擊;擊中",
+            "property": "v.",
+            "sentence": "He hit the baseball over the fence."
+        },
+        "406": {
+            "english": "hobby",
+            "chinese": "業餘愛好,癖好,嗜好",
+            "property": "n.",
+            "sentence": "His favorite hobby is painting."
+        },
+        "407": {
+            "english": "hold",
+            "chinese": "握著;抓住;夾住",
+            "property": "v.",
+            "sentence": "She held the baby in her arms."
+        },
+        "408": {
+            "english": "holiday",
+            "chinese": "節日,假日",
+            "property": "n.",
+            "sentence": "They are planning a holiday in the mountains."
+        },
+        "409": {
+            "english": "home",
+            "chinese": "家,住家",
+            "property": "n.",
+            "sentence": "I can't wait to go home after work."
+        },
+        "410": {
+            "english": "homework",
+            "chinese": "(學生的)家庭作業",
+            "property": "n.",
+            "sentence": "She needs to finish her homework before dinner."
+        },
+        "411": {
+            "english": "honest",
+            "chinese": "誠實的;正直的",
+            "property": "adj.",
+            "sentence": "He is an honest person who always tells the truth."
+        },
+        "412": {
+            "english": "hope",
+            "chinese": "希望,盼望",
+            "property": "v.",
+            "sentence": "I hope to visit Europe next year."
+        },
+        "413": {
+            "english": "horse",
+            "chinese": "馬",
+            "property": "n.",
+            "sentence": "She loves riding her horse on the weekends."
+        },
+        "414": {
+            "english": "hospital",
+            "chinese": "醫院",
+            "property": "n.",
+            "sentence": "He had to stay in the hospital for a week."
+        },
+        "415": {
+            "english": "hot",
+            "chinese": "熱的",
+            "property": "adj.",
+            "sentence": "It was a hot day, perfect for swimming."
+        },
+        "416": {
+            "english": "hot dog",
+            "chinese": "熱狗",
+            "property": "n.",
+            "sentence": "He bought a hot dog at the game."
+        },
+        "417": {
+            "english": "hotel",
+            "chinese": "旅館;飯店",
+            "property": "n.",
+            "sentence": "We stayed at a nice hotel by the beach."
+        },
+        "418": {
+            "english": "hour",
+            "chinese": "小時",
+            "property": "n.",
+            "sentence": "The meeting lasted for two hours."
+        },
+        "419": {
+            "english": "house",
+            "chinese": "房子;住宅",
+            "property": "n.",
+            "sentence": "They bought a new house in the city."
+        },
+        "420": {
+            "english": "how",
+            "chinese": "怎樣,怎麼",
+            "property": "adv.",
+            "sentence": "How do you solve this math problem?"
+        },
+        "421": {
+            "english": "however",
+            "chinese": "然而,可是",
+            "property": "adv.",
+            "sentence": "I wanted to go to the park; however, it started raining."
+        },
+        "422": {
+            "english": "hundred",
+            "chinese": "一百",
+            "property": "n.",
+            "sentence": "There were a hundred people at the event."
+        },
+        "423": {
+            "english": "hungry",
+            "chinese": "飢餓的",
+            "property": "adj.",
+            "sentence": "She felt very hungry after the long hike."
+        },
+        "424": {
+            "english": "hurry",
+            "chinese": "使趕緊;催促",
+            "property": "v.",
+            "sentence": "He hurried to catch the bus."
+        },
+        "425": {
+            "english": "hurt",
+            "chinese": "使受傷",
+            "property": "v.",
+            "sentence": "She hurt her ankle while playing basketball."
+        },
+        "426": {
+            "english": "husband",
+            "chinese": "丈夫",
+            "property": "n.",
+            "sentence": "Her husband works as a doctor."
+        },
+        "427": {
+            "english": "I",
+            "chinese": "我",
+            "property": "pron.",
+            "sentence": "I am going to the store."
+        },
+        "428": {
+            "english": "ice",
+            "chinese": "冰",
+            "property": "n.",
+            "sentence": "She added ice to her drink to cool it down."
+        },
+        "429": {
+            "english": "ice cream",
+            "chinese": "冰淇淋",
+            "property": "n.",
+            "sentence": "They ate ice cream for dessert."
+        },
+        "430": {
+            "english": "idea",
+            "chinese": "主意;打算;計劃",
+            "property": "n.",
+            "sentence": "He had a great idea for a new project."
+        },
+        "431": {
+            "english": "if",
+            "chinese": "如果",
+            "property": "conj.",
+            "sentence": "If it rains tomorrow, we will stay inside."
+        },
+        "432": {
+            "english": "important",
+            "chinese": "重要的,重大的",
+            "property": "adj.",
+            "sentence": "It is important to stay healthy."
+        },
+        "433": {
+            "english": "in",
+            "chinese": "在…裡",
+            "property": "prep.",
+            "sentence": "The keys are in the drawer."
+        },
+        "434": {
+            "english": "inside",
+            "chinese": "內部,裡面",
+            "property": "n.",
+            "sentence": "We stayed inside because it was raining."
+        },
+        "435": {
+            "english": "interest",
+            "chinese": "興趣;關注;愛好",
+            "property": "n.",
+            "sentence": "She has a strong interest in science."
+        },
+        "436": {
+            "english": "interested",
+            "chinese": "感興趣的;關心的",
+            "property": "adj.",
+            "sentence": "He is interested in learning more about art."
+        },
+        "437": {
+            "english": "interesting",
+            "chinese": "有趣的;引起興趣的",
+            "property": "adj.",
+            "sentence": "The movie was very interesting."
+        },
+        "438": {
+            "english": "Internet",
+            "chinese": "網際網路",
+            "property": "n.",
+            "sentence": "The Internet has changed the way we communicate."
+        },
+        "439": {
+            "english": "into",
+            "chinese": "到…裡",
+            "property": "prep.",
+            "sentence": "She walked into the room quietly."
+        },
+        "440": {
+            "english": "island",
+            "chinese": "島",
+            "property": "n.",
+            "sentence": "They spent their vacation on a tropical island."
+        },
+        "441": {
+            "english": "it",
+            "chinese": "這,那,它",
+            "property": "pron.",
+            "sentence": "It is raining outside."
+        },
+        "442": {
+            "english": "jacket",
+            "chinese": "夾克,上衣",
+            "property": "n.",
+            "sentence": "He wore a warm jacket because it was cold."
+        },
+        "443": {
+            "english": "January",
+            "chinese": "一月",
+            "property": "n.",
+            "sentence": "Her birthday is in January."
+        },
+        "444": {
+            "english": "jeans",
+            "chinese": "牛仔褲",
+            "property": "n.",
+            "sentence": "She wore her favorite pair of jeans."
+        },
+        "445": {
+            "english": "job",
+            "chinese": "工作;職業",
+            "property": "n.",
+            "sentence": "He has a job as a teacher."
+        },
+        "446": {
+            "english": "jog",
+            "chinese": "輕搖;輕推;輕撞",
+            "property": "v.",
+            "sentence": "She jogs every morning to stay fit."
+        },
+        "447": {
+            "english": "join",
+            "chinese": "連結;使結合",
+            "property": "v.",
+            "sentence": "He asked her to join the team."
+        },
+        "448": {
+            "english": "joy",
+            "chinese": "歡樂,高興",
+            "property": "n.",
+            "sentence": "The family felt great joy at the reunion."
+        },
+        "449": {
+            "english": "juice",
+            "chinese": "汁",
+            "property": "n.",
+            "sentence": "She drank a glass of orange juice with breakfast."
+        },
+        "450": {
+            "english": "July",
+            "chinese": "七月",
+            "property": "n.",
+            "sentence": "They go on vacation every July."
+        },
+        "451": {
+            "english": "jump",
+            "chinese": "跳;跳躍",
+            "property": "v.",
+            "sentence": "The cat jumped over the fence."
+        },
+        "452": {
+            "english": "June",
+            "chinese": "六月",
+            "property": "n.",
+            "sentence": "The school year ends in June."
+        },
+        "453": {
+            "english": "junior high school",
+            "chinese": "初級中學",
+            "property": "n.",
+            "sentence": "She is a student at the junior high school."
+        },
+        "454": {
+            "english": "just",
+            "chinese": "正好,恰好",
+            "property": "adv.",
+            "sentence": "He arrived just in time for the meeting."
+        },
+        "455": {
+            "english": "keep",
+            "chinese": "持有,保有",
+            "property": "v.",
+            "sentence": "She keeps her old photos in an album."
+        },
+        "456": {
+            "english": "key",
+            "chinese": "鑰匙",
+            "property": "n.",
+            "sentence": "He used the key to unlock the door."
+        },
+        "457": {
+            "english": "kick",
+            "chinese": "踢",
+            "property": "v.",
+            "sentence": "He kicked the ball into the goal."
+        },
+        "458": {
+            "english": "kid",
+            "chinese": "小山羊,小孩",
+            "property": "n.",
+            "sentence": "The kid was playing in the park."
+        },
+        "459": {
+            "english": "kill",
+            "chinese": "殺死;宰",
+            "property": "v.",
+            "sentence": "The lion killed its prey quickly."
+        },
+        "460": {
+            "english": "kilogram",
+            "chinese": "公斤",
+            "property": "n.",
+            "sentence": "The package weighs five kilograms."
+        },
+        "461": {
+            "english": "kind",
+            "chinese": "種類",
+            "property": "n.",
+            "sentence": "There are many different kinds of flowers in the garden."
+        },
+        "462": {
+            "english": "king",
+            "chinese": "王,國王,君主",
+            "property": "n.",
+            "sentence": "The king ruled the country for many years."
+        },
+        "463": {
+            "english": "kiss",
+            "chinese": "吻",
+            "property": "v.",
+            "sentence": "She kissed her mother on the cheek."
+        },
+        "464": {
+            "english": "kitchen",
+            "chinese": "廚房",
+            "property": "n.",
+            "sentence": "She is preparing dinner in the kitchen."
+        },
+        "465": {
+            "english": "kite",
+            "chinese": "風箏",
+            "property": "n.",
+            "sentence": "The children flew a kite in the park."
+        },
+        "466": {
+            "english": "knee",
+            "chinese": "膝,膝蓋",
+            "property": "n.",
+            "sentence": "He injured his knee while playing soccer."
+        },
+        "467": {
+            "english": "knife",
+            "chinese": "刀,小刀;菜刀",
+            "property": "n.",
+            "sentence": "She used a knife to cut the vegetables."
+        },
+        "468": {
+            "english": "knock",
+            "chinese": "相撞,碰擊",
+            "property": "v.",
+            "sentence": "He knocked on the door before entering."
+        },
+        "469": {
+            "english": "know",
+            "chinese": "知道;了解",
+            "property": "v.",
+            "sentence": "She knows a lot about history."
+        },
+        "470": {
+            "english": "knowledge",
+            "chinese": "知識,學識,學問",
+            "property": "n.",
+            "sentence": "He has a deep knowledge of science."
+        },
+        "471": {
+            "english": "lake",
+            "chinese": "湖",
+            "property": "n.",
+            "sentence": "They went fishing at the lake."
+        },
+        "472": {
+            "english": "lamp",
+            "chinese": "燈,油燈",
+            "property": "n.",
+            "sentence": "She turned on the lamp to read a book."
+        },
+        "473": {
+            "english": "land",
+            "chinese": "陸地",
+            "property": "n.",
+            "sentence": "The plane landed safely on the runway."
+        },
+        "474": {
+            "english": "language",
+            "chinese": "語言",
+            "property": "n.",
+            "sentence": "She is learning a new language."
+        },
+        "475": {
+            "english": "large",
+            "chinese": "大的,寬大的",
+            "property": "adj.",
+            "sentence": "They bought a large house in the countryside."
+        },
+        "476": {
+            "english": "last",
+            "chinese": "最後的",
+            "property": "adj.",
+            "sentence": "She was the last person to leave the party."
+        },
+        "477": {
+            "english": "late",
+            "chinese": "遲的",
+            "property": "adj.",
+            "sentence": "She arrived late to the meeting."
+        },
+        "478": {
+            "english": "later",
+            "chinese": "較晚的,更晚的",
+            "property": "adj.",
+            "sentence": "He will call you later tonight."
+        },
+        "479": {
+            "english": "laugh",
+            "chinese": "笑;嘲笑",
+            "property": "v.",
+            "sentence": "They laughed at the funny joke."
+        },
+        "480": {
+            "english": "lazy",
+            "chinese": "懶惰的,怠惰的",
+            "property": "adj.",
+            "sentence": "He felt lazy and didn't want to go to work."
+        },
+        "481": {
+            "english": "lead",
+            "chinese": "引導;領(路)",
+            "property": "v.",
+            "sentence": "The guide led the group through the forest."
+        },
+        "482": {
+            "english": "leader",
+            "chinese": "領袖,領導者",
+            "property": "n.",
+            "sentence": "The leader of the team gave an inspiring speech."
+        },
+        "483": {
+            "english": "learn",
+            "chinese": "學習;學會",
+            "property": "v.",
+            "sentence": "She is learning how to play the piano."
+        },
+        "484": {
+            "english": "least",
+            "chinese": "最小的;最少的",
+            "property": "adj.",
+            "sentence": "This option costs the least amount of money."
+        },
+        "485": {
+            "english": "leave",
+            "chinese": "離開(某處)",
+            "property": "v.",
+            "sentence": "He left the office early today."
+        },
+        "486": {
+            "english": "left",
+            "chinese": "左方的;左側的",
+            "property": "adj.",
+            "sentence": "She writes with her left hand."
+        },
+        "487": {
+            "english": "leg",
+            "chinese": "腿,足",
+            "property": "n.",
+            "sentence": "He broke his leg while skiing."
+        },
+        "488": {
+            "english": "lemon",
+            "chinese": "檸檬",
+            "property": "n.",
+            "sentence": "She added lemon to her tea."
+        },
+        "489": {
+            "english": "lend",
+            "chinese": "把…借給",
+            "property": "v.",
+            "sentence": "He lent his book to a friend."
+        },
+        "490": {
+            "english": "less",
+            "chinese": "較小的,較少的",
+            "property": "adj.",
+            "sentence": "She spent less time on this project than the last one."
+        },
+        "491": {
+            "english": "lesson",
+            "chinese": "功課;課業",
+            "property": "n.",
+            "sentence": "They had a math lesson this morning."
+        },
+        "492": {
+            "english": "let",
+            "chinese": "允許,讓",
+            "property": "v.",
+            "sentence": "She let him borrow her car for the weekend."
+        },
+        "493": {
+            "english": "letter",
+            "chinese": "信,函件",
+            "property": "n.",
+            "sentence": "She wrote a letter to her pen pal."
+        },
+        "494": {
+            "english": "library",
+            "chinese": "圖書館,藏書室",
+            "property": "n.",
+            "sentence": "They went to the library to study."
+        },
+        "495": {
+            "english": "lie",
+            "chinese": "躺,臥; 撒謊",
+            "property": "v.",
+            "sentence": "He likes to lie on the sofa and read a book."
+        },
+        "496": {
+            "english": "life",
+            "chinese": "生命;生存",
+            "property": "n.",
+            "sentence": "He dedicated his life to helping others."
+        },
+        "497": {
+            "english": "light",
+            "chinese": "光;光亮",
+            "property": "n.",
+            "sentence": "The morning light filled the room."
+        },
+        "498": {
+            "english": "like",
+            "chinese": "喜歡",
+            "property": "v.",
+            "sentence": "She likes to play tennis on the weekends."
+        },
+        "499": {
+            "english": "line",
+            "chinese": "繩,線,索",
+            "property": "n.",
+            "sentence": "They stood in line to buy tickets."
+        },
+        "500": {
+            "english": "lion",
+            "chinese": "獅子",
+            "property": "n.",
+            "sentence": "The lion is known as the king of the jungle."
+        },
+        "501": {
+            "english": "lip",
+            "chinese": "嘴唇",
+            "property": "n.",
+            "sentence": "She applied lipstick on her lips."
+        },
+        "502": {
+            "english": "list",
+            "chinese": "表;名冊;目錄",
+            "property": "n.",
+            "sentence": "He made a list of things to buy."
+        },
+        "503": {
+            "english": "listen",
+            "chinese": "聽,留神聽",
+            "property": "v.",
+            "sentence": "Please listen carefully to the instructions."
+        },
+        "504": {
+            "english": "little",
+            "chinese": "小的;小巧可愛的",
+            "property": "adj.",
+            "sentence": "The little puppy is very cute."
+        },
+        "505": {
+            "english": "live",
+            "chinese": "活,活著",
+            "property": "v.",
+            "sentence": "They live in a small house near the beach."
+        },
+        "506": {
+            "english": "living room",
+            "chinese": "客廳",
+            "property": "n.",
+            "sentence": "The family gathers in the living room every evening."
+        },
+        "507": {
+            "english": "lonely",
+            "chinese": "孤獨的,單獨的",
+            "property": "adj.",
+            "sentence": "He felt lonely after his friends moved away."
+        },
+        "508": {
+            "english": "long",
+            "chinese": "長的;遠的",
+            "property": "adj.",
+            "sentence": "She has long hair that reaches her waist."
+        },
+        "509": {
+            "english": "look",
+            "chinese": "看",
+            "property": "v.",
+            "sentence": "Look at the beautiful sunset."
+        },
+        "510": {
+            "english": "lose",
+            "chinese": "失,丟失,喪失",
+            "property": "v.",
+            "sentence": "He lost his wallet on the bus."
+        },
+        "511": {
+            "english": "loud",
+            "chinese": "大聲的,響亮的",
+            "property": "adj.",
+            "sentence": "The music at the concert was very loud."
+        },
+        "512": {
+            "english": "love",
+            "chinese": "愛;熱愛;愛戴",
+            "property": "v.",
+            "sentence": "They love spending time together."
+        },
+        "513": {
+            "english": "low",
+            "chinese": "低的,矮的;淺的",
+            "property": "adj.",
+            "sentence": "The airplane was flying at a low altitude."
+        },
+        "514": {
+            "english": "lucky",
+            "chinese": "幸運的,好運的",
+            "property": "adj.",
+            "sentence": "She was lucky to win the lottery."
+        },
+        "515": {
+            "english": "lunch",
+            "chinese": "午餐",
+            "property": "n.",
+            "sentence": "They had sandwiches for lunch."
+        },
+        "516": {
+            "english": "machine",
+            "chinese": "機器;機械",
+            "property": "n.",
+            "sentence": "The washing machine broke down last night."
+        },
+        "517": {
+            "english": "magic",
+            "chinese": "魔法,巫術",
+            "property": "n.",
+            "sentence": "The magician performed amazing magic tricks."
+        },
+        "518": {
+            "english": "mail",
+            "chinese": "郵遞;郵政, 郵件",
+            "property": "n.",
+            "sentence": "She received a letter in the mail today."
+        },
+        "519": {
+            "english": "mailman",
+            "chinese": "郵差,郵遞員",
+            "property": "n.",
+            "sentence": "The mailman delivered the package to our door."
+        },
+        "520": {
+            "english": "make",
+            "chinese": "做;製造;建造",
+            "property": "v.",
+            "sentence": "She made a cake for her friend's birthday."
+        },
+        "521": {
+            "english": "man",
+            "chinese": "成年男子;男人",
+            "property": "n.",
+            "sentence": "The man was reading a book in the park."
+        },
+        "522": {
+            "english": "many",
+            "chinese": "許多的,多的",
+            "property": "adj.",
+            "sentence": "There are many people at the concert."
+        },
+        "523": {
+            "english": "map",
+            "chinese": "地圖",
+            "property": "n.",
+            "sentence": "He used a map to find the way."
+        },
+        "524": {
+            "english": "March",
+            "chinese": "三月",
+            "property": "n.",
+            "sentence": "They are planning a trip in March."
+        },
+        "525": {
+            "english": "mark",
+            "chinese": "痕跡;污點;瘢疤, 記號;符號;標記",
+            "property": "n.",
+            "sentence": "She left a mark on the table with her pen."
+        },
+        "526": {
+            "english": "market",
+            "chinese": "市場;市集",
+            "property": "n.",
+            "sentence": "They buy fresh vegetables from the local market."
+        },
+        "527": {
+            "english": "married",
+            "chinese": "已婚的,有配偶的",
+            "property": "adj.",
+            "sentence": "They have been married for ten years."
+        },
+        "528": {
+            "english": "math",
+            "chinese": "數學",
+            "property": "n.",
+            "sentence": "He is very good at math."
+        },
+        "529": {
+            "english": "matter",
+            "chinese": "事情;問題;事件",
+            "property": "n.",
+            "sentence": "There is an important matter to discuss."
+        },
+        "530": {
+            "english": "may",
+            "chinese": "可能,也許",
+            "property": "v.",
+            "sentence": "It may rain later today."
+        },
+        "531": {
+            "english": "May",
+            "chinese": "五月",
+            "property": "n.",
+            "sentence": "Her birthday is in May."
+        },
+        "532": {
+            "english": "maybe",
+            "chinese": "大概,或許,可能",
+            "property": "adv.",
+            "sentence": "Maybe we can go to the beach tomorrow."
+        },
+        "533": {
+            "english": "meal",
+            "chinese": "膳食;一餐",
+            "property": "n.",
+            "sentence": "They enjoyed a delicious meal at the restaurant."
+        },
+        "534": {
+            "english": "mean",
+            "chinese": "吝嗇的,小氣的",
+            "property": "adj.",
+            "sentence": "He is mean with his money and never shares."
+        },
+        "535": {
+            "english": "meat",
+            "chinese": "肉",
+            "property": "n.",
+            "sentence": "They grilled the meat for dinner."
+        },
+        "536": {
+            "english": "medicine",
+            "chinese": "藥,內服藥",
+            "property": "n.",
+            "sentence": "She took some medicine for her headache."
+        },
+        "537": {
+            "english": "medium",
+            "chinese": "中間;中庸;適中",
+            "property": "n.",
+            "sentence": "The steak was cooked to a medium level."
+        },
+        "538": {
+            "english": "meet",
+            "chinese": "遇見;碰上",
+            "property": "v.",
+            "sentence": "They agreed to meet at the coffee shop."
+        },
+        "539": {
+            "english": "meeting",
+            "chinese": "會議;集會",
+            "property": "n.",
+            "sentence": "The meeting will start at 10 a.m."
+        },
+        "540": {
+            "english": "menu",
+            "chinese": "菜單",
+            "property": "n.",
+            "sentence": "She looked at the menu before ordering."
+        },
+        "541": {
+            "english": "mile",
+            "chinese": "英里,哩",
+            "property": "n.",
+            "sentence": "They ran five miles this morning."
+        },
+        "542": {
+            "english": "milk",
+            "chinese": "乳;牛奶",
+            "property": "n.",
+            "sentence": "She drinks a glass of milk every morning."
+        },
+        "543": {
+            "english": "million",
+            "chinese": "百萬;百萬元",
+            "property": "n.",
+            "sentence": "The company earned a million dollars last year."
+        },
+        "544": {
+            "english": "mind",
+            "chinese": "頭腦,智力; 注意,留意",
+            "property": "n., v.",
+            "sentence": "She has a sharp mind and quick thinking."
+        },
+        "545": {
+            "english": "minute",
+            "chinese": "分(鐘)",
+            "property": "n.",
+            "sentence": "The meeting will last for 30 minutes."
+        },
+        "546": {
+            "english": "Miss",
+            "chinese": "小姐",
+            "property": "n.",
+            "sentence": "Miss Lee is our English teacher."
+        },
+        "547": {
+            "english": "miss",
+            "chinese": "未擊中;未得到;未達到;未看到",
+            "property": "v.",
+            "sentence": "He missed the train by just a few minutes."
+        },
+        "548": {
+            "english": "mistake",
+            "chinese": "弄錯,誤解",
+            "property": "v.",
+            "sentence": "He made a mistake on the test."
+        },
+        "549": {
+            "english": "modern",
+            "chinese": "現代的;近代的",
+            "property": "adj.",
+            "sentence": "They live in a modern apartment building."
+        },
+        "550": {
+            "english": "moment",
+            "chinese": "瞬間;片刻",
+            "property": "n.",
+            "sentence": "I’ll be with you in a moment."
+        },
+        "551": {
+            "english": "Monday",
+            "chinese": "星期一",
+            "property": "n.",
+            "sentence": "We have a meeting scheduled for Monday."
+        },
+        "552": {
+            "english": "money",
+            "chinese": "錢;貨幣,通貨",
+            "property": "n.",
+            "sentence": "He saved money to buy a new car."
+        },
+        "553": {
+            "english": "monkey",
+            "chinese": "猴子",
+            "property": "n.",
+            "sentence": "The monkey was swinging from tree to tree."
+        },
+        "554": {
+            "english": "month",
+            "chinese": "月",
+            "property": "n.",
+            "sentence": "They are planning a vacation for next month."
+        },
+        "555": {
+            "english": "moon",
+            "chinese": "月球",
+            "property": "n.",
+            "sentence": "The full moon lit up the night sky."
+        },
+        "556": {
+            "english": "more",
+            "chinese": "更多的;更高程度的",
+            "property": "adj.",
+            "sentence": "He wants more time to complete the project."
+        },
+        "557": {
+            "english": "morning",
+            "chinese": "早晨;上午",
+            "property": "n.",
+            "sentence": "She goes jogging every morning."
+        },
+        "558": {
+            "english": "most",
+            "chinese": "最多的;最高程度的",
+            "property": "adj.",
+            "sentence": "She is the most talented singer in the group."
+        },
+        "559": {
+            "english": "mother",
+            "chinese": "母親;媽媽",
+            "property": "n.",
+            "sentence": "Her mother makes the best cookies."
+        },
+        "560": {
+            "english": "motorcycle",
+            "chinese": "摩托車",
+            "property": "n.",
+            "sentence": "He rides his motorcycle to work every day."
+        },
+        "561": {
+            "english": "mountain",
+            "chinese": "山",
+            "property": "n.",
+            "sentence": "They climbed the highest mountain in the area."
+        },
+        "562": {
+            "english": "mouse",
+            "chinese": "鼠",
+            "property": "n.",
+            "sentence": "The mouse scurried across the kitchen floor."
+        },
+        "563": {
+            "english": "mouth",
+            "chinese": "嘴",
+            "property": "n.",
+            "sentence": "She opened her mouth to speak."
+        },
+        "564": {
+            "english": "move",
+            "chinese": "使移動,搬動;開動",
+            "property": "v.",
+            "sentence": "They decided to move to a new city."
+        },
+        "565": {
+            "english": "movie",
+            "chinese": "電影,影片",
+            "property": "n.",
+            "sentence": "We watched a movie together last night."
+        },
+        "566": {
+            "english": "Mr.",
+            "chinese": "先生",
+            "property": "n.",
+            "sentence": "Mr. Smith is the manager of the department."
+        },
+        "567": {
+            "english": "Mrs.",
+            "chinese": "夫人,太太",
+            "property": "n.",
+            "sentence": "Mrs. Johnson is a well-known author."
+        },
+        "568": {
+            "english": "Ms.",
+            "chinese": "女士",
+            "property": "n.",
+            "sentence": "Ms. Brown is giving a presentation today."
+        },
+        "569": {
+            "english": "much",
+            "chinese": "許多;大量的",
+            "property": "adj.",
+            "sentence": "There is much work to be done."
+        },
+        "570": {
+            "english": "museum",
+            "chinese": "博物館",
+            "property": "n.",
+            "sentence": "They visited the art museum last weekend."
+        },
+        "571": {
+            "english": "music",
+            "chinese": "音樂;樂曲",
+            "property": "n.",
+            "sentence": "She listens to music while studying."
+        },
+        "572": {
+            "english": "must",
+            "chinese": "必須,得",
+            "property": "v.",
+            "sentence": "You must finish your homework before playing outside."
+        },
+        "573": {
+            "english": "name",
+            "chinese": "名字,姓名;名稱",
+            "property": "n.",
+            "sentence": "Her name is Sarah."
+        },
+        "574": {
+            "english": "national",
+            "chinese": "全國性的",
+            "property": "adj.",
+            "sentence": "The national holiday is celebrated across the country."
+        },
+        "575": {
+            "english": "near",
+            "chinese": "近的",
+            "property": "adj.",
+            "sentence": "They live near the park."
+        },
+        "576": {
+            "english": "neck",
+            "chinese": "頸,脖子",
+            "property": "n.",
+            "sentence": "He wrapped a scarf around his neck to keep warm."
+        },
+        "577": {
+            "english": "need",
+            "chinese": "需要;必要;需求",
+            "property": "v.",
+            "sentence": "She needs more time to finish the project."
+        },
+        "578": {
+            "english": "never",
+            "chinese": "從未;永不;決不",
+            "property": "adv.",
+            "sentence": "He has never been to Europe."
+        },
+        "579": {
+            "english": "new",
+            "chinese": "新的;新鮮的;新型的",
+            "property": "adj.",
+            "sentence": "She bought a new car last month."
+        },
+        "580": {
+            "english": "news",
+            "chinese": "新聞;消息;報導",
+            "property": "n.",
+            "sentence": "He watches the news every evening."
+        },
+        "581": {
+            "english": "next",
+            "chinese": "緊鄰的,貼近的",
+            "property": "adj.",
+            "sentence": "The next train leaves at 5 p.m."
+        },
+        "582": {
+            "english": "nice",
+            "chinese": "好的;美好的,宜人的",
+            "property": "adj.",
+            "sentence": "She has a nice smile."
+        },
+        "583": {
+            "english": "night",
+            "chinese": "夜;晚上",
+            "property": "n.",
+            "sentence": "It was a cold night."
+        },
+        "584": {
+            "english": "nine",
+            "chinese": "九的;九個的",
+            "property": "n.",
+            "sentence": "She has nine books on her shelf."
+        },
+        "585": {
+            "english": "nineteen",
+            "chinese": "十九",
+            "property": "n.",
+            "sentence": "He turned nineteen years old last week."
+        },
+        "586": {
+            "english": "ninety",
+            "chinese": "九十",
+            "property": "n.",
+            "sentence": "There were ninety students in the auditorium."
+        },
+        "587": {
+            "english": "ninth",
+            "chinese": "第九的;第九個的",
+            "property": "adj.",
+            "sentence": "She finished in ninth place in the race."
+        },
+        "588": {
+            "english": "no",
+            "chinese": "沒有",
+            "property": "adv.",
+            "sentence": "There is no more cake left."
+        },
+        "589": {
+            "english": "nobody",
+            "chinese": "無人,沒有人",
+            "property": "pron.",
+            "sentence": "Nobody was home when I arrived."
+        },
+        "590": {
+            "english": "nod",
+            "chinese": "點頭",
+            "property": "v.",
+            "sentence": "She nodded in agreement."
+        },
+        "591": {
+            "english": "noise",
+            "chinese": "聲響;喧鬧聲",
+            "property": "n.",
+            "sentence": "There was a loud noise coming from the street."
+        },
+        "592": {
+            "english": "noodle",
+            "chinese": "麵條",
+            "property": "n.",
+            "sentence": "She ordered a bowl of noodles for lunch."
+        },
+        "593": {
+            "english": "noon",
+            "chinese": "正午,中午",
+            "property": "n.",
+            "sentence": "The meeting is scheduled for noon."
+        },
+        "594": {
+            "english": "north",
+            "chinese": "北,北方",
+            "property": "n.",
+            "sentence": "They traveled north to visit the mountains."
+        },
+        "595": {
+            "english": "nose",
+            "chinese": "鼻",
+            "property": "n.",
+            "sentence": "He has a cold and his nose is stuffy."
+        },
+        "596": {
+            "english": "not",
+            "chinese": "不",
+            "property": "adv.",
+            "sentence": "He is not coming to the party."
+        },
+        "597": {
+            "english": "notebook",
+            "chinese": "筆記本;手冊",
+            "property": "n.",
+            "sentence": "She wrote down her ideas in a notebook."
+        },
+        "598": {
+            "english": "nothing",
+            "chinese": "無事;無物;沒什麼",
+            "property": "pron.",
+            "sentence": "There is nothing to worry about."
+        },
+        "599": {
+            "english": "notice",
+            "chinese": "公告,通知,貼示",
+            "property": "n.",
+            "sentence": "They posted a notice about the meeting."
+        },
+        "600": {
+            "english": "November",
+            "chinese": "十一月",
+            "property": "n.",
+            "sentence": "Thanksgiving is celebrated in November."
+        },
+        "601": {
+            "english": "now",
+            "chinese": "現在,目前,此刻",
+            "property": "adv.",
+            "sentence": "He is busy right now."
+        },
+        "602": {
+            "english": "number",
+            "chinese": "數,數字",
+            "property": "n.",
+            "sentence": "Please write your phone number on the form."
+        },
+        "603": {
+            "english": "nurse",
+            "chinese": "護士",
+            "property": "n.",
+            "sentence": "The nurse took care of the patients."
+        },
+        "604": {
+            "english": "o'clock",
+            "chinese": "…點鐘",
+            "property": "adv.",
+            "sentence": "The meeting starts at three o'clock."
+        },
+        "605": {
+            "english": "October",
+            "chinese": "十月",
+            "property": "n.",
+            "sentence": "Halloween is celebrated in October."
+        },
+        "606": {
+            "english": "of",
+            "chinese": "…的,屬於",
+            "property": "prep.",
+            "sentence": "This is the book of my friend."
+        },
+        "607": {
+            "english": "off",
+            "chinese": "(離)開,(走)開,(隔)開",
+            "property": "adv.",
+            "sentence": "She took off her shoes at the door."
+        },
+        "608": {
+            "english": "office",
+            "chinese": "辦公室",
+            "property": "n.",
+            "sentence": "He works in a big office downtown."
+        },
+        "609": {
+            "english": "officer",
+            "chinese": "軍官",
+            "property": "n.",
+            "sentence": "The officer gave instructions to his team."
+        },
+        "610": {
+            "english": "often",
+            "chinese": "常常,時常",
+            "property": "adv.",
+            "sentence": "She often goes to the gym after work."
+        },
+        "611": {
+            "english": "oil",
+            "chinese": "油",
+            "property": "n.",
+            "sentence": "They use olive oil for cooking."
+        },
+        "612": {
+            "english": "O.K.",
+            "chinese": "可以的;不錯的",
+            "property": "adj.",
+            "sentence": "Everything will be O.K. after the repairs."
+        },
+        "613": {
+            "english": "old",
+            "chinese": "老的,上了年紀的",
+            "property": "adj.",
+            "sentence": "My grandfather is 80 years old."
+        },
+        "614": {
+            "english": "on",
+            "chinese": "在…上",
+            "property": "prep.",
+            "sentence": "The book is on the table."
+        },
+        "615": {
+            "english": "once",
+            "chinese": "一次,一回",
+            "property": "adv.",
+            "sentence": "She visits her parents once a week."
+        },
+        "616": {
+            "english": "one",
+            "chinese": "一;一個",
+            "property": "n.",
+            "sentence": "There is one apple left in the basket."
+        },
+        "617": {
+            "english": "only",
+            "chinese": "唯一的,僅有的",
+            "property": "adj.",
+            "sentence": "She is the only child in her family."
+        },
+        "618": {
+            "english": "open",
+            "chinese": "打開的",
+            "property": "adj.",
+            "sentence": "The door was left open."
+        },
+        "619": {
+            "english": "or",
+            "chinese": "或者;還是",
+            "property": "conj.",
+            "sentence": "Would you like tea or coffee?"
+        },
+        "620": {
+            "english": "orange",
+            "chinese": "橙,柳橙",
+            "property": "n.",
+            "sentence": "She peeled an orange for lunch."
+        },
+        "621": {
+            "english": "order",
+            "chinese": "順序,次序",
+            "property": "n.",
+            "sentence": "Please arrange the files in order."
+        },
+        "622": {
+            "english": "other",
+            "chinese": "另一個的;其餘的",
+            "property": "adj.",
+            "sentence": "I need the other book from the shelf."
+        },
+        "623": {
+            "english": "out",
+            "chinese": "出外;在外;向外",
+            "property": "adv.",
+            "sentence": "She went out to meet her friend."
+        },
+        "624": {
+            "english": "outside",
+            "chinese": "外面,外部",
+            "property": "n.",
+            "sentence": "The kids are playing outside."
+        },
+        "625": {
+            "english": "over",
+            "chinese": "在…之上,在正上方",
+            "property": "prep.",
+            "sentence": "The plane flew over the city."
+        },
+        "626": {
+            "english": "own",
+            "chinese": "自己的",
+            "property": "adj.",
+            "sentence": "He wants to buy his own car."
+        },
+        "627": {
+            "english": "pack",
+            "chinese": "包;捆;包裹;背包",
+            "property": "n.",
+            "sentence": "She carried a heavy pack on her hike."
+        },
+        "628": {
+            "english": "package",
+            "chinese": "包裹;包",
+            "property": "n.",
+            "sentence": "The package was delivered this morning."
+        },
+        "629": {
+            "english": "page",
+            "chinese": "(書等的)頁",
+            "property": "n.",
+            "sentence": "Please turn to page 10 of the book."
+        },
+        "630": {
+            "english": "paint",
+            "chinese": "油漆,塗料",
+            "property": "n.",
+            "sentence": "She used blue paint for the walls."
+        },
+        "631": {
+            "english": "pair",
+            "chinese": "一對,一雙",
+            "property": "n.",
+            "sentence": "He bought a new pair of shoes."
+        },
+        "632": {
+            "english": "pants",
+            "chinese": "褲子,寬鬆的長褲",
+            "property": "n.",
+            "sentence": "She wore her favorite pants to the party."
+        },
+        "633": {
+            "english": "paper",
+            "chinese": "紙",
+            "property": "n.",
+            "sentence": "Please write your answers on the paper."
+        },
+        "634": {
+            "english": "parent",
+            "chinese": "父親;母親",
+            "property": "n.",
+            "sentence": "Her parent came to pick her up from school."
+        },
+        "635": {
+            "english": "park",
+            "chinese": "公園",
+            "property": "n.",
+            "sentence": "They went for a walk in the park."
+        },
+        "636": {
+            "english": "part",
+            "chinese": "一部分,部分",
+            "property": "n.",
+            "sentence": "This part of the machine is broken."
+        },
+        "637": {
+            "english": "party",
+            "chinese": "聚會,集會,派對",
+            "property": "n.",
+            "sentence": "They are hosting a party this weekend."
+        },
+        "638": {
+            "english": "pass",
+            "chinese": "前進;通過;經過;超過",
+            "property": "v.",
+            "sentence": "She passed the test with flying colors."
+        },
+        "639": {
+            "english": "past",
+            "chinese": "過去的;剛過去的",
+            "property": "adj.",
+            "sentence": "He reflected on past experiences."
+        },
+        "640": {
+            "english": "pay",
+            "chinese": "付,支付;付款給",
+            "property": "v.",
+            "sentence": "She needs to pay for the groceries."
+        },
+        "641": {
+            "english": "PE",
+            "chinese": "體操教育",
+            "property": "n.",
+            "sentence": "PE class is scheduled for Friday."
+        },
+        "642": {
+            "english": "pen",
+            "chinese": "筆,鋼筆",
+            "property": "n.",
+            "sentence": "He wrote the letter with a black pen."
+        },
+        "643": {
+            "english": "pencil",
+            "chinese": "鉛筆",
+            "property": "n.",
+            "sentence": "She drew a picture using a pencil."
+        },
+        "644": {
+            "english": "people",
+            "chinese": "人們",
+            "property": "n.",
+            "sentence": "Many people attended the concert."
+        },
+        "645": {
+            "english": "perhaps",
+            "chinese": "大概,或許,可能",
+            "property": "adv.",
+            "sentence": "Perhaps we can visit the museum tomorrow."
+        },
+        "646": {
+            "english": "person",
+            "chinese": "人;傢伙",
+            "property": "n.",
+            "sentence": "He is a kind person who helps others."
+        },
+        "647": {
+            "english": "pet",
+            "chinese": "寵物",
+            "property": "n.",
+            "sentence": "She has a pet cat at home."
+        },
+        "648": {
+            "english": "piano",
+            "chinese": "鋼琴",
+            "property": "n.",
+            "sentence": "He learned to play the piano when he was young."
+        },
+        "649": {
+            "english": "pick",
+            "chinese": "挑選,選擇",
+            "property": "v.",
+            "sentence": "She picked the red flowers from the garden."
+        },
+        "650": {
+            "english": "picnic",
+            "chinese": "郊遊,野餐",
+            "property": "n.",
+            "sentence": "They are planning a picnic in the park this weekend."
+        },
+        "651": {
+            "english": "picture",
+            "chinese": "畫;畫像;圖片;照片",
+            "property": "n.",
+            "sentence": "She took a picture of the beautiful sunset."
+        },
+        "652": {
+            "english": "pie",
+            "chinese": "派,餡餅",
+            "property": "n.",
+            "sentence": "They baked an apple pie for dessert."
+        },
+        "653": {
+            "english": "piece",
+            "chinese": "一個,一張,一片;一塊",
+            "property": "n.",
+            "sentence": "She gave him a piece of chocolate."
+        },
+        "654": {
+            "english": "pig",
+            "chinese": "豬",
+            "property": "n.",
+            "sentence": "The pig was rolling in the mud."
+        },
+        "655": {
+            "english": "pink",
+            "chinese": "粉紅色,桃紅色",
+            "property": "n.",
+            "sentence": "She wore a pink dress to the party."
+        },
+        "656": {
+            "english": "pizza",
+            "chinese": "比薩餅",
+            "property": "n.",
+            "sentence": "They ordered a large pizza for dinner."
+        },
+        "657": {
+            "english": "place",
+            "chinese": "地方,地點;地區;位置",
+            "property": "n.",
+            "sentence": "This is a quiet place to read."
+        },
+        "658": {
+            "english": "plan",
+            "chinese": "計劃;方案;打算",
+            "property": "n.",
+            "sentence": "They made a plan to go on vacation."
+        },
+        "659": {
+            "english": "play",
+            "chinese": "玩耍;遊戲;戲弄;玩弄",
+            "property": "v.",
+            "sentence": "The children are playing in the park."
+        },
+        "660": {
+            "english": "player",
+            "chinese": "遊戲的人;下棋的人",
+            "property": "n.",
+            "sentence": "He is a skilled chess player."
+        },
+        "661": {
+            "english": "playground",
+            "chinese": "操場,遊樂場",
+            "property": "n.",
+            "sentence": "The kids were playing on the playground."
+        },
+        "662": {
+            "english": "please",
+            "chinese": "使高興,使喜歡,使滿意, 請",
+            "property": "v.",
+            "sentence": "Please close the door behind you."
+        },
+        "663": {
+            "english": "p.m.",
+            "chinese": "下午",
+            "property": "adv.",
+            "sentence": "The concert starts at 7 p.m."
+        },
+        "664": {
+            "english": "point",
+            "chinese": "尖端;重點",
+            "property": "n.",
+            "sentence": "He made a good point during the discussion."
+        },
+        "665": {
+            "english": "police",
+            "chinese": "警察,警方",
+            "property": "n.",
+            "sentence": "The police are investigating the incident."
+        },
+        "666": {
+            "english": "polite",
+            "chinese": "有禮貌的,客氣的",
+            "property": "adj.",
+            "sentence": "She is always polite when speaking to others."
+        },
+        "667": {
+            "english": "poor",
+            "chinese": "貧窮的,貧困的",
+            "property": "adj.",
+            "sentence": "The family was very poor, but they were happy."
+        },
+        "668": {
+            "english": "popcorn",
+            "chinese": "爆玉米花",
+            "property": "n.",
+            "sentence": "They bought a large bucket of popcorn at the movies."
+        },
+        "669": {
+            "english": "popular",
+            "chinese": "大眾的;受歡迎的",
+            "property": "adj.",
+            "sentence": "She is very popular at school."
+        },
+        "670": {
+            "english": "pork",
+            "chinese": "豬肉",
+            "property": "n.",
+            "sentence": "They cooked pork chops for dinner."
+        },
+        "671": {
+            "english": "possible",
+            "chinese": "可能的",
+            "property": "adj.",
+            "sentence": "Is it possible to finish the work today?"
+        },
+        "672": {
+            "english": "post office",
+            "chinese": "郵局",
+            "property": "n.",
+            "sentence": "He went to the post office to mail a letter."
+        },
+        "673": {
+            "english": "postcard",
+            "chinese": "郵政明信片",
+            "property": "n.",
+            "sentence": "She sent a postcard from her vacation."
+        },
+        "674": {
+            "english": "pound",
+            "chinese": "磅",
+            "property": "n.",
+            "sentence": "The package weighs five pounds."
+        },
+        "675": {
+            "english": "practice",
+            "chinese": "實行,實施,實踐",
+            "property": "n.",
+            "sentence": "He needs more practice to improve his skills."
+        },
+        "676": {
+            "english": "prepare",
+            "chinese": "準備;使…準備好",
+            "property": "v.",
+            "sentence": "She prepared dinner for her family."
+        },
+        "677": {
+            "english": "present",
+            "chinese": "出席的,在場的",
+            "property": "adj.",
+            "sentence": "All the students were present for the exam."
+        },
+        "678": {
+            "english": "pretty",
+            "chinese": "漂亮的;秀麗的;可愛的",
+            "property": "adj.",
+            "sentence": "She wore a pretty dress to the wedding."
+        },
+        "679": {
+            "english": "price",
+            "chinese": "價格,價錢",
+            "property": "n.",
+            "sentence": "The price of the book was reasonable."
+        },
+        "680": {
+            "english": "problem",
+            "chinese": "問題,疑難問題",
+            "property": "n.",
+            "sentence": "She solved the problem quickly."
+        },
+        "681": {
+            "english": "program",
+            "chinese": "節目單;程序表",
+            "property": "n.",
+            "sentence": "He watched his favorite TV program last night."
+        },
+        "682": {
+            "english": "proud",
+            "chinese": "驕傲的,有自尊心的",
+            "property": "adj.",
+            "sentence": "She is proud of her accomplishments."
+        },
+        "683": {
+            "english": "public",
+            "chinese": "公眾的",
+            "property": "adj.",
+            "sentence": "The park is open to the public."
+        },
+        "684": {
+            "english": "pull",
+            "chinese": "拉,拖,牽,拽;搬走",
+            "property": "v.",
+            "sentence": "He pulled the door open."
+        },
+        "685": {
+            "english": "purple",
+            "chinese": "紫色",
+            "property": "n.",
+            "sentence": "She wore a purple dress to the event."
+        },
+        "686": {
+            "english": "push",
+            "chinese": "推;推動,推進",
+            "property": "v.",
+            "sentence": "He pushed the shopping cart through the store."
+        },
+        "687": {
+            "english": "put",
+            "chinese": "放,擺,裝",
+            "property": "v.",
+            "sentence": "She put the keys on the table."
+        },
+        "688": {
+            "english": "queen",
+            "chinese": "女王",
+            "property": "n.",
+            "sentence": "The queen addressed her people during the ceremony."
+        },
+        "689": {
+            "english": "question",
+            "chinese": "問題;詢問",
+            "property": "n.",
+            "sentence": "She asked the teacher a question about the lesson."
+        },
+        "690": {
+            "english": "quick",
+            "chinese": "快的,迅速的",
+            "property": "adj.",
+            "sentence": "He made a quick decision."
+        },
+        "691": {
+            "english": "quiet",
+            "chinese": "安靜的;輕聲的;沈默的",
+            "property": "adj.",
+            "sentence": "The library is a quiet place to study."
+        },
+        "692": {
+            "english": "quite",
+            "chinese": "完全,徹底",
+            "property": "adv.",
+            "sentence": "She is quite talented at playing the piano."
+        },
+        "693": {
+            "english": "rabbit",
+            "chinese": "兔;野兔",
+            "property": "n.",
+            "sentence": "The rabbit hopped across the garden."
+        },
+        "694": {
+            "english": "radio",
+            "chinese": "無線電;無線電話",
+            "property": "n.",
+            "sentence": "He listens to the radio every morning."
+        },
+        "695": {
+            "english": "railway",
+            "chinese": "鐵路;鐵道",
+            "property": "n.",
+            "sentence": "The railway connects the two cities."
+        },
+        "696": {
+            "english": "rain",
+            "chinese": "雨,雨水",
+            "property": "n.",
+            "sentence": "The rain soaked their clothes."
+        },
+        "697": {
+            "english": "rainbow",
+            "chinese": "彩虹",
+            "property": "n.",
+            "sentence": "A rainbow appeared after the rain."
+        },
+        "698": {
+            "english": "rainy",
+            "chinese": "下雨的;多雨的",
+            "property": "adj.",
+            "sentence": "It was a rainy afternoon, so they stayed indoors."
+        },
+        "699": {
+            "english": "read",
+            "chinese": "讀,閱讀;朗讀",
+            "property": "v.",
+            "sentence": "She loves to read mystery novels."
+        },
+        "700": {
+            "english": "ready",
+            "chinese": "準備好的",
+            "property": "adj.",
+            "sentence": "The dinner is ready to be served."
+        },
+        "701": {
+            "english": "real",
+            "chinese": "真的,真正的;衷心的;真誠的",
+            "property": "adj.",
+            "sentence": "The diamond is real, not fake."
+        },
+        "702": {
+            "english": "really",
+            "chinese": "真地,確實,實際上",
+            "property": "adv.",
+            "sentence": "I really enjoyed the movie."
+        },
+        "703": {
+            "english": "red",
+            "chinese": "紅的,紅色的",
+            "property": "adj.",
+            "sentence": "She wore a red dress to the party."
+        },
+        "704": {
+            "english": "refrigerator",
+            "chinese": "冰箱,雪櫃;冷藏室;冷凍庫",
+            "property": "n.",
+            "sentence": "Please put the milk in the refrigerator."
+        },
+        "705": {
+            "english": "remember",
+            "chinese": "記得,想起,回憶起",
+            "property": "v.",
+            "sentence": "Do you remember where you left your keys?"
+        },
+        "706": {
+            "english": "repeat",
+            "chinese": "重複;重做;重說",
+            "property": "v.",
+            "sentence": "Can you repeat the question, please?"
+        },
+        "707": {
+            "english": "rest",
+            "chinese": "休息;休養;休息時間",
+            "property": "n.",
+            "sentence": "After the long walk, they needed to rest."
+        },
+        "708": {
+            "english": "restaurant",
+            "chinese": "餐館,飯店",
+            "property": "n.",
+            "sentence": "We ate dinner at a fancy restaurant."
+        },
+        "709": {
+            "english": "restroom",
+            "chinese": "休息室, 【美】廁所",
+            "property": "n.",
+            "sentence": "He went to the restroom after the meal."
+        },
+        "710": {
+            "english": "rice",
+            "chinese": "稻,穀",
+            "property": "n.",
+            "sentence": "They eat rice with almost every meal."
+        },
+        "711": {
+            "english": "rich",
+            "chinese": "有錢的,富有的",
+            "property": "adj.",
+            "sentence": "The businessman became rich through hard work."
+        },
+        "712": {
+            "english": "ride",
+            "chinese": "騎馬,乘車",
+            "property": "v.",
+            "sentence": "She loves to ride her bike through the park."
+        },
+        "713": {
+            "english": "right",
+            "chinese": "右的,右邊的; 正確的",
+            "property": "adj.",
+            "sentence": "Turn right at the next street."
+        },
+        "714": {
+            "english": "ring",
+            "chinese": "圈;環;環形物",
+            "property": "n.",
+            "sentence": "She wore a beautiful diamond ring."
+        },
+        "715": {
+            "english": "river",
+            "chinese": "江,河",
+            "property": "n.",
+            "sentence": "They went fishing in the river."
+        },
+        "716": {
+            "english": "road",
+            "chinese": "路,道路,公路",
+            "property": "n.",
+            "sentence": "The road was closed due to construction."
+        },
+        "717": {
+            "english": "ROC",
+            "chinese": "中華民國",
+            "property": "n.",
+            "sentence": "The official name of Taiwan is the Republic of China (ROC)."
+        },
+        "718": {
+            "english": "room",
+            "chinese": "房間,室",
+            "property": "n.",
+            "sentence": "There are three bedrooms in the house."
+        },
+        "719": {
+            "english": "rose",
+            "chinese": "薔薇花,玫瑰花",
+            "property": "n.",
+            "sentence": "He gave her a red rose for Valentine’s Day."
+        },
+        "720": {
+            "english": "round",
+            "chinese": "圓的,圓形的;球形的",
+            "property": "adj.",
+            "sentence": "The earth is round like a ball."
+        },
+        "721": {
+            "english": "rule",
+            "chinese": "規則,規定,章程,條例",
+            "property": "n.",
+            "sentence": "The school has strict rules about attendance."
+        },
+        "722": {
+            "english": "ruler",
+            "chinese": "統治者;管理者;支配者",
+            "property": "n.",
+            "sentence": "The king was a fair and just ruler."
+        },
+        "723": {
+            "english": "run",
+            "chinese": "跑,奔",
+            "property": "v.",
+            "sentence": "He likes to run in the park every morning."
+        },
+        "724": {
+            "english": "sad",
+            "chinese": "悲哀的;令人悲痛的,可悲的",
+            "property": "adj.",
+            "sentence": "She felt sad after hearing the bad news."
+        },
+        "725": {
+            "english": "safe",
+            "chinese": "安全的,無危險的,保險的",
+            "property": "adj.",
+            "sentence": "The children are safe at school."
+        },
+        "726": {
+            "english": "salad",
+            "chinese": "沙拉",
+            "property": "n.",
+            "sentence": "She made a fresh salad for lunch."
+        },
+        "727": {
+            "english": "sale",
+            "chinese": "賣,出售",
+            "property": "n.",
+            "sentence": "There was a big sale at the store last weekend."
+        },
+        "728": {
+            "english": "salt",
+            "chinese": "鹽",
+            "property": "n.",
+            "sentence": "Add a pinch of salt to the soup."
+        },
+        "729": {
+            "english": "same",
+            "chinese": "同一的",
+            "property": "adj.",
+            "sentence": "They were wearing the same shirt."
+        },
+        "730": {
+            "english": "sandwich",
+            "chinese": "三明治",
+            "property": "n.",
+            "sentence": "I had a ham sandwich for lunch."
+        },
+        "731": {
+            "english": "Saturday",
+            "chinese": "星期六",
+            "property": "n.",
+            "sentence": "They are planning a picnic for Saturday."
+        },
+        "732": {
+            "english": "save",
+            "chinese": "救,挽救",
+            "property": "v.",
+            "sentence": "The firefighter saved the cat from the tree."
+        },
+        "733": {
+            "english": "say",
+            "chinese": "說,講,唸,誦",
+            "property": "v.",
+            "sentence": "She has something important to say."
+        },
+        "734": {
+            "english": "school",
+            "chinese": "學校",
+            "property": "n.",
+            "sentence": "The children go to school every weekday."
+        },
+        "735": {
+            "english": "sea",
+            "chinese": "海,海洋",
+            "property": "n.",
+            "sentence": "They went sailing on the open sea."
+        },
+        "736": {
+            "english": "season",
+            "chinese": "季,季節",
+            "property": "n.",
+            "sentence": "Autumn is her favorite season."
+        },
+        "737": {
+            "english": "seat",
+            "chinese": "座,座位",
+            "property": "n.",
+            "sentence": "Please take your seat before the movie starts."
+        },
+        "738": {
+            "english": "second",
+            "chinese": "第二的;第二次的",
+            "property": "adj.",
+            "sentence": "He finished second in the race."
+        },
+        "739": {
+            "english": "see",
+            "chinese": "看見,看到",
+            "property": "v.",
+            "sentence": "Did you see the new movie?"
+        },
+        "740": {
+            "english": "seldom",
+            "chinese": "不常,很少;難得",
+            "property": "adv.",
+            "sentence": "She seldom goes out after dark."
+        },
+        "741": {
+            "english": "sell",
+            "chinese": "賣,銷售",
+            "property": "v.",
+            "sentence": "They decided to sell their old car."
+        },
+        "742": {
+            "english": "send",
+            "chinese": "發送,寄",
+            "property": "v.",
+            "sentence": "She will send a letter to her friend tomorrow."
+        },
+        "743": {
+            "english": "senior high school",
+            "chinese": "高中",
+            "property": "n.",
+            "sentence": "He will graduate from senior high school next year."
+        },
+        "744": {
+            "english": "sentence",
+            "chinese": "句子",
+            "property": "n.",
+            "sentence": "She wrote a long sentence in her essay."
+        },
+        "745": {
+            "english": "September",
+            "chinese": "九月",
+            "property": "n.",
+            "sentence": "School usually starts in September."
+        },
+        "746": {
+            "english": "serious",
+            "chinese": "嚴重的;危急的;令人擔心的",
+            "property": "adj.",
+            "sentence": "The accident caused serious injuries."
+        },
+        "747": {
+            "english": "seven",
+            "chinese": "七的;七個的",
+            "property": "n.",
+            "sentence": "She has seven books on her shelf."
+        },
+        "748": {
+            "english": "seventeen",
+            "chinese": "十七",
+            "property": "n.",
+            "sentence": "He is seventeen years old."
+        },
+        "749": {
+            "english": "seventh",
+            "chinese": "第七的,第七個的",
+            "property": "adj.",
+            "sentence": "She finished seventh in the race."
+        },
+        "750": {
+            "english": "seventy",
+            "chinese": "七十",
+            "property": "n.",
+            "sentence": "There are seventy students in the auditorium."
+        },
+        "751": {
+            "english": "several",
+            "chinese": "幾個的,數個的",
+            "property": "adj.",
+            "sentence": "There are several options to choose from."
+        },
+        "752": {
+            "english": "shall",
+            "chinese": "將,會",
+            "property": "v.",
+            "sentence": "I shall help you with your homework."
+        },
+        "753": {
+            "english": "shape",
+            "chinese": "形狀;樣子,外形",
+            "property": "n.",
+            "sentence": "The table is round in shape."
+        },
+        "754": {
+            "english": "share",
+            "chinese": "一份,份兒;股份",
+            "property": "n.",
+            "sentence": "She gave me a share of her dessert."
+        },
+        "755": {
+            "english": "she",
+            "chinese": "她",
+            "property": "pron.",
+            "sentence": "She is my best friend."
+        },
+        "756": {
+            "english": "sheep",
+            "chinese": "羊,綿羊",
+            "property": "n.",
+            "sentence": "The sheep were grazing in the field."
+        },
+        "757": {
+            "english": "ship",
+            "chinese": "船,艦",
+            "property": "n.",
+            "sentence": "They sailed across the ocean on a large ship."
+        },
+        "758": {
+            "english": "shirt",
+            "chinese": "襯衫;男式襯衫",
+            "property": "n.",
+            "sentence": "He bought a new shirt for the interview."
+        },
+        "759": {
+            "english": "shoes",
+            "chinese": "鞋",
+            "property": "n.",
+            "sentence": "She wore her favorite shoes to the party."
+        },
+        "760": {
+            "english": "shop",
+            "chinese": "商店,零售店",
+            "property": "n.",
+            "sentence": "They went to the shop to buy groceries."
+        },
+        "761": {
+            "english": "shopkeeper",
+            "chinese": "店主,商店經理",
+            "property": "n.",
+            "sentence": "The shopkeeper greeted the customers with a smile."
+        },
+        "762": {
+            "english": "short",
+            "chinese": "短的;矮的",
+            "property": "adj.",
+            "sentence": "He is shorter than his brother."
+        },
+        "763": {
+            "english": "should",
+            "chinese": "將,應該",
+            "property": "v.",
+            "sentence": "You should finish your homework before going out."
+        },
+        "764": {
+            "english": "shoulder",
+            "chinese": "肩,肩膀",
+            "property": "n.",
+            "sentence": "She carried the bag on her shoulder."
+        },
+        "765": {
+            "english": "show",
+            "chinese": "顯示,露出",
+            "property": "v.",
+            "sentence": "He showed me how to solve the problem."
+        },
+        "766": {
+            "english": "shy",
+            "chinese": "怕羞的,靦腆的",
+            "property": "adj.",
+            "sentence": "She is too shy to speak in front of the class."
+        },
+        "767": {
+            "english": "sick",
+            "chinese": "病的,有病的;病人的",
+            "property": "adj.",
+            "sentence": "She stayed home from school because she was sick."
+        },
+        "768": {
+            "english": "side",
+            "chinese": "邊;面;側;端",
+            "property": "n.",
+            "sentence": "The children sat on the side of the pool."
+        },
+        "769": {
+            "english": "sidewalk",
+            "chinese": "人行道",
+            "property": "n.",
+            "sentence": "They walked along the sidewalk together."
+        },
+        "770": {
+            "english": "simple",
+            "chinese": "簡單的,簡易的,簡明的",
+            "property": "adj.",
+            "sentence": "The instructions were simple and easy to follow."
+        },
+        "771": {
+            "english": "since",
+            "chinese": "此後;從那時到現在",
+            "property": "adv.",
+            "sentence": "I haven't seen her since last week."
+        },
+        "772": {
+            "english": "sing",
+            "chinese": "唱,唱歌",
+            "property": "v.",
+            "sentence": "She loves to sing in the choir."
+        },
+        "773": {
+            "english": "singer",
+            "chinese": "歌唱家,歌手",
+            "property": "n.",
+            "sentence": "The singer performed beautifully at the concert."
+        },
+        "774": {
+            "english": "sir",
+            "chinese": "先生,閣下;老師;長官",
+            "property": "n.",
+            "sentence": "The student politely addressed the teacher as 'sir'."
+        },
+        "775": {
+            "english": "sister",
+            "chinese": "姐妹;姐姐,妹妹",
+            "property": "n.",
+            "sentence": "She is my older sister."
+        },
+        "776": {
+            "english": "sit",
+            "chinese": "坐,坐著;就座",
+            "property": "v.",
+            "sentence": "Please sit down and make yourself comfortable."
+        },
+        "777": {
+            "english": "six",
+            "chinese": "六的;六個的",
+            "property": "n.",
+            "sentence": "There are six apples in the basket."
+        },
+        "778": {
+            "english": "sixteen",
+            "chinese": "十六",
+            "property": "n.",
+            "sentence": "He will turn sixteen next month."
+        },
+        "779": {
+            "english": "sixth",
+            "chinese": "第六的,第六個的",
+            "property": "adj.",
+            "sentence": "She finished in sixth place in the competition."
+        },
+        "780": {
+            "english": "sixty",
+            "chinese": "六十",
+            "property": "n.",
+            "sentence": "Her grandfather is sixty years old."
+        },
+        "781": {
+            "english": "size",
+            "chinese": "尺寸,大小;多少",
+            "property": "n.",
+            "sentence": "What size shoes do you wear?"
+        },
+        "782": {
+            "english": "skirt",
+            "chinese": "裙子;襯裙",
+            "property": "n.",
+            "sentence": "She wore a blue skirt to the party."
+        },
+        "783": {
+            "english": "sky",
+            "chinese": "天,天空",
+            "property": "n.",
+            "sentence": "The sky was clear and blue today."
+        },
+        "784": {
+            "english": "sleep",
+            "chinese": "睡,睡覺",
+            "property": "v.",
+            "sentence": "He went to sleep early last night."
+        },
+        "785": {
+            "english": "slow",
+            "chinese": "慢的,緩緩的;遲緩的",
+            "property": "adj.",
+            "sentence": "The car was driving very slow on the highway."
+        },
+        "786": {
+            "english": "small",
+            "chinese": "小的;小型的",
+            "property": "adj.",
+            "sentence": "She has a small dog as a pet."
+        },
+        "787": {
+            "english": "smart",
+            "chinese": "漂亮的;時髦的;瀟灑的",
+            "property": "adj.",
+            "sentence": "He looked very smart in his new suit."
+        },
+        "788": {
+            "english": "smell",
+            "chinese": "嗅,聞",
+            "property": "v.",
+            "sentence": "The flowers smell wonderful."
+        },
+        "789": {
+            "english": "smile",
+            "chinese": "微笑;笑",
+            "property": "v.",
+            "sentence": "She smiled when she saw her friend."
+        },
+        "790": {
+            "english": "smoke",
+            "chinese": "煙",
+            "property": "n.",
+            "sentence": "There was smoke coming from the chimney."
+        },
+        "791": {
+            "english": "snack",
+            "chinese": "快餐;小吃,點心",
+            "property": "n.",
+            "sentence": "She had a small snack between meals."
+        },
+        "792": {
+            "english": "snake",
+            "chinese": "蛇",
+            "property": "n.",
+            "sentence": "They saw a snake in the garden."
+        },
+        "793": {
+            "english": "snow",
+            "chinese": "雪",
+            "property": "n.",
+            "sentence": "The ground was covered with snow."
+        },
+        "794": {
+            "english": "so",
+            "chinese": "這麼,那麼;多麼,非常",
+            "property": "adv.",
+            "sentence": "It was so cold outside yesterday."
+        },
+        "795": {
+            "english": "sock(s)",
+            "chinese": "短襪",
+            "property": "n.",
+            "sentence": "He bought a new pair of socks."
+        },
+        "796": {
+            "english": "sofa",
+            "chinese": "沙發,長椅",
+            "property": "n.",
+            "sentence": "They sat on the sofa and watched a movie."
+        },
+        "797": {
+            "english": "some",
+            "chinese": "某一,某個",
+            "property": "adj.",
+            "sentence": "I need some help with this task."
+        },
+        "798": {
+            "english": "someone",
+            "chinese": "某人,有人",
+            "property": "pron.",
+            "sentence": "Someone left their phone on the table."
+        },
+        "799": {
+            "english": "something",
+            "chinese": "某事;某物",
+            "property": "pron.",
+            "sentence": "There is something strange about this place."
+        },
+        "800": {
+            "english": "sometimes",
+            "chinese": "有時,間或",
+            "property": "adv.",
+            "sentence": "He sometimes forgets to lock the door."
+        },
+        "801": {
+            "english": "somewhere",
+            "chinese": "在某處;到某處",
+            "property": "adv.",
+            "sentence": "She left her keys somewhere in the house."
+        },
+        "802": {
+            "english": "son",
+            "chinese": "兒子;養子;繼子",
+            "property": "n.",
+            "sentence": "Their son is graduating from college this year."
+        },
+        "803": {
+            "english": "song",
+            "chinese": "歌,歌曲",
+            "property": "n.",
+            "sentence": "She sang her favorite song at the party."
+        },
+        "804": {
+            "english": "soon",
+            "chinese": "不久,很快地",
+            "property": "adv.",
+            "sentence": "We will be leaving soon."
+        },
+        "805": {
+            "english": "sorry",
+            "chinese": "感到難過的;感到可憐的",
+            "property": "adj.",
+            "sentence": "I am sorry for being late."
+        },
+        "806": {
+            "english": "sound",
+            "chinese": "聲音,響聲",
+            "property": "n.",
+            "sentence": "She heard the sound of birds chirping outside."
+        },
+        "807": {
+            "english": "soup",
+            "chinese": "湯",
+            "property": "n.",
+            "sentence": "She made chicken soup for dinner."
+        },
+        "808": {
+            "english": "south",
+            "chinese": "南;南方",
+            "property": "n.",
+            "sentence": "They traveled to the south for vacation."
+        },
+        "809": {
+            "english": "space",
+            "chinese": "空間",
+            "property": "n.",
+            "sentence": "There is not enough space in the room for a big sofa."
+        },
+        "810": {
+            "english": "speak",
+            "chinese": "說話,講話",
+            "property": "v.",
+            "sentence": "She speaks English fluently."
+        },
+        "811": {
+            "english": "special",
+            "chinese": "特別的,特殊的",
+            "property": "adj.",
+            "sentence": "They prepared a special dinner for the celebration."
+        },
+        "812": {
+            "english": "spell",
+            "chinese": "用字母拼;拼寫",
+            "property": "v.",
+            "sentence": "Can you spell your name for me?"
+        },
+        "813": {
+            "english": "spend",
+            "chinese": "花(錢),花費",
+            "property": "v.",
+            "sentence": "He spent a lot of money on his new car."
+        },
+        "814": {
+            "english": "spoon",
+            "chinese": "匙,湯匙",
+            "property": "n.",
+            "sentence": "She used a spoon to stir her tea."
+        },
+        "815": {
+            "english": "sports",
+            "chinese": "運動的;適用於運動的",
+            "property": "adj.",
+            "sentence": "He bought new sports shoes for running."
+        },
+        "816": {
+            "english": "spring",
+            "chinese": "春季,春天",
+            "property": "n.",
+            "sentence": "Spring is her favorite season."
+        },
+        "817": {
+            "english": "square",
+            "chinese": "正方形;方形物;方塊",
+            "property": "n.",
+            "sentence": "She cut the cake into small squares."
+        },
+        "818": {
+            "english": "stand",
+            "chinese": "站立,站著",
+            "property": "v.",
+            "sentence": "They stood in line to buy tickets."
+        },
+        "819": {
+            "english": "star",
+            "chinese": "星,恆星",
+            "property": "n.",
+            "sentence": "The sky was filled with bright stars."
+        },
+        "820": {
+            "english": "start",
+            "chinese": "出發,起程",
+            "property": "v.",
+            "sentence": "They will start their journey tomorrow morning."
+        },
+        "821": {
+            "english": "station",
+            "chinese": "車站",
+            "property": "n.",
+            "sentence": "The train arrived at the station on time."
+        },
+        "822": {
+            "english": "stay",
+            "chinese": "停留;留下;暫住",
+            "property": "v.",
+            "sentence": "They decided to stay in the city for the weekend."
+        },
+        "823": {
+            "english": "steak",
+            "chinese": "牛排;肉排;魚排",
+            "property": "n.",
+            "sentence": "He ordered a steak for dinner."
+        },
+        "824": {
+            "english": "still",
+            "chinese": "還,仍舊",
+            "property": "adv.",
+            "sentence": "She still has a lot of work to do."
+        },
+        "825": {
+            "english": "stomach",
+            "chinese": "胃",
+            "property": "n.",
+            "sentence": "His stomach hurt after eating too much."
+        },
+        "826": {
+            "english": "stop",
+            "chinese": "停止;中止,止住",
+            "property": "v.",
+            "sentence": "She told him to stop talking."
+        },
+        "827": {
+            "english": "store",
+            "chinese": "貯存",
+            "property": "v.",
+            "sentence": "They stored the food in the pantry."
+        },
+        "828": {
+            "english": "story",
+            "chinese": "故事;傳聞;敘述",
+            "property": "n.",
+            "sentence": "He told an interesting story to the children."
+        },
+        "829": {
+            "english": "strange",
+            "chinese": "奇怪的,奇妙的",
+            "property": "adj.",
+            "sentence": "She heard a strange noise coming from the attic."
+        },
+        "830": {
+            "english": "stranger",
+            "chinese": "陌生人",
+            "property": "n.",
+            "sentence": "A stranger asked her for directions."
+        },
+        "831": {
+            "english": "street",
+            "chinese": "街,街道",
+            "property": "n.",
+            "sentence": "The street was crowded with people."
+        },
+        "832": {
+            "english": "strong",
+            "chinese": "強壯的,強健的",
+            "property": "adj.",
+            "sentence": "He is very strong from lifting weights."
+        },
+        "833": {
+            "english": "student",
+            "chinese": "學生",
+            "property": "n.",
+            "sentence": "She is a student at the local university."
+        },
+        "834": {
+            "english": "study",
+            "chinese": "學習;研究;調查",
+            "property": "v.",
+            "sentence": "He needs to study for his exams."
+        },
+        "835": {
+            "english": "stupid",
+            "chinese": "愚蠢的,笨的",
+            "property": "adj.",
+            "sentence": "It was a stupid mistake to forget my keys."
+        },
+        "836": {
+            "english": "successful",
+            "chinese": "成功的;結果圓滿的",
+            "property": "adj.",
+            "sentence": "She is a successful businesswoman."
+        },
+        "837": {
+            "english": "sugar",
+            "chinese": "糖",
+            "property": "n.",
+            "sentence": "He added sugar to his coffee."
+        },
+        "838": {
+            "english": "summer",
+            "chinese": "夏天",
+            "property": "n.",
+            "sentence": "They love going to the beach in the summer."
+        },
+        "839": {
+            "english": "sun",
+            "chinese": "太陽",
+            "property": "n.",
+            "sentence": "The sun was shining brightly in the sky."
+        },
+        "840": {
+            "english": "Sunday",
+            "chinese": "星期日",
+            "property": "n.",
+            "sentence": "They usually relax at home on Sunday."
+        },
+        "841": {
+            "english": "sunny",
+            "chinese": "陽光充足的;和煦的,暖和的",
+            "property": "adj.",
+            "sentence": "It was a sunny day, perfect for a picnic."
+        },
+        "842": {
+            "english": "supermarket",
+            "chinese": "超級市場",
+            "property": "n.",
+            "sentence": "They went to the supermarket to buy groceries."
+        },
+        "843": {
+            "english": "sure",
+            "chinese": "確信的,有把握的",
+            "property": "adj.",
+            "sentence": "I am sure that she will arrive on time."
+        },
+        "844": {
+            "english": "surprise",
+            "chinese": "驚奇,詫異",
+            "property": "n.",
+            "sentence": "She planned a surprise party for her friend."
+        },
+        "845": {
+            "english": "surprised",
+            "chinese": "感到驚訝的;出人意外的",
+            "property": "adj.",
+            "sentence": "He was surprised by the unexpected gift."
+        },
+        "846": {
+            "english": "sweater",
+            "chinese": "毛線衣;(厚)運動衫",
+            "property": "n.",
+            "sentence": "She wore a warm sweater on the cold day."
+        },
+        "847": {
+            "english": "sweet",
+            "chinese": "甜的",
+            "property": "adj.",
+            "sentence": "The cake was delicious and sweet."
+        },
+        "848": {
+            "english": "swim",
+            "chinese": "游,游泳",
+            "property": "v.",
+            "sentence": "They went to the pool to swim."
+        },
+        "849": {
+            "english": "table",
+            "chinese": "桌子;餐桌",
+            "property": "n.",
+            "sentence": "They set the table for dinner."
+        },
+        "850": {
+            "english": "Taiwan",
+            "chinese": "臺灣",
+            "property": "n.",
+            "sentence": "Taiwan is known for its beautiful landscapes."
+        },
+        "851": {
+            "english": "take",
+            "chinese": "拿,取;握,抱",
+            "property": "v.",
+            "sentence": "Please take this book with you."
+        },
+        "852": {
+            "english": "talk",
+            "chinese": "講話;談話;演講",
+            "property": "v.",
+            "sentence": "They talked for hours on the phone."
+        },
+        "853": {
+            "english": "tall",
+            "chinese": "身材高的;高大的",
+            "property": "adj.",
+            "sentence": "He is taller than all his friends."
+        },
+        "854": {
+            "english": "tape",
+            "chinese": "帶子,線帶;狹布條",
+            "property": "n.",
+            "sentence": "She used tape to wrap the gift."
+        },
+        "855": {
+            "english": "taste",
+            "chinese": "味覺",
+            "property": "n.",
+            "sentence": "The dish has a very unique taste."
+        },
+        "856": {
+            "english": "taxi",
+            "chinese": "計程車",
+            "property": "n.",
+            "sentence": "They took a taxi to the airport."
+        },
+        "857": {
+            "english": "tea",
+            "chinese": "茶;茶葉",
+            "property": "n.",
+            "sentence": "She prefers green tea in the morning."
+        },
+        "858": {
+            "english": "teach",
+            "chinese": "教,講授;訓練",
+            "property": "v.",
+            "sentence": "He teaches math at the local school."
+        },
+        "859": {
+            "english": "teacher",
+            "chinese": "老師,教師",
+            "property": "n.",
+            "sentence": "Her teacher helped her understand the lesson."
+        },
+        "860": {
+            "english": "team",
+            "chinese": "隊;組;班",
+            "property": "n.",
+            "sentence": "The basketball team won the championship."
+        },
+        "861": {
+            "english": "teenager",
+            "chinese": "十幾歲的青少年",
+            "property": "n.",
+            "sentence": "He became a teenager when he turned thirteen."
+        },
+        "862": {
+            "english": "telephone",
+            "chinese": "(phone)電話機",
+            "property": "n.",
+            "sentence": "She answered the telephone when it rang."
+        },
+        "863": {
+            "english": "television",
+            "chinese": "(TV)電視,電視廣播",
+            "property": "n.",
+            "sentence": "They watched the news on television."
+        },
+        "864": {
+            "english": "tell",
+            "chinese": "告訴;講述,說",
+            "property": "v.",
+            "sentence": "Please tell me about your day."
+        },
+        "865": {
+            "english": "ten",
+            "chinese": "十的;十個的",
+            "property": "n.",
+            "sentence": "There are ten apples in the basket."
+        },
+        "866": {
+            "english": "tennis",
+            "chinese": "網球(運動)",
+            "property": "n.",
+            "sentence": "She plays tennis every weekend."
+        },
+        "867": {
+            "english": "tenth",
+            "chinese": "第十的,第十個的",
+            "property": "adj.",
+            "sentence": "He finished in tenth place in the race."
+        },
+        "868": {
+            "english": "test",
+            "chinese": "試驗",
+            "property": "n.",
+            "sentence": "The students are preparing for the test."
+        },
+        "869": {
+            "english": "than",
+            "chinese": "比,比較",
+            "property": "conj.",
+            "sentence": "She is taller than her brother."
+        },
+        "870": {
+            "english": "thank",
+            "chinese": "感謝",
+            "property": "v.",
+            "sentence": "I want to thank you for your help."
+        },
+        "871": {
+            "english": "that",
+            "chinese": "那;那個,那人,那事,那東西",
+            "property": "pron.",
+            "sentence": "That is the book I was talking about."
+        },
+        "872": {
+            "english": "the",
+            "chinese": "這(個),那(個)",
+            "property": "art.",
+            "sentence": "The sun is shining brightly."
+        },
+        "873": {
+            "english": "theater",
+            "chinese": "劇場;電影院",
+            "property": "n.",
+            "sentence": "They went to the theater to watch a play."
+        },
+        "874": {
+            "english": "then",
+            "chinese": "那時,當時",
+            "property": "adv.",
+            "sentence": "They finished dinner, and then they went for a walk."
+        },
+        "875": {
+            "english": "there",
+            "chinese": "在那裡;到那裡;向那裡",
+            "property": "adv.",
+            "sentence": "They sat over there by the window."
+        },
+        "876": {
+            "english": "these",
+            "chinese": "這些",
+            "property": "pron.",
+            "sentence": "These are my favorite books."
+        },
+        "877": {
+            "english": "they",
+            "chinese": "(他們;她們;它們)",
+            "property": "pron.",
+            "sentence": "They are going to the park this afternoon."
+        },
+        "878": {
+            "english": "thin",
+            "chinese": "薄的;細的;瘦的",
+            "property": "adj.",
+            "sentence": "She is tall and thin."
+        },
+        "879": {
+            "english": "thing",
+            "chinese": "物,東西",
+            "property": "n.",
+            "sentence": "What is that thing on the table?"
+        },
+        "880": {
+            "english": "think",
+            "chinese": "想;思索",
+            "property": "v.",
+            "sentence": "I need to think about the best solution."
+        },
+        "881": {
+            "english": "third",
+            "chinese": "第三的",
+            "property": "adj.",
+            "sentence": "He came in third place in the race."
+        },
+        "882": {
+            "english": "thirsty",
+            "chinese": "口乾的,渴的",
+            "property": "adj.",
+            "sentence": "After running, she was very thirsty."
+        },
+        "883": {
+            "english": "thirteen",
+            "chinese": "十三的;十三個的",
+            "property": "n.",
+            "sentence": "There are thirteen students in the class."
+        },
+        "884": {
+            "english": "thirty",
+            "chinese": "三十的;三十個的",
+            "property": "n.",
+            "sentence": "He bought thirty apples from the market."
+        },
+        "885": {
+            "english": "this",
+            "chinese": "這,這個,這人,這事,這東西",
+            "property": "pron.",
+            "sentence": "This is my favorite movie."
+        },
+        "886": {
+            "english": "those",
+            "chinese": "那些",
+            "property": "pron.",
+            "sentence": "Those are the shoes I want to buy."
+        },
+        "887": {
+            "english": "though",
+            "chinese": "雖然;儘管",
+            "property": "conj.",
+            "sentence": "Though it was raining, they went out for a walk."
+        },
+        "888": {
+            "english": "thousand",
+            "chinese": "一千的;一千個的",
+            "property": "n.",
+            "sentence": "He donated a thousand dollars to the charity."
+        },
+        "889": {
+            "english": "three",
+            "chinese": "三的,三個的",
+            "property": "n.",
+            "sentence": "There are three chairs in the room."
+        },
+        "890": {
+            "english": "Thursday",
+            "chinese": "星期四",
+            "property": "n.",
+            "sentence": "They have a meeting every Thursday."
+        },
+        "891": {
+            "english": "ticket",
+            "chinese": "票,券;車票;入場券",
+            "property": "n.",
+            "sentence": "She bought a movie ticket online."
+        },
+        "892": {
+            "english": "tiger",
+            "chinese": "虎,公虎",
+            "property": "n.",
+            "sentence": "The tiger is one of the most powerful animals."
+        },
+        "893": {
+            "english": "time",
+            "chinese": "時間;時",
+            "property": "n.",
+            "sentence": "Do you know what time it is?"
+        },
+        "894": {
+            "english": "tired",
+            "chinese": "疲倦的",
+            "property": "adj.",
+            "sentence": "He felt tired after working all day."
+        },
+        "895": {
+            "english": "to",
+            "chinese": "向,往,到",
+            "property": "prep.",
+            "sentence": "They are going to the park later."
+        },
+        "896": {
+            "english": "today",
+            "chinese": "今天",
+            "property": "adv.",
+            "sentence": "I have a lot of work to do today."
+        },
+        "897": {
+            "english": "together",
+            "chinese": "一起;共同,協力",
+            "property": "adv.",
+            "sentence": "They went to the concert together."
+        },
+        "898": {
+            "english": "tomato",
+            "chinese": "番茄",
+            "property": "n.",
+            "sentence": "She made a salad with fresh tomatoes."
+        },
+        "899": {
+            "english": "tomorrow",
+            "chinese": "明天",
+            "property": "adv.",
+            "sentence": "They will leave for vacation tomorrow."
+        },
+        "900": {
+            "english": "tonight",
+            "chinese": "在今晚",
+            "property": "adv.",
+            "sentence": "We have dinner plans for tonight."
+        },
+        "901": {
+            "english": "too",
+            "chinese": "太,過分",
+            "property": "adv.",
+            "sentence": "It is too cold to go outside."
+        },
+        "902": {
+            "english": "tooth",
+            "chinese": "牙齒",
+            "property": "n.",
+            "sentence": "She has a toothache."
+        },
+        "903": {
+            "english": "touch",
+            "chinese": "接觸,碰到",
+            "property": "v.",
+            "sentence": "Please do not touch the artwork."
+        },
+        "904": {
+            "english": "towel",
+            "chinese": "毛巾,手巾",
+            "property": "n.",
+            "sentence": "He dried his hands with a towel."
+        },
+        "905": {
+            "english": "town",
+            "chinese": "鎮;市鎮",
+            "property": "n.",
+            "sentence": "She grew up in a small town."
+        },
+        "906": {
+            "english": "toy",
+            "chinese": "玩具,玩物",
+            "property": "n.",
+            "sentence": "The child played with his new toy."
+        },
+        "907": {
+            "english": "traffic",
+            "chinese": "交通",
+            "property": "n.",
+            "sentence": "The traffic was heavy during rush hour."
+        },
+        "908": {
+            "english": "train",
+            "chinese": "列車,火車",
+            "property": "n.",
+            "sentence": "They took the train to the city."
+        },
+        "909": {
+            "english": "tree",
+            "chinese": "樹;喬木",
+            "property": "n.",
+            "sentence": "They planted a tree in the backyard."
+        },
+        "910": {
+            "english": "trip",
+            "chinese": "旅行;行程",
+            "property": "n.",
+            "sentence": "They are planning a trip to the mountains."
+        },
+        "911": {
+            "english": "trouble",
+            "chinese": "煩惱;憂慮",
+            "property": "n.",
+            "sentence": "She had trouble finishing her homework."
+        },
+        "912": {
+            "english": "truck",
+            "chinese": "卡車",
+            "property": "n.",
+            "sentence": "The truck delivered goods to the store."
+        },
+        "913": {
+            "english": "true",
+            "chinese": "真實的,確實的",
+            "property": "adj.",
+            "sentence": "Her story turned out to be true."
+        },
+        "914": {
+            "english": "try",
+            "chinese": "試圖;努力",
+            "property": "v.",
+            "sentence": "She will try to finish the project by tomorrow."
+        },
+        "915": {
+            "english": "Tuesday",
+            "chinese": "星期二",
+            "property": "n.",
+            "sentence": "They have a meeting every Tuesday."
+        },
+        "916": {
+            "english": "turn",
+            "chinese": "使轉動,使旋轉",
+            "property": "v.",
+            "sentence": "Turn left at the next intersection."
+        },
+        "917": {
+            "english": "twelve",
+            "chinese": "十二的;十二個的",
+            "property": "n.",
+            "sentence": "She bought twelve eggs at the store."
+        },
+        "918": {
+            "english": "twenty",
+            "chinese": "二十的;二十個的",
+            "property": "n.",
+            "sentence": "There are twenty students in the class."
+        },
+        "919": {
+            "english": "two",
+            "chinese": "二的;兩個的",
+            "property": "n.",
+            "sentence": "She has two dogs."
+        },
+        "920": {
+            "english": "typhoon",
+            "chinese": "颱風",
+            "property": "n.",
+            "sentence": "The typhoon caused a lot of damage."
+        },
+        "921": {
+            "english": "umbrella",
+            "chinese": "傘,雨傘",
+            "property": "n.",
+            "sentence": "Don't forget to take your umbrella."
+        },
+        "922": {
+            "english": "uncle",
+            "chinese": "伯父;叔父;舅父",
+            "property": "n.",
+            "sentence": "Her uncle is visiting for the holidays."
+        },
+        "923": {
+            "english": "under",
+            "chinese": "在…下面,在…下方",
+            "property": "prep.",
+            "sentence": "The cat is hiding under the table."
+        },
+        "924": {
+            "english": "understand",
+            "chinese": "理解;懂",
+            "property": "v.",
+            "sentence": "Do you understand the instructions?"
+        },
+        "925": {
+            "english": "unhappy",
+            "chinese": "不幸福的,不愉快的",
+            "property": "adj.",
+            "sentence": "She was unhappy with the outcome."
+        },
+        "926": {
+            "english": "uniform",
+            "chinese": "相同的,一致的",
+            "property": "adj.",
+            "sentence": "All the students wear a uniform."
+        },
+        "927": {
+            "english": "until",
+            "chinese": "直到…時,到…為止",
+            "property": "prep.",
+            "sentence": "We stayed at the party until midnight."
+        },
+        "928": {
+            "english": "up",
+            "chinese": "向上,往上;向樓上",
+            "property": "adv.",
+            "sentence": "She looked up at the stars."
+        },
+        "929": {
+            "english": "USA",
+            "chinese": "美利堅合眾國",
+            "property": "n.",
+            "sentence": "The USA is a large country."
+        },
+        "930": {
+            "english": "use",
+            "chinese": "用,使用",
+            "property": "v.",
+            "sentence": "She used a pen to write the letter."
+        },
+        "931": {
+            "english": "useful",
+            "chinese": "有用的;有益的",
+            "property": "adj.",
+            "sentence": "This book is very useful for learning English."
+        },
+        "932": {
+            "english": "usually",
+            "chinese": "通常地;慣常地",
+            "property": "adv.",
+            "sentence": "She usually gets up early."
+        },
+        "933": {
+            "english": "vacation",
+            "chinese": "休假;假期",
+            "property": "n.",
+            "sentence": "They are planning a vacation to the beach."
+        },
+        "934": {
+            "english": "vegetable",
+            "chinese": "蔬菜;青菜",
+            "property": "n.",
+            "sentence": "They grow vegetables in their garden."
+        },
+        "935": {
+            "english": "very",
+            "chinese": "非常,很",
+            "property": "adv.",
+            "sentence": "She was very happy with the surprise."
+        },
+        "936": {
+            "english": "video",
+            "chinese": "錄影;錄影節目",
+            "property": "n.",
+            "sentence": "They watched a funny video online."
+        },
+        "937": {
+            "english": "visit",
+            "chinese": "參觀;拜訪;探望",
+            "property": "v.",
+            "sentence": "She plans to visit her grandmother this weekend."
+        },
+        "938": {
+            "english": "voice",
+            "chinese": "聲音;嗓子",
+            "property": "n.",
+            "sentence": "Her voice is very soothing."
+        },
+        "939": {
+            "english": "wait",
+            "chinese": "等,等待",
+            "property": "v.",
+            "sentence": "They had to wait for the bus."
+        },
+        "940": {
+            "english": "waiter",
+            "chinese": "(男)侍者,服務生",
+            "property": "n.",
+            "sentence": "The waiter took their order."
+        },
+        "941": {
+            "english": "waitress",
+            "chinese": "女服務生,女侍應生",
+            "property": "n.",
+            "sentence": "The waitress brought them their food."
+        },
+        "942": {
+            "english": "wake",
+            "chinese": "醒來;醒著",
+            "property": "v.",
+            "sentence": "She usually wakes up at 7 AM."
+        },
+        "943": {
+            "english": "walk",
+            "chinese": "走;散步",
+            "property": "v.",
+            "sentence": "They took a walk in the park."
+        },
+        "944": {
+            "english": "wall",
+            "chinese": "牆,壁;圍牆",
+            "property": "n.",
+            "sentence": "She hung a picture on the wall."
+        },
+        "945": {
+            "english": "want",
+            "chinese": "要,想要",
+            "property": "v.",
+            "sentence": "He wants to buy a new phone."
+        },
+        "946": {
+            "english": "warm",
+            "chinese": "溫暖的,暖和的",
+            "property": "adj.",
+            "sentence": "The weather is warm today."
+        },
+        "947": {
+            "english": "wash",
+            "chinese": "洗,洗滌",
+            "property": "v.",
+            "sentence": "She needs to wash the dishes after dinner."
+        },
+        "948": {
+            "english": "watch",
+            "chinese": "錶",
+            "property": "n.",
+            "sentence": "He looked at his watch to check the time."
+        },
+        "949": {
+            "english": "water",
+            "chinese": "水",
+            "property": "n.",
+            "sentence": "She drank a glass of water."
+        },
+        "950": {
+            "english": "way",
+            "chinese": "路,通路,道路",
+            "property": "n.",
+            "sentence": "She knows the way to the school."
+        },
+        "951": {
+            "english": "we",
+            "chinese": "(主格)我們",
+            "property": "pron.",
+            "sentence": "We are going to the park later."
+        },
+        "952": {
+            "english": "weak",
+            "chinese": "弱的,虛弱的;衰弱的",
+            "property": "adj.",
+            "sentence": "She felt weak after being sick for a week."
+        },
+        "953": {
+            "english": "wear",
+            "chinese": "穿著;戴著;佩帶著",
+            "property": "v.",
+            "sentence": "He likes to wear a hat every day."
+        },
+        "954": {
+            "english": "weather",
+            "chinese": "天氣",
+            "property": "n.",
+            "sentence": "The weather today is sunny and warm."
+        },
+        "955": {
+            "english": "Wednesday",
+            "chinese": "星期三",
+            "property": "n.",
+            "sentence": "They have a weekly meeting every Wednesday."
+        },
+        "956": {
+            "english": "week",
+            "chinese": "週,一星期",
+            "property": "n.",
+            "sentence": "She will be on vacation for one week."
+        },
+        "957": {
+            "english": "weekend",
+            "chinese": "週末;週末的休假",
+            "property": "n.",
+            "sentence": "They are planning a trip for the weekend."
+        },
+        "958": {
+            "english": "welcome",
+            "chinese": "歡迎(光臨)",
+            "property": "v.",
+            "sentence": "They welcomed us into their home."
+        },
+        "959": {
+            "english": "well",
+            "chinese": "很好地;滿意地;成功地",
+            "property": "adv.",
+            "sentence": "She did well on her final exam."
+        },
+        "960": {
+            "english": "west",
+            "chinese": "西;西方",
+            "property": "n.",
+            "sentence": "The sun sets in the west."
+        },
+        "961": {
+            "english": "wet",
+            "chinese": "濕的,潮濕的",
+            "property": "adj.",
+            "sentence": "His clothes were wet after walking in the rain."
+        },
+        "962": {
+            "english": "what",
+            "chinese": "什麼",
+            "property": "pron.",
+            "sentence": "What is your favorite food?"
+        },
+        "963": {
+            "english": "when",
+            "chinese": "什麼時候,何時",
+            "property": "adv.",
+            "sentence": "When will you arrive at the party?"
+        },
+        "964": {
+            "english": "where",
+            "chinese": "在哪裡;往哪裡;從哪裡",
+            "property": "adv.",
+            "sentence": "Where did you put my keys?"
+        },
+        "965": {
+            "english": "whether",
+            "chinese": "是否",
+            "property": "conj.",
+            "sentence": "I don't know whether he will come to the meeting."
+        },
+        "966": {
+            "english": "which",
+            "chinese": "哪一個,哪一些",
+            "property": "pron.",
+            "sentence": "Which dress do you like better?"
+        },
+        "967": {
+            "english": "white",
+            "chinese": "白色的",
+            "property": "adj.",
+            "sentence": "She wore a white dress to the wedding."
+        },
+        "968": {
+            "english": "who",
+            "chinese": "誰,什麼人",
+            "property": "pron.",
+            "sentence": "Who is going to the concert with you?"
+        },
+        "969": {
+            "english": "whose",
+            "chinese": "誰的",
+            "property": "pron.",
+            "sentence": "Whose phone is this on the table?"
+        },
+        "970": {
+            "english": "why",
+            "chinese": "為什麼",
+            "property": "adv.",
+            "sentence": "Why did you leave the party early?"
+        },
+        "971": {
+            "english": "wife",
+            "chinese": "妻子,太太,夫人",
+            "property": "n.",
+            "sentence": "His wife is a teacher."
+        },
+        "972": {
+            "english": "will",
+            "chinese": "(表示將來)將",
+            "property": "aux.",
+            "sentence": "She will arrive at the airport tomorrow."
+        },
+        "973": {
+            "english": "win",
+            "chinese": "在…中獲勝(或成功)",
+            "property": "v.",
+            "sentence": "Their team will win the championship this year."
+        },
+        "974": {
+            "english": "wind",
+            "chinese": "轉動(把手),搖;風",
+            "property": "n., v.",
+            "sentence": "The wind was strong, and he had to wind the window shut."
+        },
+        "975": {
+            "english": "window",
+            "chinese": "窗,窗戶",
+            "property": "n.",
+            "sentence": "She opened the window to let in fresh air."
+        },
+        "976": {
+            "english": "windy",
+            "chinese": "刮風的;多風的",
+            "property": "adj.",
+            "sentence": "It was a windy day, perfect for flying kites."
+        },
+        "977": {
+            "english": "winter",
+            "chinese": "冬,冬季",
+            "property": "n.",
+            "sentence": "Winter is her favorite season."
+        },
+        "978": {
+            "english": "wise",
+            "chinese": "有智慧的;聰明的",
+            "property": "adj.",
+            "sentence": "He made a wise decision."
+        },
+        "979": {
+            "english": "wish",
+            "chinese": "但願",
+            "property": "v.",
+            "sentence": "I wish you a happy birthday!"
+        },
+        "980": {
+            "english": "with",
+            "chinese": "與…一起,偕同,和…",
+            "property": "prep.",
+            "sentence": "She went to the store with her sister."
+        },
+        "981": {
+            "english": "without",
+            "chinese": "無,沒有,不",
+            "property": "prep.",
+            "sentence": "He went to the party without telling anyone."
+        },
+        "982": {
+            "english": "woman",
+            "chinese": "成年女子,婦女",
+            "property": "n.",
+            "sentence": "The woman standing at the corner is my neighbor."
+        },
+        "983": {
+            "english": "wonderful",
+            "chinese": "極好的;精彩的",
+            "property": "adj.",
+            "sentence": "They had a wonderful time at the beach."
+        },
+        "984": {
+            "english": "word",
+            "chinese": "詞,單字",
+            "property": "n.",
+            "sentence": "She learned a new word in English class today."
+        },
+        "985": {
+            "english": "work",
+            "chinese": "工作;勞動",
+            "property": "v.",
+            "sentence": "He works as a doctor."
+        },
+        "986": {
+            "english": "workbook",
+            "chinese": "習題簿;練習簿",
+            "property": "n.",
+            "sentence": "They completed the exercises in their workbook."
+        },
+        "987": {
+            "english": "worker",
+            "chinese": "工人,勞工,勞動者",
+            "property": "n.",
+            "sentence": "The workers are building a new bridge."
+        },
+        "988": {
+            "english": "world",
+            "chinese": "世界;地球;宇宙",
+            "property": "n.",
+            "sentence": "The world is a beautiful place."
+        },
+        "989": {
+            "english": "worry",
+            "chinese": "使擔心,使發愁",
+            "property": "v.",
+            "sentence": "Don't worry, everything will be fine."
+        },
+        "990": {
+            "english": "write",
+            "chinese": "寫下,書寫",
+            "property": "v.",
+            "sentence": "She likes to write letters to her friends."
+        },
+        "991": {
+            "english": "writer",
+            "chinese": "作者;作家",
+            "property": "n.",
+            "sentence": "She is a famous writer."
+        },
+        "992": {
+            "english": "wrong",
+            "chinese": "錯誤的,不對的",
+            "property": "adj.",
+            "sentence": "He gave the wrong answer on the test."
+        },
+        "993": {
+            "english": "year",
+            "chinese": "年,一年",
+            "property": "n.",
+            "sentence": "They have been friends for ten years."
+        },
+        "994": {
+            "english": "yellow",
+            "chinese": "黃色的",
+            "property": "adj.",
+            "sentence": "She wore a yellow dress to the party."
+        },
+        "995": {
+            "english": "yes",
+            "chinese": "是,是的",
+            "property": "adv.",
+            "sentence": "Yes, I will go with you to the concert."
+        },
+        "996": {
+            "english": "yesterday",
+            "chinese": "昨天",
+            "property": "adv.",
+            "sentence": "They went to the museum yesterday."
+        },
+        "997": {
+            "english": "yet",
+            "chinese": "還(沒)",
+            "property": "adv.",
+            "sentence": "She hasn't finished her homework yet."
+        },
+        "998": {
+            "english": "you",
+            "chinese": "你;你們",
+            "property": "pron.",
+            "sentence": "You are invited to the party."
+        },
+        "999": {
+            "english": "young",
+            "chinese": "年輕的;幼小的",
+            "property": "adj.",
+            "sentence": "She is a young and talented musician."
+        },
+        "1000": {
+            "english": "zoo",
+            "chinese": "動物園",
+            "property": "n.",
+            "sentence": "They took the kids to the zoo last weekend."
+        }
+    }
+}
+
