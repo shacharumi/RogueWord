@@ -33,19 +33,35 @@ class LevelUpGamePageViewController: UIViewController {
         return buttons
     }()
     
+    private let favoriteButton: UIButton = {
+        
+        let button = UIButton(type: .system)
+        button.setTitle("收藏", for: .normal)
+        button.alpha = 0.5
+        button.tag = 0
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
         
         displayQuestion()
+
+
+        let barButtonItem = UIBarButtonItem(customView: favoriteButton)
+        self.navigationItem.rightBarButtonItem = barButtonItem
+
         
-        let favoriteButton = UIBarButtonItem(title: "收藏", style: .plain, target: self, action: #selector(addToFavorites))
-        navigationItem.rightBarButtonItem = favoriteButton
     }
     
     private func setupUI() {
         view.addSubview(englishLabel)
+        view.addSubview(favoriteButton)
+        favoriteButton.addTarget(self, action: #selector(addToFavorites(_:)), for: .touchUpInside)
+
         NSLayoutConstraint.activate([
             englishLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             englishLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -74,7 +90,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
         
         englishLabel.text = question.english
-        
+
         // 準備正確答案和錯誤答案
         var answers = [question.chinese]
         answers.append(contentsOf: viewModel.generateWrongAnswers(for: question.chinese))
@@ -91,10 +107,10 @@ class LevelUpGamePageViewController: UIViewController {
     
     @objc private func answerTapped(_ sender: UIButton) {
         guard let answer = sender.currentTitle else { return }
-        
         if viewModel.checkAnswer(answer) {
             if viewModel.moveToNextQuestion() {
                 displayQuestion()
+                favoriteButton.tag = 0
             } else {
                 showCompletionAlert()
             }
@@ -109,24 +125,18 @@ class LevelUpGamePageViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc private func addToFavorites() {
-        viewModel.addToFavorites()
+    @objc private func addToFavorites(_ sender: UIButton) {
+        if sender.tag == 0 {
+            print("aa")
+            viewModel.addToFavorites()
+            sender.alpha = 1
+            sender.tag = 1
+        } else {
+            viewModel.removeToFavorites()
+            sender.alpha = 0.5
+            sender.tag = 0
+        }
     }
 }
 
-
-struct Word: Decodable {
-    let english: String
-    let chinese: String
-    let property: String
-    let sentence: String
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(english)
-        hasher.combine(chinese)
-    }
-}
-
-struct WordFile: Decodable {
-    let wordType: [String: Word]
-}
+//

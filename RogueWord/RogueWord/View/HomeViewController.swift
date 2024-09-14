@@ -10,14 +10,6 @@ import SnapKit
 class HomeViewController: UIViewController {
 
     // MARK: - Properties
-    var timeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "你已經堅持"
-        label.textAlignment = .center
-        label.backgroundColor = .brown
-        label.alpha = 0.7
-        return label
-    }()
     
     var animateView: UIImageView = {
         let view = UIImageView()
@@ -47,7 +39,8 @@ class HomeViewController: UIViewController {
         UserDefaults.standard.set(0, forKey: "level")
         view.backgroundColor = .white
         setupView()
-
+        let a = FirebaseToJSONFileUploader()
+        a.fetchAndSaveWordsToJSON()
         squareView = UIImageView(frame: CGRect(x: 50, y: 50, width: 80, height: 80))
         squareView.image = UIImage(named: homeModel.images[0])
         squareView.contentMode = .scaleAspectFit

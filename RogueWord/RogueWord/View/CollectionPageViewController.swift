@@ -1,30 +1,21 @@
-//
-//  CollectionPageViewController.swift
-//  RogueWord
-//
-//  Created by shachar on 2024/9/12.
-//
-
 import UIKit
 
 class CollectionPageViewController: UIViewController {
 
     private var tableView: UITableView!
     private var collectionView: UICollectionView!
-    private var diffableDataSource: UITableViewDiffableDataSource<Section, FireBaseWord>!
-
+    
     private let viewModel = CollectionPageViewModel()
-
-    enum Section {
-        case main
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         setupTableView()
-        setupDiffableDataSource()
 
+        let rightBarButton = UIBarButtonItem(title: "按鈕", style: .plain, target: self, action: #selector(rightBarButtonTapped))
+        self.navigationItem.rightBarButtonItem = rightBarButton
+
+        // 確保 UI 在數據加載完成後才進行刷新
         viewModel.onDataChange = { [weak self] in
             self?.updateTableView()
         }
@@ -33,13 +24,19 @@ class CollectionPageViewController: UIViewController {
             self?.updateCollectionView()
         }
 
+        // 初始化時加載數據
         viewModel.fetchDataFromFirebase()
-        viewModel.fetchTagFromFirebase()
     }
 
+    @objc func rightBarButtonTapped() {
+        // 按鈕功能邏輯
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 確保每次視圖出現時都加載數據
         viewModel.fetchDataFromFirebase()
-        viewModel.fetchTagFromFirebase()
+        
     }
 
     private func setupCollectionView() {
@@ -52,6 +49,7 @@ class CollectionPageViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isUserInteractionEnabled = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
         self.view.addSubview(collectionView)
@@ -77,39 +75,12 @@ class CollectionPageViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
 
-        tableView.dataSource = diffableDataSource
+        tableView.dataSource = self
         tableView.delegate = self
     }
 
-    private func setupDiffableDataSource() {
-        diffableDataSource = UITableViewDiffableDataSource<Section, FireBaseWord>(tableView: tableView) { (tableView, indexPath, word) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CollectionPageCell
-            cell?.textLabel?.text = word.english
-            
-            cell?.tag = self.viewModel.words[indexPath.row].levelNumber
-        
-            var menuActions: [UIAction] = []
-            for tag in self.viewModel.tags {
-                let action = UIAction(title: tag, handler: { action in
-                    self.viewModel.updateWordTag(tag, cell?.tag ?? 0)
-                })
-                menuActions.append(action)
-            }
-
-            cell?.pullDownButton.menu = UIMenu(children: menuActions)
-            return cell
-        }
-
-        var snapshot = NSDiffableDataSourceSnapshot<Section, FireBaseWord>()
-        snapshot.appendSections([.main])
-        diffableDataSource.apply(snapshot, animatingDifferences: false)
-    }
-
     private func updateTableView() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, FireBaseWord>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.words)
-        diffableDataSource.apply(snapshot, animatingDifferences: true)
+        tableView.reloadData()
     }
 
     private func updateCollectionView() {
@@ -117,25 +88,49 @@ class CollectionPageViewController: UIViewController {
     }
 }
 
-extension CollectionPageViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
-            self?.viewModel.removeWord(at: indexPath.row)
-            self?.applySnapshot()
-            completion(true)
-        }
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+
+extension CollectionPageViewController: UITableViewDataSource, UITableViewDelegate {
+    // 每個 section 的行數
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.words.count
     }
 
+    // 配置每個 cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CollectionPageCell else {
+            return UITableViewCell()
+        }
+        
+        let word = viewModel.words[indexPath.row]
+        cell.textLabel?.text = word.word.english  // 顯示詞彙
+        cell.tag = word.levelNumber  // 使用 levelNumber 作為 cell 標記
+
+//        // 下拉選單的設置
+//        var menuActions: [UIAction] = []
+//        for tag in viewModel.tags {
+//            let action = UIAction(title: tag) { action in
+//                self.viewModel.updateWordTag(tag, word.levelNumber)
+//            }
+//            menuActions.append(action)
+//        }
+//
+//        // 設置菜單
+//        cell.pullDownButton.menu = UIMenu(children: menuActions)
+        return cell
+    }
+
+    // 行的高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 
+    // 點擊行後的行為
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        if let word = diffableDataSource.itemIdentifier(for: indexPath), let cell = tableView.cellForRow(at: indexPath) {
-            let newLabel = (cell.textLabel?.text == word.english) ? word.chinese : word.english
+        let word = viewModel.words[indexPath.row]
+        if let cell = tableView.cellForRow(at: indexPath) {
+            let newLabel = (cell.textLabel?.text == word.word.english) ? word.word.chinese : word.word.english
             UIView.animate(withDuration: 0.3, animations: {
                 cell.textLabel?.alpha = 0.0
             }, completion: { _ in
@@ -146,14 +141,18 @@ extension CollectionPageViewController: UITableViewDelegate {
             })
         }
     }
-    
-    private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, FireBaseWord>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.words)
-        diffableDataSource.apply(snapshot, animatingDifferences: true)
+
+    // 定義刪除按鈕的行為
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
+            self?.viewModel.removeWord(at: indexPath.row)
+            self?.updateTableView()
+            completion(true)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
+
 
 extension CollectionPageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -165,34 +164,31 @@ extension CollectionPageViewController: UICollectionViewDataSource, UICollection
         cell.backgroundColor = .lightGray
 
         let tag = viewModel.tags[indexPath.row]
-        let label = UILabel(frame: cell.bounds)
-        label.text = tag
-        label.textAlignment = .center
-        label.textColor = .white
+        let button = UIButton(frame: cell.bounds)
+        button.setTitle(tag, for: .normal)
+        button.configuration?.titleAlignment = .center
+        button.titleLabel?.textColor = .white
+        button.isUserInteractionEnabled = true
+        button.accessibilityIdentifier = tag
+        button.addTarget(self, action: #selector(tagTapped(_:)), for: .touchUpInside)
         cell.layer.cornerRadius = 15
         cell.layer.masksToBounds = true
-        cell.contentView.addSubview(label)
+        cell.contentView.addSubview(button)
 
         return cell
+    }
+
+    @objc func tagTapped(_ sender: UIButton) {
+        if let tag = sender.accessibilityIdentifier {
+            viewModel.fetchFilterData(tag) { [weak self] in
+                self?.updateTableView()
+            }
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let tag = viewModel.tags[indexPath.row]
         let width = tag.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)]).width + 20
         return CGSize(width: width, height: 30)
-    }
-}
-
-struct FireBaseWord: Hashable {
-    let levelNumber: Int
-    let english: String
-    let chinese: String
-    let property: String
-    let sentence: String
-    let tag: String
-    // 實現 Hashable 協定
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(english)
-        hasher.combine(chinese)
     }
 }

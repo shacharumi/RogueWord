@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
 		C72544382C91854D00580224 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544372C91854D00580224 /* ViewController.swift */; };
@@ -35,7 +36,6 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
-		C725448F2C92E6CB00580224 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = C725448E2C92E6CA00580224 /* words.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToJSONFileUploader.swift; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C72544352C91854D00580224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,7 +84,6 @@
 		C72544852C92BB3E00580224 /* CollectionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageCell.swift; sourceTree = "<group>"; };
 		C72544872C92BB6900580224 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
-		C725448E2C92E6CA00580224 /* words.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,8 +148,8 @@
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
 				C72544392C91854D00580224 /* Main.storyboard */,
-				C725448E2C92E6CA00580224 /* words.json */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
+				C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */,
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
 				C72544662C91895D00580224 /* GoogleService-Info.plist */,
 				C72544442C91854F00580224 /* Info.plist */,
@@ -180,8 +180,8 @@
 			children = (
 				C72544772C92BA1700580224 /* LoginViewController.swift */,
 				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
-				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
+				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
 				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
 			);
 			path = View;
@@ -192,8 +192,8 @@
 			children = (
 				C72544872C92BB6900580224 /* LoginViewModel.swift */,
 				C72544892C92BB8C00580224 /* HomeModel.swift */,
-				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
 				C72544832C92BB0F00580224 /* LevelUpGamePageModel.swift */,
+				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -317,7 +317,6 @@
 				C72544672C91895D00580224 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,
 				C725443B2C91854D00580224 /* Base in Resources */,
-				C725448F2C92E6CB00580224 /* words.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +346,7 @@
 				C72544722C919B1F00580224 /* FirebaseService.swift in Sources */,
 				C72544382C91854D00580224 /* ViewController.swift in Sources */,
 				C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */,
+				C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */,
 				C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */,
 				C72544742C919FB100580224 /* GameService.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
