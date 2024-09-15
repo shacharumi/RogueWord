@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */; };
+		C70B72272C968AFE001011D6 /* QuestionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72262C968AFE001011D6 /* QuestionPageViewController.swift */; };
+		C70B72292C968E37001011D6 /* ExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72282C968E37001011D6 /* ExamViewController.swift */; };
+		C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
 		C72544382C91854D00580224 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544372C91854D00580224 /* ViewController.swift */; };
@@ -57,6 +60,9 @@
 
 /* Begin PBXFileReference section */
 		C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseToJSONFileUploader.swift; sourceTree = "<group>"; };
+		C70B72262C968AFE001011D6 /* QuestionPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageViewController.swift; sourceTree = "<group>"; };
+		C70B72282C968E37001011D6 /* ExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewController.swift; sourceTree = "<group>"; };
+		C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageCell.swift; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C72544352C91854D00580224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +188,9 @@
 				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
+				C70B72262C968AFE001011D6 /* QuestionPageViewController.swift */,
+				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
+				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
 			);
 			path = View;
@@ -348,11 +357,14 @@
 				C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */,
 				C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */,
 				C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */,
+				C70B72292C968E37001011D6 /* ExamViewController.swift in Sources */,
 				C72544742C919FB100580224 /* GameService.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
 				C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */,
+				C70B72272C968AFE001011D6 /* QuestionPageViewController.swift in Sources */,
+				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
 				C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */,
 				C72544762C92985E00580224 /* GamingViewController.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
