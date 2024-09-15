@@ -175,10 +175,10 @@
             </objects>
             <point key="canvasLocation" x="344" y="365"/>
         </scene>
-        <!--Paragraph Fill In The Blanks View Controller-->
+        <!--Reading View Controller-->
         <scene sceneID="6oR-Wt-EGO">
             <objects>
-                <viewController id="s7j-pP-omR" customClass="ParagraphFillInTheBlanksViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="s7j-pP-omR" customClass="ReadingViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fYd-sk-CkZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

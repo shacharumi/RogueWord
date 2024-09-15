@@ -13,6 +13,7 @@
 		C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */; };
 		C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */; };
 		C70B722F2C96E61D001011D6 /* ParagraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722E2C96E61D001011D6 /* ParagraphCell.swift */; };
+		C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72302C9738F2001011D6 /* ReadingViewController.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
 		C72544382C91854D00580224 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544372C91854D00580224 /* ViewController.swift */; };
@@ -67,6 +68,7 @@
 		C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageCell.swift; sourceTree = "<group>"; };
 		C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphFillInTheBlanksViewController.swift; sourceTree = "<group>"; };
 		C70B722E2C96E61D001011D6 /* ParagraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphCell.swift; sourceTree = "<group>"; };
+		C70B72302C9738F2001011D6 /* ReadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C72544352C91854D00580224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
+				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
 				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
@@ -377,6 +380,7 @@
 				C72544762C92985E00580224 /* GamingViewController.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
+				C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */,
 				C72544362C91854D00580224 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

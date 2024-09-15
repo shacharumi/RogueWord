@@ -1,5 +1,5 @@
 //
-//  ParagraphFillInTheBlanksViewController.swift
+//  ReadingViewController.swift
 //  RogueWord
 //
 //  Created by shachar on 2024/9/15.
@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReadingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private let urlString = "https://api.openai.com/v1/chat/completions"
     private var questions: [ParagraphQuestion] = [] // 解析後的問題列表
@@ -86,26 +86,32 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         let openAIBody = OpenAIBody(model: AIModel.model, messages: [
             Message(role: "system", content: "You are a TOEIC question creator."),
             Message(role: "user", content: """
-            You are a TOEIC question creator. Please create a TOEIC paragraph fill-in-the-blank question with multiple-choice answers using the following format. Ensure the questions cover various aspects such as verb tenses, vocabulary, and collocations:
+            
+            You are a TOEIC question creator. Please create a TOEIC reading comprehension question that follows the structure below:
 
-            - Write a brief paragraph (about 5 sentences) describing a work-related scenario.
-            - Include 5 blanks in the paragraph where key words are missing, which will test grammar, vocabulary, or idiomatic usage.
-            - Provide four multiple-choice options (A, B, C, D) for each blank, with only one correct answer.
-            - The correct answers should be clear based on the context of the paragraph.
+            --Write a brief paragraph (about 5 sentences).
+            After the paragraph, create 5 comprehension questions based on the content. The questions should test a range of skills such as understanding of vocabulary, verb tenses, collocations, and main ideas.
+            Format each question and the multiple-choice answers as follows:
+            Question: 1. What has contributed to the increasing popularity of online shopping? (A) Limited product options (B) Inconvenient payment methods (C) Accessibility and convenience (D) High shipping costs\n
+            Ensure that all questions follow the same format, with one space between the question text and the answer options, and no newline after each option.
+            --For each question, provide four multiple-choice options (A, B, C, D), with only one correct answer.
+            --Ensure that the correct answers can be clearly identified based on the context of the paragraph.
 
             For example:
+                        
+            Starting next month, our company will implement a new remote work policy. Employees will be allowed to work from home up to two days a week, provided that they maintain regular communication with their team leaders. This change comes in response to the increasing demand for flexibility and the company's goal to improve employee satisfaction.To ensure that the transition is smooth, all team leaders will hold weekly virtual meetings to discuss progress and address any concerns. Employees are expected to attend these meetings and provide updates on their work. If you wish to work from home, please notify your supervisor at least one week in advance.Additionally, the IT department will offer technical support for those who need assistance with setting up their home offices. All employees working remotely must ensure they have a stable internet connection and access to necessary software.This new policy is designed to provide greater flexibility without sacrificing productivity. If you have any questions or concerns, feel free to contact the HR department.
 
-            Emily recently joined a large tech company as a project manager. Her role primarily involves coordinating various teams to ensure that all projects are ______ (1) on schedule. Every week, she ______ (2) reports to upper management detailing the progress of ongoing tasks. Emily understands the importance of clear communication, so she always ______ (3) feedback from her team members. This approach helps her ______ (4) any potential issues before they become major problems. In addition to her managerial duties, Emily is also responsible for ______ (5) training sessions for new employees.
+            1. What is the main purpose of the new policy? (A) To allow employees to take longer vacations (B) To increase work hours for employees (C) To give employees more flexibility in their work schedules (D) To reduce the number of office meetings
+            2. How many days a week can employees work from home? (A) One (B) Two (C) Three (D) Four
+            3. What must employees do if they want to work from home? (A) Attend a meeting with HR (B) Ask their colleagues for permission (C) Notify their supervisor a week in advance (D) Submit a written report to their manager
+            4. Who will provide technical support for remote work? (A) The HR department (B) The IT department (C) The team leaders (D) The company’s CEO
+            5. What is required of employees working from home? (A) They must have a stable internet connection (B) They need to submit daily reports (C) They must work overtime (D) They need to travel to the office once a week
 
-            1. (A) completed (B) delayed (C) overlooked (D) started
-            2. (A) submits (B) cancels (C) hides (D) avoids
-            3. (A) ignores (B) requests (C) dismisses (D) argues
-            4. (A) predict (B) cause (C) prevent (D) increase
-            5. (A) ignoring (B) leading (C) skipping (D) organizing
+            Answer: 1. (C), 2. (B), 3. (C), 4. (B), 5. (A)
 
-            Answer: 1. (A), 2. (A), 3. (B), 4. (C), 5. (D)
 
             Now, please generate a new question in this format.
+
 
             """)
         ])
@@ -176,9 +182,4 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
 
 }
 
-// MARK: - Question 模型
-struct ParagraphQuestion {
-    let questionText: String
-    let options: [String]
-    let answer: [String]
-}
+
