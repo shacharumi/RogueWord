@@ -1,6 +1,13 @@
+//
+//  WordFillInTheBlankPageViewController.swift
+//  RogueWord
+//
+//  Created by shachar on 2024/9/12.
+//
+
 import UIKit
 
-class QuestionPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private let urlString = "https://api.openai.com/v1/chat/completions"
     private var questions: [Question] = [] // 解析後的問題列表
@@ -157,7 +164,7 @@ struct OpenAIBody: Encodable {
     let model: String
     let messages: [Message]
     let temperature = 0.0
-    let max_tokens = 256
+    let max_tokens = 512
     let top_p = 1.0
     let frequency_penalty = 0.0
     let presence_penalty = 0.0

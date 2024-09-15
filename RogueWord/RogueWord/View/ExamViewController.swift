@@ -64,7 +64,7 @@ extension ExamViewController {
     }
     
     @objc func tapToQuestionPage() {
-        let questionPage = QuestionPageViewController()
+        let questionPage = WordFillInTheBlankPageViewController()
         navigationController?.pushViewController(questionPage, animated: true)
     }
 }
