@@ -22,16 +22,35 @@ class CollectionPageViewController: UIViewController {
 
         viewModel.onTagChange = { [weak self] in
             self?.updateCollectionView()
+            self?.updateTableView()
         }
 
         // 初始化時加載數據
         viewModel.fetchDataFromFirebase()
+        viewModel.fetchTagFromFirebase()
+
     }
 
     @objc func rightBarButtonTapped() {
         // 按鈕功能邏輯
     }
     
+    @objc func updateTag(_ sender: UIButton) {
+        // 確保按鈕的標題存在，否則直接返回
+        guard let tagType = sender.title(for: .normal) else {
+            print("按鈕沒有標題")
+            return
+        }
+        
+        // 使用按鈕的 tag 屬性來標識選擇的標籤索引
+        let tagIndex = sender.tag
+        
+        // 更新 ViewModel 中的標籤
+        viewModel.updateWordTag(tagType, tagIndex)
+        
+        print("更新標籤: \(tagType), 索引: \(tagIndex)")
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 確保每次視圖出現時都加載數據
@@ -92,6 +111,7 @@ class CollectionPageViewController: UIViewController {
 extension CollectionPageViewController: UITableViewDataSource, UITableViewDelegate {
     // 每個 section 的行數
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      
         return viewModel.words.count
     }
 
@@ -105,19 +125,26 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         cell.textLabel?.text = word.word.english  // 顯示詞彙
         cell.tag = word.levelNumber  // 使用 levelNumber 作為 cell 標記
 
-//        // 下拉選單的設置
-//        var menuActions: [UIAction] = []
-//        for tag in viewModel.tags {
-//            let action = UIAction(title: tag) { action in
-//                self.viewModel.updateWordTag(tag, word.levelNumber)
-//            }
-//            menuActions.append(action)
-//        }
+        // 註冊選項按鈕，並確保 `optionArray` 已正確填充
+        cell.registerOptionButton(viewModel.tags)
+        cell.optionPickerView.tag = indexPath.row
+        // 確保按鈕已正確初始化，並迴圈設置目標
+//        for buttonIndex in 0..<viewModel.tags.count {
+//            let button = cell.optionArray[buttonIndex]
 //
-//        // 設置菜單
-//        cell.pullDownButton.menu = UIMenu(children: menuActions)
+//            // 防止重複添加目標動作，先移除所有舊的目標動作
+//            button.removeTarget(nil, action: nil, for: .allEvents)
+//
+//            // 設置按鈕的標籤（tag），用於識別是哪一行的按鈕
+//            button.tag = indexPath.row
+//
+//            // 添加目標動作
+//            //button.addTarget(self, action: #selector(updateTag(_:)), for: .touchUpInside)
+//        }
+
         return cell
     }
+
 
     // 行的高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -156,6 +183,8 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
 
 extension CollectionPageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+      
+
         return viewModel.tags.count
     }
 
