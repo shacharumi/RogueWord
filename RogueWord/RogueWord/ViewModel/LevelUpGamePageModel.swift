@@ -129,10 +129,8 @@ func loadWordsFromFile() -> [JsonWord] {
         }
 
         // 返回排序後的 Word 對象
-        print("aaaaaaaaa")
         print(sortedWords.map { $0.value })
 
-        print("aaaaaaaaa")
 
         return sortedWords.map { $0.value }
     } catch {

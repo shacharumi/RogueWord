@@ -148,7 +148,7 @@ struct Question {
 
 // MARK: - API 相關設置
 struct ChatGPTAPIKey {
-    static let key = ""
+    static let key = "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"
 }
 
 struct AIModel {
