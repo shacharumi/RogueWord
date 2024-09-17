@@ -30,10 +30,10 @@ class BattleViewController: UIViewController {
     }
     
     @objc func handleRoomAction() {
-        ref.child("rooms").observeSingleEvent(of: .value) { snapshot in
+        ref.child("Rooms").observeSingleEvent(of: .value) { snapshot in
             if let roomsData = snapshot.value as? [String: [String: Any]] {
                 let availableRooms = roomsData.filter { room in
-                    if let player2Name = room.value["Player2 Name"] as? String {
+                    if let player2Name = room.value["Player2Name"] as? String {
                         return player2Name.isEmpty
                     }
                     return false
@@ -45,38 +45,37 @@ class BattleViewController: UIViewController {
                     self.createRoom()
                 }
             } else {
-                // 如果沒有任何房間，則建立新房間
                 self.createRoom()
             }
         }
     }
     
     func createRoom() {
-        let roomId = UUID().uuidString // 建立唯一的房間ID
+        let roomId = UUID().uuidString
            let roomData: [String: Any] = [
-               "Player1 Name": "Player1",
-               "Player2 Name": "",
-               "Player1 Score": 0,
-               "Player2 Score": 0,
+               "Player1Name": "Player1",
+               "Player2Name": "",
+               "Player1Score": 0,
+               "Player2Score": 0,
                "CurrentQuestionIndex": 0,
                "PlayCounting": 10,
-               "Player1Select": 0,
-               "Player2Select": 0,
+               "Player1Select": "",
+               "Player2Select": "",
                "Player1Prepare": false,
                "Player2Prepare": false,
-               "QuestionData": [ // 將題目和選項存儲在 QuestionData 中
-                   "Question": "", // 當前題目
+               "QuestionData": [
+                   "Question": "",
                    "Options": [
-                       "Option0": "", // 選項0
-                       "Option1": "", // 選項1
-                       "Option2": "", // 選項2
-                       "Option3": ""  // 選項3
+                       "Option0": "",
+                       "Option1": "",
+                       "Option2": "",
+                       "Option3": ""
                    ],
-                   "CorrectAnswer": "" // 正確答案
+                   "CorrectAnswer": ""
                ]
            ]
         
-        ref.child("rooms").child(roomId).setValue(roomData) { error, _ in
+        ref.child("Rooms").child(roomId).setValue(roomData) { error, _ in
             if let error = error {
                 print("建立房間失敗: \(error.localizedDescription)")
             } else {
@@ -93,9 +92,9 @@ class BattleViewController: UIViewController {
     
     func joinRoom(roomId: String, roomData: [String: Any]) {
         var updatedRoomData = roomData
-        updatedRoomData["Player2 Name"] = "Player2"
+        updatedRoomData["Player2Name"] = "Player2"
         
-        ref.child("rooms").child(roomId).updateChildValues(updatedRoomData) { error, _ in
+        ref.child("Rooms").child(roomId).updateChildValues(updatedRoomData) { error, _ in
             if let error = error {
                 print("加入房間失敗: \(error.localizedDescription)")
             } else {

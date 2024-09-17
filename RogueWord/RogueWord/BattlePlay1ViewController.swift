@@ -28,39 +28,39 @@ class BattlePlay1ViewController: UIViewController {
         setupUI()
         
         if let roomId = roomId {
-            ref.child("rooms").child(roomId).child("Player1Prepare").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("Player1Prepare").observe(.value) { [weak self] snapshot in
                 self?.checkIfBothPrepared()
             }
             
-            ref.child("rooms").child(roomId).child("Player2Prepare").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("Player2Prepare").observe(.value) { [weak self] snapshot in
                 self?.checkIfBothPrepared()
             }
             
-            ref.child("rooms").child(roomId).child("Player1 Score").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
                 if let player1Score = snapshot.value as? Int {
                     self?.player1ScoreLabel.text = "Player 1 分數: \(player1Score)"
                 }
             }
             
-            ref.child("rooms").child(roomId).child("Player2 Score").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("Player2Score").observe(.value) { [weak self] snapshot in
                 if let player2Score = snapshot.value as? Int {
                     self?.player2ScoreLabel.text = "Player 2 分數: \(player2Score)"
                 }
             }
             
-            ref.child("rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
                 if let countdownValue = snapshot.value as? Int {
                     self?.countdownLabel.text = "倒數: \(countdownValue) 秒"
                 }
             }
             
-            ref.child("rooms").child(roomId).child("QuestionData").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("QuestionData").observe(.value) { [weak self] snapshot in
                 if let questionData = snapshot.value as? [String: Any] {
                     self?.updateQuestionFromFirebase(questionData: questionData)
                 }
             }
             
-            ref.child("rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
+            ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
                 if let currentIndex = snapshot.value as? Int {
                     self?.questionIndexLabel.text = "目前題目: \(currentIndex)"
                 }
@@ -133,13 +133,13 @@ class BattlePlay1ViewController: UIViewController {
         guard let roomId = roomId else { return }
         
         let prepareKey = whichPlayer == 1 ? "Player1Prepare" : "Player2Prepare"
-        ref.child("rooms").child(roomId).updateChildValues([prepareKey: true])
+        ref.child("Rooms").child(roomId).updateChildValues([prepareKey: true])
     }
     
     func checkIfBothPrepared() {
         guard let roomId = roomId else { return }
         
-        ref.child("rooms").child(roomId).observeSingleEvent(of: .value) { [weak self] snapshot in
+        ref.child("Rooms").child(roomId).observeSingleEvent(of: .value) { [weak self] snapshot in
             if let roomData = snapshot.value as? [String: Any],
                let player1Prepared = roomData["Player1Prepare"] as? Bool,
                let player2Prepared = roomData["Player2Prepare"] as? Bool,
@@ -181,7 +181,7 @@ class BattlePlay1ViewController: UIViewController {
             ]
             
             if let roomId = roomId {
-                ref.child("rooms").child(roomId).child("QuestionData").setValue(questionData)
+                ref.child("Rooms").child(roomId).child("QuestionData").setValue(questionData)
             }
         } else {
             print("No data found in JSON for level \(randomIndex)")
@@ -206,18 +206,19 @@ class BattlePlay1ViewController: UIViewController {
         
         let playerKey = whichPlayer == 1 ? "Player1Select" : "Player2Select"
         
-        ref.child("rooms").child(roomId).updateChildValues([playerKey: selectedValue ?? ""])
+        ref.child("Rooms").child(roomId).updateChildValues([playerKey: selectedValue ?? ""])
         
-        print("玩家 \(whichPlayer == 1 ? "1" : "2") 选择了：\(selectedValue ?? "无选择")")
+        print("玩家 \(whichPlayer == 1 ? "1" : "2") choose：\(selectedValue ?? "no choose")")
     }
     
     
     func startFirebaseCountdown() {
         guard let roomId = roomId, whichPlayer == 1 else { return }
         
-        ref.child("rooms").child(roomId).child("PlayCounting").observeSingleEvent(of: .value) { snapshot in
+        ref.child("Rooms").child(roomId).child("PlayCounting").observeSingleEvent(of: .value) { snapshot in
             if let playCounting = snapshot.value as? Int, playCounting > 0 {
                 self.updateFirebaseCountdown(playCounting)
+                
             }
         }
     }
@@ -233,7 +234,7 @@ class BattlePlay1ViewController: UIViewController {
             return
         }
         
-        ref.child("rooms").child(roomId).child("PlayCounting").setValue(countdownValue - 1) { [weak self] error, _ in
+        ref.child("Rooms").child(roomId).child("PlayCounting").setValue(countdownValue - 1) { [weak self] error, _ in
             if error == nil {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self?.updateFirebaseCountdown(countdownValue - 1)
@@ -247,13 +248,13 @@ class BattlePlay1ViewController: UIViewController {
     func updateQuestionAndResetValues() {
         guard let roomId = roomId, whichPlayer == 1 else { return }
         
-        ref.child("rooms").child(roomId).child("CurrentQuestionIndex").observeSingleEvent(of: .value) { [weak self] snapshot in
+        ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observeSingleEvent(of: .value) { [weak self] snapshot in
             if let currentIndex = snapshot.value as? Int, currentIndex < 10 {
                 let nextIndex = currentIndex + 1
                 
                 self?.questionIndexLabel.text = "目前題目: \(nextIndex)"
                 
-                self?.ref.child("rooms").child(roomId).updateChildValues([
+                self?.ref.child("Rooms").child(roomId).updateChildValues([
                     "CurrentQuestionIndex": nextIndex,
                     "PlayCounting": 10,
                     "Player1Select": 0,
@@ -273,21 +274,21 @@ class BattlePlay1ViewController: UIViewController {
     func evaluateAnswersAndScore() {
         guard let roomId = roomId, let currentWord = currentWord else { return }
         
-        ref.child("rooms").child(roomId).observeSingleEvent(of: .value) { [weak self] snapshot in
+        ref.child("Rooms").child(roomId).observe(.value) { [weak self] snapshot in
             if let roomData = snapshot.value as? [String: Any] {
                 let player1Select = roomData["Player1Select"] as? String
                 let player2Select = roomData["Player2Select"] as? String
                 
                 if let player1Select = player1Select, player1Select == currentWord.chinese {
-                    var player1Score = roomData["Player1 Score"] as? Int ?? 0
-                    player1Score += 1
-                    self?.ref.child("rooms").child(roomId).child("Player1 Score").setValue(player1Score)
+                    var player1Score = roomData["Player1Score"] as? Float ?? 0
+                    player1Score += 0.5
+                    self?.ref.child("Rooms").child(roomId).child("Player1Score").setValue(player1Score)
                 }
                 
                 if let player2Select = player2Select, player2Select == currentWord.chinese {
-                    var player2Score = roomData["Player2 Score"] as? Int ?? 0
-                    player2Score += 1
-                    self?.ref.child("rooms").child(roomId).child("Player2 Score").setValue(player2Score)
+                    var player2Score = roomData["Player2Score"] as? Float ?? 0
+                    player2Score += 0.5
+                    self?.ref.child("Rooms").child(roomId).child("Player2Score").setValue(player2Score)
                 }
             }
         }

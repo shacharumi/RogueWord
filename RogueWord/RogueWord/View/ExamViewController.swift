@@ -11,7 +11,7 @@ import SnapKit
 
 class ExamViewController: UIViewController {
     
-    var buttonArray: [UIButton] = [] // 將 buttonArray 宣告在類別中
+    var buttonArray: [UIButton] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +23,15 @@ extension ExamViewController {
     func setupView() {
         for i in 0..<4 {
             let button = UIButton()
-            buttonArray.append(button) // 將按鈕加入到 buttonArray 中
+            buttonArray.append(button)
             button.setTitleColor(.lightGray, for: .normal)
-            button.addTarget(self, action: #selector(tapToQuestionPage), for: .touchUpInside)
             view.addSubview(button)
             
             switch i {
             case 0:
                 button.setTitle("單字填空", for: .normal)
+                button.addTarget(self, action: #selector(tapToWordFillInTheBlankonPage), for: .touchUpInside)
+
                 button.snp.makeConstraints { make in
                     make.top.equalTo(view.safeAreaLayoutGuide)
                     make.left.equalTo(view).offset(16)
@@ -38,6 +39,8 @@ extension ExamViewController {
                 }
             case 1:
                 button.setTitle("段落填空", for: .normal)
+                button.addTarget(self, action: #selector(tapToParagraphFillInTheBlanksPage), for: .touchUpInside)
+
                 button.snp.makeConstraints { make in
                     make.top.equalTo(view.safeAreaLayoutGuide)
                     make.right.equalTo(view).offset(-16)
@@ -45,15 +48,18 @@ extension ExamViewController {
                 }
             case 2:
                 button.setTitle("閱讀理解", for: .normal)
+                button.addTarget(self, action: #selector(tapToReadingPage), for: .touchUpInside)
+
                 button.snp.makeConstraints { make in
-                    make.top.equalTo(buttonArray[0].snp.bottom).offset(16) // 正確使用 buttonArray[0]
+                    make.top.equalTo(buttonArray[0].snp.bottom).offset(16)
                     make.left.equalTo(view).offset(16)
                     make.width.height.equalTo(100)
                 }
             case 3:
                 button.setTitle("聽力測驗", for: .normal)
+                button.addTarget(self, action: #selector(tapToListeningPage), for: .touchUpInside)
                 button.snp.makeConstraints { make in
-                    make.top.equalTo(buttonArray[0].snp.bottom).offset(16) // 正確使用 buttonArray[0]
+                    make.top.equalTo(buttonArray[0].snp.bottom).offset(16)
                     make.right.equalTo(view).offset(-16)
                     make.width.height.equalTo(100)
                 }
@@ -63,8 +69,23 @@ extension ExamViewController {
         }
     }
     
-    @objc func tapToQuestionPage() {
+    @objc func tapToWordFillInTheBlankonPage() {
         let questionPage = WordFillInTheBlankPageViewController()
+        navigationController?.pushViewController(questionPage, animated: true)
+    }
+    
+    @objc func tapToParagraphFillInTheBlanksPage() {
+        let questionPage = ParagraphFillInTheBlanksViewController()
+        navigationController?.pushViewController(questionPage, animated: true)
+    }
+    
+    @objc func tapToReadingPage() {
+        let questionPage = ReadingViewController()
+        navigationController?.pushViewController(questionPage, animated: true)
+    }
+    
+    @objc func tapToListeningPage() {
+        let questionPage = ListeningViewController()
         navigationController?.pushViewController(questionPage, animated: true)
     }
 }

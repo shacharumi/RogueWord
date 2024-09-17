@@ -1,3 +1,10 @@
+//
+//  CollectionPageViewController.swift
+//  RogueWord
+//
+//  Created by shachar on 2024/9/12.
+//
+
 import UIKit
 
 class CollectionPageViewController: UIViewController {
@@ -12,10 +19,6 @@ class CollectionPageViewController: UIViewController {
         setupCollectionView()
         setupTableView()
 
-        let rightBarButton = UIBarButtonItem(title: "按鈕", style: .plain, target: self, action: #selector(rightBarButtonTapped))
-        self.navigationItem.rightBarButtonItem = rightBarButton
-
-        // 確保 UI 在數據加載完成後才進行刷新
         viewModel.onDataChange = { [weak self] in
             self?.updateTableView()
         }
@@ -25,27 +28,19 @@ class CollectionPageViewController: UIViewController {
             self?.updateTableView()
         }
 
-        // 初始化時加載數據
         viewModel.fetchDataFromFirebase()
         viewModel.fetchTagFromFirebase()
-
     }
 
-    @objc func rightBarButtonTapped() {
-        // 按鈕功能邏輯
-    }
-    
+  
     @objc func updateTag(_ sender: UIButton) {
-        // 確保按鈕的標題存在，否則直接返回
         guard let tagType = sender.title(for: .normal) else {
             print("按鈕沒有標題")
             return
         }
         
-        // 使用按鈕的 tag 屬性來標識選擇的標籤索引
         let tagIndex = sender.tag
         
-        // 更新 ViewModel 中的標籤
         viewModel.updateWordTag(tagType, tagIndex)
         
         print("更新標籤: \(tagType), 索引: \(tagIndex)")
@@ -53,7 +48,6 @@ class CollectionPageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 確保每次視圖出現時都加載數據
         viewModel.fetchDataFromFirebase()
         
     }
@@ -107,51 +101,31 @@ class CollectionPageViewController: UIViewController {
     }
 }
 
-
 extension CollectionPageViewController: UITableViewDataSource, UITableViewDelegate {
-    // 每個 section 的行數
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
         return viewModel.words.count
     }
 
-    // 配置每個 cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CollectionPageCell else {
             return UITableViewCell()
         }
         
         let word = viewModel.words[indexPath.row]
-        cell.textLabel?.text = word.word.english  // 顯示詞彙
-        cell.tag = word.levelNumber  // 使用 levelNumber 作為 cell 標記
-
-        // 註冊選項按鈕，並確保 `optionArray` 已正確填充
+        cell.textLabel?.text = word.word.english
+        cell.tag = word.levelNumber
         cell.registerOptionButton(viewModel.tags)
-        cell.optionPickerView.tag = indexPath.row
-        // 確保按鈕已正確初始化，並迴圈設置目標
-//        for buttonIndex in 0..<viewModel.tags.count {
-//            let button = cell.optionArray[buttonIndex]
-//
-//            // 防止重複添加目標動作，先移除所有舊的目標動作
-//            button.removeTarget(nil, action: nil, for: .allEvents)
-//
-//            // 設置按鈕的標籤（tag），用於識別是哪一行的按鈕
-//            button.tag = indexPath.row
-//
-//            // 添加目標動作
-//            //button.addTarget(self, action: #selector(updateTag(_:)), for: .touchUpInside)
-//        }
+        cell.optionPickerView.tag = word.levelNumber
 
         return cell
     }
 
 
-    // 行的高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 
-    // 點擊行後的行為
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -169,7 +143,6 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         }
     }
 
-    // 定義刪除按鈕的行為
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
             self?.viewModel.removeWord(at: indexPath.row)
@@ -180,10 +153,8 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
     }
 }
 
-
 extension CollectionPageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      
 
         return viewModel.tags.count
     }

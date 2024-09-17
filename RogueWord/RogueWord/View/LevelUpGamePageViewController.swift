@@ -50,10 +50,8 @@ class LevelUpGamePageViewController: UIViewController {
         
         displayQuestion()
 
-
         let barButtonItem = UIBarButtonItem(customView: favoriteButton)
         self.navigationItem.rightBarButtonItem = barButtonItem
-
         
     }
     
@@ -91,16 +89,14 @@ class LevelUpGamePageViewController: UIViewController {
         
         englishLabel.text = question.english
 
-        // 準備正確答案和錯誤答案
         var answers = [question.chinese]
         answers.append(contentsOf: viewModel.generateWrongAnswers(for: question.chinese))
-        answers.shuffle()  // 隨機排列選項
+        answers.shuffle()
         
-        // 將答案分配到按鈕
         for (index, button) in answerButtons.enumerated() {
             if index < answers.count {
                 button.setTitle(answers[index], for: .normal)
-                button.backgroundColor = .lightGray  // 重設按鈕顏色
+                button.backgroundColor = .lightGray
             }
         }
     }
@@ -115,7 +111,7 @@ class LevelUpGamePageViewController: UIViewController {
                 showCompletionAlert()
             }
         } else {
-            sender.backgroundColor = .red  // 點擊錯誤答案時，按鈕變紅
+            sender.backgroundColor = .red
         }
     }
     
@@ -127,7 +123,6 @@ class LevelUpGamePageViewController: UIViewController {
     
     @objc private func addToFavorites(_ sender: UIButton) {
         if sender.tag == 0 {
-            print("aa")
             viewModel.addToFavorites()
             sender.alpha = 1
             sender.tag = 1
@@ -139,4 +134,4 @@ class LevelUpGamePageViewController: UIViewController {
     }
 }
 
-//
+

@@ -8,8 +8,6 @@ import UIKit
 import SnapKit
 
 class HomeViewController: UIViewController {
-
-    // MARK: - Properties
     
     var animateView: UIImageView = {
         let view = UIImageView()
@@ -30,10 +28,8 @@ class HomeViewController: UIViewController {
     }()
     
     
-    
     var homeModel = HomeModel()
 
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         UserDefaults.standard.set(0, forKey: "level")
@@ -52,7 +48,6 @@ class HomeViewController: UIViewController {
         homeModel.timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(generateRandomPoint), userInfo: nil, repeats: true)
     }
 
-    // MARK: - Actions
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: animateView)
         generatePoint(at: location)
@@ -75,9 +70,8 @@ class HomeViewController: UIViewController {
         animateView.addSubview(pointView)
 
         homeModel.points.append(pointView)
-        moveSquareToPoint(pointView)  // 在這裡加上參數標籤
+        moveSquareToPoint(pointView)
     }
-
 
     func moveSquareToPoint(_ pointView: UIImageView) {
         homeModel.moveSquare(squareView, to: pointView) {
@@ -87,7 +81,6 @@ class HomeViewController: UIViewController {
         }
     }
 
-    // MARK: - Setup UI
     func setupView() {
         view.addSubview(animateView)
         view.addSubview(levelView)
@@ -104,7 +97,6 @@ class HomeViewController: UIViewController {
             make.right.equalTo(view).offset(-16)
             make.height.equalTo(50)
         }
-
 
             let levelButton = UIButton()
             levelButton.setTitle("開始修煉", for: .normal)

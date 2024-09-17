@@ -20,7 +20,6 @@
 		C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72382C988531001011D6 /* BattleRoomModel.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
-		C72544382C91854D00580224 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544372C91854D00580224 /* ViewController.swift */; };
 		C725443B2C91854D00580224 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C725443A2C91854D00580224 /* Base */; };
 		C725443E2C91854D00580224 /* RogueWord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */; };
 		C72544402C91854F00580224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C725443F2C91854F00580224 /* Assets.xcassets */; };
@@ -33,9 +32,6 @@
 		C725446C2C918C5A00580224 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C725446B2C918C5A00580224 /* FirebaseDatabase */; };
 		C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C725446D2C918C5A00580224 /* FirebaseFirestore */; };
 		C72544702C918C5A00580224 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C725446F2C918C5A00580224 /* FirebaseStorage */; };
-		C72544722C919B1F00580224 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544712C919B1E00580224 /* FirebaseService.swift */; };
-		C72544742C919FB100580224 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544732C919FB100580224 /* GameService.swift */; };
-		C72544762C92985E00580224 /* GamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544752C92985E00580224 /* GamingViewController.swift */; };
 		C72544782C92BA1700580224 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544772C92BA1700580224 /* LoginViewController.swift */; };
 		C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725447A2C92BA3E00580224 /* HomeViewController.swift */; };
 		C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725447C2C92BA6100580224 /* CollectionPageViewController.swift */; };
@@ -80,7 +76,6 @@
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C72544352C91854D00580224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C72544372C91854D00580224 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C725443A2C91854D00580224 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C725443D2C91854D00580224 /* RogueWord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RogueWord.xcdatamodel; sourceTree = "<group>"; };
 		C725443F2C91854F00580224 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -92,9 +87,6 @@
 		C72544572C91854F00580224 /* RogueWordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITests.swift; sourceTree = "<group>"; };
 		C72544592C91854F00580224 /* RogueWordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C72544662C91895D00580224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C72544712C919B1E00580224 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
-		C72544732C919FB100580224 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
-		C72544752C92985E00580224 /* GamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingViewController.swift; sourceTree = "<group>"; };
 		C72544772C92BA1700580224 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C725447A2C92BA3E00580224 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C725447C2C92BA6100580224 /* CollectionPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageViewController.swift; sourceTree = "<group>"; };
@@ -167,12 +159,8 @@
 		C72544322C91854D00580224 /* RogueWord */ = {
 			isa = PBXGroup;
 			children = (
-				C72544752C92985E00580224 /* GamingViewController.swift */,
 				C72544332C91854D00580224 /* AppDelegate.swift */,
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
-				C72544732C919FB100580224 /* GameService.swift */,
-				C72544372C91854D00580224 /* ViewController.swift */,
-				C72544712C919B1E00580224 /* FirebaseService.swift */,
 				C70B723A2C988540001011D6 /* Model */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
@@ -212,14 +200,14 @@
 				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
+				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
-				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
+				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
-				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
 			);
 			path = View;
@@ -246,6 +234,7 @@
 				C725442C2C91854D00580224 /* Sources */,
 				C725442D2C91854D00580224 /* Frameworks */,
 				C725442E2C91854D00580224 /* Resources */,
+				C70B723F2C99BD62001011D6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -374,6 +363,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C70B723F2C99BD62001011D6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C725442C2C91854D00580224 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -383,14 +392,11 @@
 				C725443E2C91854D00580224 /* RogueWord.xcdatamodeld in Sources */,
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
-				C72544722C919B1F00580224 /* FirebaseService.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
-				C72544382C91854D00580224 /* ViewController.swift in Sources */,
 				C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */,
 				C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */,
 				C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */,
 				C70B72292C968E37001011D6 /* ExamViewController.swift in Sources */,
-				C72544742C919FB100580224 /* GameService.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
 				C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */,
@@ -401,7 +407,6 @@
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
 				C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */,
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
-				C72544762C92985E00580224 /* GamingViewController.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
 				C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */,
@@ -588,6 +593,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7346552Z5J;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RogueWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -617,6 +623,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7346552Z5J;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RogueWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
