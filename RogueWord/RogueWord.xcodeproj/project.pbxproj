@@ -19,6 +19,7 @@
 		C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */; };
 		C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72382C988531001011D6 /* BattleRoomModel.swift */; };
 		C70B72412C99E227001011D6 /* ScanFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72402C99E227001011D6 /* ScanFileViewController.swift */; };
+		C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C70B72442C99EC08001011D6 /* GoogleService-Info.plist */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
 		C725443B2C91854D00580224 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C725443A2C91854D00580224 /* Base */; };
@@ -28,7 +29,6 @@
 		C725444E2C91854F00580224 /* RogueWordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725444D2C91854F00580224 /* RogueWordTests.swift */; };
 		C72544582C91854F00580224 /* RogueWordUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544572C91854F00580224 /* RogueWordUITests.swift */; };
 		C725445A2C91854F00580224 /* RogueWordUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544592C91854F00580224 /* RogueWordUITestsLaunchTests.swift */; };
-		C72544672C91895D00580224 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C72544662C91895D00580224 /* GoogleService-Info.plist */; };
 		C725446A2C918C5A00580224 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C72544692C918C5A00580224 /* FirebaseAuth */; };
 		C725446C2C918C5A00580224 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C725446B2C918C5A00580224 /* FirebaseDatabase */; };
 		C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C725446D2C918C5A00580224 /* FirebaseFirestore */; };
@@ -75,6 +75,7 @@
 		C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePlay1ViewController.swift; sourceTree = "<group>"; };
 		C70B72382C988531001011D6 /* BattleRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleRoomModel.swift; sourceTree = "<group>"; };
 		C70B72402C99E227001011D6 /* ScanFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanFileViewController.swift; sourceTree = "<group>"; };
+		C70B72442C99EC08001011D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C72544352C91854D00580224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		C72544532C91854F00580224 /* RogueWordUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RogueWordUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544572C91854F00580224 /* RogueWordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITests.swift; sourceTree = "<group>"; };
 		C72544592C91854F00580224 /* RogueWordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		C72544662C91895D00580224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C72544772C92BA1700580224 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C725447A2C92BA3E00580224 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C725447C2C92BA6100580224 /* CollectionPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageViewController.swift; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
 				C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */,
+				C70B72442C99EC08001011D6 /* GoogleService-Info.plist */,
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
-				C72544662C91895D00580224 /* GoogleService-Info.plist */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
 			);
@@ -344,7 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72544402C91854F00580224 /* Assets.xcassets in Resources */,
-				C72544672C91895D00580224 /* GoogleService-Info.plist in Resources */,
+				C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,
 				C725443B2C91854D00580224 /* Base in Resources */,
 			);

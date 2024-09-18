@@ -121,7 +121,6 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         return cell
     }
 
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -145,6 +144,7 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
+            
             self?.viewModel.removeWord(at: indexPath.row)
             self?.updateTableView()
             completion(true)

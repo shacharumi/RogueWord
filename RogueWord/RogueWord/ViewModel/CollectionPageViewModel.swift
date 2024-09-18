@@ -6,7 +6,7 @@ class CollectionPageViewModel {
     var onDataChange: (() -> Void)?
     var onTagChange: (() -> Void)?
     var onFilterChange: (() -> Void)?
-    
+    var wordText: String?
     private(set) var words: [FireBaseWord] = [] {
         didSet {
             onDataChange?()
@@ -119,24 +119,22 @@ class CollectionPageViewModel {
         }
     }
     
-    
     func removeWord(at index: Int) {
         let wordToRemove = words[index]
         
         let db = Firestore.firestore()
-        let collectionRef = db.collection("PersonAccount").document("CollectionFolder")
+        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
         
-        collectionRef.updateData([
-            "\(wordToRemove.levelNumber)": FieldValue.delete()
-        ]) { error in
+        collectionRef.document("\(wordToRemove.levelNumber)").delete() { [weak self] error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {
                 print("Document successfully removed!")
+                self?.words.remove(at: index)
             }
         }
     }
-    
+
     func updateWordTag(_ tag: String, _ levelNumber: Int) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
