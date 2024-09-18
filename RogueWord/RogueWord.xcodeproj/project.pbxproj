@@ -22,6 +22,7 @@
 		C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C70B72442C99EC08001011D6 /* GoogleService-Info.plist */; };
 		C70B72552C9A7AFB001011D6 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; };
 		C70B72562C9A7AFB001011D6 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C70B725C2C9ACE2C001011D6 /* CollectionTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
 		C725443B2C91854D00580224 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C725443A2C91854D00580224 /* Base */; };
@@ -121,6 +122,7 @@
 		C70B72402C99E227001011D6 /* ScanFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanFileViewController.swift; sourceTree = "<group>"; };
 		C70B72442C99EC08001011D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
+		C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTagCell.swift; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C72544352C91854D00580224 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
+				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
@@ -497,6 +500,7 @@
 				C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */,
 				C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */,
 				C70B72292C968E37001011D6 /* ExamViewController.swift in Sources */,
+				C70B725C2C9ACE2C001011D6 /* CollectionTagCell.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
 				C70B72412C99E227001011D6 /* ScanFileViewController.swift in Sources */,

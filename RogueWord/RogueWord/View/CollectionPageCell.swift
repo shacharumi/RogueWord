@@ -23,7 +23,6 @@ class CollectionPageCell: UITableViewCell {
         return label
     }()
     
-    var optionArray: [String] = []
     var viewModel = CollectionPageViewModel()
     var cellID: Int = 0
     
@@ -31,14 +30,16 @@ class CollectionPageCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
     }
+   
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
     
+    
+    
     func registerOptionButton(_ tags: [String]) {
-        optionArray = tags
         dropDownButton.dataSource = tags
     }
     

@@ -20,7 +20,7 @@ class CollectionPageViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         setupTableView()
-
+       
         viewModel.onDataChange = { [weak self] in
             self?.updateTableView()
         }
@@ -64,7 +64,7 @@ class CollectionPageViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isUserInteractionEnabled = true
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CollectionTagCell.self, forCellWithReuseIdentifier: "CollectionTagCell")
 
         self.view.addSubview(collectionView)
 
@@ -77,9 +77,12 @@ class CollectionPageViewController: UIViewController {
     }
 
     private func setupTableView() {
+        let rightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(presentAddTagAlert))
+        navigationItem.rightBarButtonItem = rightButton
+        rightButton.title = "+"
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(CollectionPageCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CollectionPageCell.self, forCellReuseIdentifier: "CollectionPageCell")
 
         view.addSubview(tableView)
 
@@ -95,11 +98,33 @@ class CollectionPageViewController: UIViewController {
     }
 
     private func updateTableView() {
+        print(viewModel.words)
         tableView.reloadData()
     }
 
     private func updateCollectionView() {
         collectionView.reloadData()
+    }
+    
+    @objc func presentAddTagAlert() {
+        let alert = UIAlertController(title: "新增標籤", message: "請輸入新的標籤名稱", preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "標籤名稱"
+        }
+        
+        let addAction = UIAlertAction(title: "新增", style: .default) { [weak self] (_) in
+            if let tagName = alert.textFields?.first?.text, !tagName.isEmpty {
+                self?.viewModel.addTag(tagName)
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        alert.addAction(addAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -110,7 +135,7 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CollectionPageCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionPageCell", for: indexPath) as? CollectionPageCell else {
             return UITableViewCell()
         }
         
@@ -121,7 +146,6 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         cell.cellID = word.levelNumber
         cell.tagLabel.text = word.tag
         
-
         return cell
     }
 
@@ -164,25 +188,20 @@ extension CollectionPageViewController: UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionTagCell", for: indexPath) as! CollectionTagCell
         cell.backgroundColor = .lightGray
-
+        
         let tag = viewModel.tags[indexPath.row]
-        let button = UIButton(frame: cell.bounds)
-        button.setTitle(tag, for: .normal)
-        button.configuration?.titleAlignment = .center
-        button.titleLabel?.textColor = .white
-        button.isUserInteractionEnabled = true
-        button.accessibilityIdentifier = tag
-        button.addTarget(self, action: #selector(tagTapped(_:)), for: .touchUpInside)
-        cell.layer.cornerRadius = 15
-        cell.layer.masksToBounds = true
-        cell.contentView.addSubview(button)
+        cell.button.setTitle(tag, for: .normal)
+        cell.button.accessibilityIdentifier = tag
+        cell.button.addTarget(self, action: #selector(tagTapped(_:)), for: .touchUpInside)
+        
         let interaction = UIContextMenuInteraction(delegate: self)
         cell.addInteraction(interaction)
-
+        
         return cell
     }
+
 
     @objc func tagTapped(_ sender: UIButton) {
         if let tag = sender.accessibilityIdentifier {
@@ -199,20 +218,22 @@ extension CollectionPageViewController: UICollectionViewDataSource, UICollection
     }
 }
 
-
 extension CollectionPageViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star")) { action in
-                print("Action 1 selected")
+        
+        let locationInView = interaction.location(in: collectionView)
+        
+        if let indexPath = collectionView.indexPathForItem(at: locationInView) {
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+                let action1 = UIAction(title: "刪除", image: UIImage(systemName: "trash")) { action in
+                    self.viewModel.removeTag(indexPath.row)
+                }
+                return UIMenu(title: "", children: [action1])
             }
-            let action2 = UIAction(title: "Action 2", image: UIImage(systemName: "heart")) { action in
-                print("Action 2 selected")
-            }
-            return UIMenu(title: "", children: [action1, action2])
         }
+        
+        return nil
     }
-
-    
-
 }
+
+
