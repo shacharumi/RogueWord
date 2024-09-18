@@ -1,15 +1,31 @@
 import UIKit
+import DropDown
 import SnapKit
 
-class CollectionPageCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
+class CollectionPageCell: UITableViewCell {
+
+    let dropDownButton: DropDown = {
+       let dropDown = DropDown()
+        return dropDown
+    }()
     
-    let optionPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
+    let testView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    let tagLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
     }()
     
     var optionArray: [String] = []
     var viewModel = CollectionPageViewModel()
+    var cellID: Int = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,37 +39,39 @@ class CollectionPageCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDat
     
     func registerOptionButton(_ tags: [String]) {
         optionArray = tags
-        optionPickerView.reloadAllComponents()
+        dropDownButton.dataSource = tags
     }
     
     private func setupView() {
-        contentView.addSubview(optionPickerView)
+        contentView.addSubview(testView)
+        testView.addSubview(tagLabel)
+        dropDownButton.anchorView = testView
+        dropDownButton.direction = .bottom
         
-        optionPickerView.delegate = self
-        optionPickerView.dataSource = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTestViewTap))
+        testView.addGestureRecognizer(tapGesture)
         
-        optionPickerView.snp.makeConstraints { make in
+        testView.snp.makeConstraints { make in
             make.right.equalTo(contentView).offset(-16)
             make.height.equalTo(50)
             make.width.equalTo(90)
         }
+        
+        tagLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        dropDownButton.selectionAction = { [weak self] (index: Int, item: String) in
+            self?.tagLabel.text = item
+            self?.viewModel.updateWordTag(item, self?.cellID ?? 0)
+        }
     }
 
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return optionArray.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return optionArray[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedOption = optionArray[row]
-     
-        viewModel.updateWordTag(selectedOption, optionPickerView.tag)
+    @objc private func handleTestViewTap() {
+        if dropDownButton.isHidden {
+            dropDownButton.show()
+        } else {
+            dropDownButton.hide()
+        }
     }
 }

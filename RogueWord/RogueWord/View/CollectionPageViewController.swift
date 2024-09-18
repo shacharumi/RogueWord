@@ -8,6 +8,8 @@
 import UIKit
 
 class CollectionPageViewController: UIViewController {
+    
+    
 
     private var tableView: UITableView!
     private var collectionView: UICollectionView!
@@ -32,7 +34,6 @@ class CollectionPageViewController: UIViewController {
         viewModel.fetchTagFromFirebase()
     }
 
-  
     @objc func updateTag(_ sender: UIButton) {
         guard let tagType = sender.title(for: .normal) else {
             print("按鈕沒有標題")
@@ -66,6 +67,7 @@ class CollectionPageViewController: UIViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
         self.view.addSubview(collectionView)
+
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.equalTo(view).offset(16)
@@ -116,7 +118,9 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         cell.textLabel?.text = word.word.english
         cell.tag = word.levelNumber
         cell.registerOptionButton(viewModel.tags)
-        cell.optionPickerView.tag = word.levelNumber
+        cell.cellID = word.levelNumber
+        cell.tagLabel.text = word.tag
+        
 
         return cell
     }
@@ -174,6 +178,8 @@ extension CollectionPageViewController: UICollectionViewDataSource, UICollection
         cell.layer.cornerRadius = 15
         cell.layer.masksToBounds = true
         cell.contentView.addSubview(button)
+        let interaction = UIContextMenuInteraction(delegate: self)
+        cell.addInteraction(interaction)
 
         return cell
     }
@@ -191,4 +197,22 @@ extension CollectionPageViewController: UICollectionViewDataSource, UICollection
         let width = tag.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)]).width + 20
         return CGSize(width: width, height: 30)
     }
+}
+
+
+extension CollectionPageViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star")) { action in
+                print("Action 1 selected")
+            }
+            let action2 = UIAction(title: "Action 2", image: UIImage(systemName: "heart")) { action in
+                print("Action 2 selected")
+            }
+            return UIMenu(title: "", children: [action1, action2])
+        }
+    }
+
+    
+
 }

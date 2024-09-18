@@ -6,7 +6,6 @@ class CollectionPageViewModel {
     var onDataChange: (() -> Void)?
     var onTagChange: (() -> Void)?
     var onFilterChange: (() -> Void)?
-    var wordText: String?
     private(set) var words: [FireBaseWord] = [] {
         didSet {
             onDataChange?()
