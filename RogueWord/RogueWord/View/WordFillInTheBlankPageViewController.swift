@@ -12,7 +12,8 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     private let urlString = "https://api.openai.com/v1/chat/completions"
     private var questions: [Question] = []
     private let tableView = UITableView()
-
+    private var answerSelect: String = ""
+    private var answerButton: UIBarButtonItem?
     override func viewDidLoad() {
         super.viewDidLoad()
         callChatGPTAPI()
@@ -33,13 +34,18 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionPageCell", for: indexPath) as? QuestionPageCell {
             let question = questions[indexPath.row]
-            print(question.options)
+            cell.answerSelectLabel.text = "( \(answerSelect) )"
             cell.questionLabel.text = question.questionText
-            cell.optionLabel0.text = question.options[0]
-            cell.optionLabel1.text = question.options[1]
-            cell.optionLabel2.text = question.options[2]
-            cell.optionLabel3.text = question.options[3]
+            cell.optionLabel0.setTitle(question.options[0], for: .normal)
+            cell.optionLabel1.setTitle(question.options[1], for: .normal)
+            cell.optionLabel2.setTitle(question.options[2], for: .normal)
+            cell.optionLabel3.setTitle(question.options[3], for: .normal)
             cell.answerLabel.text = question.answer
+            cell.optionLabel0.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
+            cell.optionLabel1.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
+            cell.optionLabel2.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
+            cell.optionLabel3.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
+            
             return cell
         } else {
             return UITableViewCell()
@@ -60,7 +66,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         let openAIBody = OpenAIBody(model: AIModel.model, messages: [
             Message(role: "system", content: "You are a helpful assistant."),
             Message(role: "user", content: """
-            Please generate three elementary school English vocabulary fill-in-the-blank questions with multiple-choice answers in the following format:
+            Please generate Five Toeic English vocabulary fill-in-the-blank questions with multiple-choice answers in the following format:
 
             Format:
             1. I like eat an ___ .
@@ -116,5 +122,40 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         }
         
         return questions
+    }
+    
+    @objc func tapOptions(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? QuestionPageCell else { return } // 找到該按鈕所在的 Cell
+        guard let indexPath = tableView.indexPath(for: cell) else { return } // 找到該 Cell 的 indexPath
+        
+        switch sender.tag {
+        case 0:
+            answerSelect = "A"
+        case 1:
+            answerSelect = "B"
+        case 2:
+            answerSelect = "C"
+        case 3:
+            answerSelect = "D"
+        default:
+            print("answer error")
+        }
+
+        // 更新選擇的答案，並重新載入該行
+        questions[indexPath.row].selectedAnswer = answerSelect
+        tableView.reloadRows(at: [indexPath], with: .none) // 重新載入這一行，顯示選擇的答案
+    }
+    @objc func tapAnswer() {
+        
+    }
+}
+
+
+extension WordFillInTheBlankPageViewController {
+    func setupView() {
+        answerButton?.title = "解答"
+        self.navigationItem.rightBarButtonItem = answerButton
+        
+        
     }
 }

@@ -37,10 +37,12 @@ struct Question {
     let questionText: String
     let options: [String]
     let answer: String
+    var selectedAnswer: String?
+
 }
 
 struct ChatGPTAPIKey {
-    static let key = ""
+    static let key = "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"
 }
 
 struct AIModel {

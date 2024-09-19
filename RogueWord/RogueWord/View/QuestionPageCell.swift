@@ -18,36 +18,60 @@ class QuestionPageCell: UITableViewCell {
        return label
     }()
     
-    var optionLabel0: UILabel = {
+    var answerSelectLabel: UILabel = {
        let label = UILabel()
-       label.textColor = .gray
+       label.textColor = .black
        label.numberOfLines = 0
-       label.font = UIFont.systemFont(ofSize: 14)
+       label.font = UIFont.boldSystemFont(ofSize: 16)
        return label
     }()
     
-    var optionLabel1: UILabel = {
-       let label = UILabel()
-       label.textColor = .gray
-       label.numberOfLines = 0
-       label.font = UIFont.systemFont(ofSize: 14)
-       return label
+    var optionLabel0: UIButton = {
+       let button = UIButton()
+        button.tag = 0
+        button.setTitleColor(.gray, for: .normal)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.isUserInteractionEnabled = true
+       return button
     }()
     
-    var optionLabel2: UILabel = {
-       let label = UILabel()
-       label.textColor = .gray
-       label.numberOfLines = 0
-       label.font = UIFont.systemFont(ofSize: 14)
-       return label
+    var optionLabel1: UIButton = {
+        let button = UIButton()
+        button.tag = 1
+        button.setTitleColor(.gray, for: .normal)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.isUserInteractionEnabled = true
+        return button
     }()
     
-    var optionLabel3: UILabel = {
-       let label = UILabel()
-       label.textColor = .gray
-       label.numberOfLines = 0
-       label.font = UIFont.systemFont(ofSize: 14)
-       return label
+    var optionLabel2: UIButton = {
+        let button = UIButton()
+        button.tag = 2
+        button.setTitleColor(.gray, for: .normal)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.isUserInteractionEnabled = true
+        return button
+    }()
+    
+    var optionLabel3: UIButton = {
+        let button = UIButton()
+        button.tag = 3
+        button.setTitleColor(.gray, for: .normal)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.isUserInteractionEnabled = true
+        return button
     }()
     
     var answerLabel: UILabel = {
@@ -60,7 +84,7 @@ class QuestionPageCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        contentView.addSubview(answerSelectLabel)
         contentView.addSubview(questionLabel)
         contentView.addSubview(optionLabel0)
         contentView.addSubview(optionLabel1)
@@ -76,29 +100,34 @@ class QuestionPageCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        questionLabel.snp.makeConstraints { make in
+        answerSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
             make.left.equalTo(contentView).offset(16)
+            make.width.equalTo(50)
+        }
+        questionLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(16)
+            make.left.equalTo(answerSelectLabel.snp.right).offset(4)
             make.right.equalTo(contentView).offset(-16)
         }
         optionLabel0.snp.makeConstraints { make in
             make.top.equalTo(questionLabel.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
+            make.left.equalTo(questionLabel)
             make.right.equalTo(contentView).offset(-16)
         }
         optionLabel1.snp.makeConstraints { make in
             make.top.equalTo(optionLabel0.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
+            make.left.equalTo(questionLabel)
             make.right.equalTo(contentView).offset(-16)
         }
         optionLabel2.snp.makeConstraints { make in
             make.top.equalTo(optionLabel1.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
+            make.left.equalTo(questionLabel)
             make.right.equalTo(contentView).offset(-16)
         }
         optionLabel3.snp.makeConstraints { make in
             make.top.equalTo(optionLabel2.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
+            make.left.equalTo(questionLabel)
             make.right.equalTo(contentView).offset(-16)
         }
         answerLabel.snp.makeConstraints { make in
