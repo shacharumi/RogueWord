@@ -22,6 +22,7 @@ class QuestionPageCell: UITableViewCell {
        label.textColor = .black
        label.numberOfLines = 0
        label.font = UIFont.boldSystemFont(ofSize: 16)
+       //label.text = "()"
        return label
     }()
     
