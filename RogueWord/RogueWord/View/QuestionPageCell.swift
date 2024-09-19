@@ -4,7 +4,6 @@
 //
 //  Created by shachar on 2024/9/15.
 //
-
 import Foundation
 import UIKit
 import SnapKit
@@ -82,6 +81,22 @@ class QuestionPageCell: UITableViewCell {
        return label
     }()
     
+    var translateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("翻譯", for: .normal)
+        button.isUserInteractionEnabled = true
+        return button
+    }()
+    
+    var translatedLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .blue
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.isHidden = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(answerSelectLabel)
@@ -91,6 +106,8 @@ class QuestionPageCell: UITableViewCell {
         contentView.addSubview(optionLabel2)
         contentView.addSubview(optionLabel3)
         contentView.addSubview(answerLabel)
+        contentView.addSubview(translateButton)
+       // contentView.addSubview(translatedLabel)
         
         setupConstraints()
     }
@@ -129,12 +146,21 @@ class QuestionPageCell: UITableViewCell {
             make.top.equalTo(optionLabel2.snp.bottom).offset(8)
             make.left.equalTo(questionLabel)
             make.right.equalTo(contentView).offset(-16)
-        }
-        answerLabel.snp.makeConstraints { make in
-            make.top.equalTo(optionLabel3.snp.bottom).offset(8)
-            make.left.equalTo(contentView).offset(16)
-            make.right.equalTo(contentView).offset(-16)
             make.bottom.equalTo(contentView).offset(-16)
         }
+        translateButton.snp.makeConstraints { make in
+            make.right.equalTo(contentView).offset(-16)
+            make.height.equalTo(40)
+            make.bottom.equalTo(contentView).offset(-8)
+
+        }
+//        translatedLabel.snp.makeConstraints { make in
+//            make.top.equalTo(translateButton.snp.bottom).offset(8)
+//            make.left.equalTo(contentView).offset(16)
+//            make.right.equalTo(contentView).offset(-16)
+//            make.bottom.equalTo(contentView).offset(-16)
+//        }
     }
+    
+    
 }
