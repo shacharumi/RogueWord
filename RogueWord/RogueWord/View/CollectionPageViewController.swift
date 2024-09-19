@@ -145,7 +145,10 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         cell.registerOptionButton(viewModel.tags)
         cell.cellID = word.levelNumber
         cell.tagLabel.text = word.tag
-        
+        cell.dropDownButton.selectionAction = { [weak self] (index: Int, item: String) in
+            cell.tagLabel.text = item
+            self?.viewModel.updateWordTag(item,word.levelNumber)
+        }
         return cell
     }
 

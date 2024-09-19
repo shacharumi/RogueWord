@@ -183,7 +183,6 @@ class CollectionPageViewModel {
     func updateWordTag(_ tag: String, _ levelNumber: Int) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
-        print(self.words)
 
         collectionRef.document("\(levelNumber)").updateData([
             "Tag": tag
@@ -193,7 +192,6 @@ class CollectionPageViewModel {
             } else {
                 print("Document successfully updated!")
                 
-                // 更新本地 words[] 中的对应项
                 if let index = self?.words.firstIndex(where: { $0.levelNumber == levelNumber }) {
                     self?.words[index].tag = tag
                     self?.onDataChange?()
@@ -201,7 +199,6 @@ class CollectionPageViewModel {
             }
         }
     }
-
 
     func addTag(_ tagText: String) {
         let db = Firestore.firestore()

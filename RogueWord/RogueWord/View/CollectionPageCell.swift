@@ -23,7 +23,6 @@ class CollectionPageCell: UITableViewCell {
         return label
     }()
     
-    var viewModel = CollectionPageViewModel()
     var cellID: Int = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -62,10 +61,6 @@ class CollectionPageCell: UITableViewCell {
             make.edges.equalToSuperview()
         }
         
-        dropDownButton.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.tagLabel.text = item
-            self?.viewModel.updateWordTag(item, self?.cellID ?? 0)
-        }
     }
 
     @objc private func handleTestViewTap() {
