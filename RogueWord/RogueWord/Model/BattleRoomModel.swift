@@ -21,7 +21,7 @@ struct Room {
 
 struct FireBaseWord {
     let levelNumber: Int
-    let tag: String
+    var tag: String
     let word: JsonWord
 }
 

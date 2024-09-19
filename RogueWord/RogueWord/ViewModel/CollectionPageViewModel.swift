@@ -6,7 +6,6 @@ class CollectionPageViewModel {
     var onDataChange: (() -> Void)?
     var onTagChange: (() -> Void)?
     var onFilterChange: (() -> Void)?
-    
     private(set) var words: [FireBaseWord] = [] {
         didSet {
             onDataChange?()
@@ -110,7 +109,7 @@ class CollectionPageViewModel {
             }
             
             if let tags = document.data()?["Tag"] as? [String] {
-                self?.tags = tags.sorted()
+                self?.tags = tags
                 
                 self?.onTagChange?()
             } else {
@@ -119,38 +118,108 @@ class CollectionPageViewModel {
         }
     }
     
-    
     func removeWord(at index: Int) {
         let wordToRemove = words[index]
         
         let db = Firestore.firestore()
-        let collectionRef = db.collection("PersonAccount").document("CollectionFolder")
+        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
         
-        collectionRef.updateData([
-            "\(wordToRemove.levelNumber)": FieldValue.delete()
-        ]) { error in
+        collectionRef.document("\(wordToRemove.levelNumber)").delete() { [weak self] error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {
                 print("Document successfully removed!")
+                self?.words.remove(at: index)
             }
         }
     }
-    
+
+    func removeTag(_ index: Int) {
+        let tagToRemove = tags[index]
+        let db = Firestore.firestore()
+        let accountRef = db.collection("PersonAccount").document(account)
+        let collectionRef = accountRef.collection("CollectionFolderWords")
+        accountRef.updateData([
+            "Tag": FieldValue.arrayRemove([tagToRemove])
+        ]) { [weak self] error in
+            if let error = error {
+                print("Error removing tag: \(error)")
+            } else {
+                print("Tag successfully removed!")
+                self?.tags.remove(at: index)
+                self?.onTagChange?()
+                
+                self?.removeWordsWithTag(tagToRemove, collectionRef: collectionRef)
+            }
+        }
+    }
+
+    private func removeWordsWithTag(_ tag: String, collectionRef: CollectionReference) {
+        collectionRef.whereField("Tag", isEqualTo: tag).getDocuments { [weak self] (snapshot, error) in
+            if let error = error {
+                
+                print("Error fetching words with tag: \(error)")
+            } else {
+                guard let documents = snapshot?.documents else { return }
+                
+                for document in documents {
+                    collectionRef.document(document.documentID).delete { error in
+                        if let error = error {
+                            print("Error removing word with tag: \(error)")
+                        } else {
+                            print("Word with tag \(tag) successfully removed!")
+                            print("Before removeAll: \(self?.words)")
+                            self?.words.removeAll { $0.tag == tag }
+                            print("After removeAll: \(self?.words)")
+                            self?.onDataChange?()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     func updateWordTag(_ tag: String, _ levelNumber: Int) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
-        
+        print(self.words)
+
         collectionRef.document("\(levelNumber)").updateData([
             "Tag": tag
-        ]) { error in
+        ]) { [weak self] error in
             if let error = error {
                 print("Error updating document: \(error)")
             } else {
                 print("Document successfully updated!")
+                
+                // 更新本地 words[] 中的对应项
+                if let index = self?.words.firstIndex(where: { $0.levelNumber == levelNumber }) {
+                    self?.words[index].tag = tag
+                    self?.onDataChange?()
+                }
             }
         }
     }
+
+
+    func addTag(_ tagText: String) {
+        let db = Firestore.firestore()
+        let accountRef = db.collection("PersonAccount").document(account)
+        
+        accountRef.updateData([
+            "Tag": FieldValue.arrayUnion([tagText])
+        ]) { [weak self] error in
+            if let error = error {
+                print("Error adding tag: \(error)")
+            } else {
+                print("Tag successfully added!")
+                self?.tags.append(tagText)
+                self?.onTagChange?()
+            }
+        }
+    }
+
     
     func fetchFilterData(_ tag: String, completion: @escaping () -> Void) {
         let db = Firestore.firestore()
