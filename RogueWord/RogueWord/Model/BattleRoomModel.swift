@@ -58,7 +58,7 @@ struct OpenAIBody: Encodable {
     let model: String
     let messages: [Message]
     let temperature = 0.0
-    let max_tokens = 512
+    let max_tokens = 1024
     let top_p = 1.0
     let frequency_penalty = 0.0
     let presence_penalty = 0.0

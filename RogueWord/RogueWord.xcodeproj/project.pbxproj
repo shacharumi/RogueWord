@@ -46,6 +46,8 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
+		C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */; };
+		C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +147,8 @@
 		C72544852C92BB3E00580224 /* CollectionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageCell.swift; sourceTree = "<group>"; };
 		C72544872C92BB6900580224 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTestCell.swift; sourceTree = "<group>"; };
+		C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningTestCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +282,8 @@
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
 				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
+				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
+				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
 			);
@@ -502,11 +508,13 @@
 				C70B72292C968E37001011D6 /* ExamViewController.swift in Sources */,
 				C70B725C2C9ACE2C001011D6 /* CollectionTagCell.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
+				C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
 				C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
 				C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */,
 				C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */,
+				C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */,
 				C70B72432C99E775001011D6 /* ScanImageViewController.swift in Sources */,
 				C70B72272C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift in Sources */,
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
