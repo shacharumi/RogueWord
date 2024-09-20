@@ -43,7 +43,7 @@ class ListeningViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ParagraphCell", for: indexPath) as? ParagraphCell {
             let question = questions[indexPath.section]
-            cell.optionLabel.text = question.options[indexPath.row]
+            //cell.optionLabel.text = question.options[indexPath.row]
             cell.answerLabel.text = question.answer[indexPath.row]
             return cell
         } else {

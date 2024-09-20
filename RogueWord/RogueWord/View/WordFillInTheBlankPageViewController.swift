@@ -92,7 +92,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                 
                 Ensure that the questions are of appropriate difficulty for TOEIC 700, including context that challenges vocabulary and grammar comprehension. Please provide answers in Chinese explaining the reason for the correct answer. Also, ensure that the "AnswerOption" is always provided in uppercase letters (A, B, C, D).
 
-                
+                Return the result in valid JSON format.
                 """]
                 
             ]
