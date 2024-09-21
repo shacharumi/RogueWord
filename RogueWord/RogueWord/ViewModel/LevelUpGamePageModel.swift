@@ -12,7 +12,7 @@ class LevelUpGamePageModel {
     
     private var words: [JsonWord] = []
     private var questions: [JsonWord] = []
-    private(set) var currentQuestionIndex: Int = 0
+    var currentQuestionIndex: Int = 0
     
     init() {
         if FirebaseApp.app() == nil {

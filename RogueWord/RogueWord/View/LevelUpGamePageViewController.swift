@@ -4,12 +4,13 @@
 //
 //  Created by shachar on 2024/9/12.
 //
-
 import UIKit
+import SnapKit
 
 class LevelUpGamePageViewController: UIViewController {
     
     private let viewModel = LevelUpGamePageModel()
+    private var cardView: UIView!
     
     private let englishLabel: UILabel = {
         let label = UILabel()
@@ -33,38 +34,42 @@ class LevelUpGamePageViewController: UIViewController {
         return buttons
     }()
     
-    private let favoriteButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.setTitle("收藏", for: .normal)
-        button.alpha = 0.5
-        button.tag = 0
-        
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
-        
+        setupNavigationBar()
         displayQuestion()
-
-        let barButtonItem = UIBarButtonItem(customView: favoriteButton)
-        self.navigationItem.rightBarButtonItem = barButtonItem
-        
     }
     
     private func setupUI() {
-        view.addSubview(englishLabel)
-        view.addSubview(favoriteButton)
-        favoriteButton.addTarget(self, action: #selector(addToFavorites(_:)), for: .touchUpInside)
-
-        NSLayoutConstraint.activate([
-            englishLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            englishLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+        // 建立卡片視圖
+        cardView = UIView()
+        cardView.backgroundColor = .white
+        cardView.layer.cornerRadius = 12
+        cardView.layer.shadowColor = UIColor.black.cgColor
+        cardView.layer.shadowOpacity = 0.2
+        cardView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        cardView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(cardView)
         
+        // 將英文標籤加入卡片內
+        cardView.addSubview(englishLabel)
+        
+        cardView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.centerY.equalTo(view).offset(-100)
+            make.width.equalTo(300)
+            make.height.equalTo(400)
+        }
+        
+        englishLabel.snp.makeConstraints { make in
+            make.top.equalTo(cardView).offset(-100)
+            make.centerX.equalTo(cardView)
+        }
+        
+        
+        // 建立選項按鈕的堆疊視圖
         let stackView = UIStackView(arrangedSubviews: answerButtons)
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -73,12 +78,18 @@ class LevelUpGamePageViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.topAnchor.constraint(equalTo: englishLabel.bottomAnchor, constant: 50)
+            stackView.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: 50)
         ])
         
         for button in answerButtons {
             button.addTarget(self, action: #selector(answerTapped(_:)), for: .touchUpInside)
         }
+    }
+    
+    private func setupNavigationBar() {
+        // 添加 "上一張卡片" 的按鈕到右上角
+        let previousButton = UIBarButtonItem(title: "上一張", style: .plain, target: self, action: #selector(goToPreviousQuestion))
+        self.navigationItem.rightBarButtonItem = previousButton
     }
     
     private func displayQuestion() {
@@ -88,7 +99,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
         
         englishLabel.text = question.english
-
+        
         var answers = [question.chinese]
         answers.append(contentsOf: viewModel.generateWrongAnswers(for: question.chinese))
         answers.shuffle()
@@ -103,16 +114,40 @@ class LevelUpGamePageViewController: UIViewController {
     
     @objc private func answerTapped(_ sender: UIButton) {
         guard let answer = sender.currentTitle else { return }
+        
         if viewModel.checkAnswer(answer) {
-            if viewModel.moveToNextQuestion() {
-                displayQuestion()
-                favoriteButton.tag = 0
-            } else {
-                showCompletionAlert()
-            }
+            // 選對，向右滑動
+            animateCardSlide(direction: .right)
         } else {
-            sender.backgroundColor = .red
+            // 選錯，向左滑動並加入收藏
+            viewModel.addToFavorites()
+            animateCardSlide(direction: .left)
         }
+    }
+    
+    private enum SlideDirection {
+        case left, right
+    }
+    
+    private func animateCardSlide(direction: SlideDirection) {
+        let offScreenX: CGFloat = direction == .right ? UIScreen.main.bounds.width : -UIScreen.main.bounds.width
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.cardView.center.x = offScreenX
+            self.cardView.alpha = 0
+        }) { _ in
+            self.resetCardPosition()
+            if self.viewModel.moveToNextQuestion() {
+                self.displayQuestion()
+            } else {
+                self.showCompletionAlert()
+            }
+        }
+    }
+    
+    private func resetCardPosition() {
+        cardView.center = view.center
+        cardView.alpha = 1
     }
     
     private func showCompletionAlert() {
@@ -121,17 +156,23 @@ class LevelUpGamePageViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc private func addToFavorites(_ sender: UIButton) {
-        if sender.tag == 0 {
-            viewModel.addToFavorites()
-            sender.alpha = 1
-            sender.tag = 1
+    // 回到上一張卡片，使用淡出淡入動畫
+    @objc private func goToPreviousQuestion() {
+        if viewModel.currentQuestionIndex > 0 {
+            viewModel.currentQuestionIndex -= 1
+            // 卡片淡出並淡入恢復
+            UIView.animate(withDuration: 0.5, animations: {
+                self.cardView.alpha = 0
+            }) { _ in
+                self.displayQuestion()
+                UIView.animate(withDuration: 0.5) {
+                    self.cardView.alpha = 1
+                }
+            }
         } else {
-            viewModel.removeToFavorites()
-            sender.alpha = 0.5
-            sender.tag = 0
+            let alert = UIAlertController(title: "提示", message: "這是第一張卡片，無法回退", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 }
-
-
