@@ -6,12 +6,13 @@ class CollectionPageCell: UITableViewCell {
 
     let dropDownButton: DropDown = {
        let dropDown = DropDown()
+        
         return dropDown
     }()
     
     let testView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .brown
         return view
     }()
     
@@ -55,7 +56,7 @@ class CollectionPageCell: UITableViewCell {
         testView.snp.makeConstraints { make in
             make.right.equalTo(contentView).offset(-16)
             make.height.equalTo(50)
-            make.width.equalTo(90)
+            make.width.equalTo(50)
         }
         
         tagLabel.snp.makeConstraints { make in

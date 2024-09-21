@@ -15,6 +15,7 @@ class CollectionPageViewController: UIViewController {
     private var collectionView: UICollectionView!
     
     private let viewModel = CollectionPageViewModel()
+    private var tapCounts: [IndexPath: Int] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,21 +155,36 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+           tableView.deselectRow(at: indexPath, animated: true)
 
-        let word = viewModel.words[indexPath.row]
-        if let cell = tableView.cellForRow(at: indexPath) {
-            let newLabel = (cell.textLabel?.text == word.word.english) ? word.word.chinese : word.word.english
-            UIView.animate(withDuration: 0.3, animations: {
-                cell.textLabel?.alpha = 0.0
-            }, completion: { _ in
-                cell.textLabel?.text = newLabel
-                UIView.animate(withDuration: 0.3, animations: {
-                    cell.textLabel?.alpha = 1.0
-                })
-            })
-        }
-    }
+           let word = viewModel.words[indexPath.row]
+           if let cell = tableView.cellForRow(at: indexPath) {
+               
+               let currentTapCount = tapCounts[indexPath] ?? 0
+            let newLabel: String
+               switch currentTapCount {
+               case 0:
+                   newLabel = word.word.chinese
+               case 1:
+                   newLabel = word.word.sentence
+               case 2:
+                   newLabel = word.word.english
+               default:
+                   newLabel = word.word.english
+               }
+               
+               UIView.animate(withDuration: 0.3, animations: {
+                   cell.textLabel?.alpha = 0.0
+               }, completion: { _ in
+                   cell.textLabel?.text = newLabel
+                   UIView.animate(withDuration: 0.3, animations: {
+                       cell.textLabel?.alpha = 1.0
+                   })
+               })
+               
+               tapCounts[indexPath] = (currentTapCount + 1) % 3
+           }
+       }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in

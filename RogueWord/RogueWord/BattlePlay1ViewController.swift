@@ -9,7 +9,6 @@ class BattlePlay1ViewController: UIViewController {
     var countdownLabel: UILabel!
     var questionIndexLabel: UILabel!
     var wordLabel: UILabel!
-    var prepareButton: UIButton!
     var ref: DatabaseReference!
     var player2Id: String?
     var player1Id: String?
@@ -22,51 +21,53 @@ class BattlePlay1ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         ref = Database.database().reference()
-        
+
         setupUI()
-        
+
         if let roomId = roomId {
-            ref.child("Rooms").child(roomId).child("Player1Prepare").observe(.value) { [weak self] snapshot in
-                self?.checkIfBothPrepared()
-            }
-            
-            ref.child("Rooms").child(roomId).child("Player2Prepare").observe(.value) { [weak self] snapshot in
-                self?.checkIfBothPrepared()
-            }
-            
             ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
                 if let player1Score = snapshot.value as? Int {
                     self?.player1ScoreLabel.text = "Player 1 分數: \(player1Score)"
                 }
             }
-            
+
             ref.child("Rooms").child(roomId).child("Player2Score").observe(.value) { [weak self] snapshot in
                 if let player2Score = snapshot.value as? Int {
                     self?.player2ScoreLabel.text = "Player 2 分數: \(player2Score)"
                 }
             }
-            
+
             ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
                 if let countdownValue = snapshot.value as? Int {
                     self?.countdownLabel.text = "倒數: \(countdownValue) 秒"
                 }
             }
-            
+
             ref.child("Rooms").child(roomId).child("QuestionData").observe(.value) { [weak self] snapshot in
                 if let questionData = snapshot.value as? [String: Any] {
                     self?.updateQuestionFromFirebase(questionData: questionData)
                 }
             }
-            
+
             ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
                 if let currentIndex = snapshot.value as? Int {
                     self?.questionIndexLabel.text = "目前題目: \(currentIndex)"
                 }
             }
+
+            ref.child("Rooms").child(roomId).child("RoomIsStart").observe(.value) { [weak self] snapshot in
+                if let roomIsStart = snapshot.value as? Bool, roomIsStart {
+                    if self?.whichPlayer == 1 {
+                        self?.randomizeWordAndOptions()
+                    }
+                    self?.startFirebaseCountdown()
+                }
+            }
         }
     }
+
     
     func setupUI() {
         view.backgroundColor = .white
@@ -105,14 +106,6 @@ class BattlePlay1ViewController: UIViewController {
         player2ScoreLabel.text = "Player 2 分數: 0"
         view.addSubview(player2ScoreLabel)
         
-        prepareButton = UIButton(type: .system)
-        prepareButton.frame = CGRect(x: 50, y: view.bounds.height - 100, width: view.bounds.width - 100, height: 50)
-        prepareButton.setTitle("準備", for: .normal)
-        prepareButton.backgroundColor = .systemGreen
-        prepareButton.setTitleColor(.white, for: .normal)
-        prepareButton.addTarget(self, action: #selector(prepareForGame), for: .touchUpInside)
-        view.addSubview(prepareButton)
-        
         setupButtons()
     }
     
@@ -129,22 +122,13 @@ class BattlePlay1ViewController: UIViewController {
         }
     }
     
-    @objc func prepareForGame() {
-        guard let roomId = roomId else { return }
-        
-        let prepareKey = whichPlayer == 1 ? "Player1Prepare" : "Player2Prepare"
-        ref.child("Rooms").child(roomId).updateChildValues([prepareKey: true])
-    }
     
-    func checkIfBothPrepared() {
+    
+    func startGameForPlayer2() {
         guard let roomId = roomId else { return }
         
-        ref.child("Rooms").child(roomId).observeSingleEvent(of: .value) { [weak self] snapshot in
-            if let roomData = snapshot.value as? [String: Any],
-               let player1Prepared = roomData["Player1Prepare"] as? Bool,
-               let player2Prepared = roomData["Player2Prepare"] as? Bool,
-               player1Prepared && player2Prepared {
-                
+        ref.child("Rooms").child(roomId).child("RoomIsStart").observeSingleEvent(of: .value) { [weak self] snapshot in
+            if let roomIsStart = snapshot.value as? Bool, roomIsStart {
                 if self?.whichPlayer == 1 {
                     self?.randomizeWordAndOptions()
                 }

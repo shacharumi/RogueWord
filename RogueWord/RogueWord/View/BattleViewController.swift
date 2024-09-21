@@ -61,8 +61,7 @@ class BattleViewController: UIViewController {
                "PlayCounting": 10,
                "Player1Select": "",
                "Player2Select": "",
-               "Player1Prepare": false,
-               "Player2Prepare": false,
+               "RoomIsStart": false,
                "QuestionData": [
                    "Question": "",
                    "Options": [
@@ -105,7 +104,18 @@ class BattleViewController: UIViewController {
                 battlePage.player2Id = "Player2"
                 battlePage.whichPlayer = 2
                 self.navigationController?.pushViewController(battlePage, animated: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self.ref.child("Rooms").child(roomId).updateChildValues(["RoomIsStart": true]) { error, _ in
+                        if error == nil {
+                            battlePage.startGameForPlayer2()
+                        } else {
+                            print("無法更新 RoomIsStart: \(error?.localizedDescription ?? "未知錯誤")")
+                        }
+                    }
+                }
             }
         }
     }
+
 }
