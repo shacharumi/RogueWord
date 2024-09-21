@@ -48,6 +48,7 @@
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
 		C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */; };
 		C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */; };
+		C7E0B06D2C9D7ADE003395B3 /* WrongQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B06C2C9D7ADE003395B3 /* WrongQuestionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningTestCell.swift; sourceTree = "<group>"; };
+		C7E0B06C2C9D7ADE003395B3 /* WrongQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +279,7 @@
 				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
+				C7E0B06C2C9D7ADE003395B3 /* WrongQuestionViewController.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
@@ -513,6 +516,7 @@
 				C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
 				C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */,
+				C7E0B06D2C9D7ADE003395B3 /* WrongQuestionViewController.swift in Sources */,
 				C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */,
 				C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */,
 				C70B72432C99E775001011D6 /* ScanImageViewController.swift in Sources */,

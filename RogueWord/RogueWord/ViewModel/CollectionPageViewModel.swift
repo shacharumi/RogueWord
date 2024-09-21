@@ -259,4 +259,41 @@ class CollectionPageViewModel {
             completion()
         }
     }
+    
+    
+    
+    // MARK: --錯題本
+    
+//    func fetchDataFromFirebase() {
+//        let db = Firestore.firestore()
+//        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
+//        
+//        collectionRef.getDocuments { [weak self] (snapshot, error) in
+//            if let error = error {
+//                print("Error fetching documents: \(error)")
+//                return
+//            }
+//            
+//            guard let snapshot = snapshot else { return }
+//            
+//            var firebaseWords: [FireBaseWord] = []
+//            
+//            snapshot.documents.forEach { document in
+//                let data = document.data()
+//                guard let levelNumber = data["LevelNumber"] as? Int,
+//                      let tag = data["Tag"] as? String else {
+//                    return
+//                }
+//                print("\(levelNumber), \(tag)")
+//                if let jsonWord = self?.loadWordFromFile(for: levelNumber) {
+//                    let fireBaseWord = FireBaseWord(levelNumber: levelNumber, tag: tag, word: jsonWord)
+//                    firebaseWords.append(fireBaseWord)
+//                    
+//                } else {
+//                    print("No data found in JSON for level \(levelNumber)")
+//                }
+//            }
+//            self?.words = firebaseWords
+//        }
+//    }
 }

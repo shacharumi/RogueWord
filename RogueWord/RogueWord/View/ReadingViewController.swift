@@ -44,7 +44,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
             self.present(alert, animated: true, completion: nil)
         })
         let action3 = UIAction(title: "收藏", image: UIImage(systemName: "star"), handler: { _ in
-            print("Action 1 selected")
+            //?? 寫入資料庫
         })
         let menu = UIMenu(title: "", children: [action1, action2, action3])
         barButton.menu = menu

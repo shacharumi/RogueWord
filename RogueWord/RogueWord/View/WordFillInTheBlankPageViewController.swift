@@ -87,7 +87,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                   "options": ["(A) enhance", "(B) diminish", "(C) maintain", "(D) neglect"],
                   "AnswerOption": "A",
                   "Answer": "在競爭激烈的市場中，市場團隊提出了一個新策略來 '增強' 公司的品牌形象。"
-                },
+                }
                 ]
                 
                 Ensure that the questions are of appropriate difficulty for TOEIC 700, including context that challenges vocabulary and grammar comprehension. Please provide answers in Chinese explaining the reason for the correct answer. Also, ensure that the "AnswerOption" is always provided in uppercase letters (A, B, C, D).
