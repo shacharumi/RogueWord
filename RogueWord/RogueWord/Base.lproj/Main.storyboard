@@ -121,10 +121,10 @@
             </objects>
             <point key="canvasLocation" x="3682" y="1420"/>
         </scene>
-        <!--View Controller-->
+        <!--Person File View Controller-->
         <scene sceneID="dkY-CR-jCl">
             <objects>
-                <viewController id="JfZ-1a-uaL" sceneMemberID="viewController">
+                <viewController id="JfZ-1a-uaL" customClass="PersonFileViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hxb-aa-8dx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

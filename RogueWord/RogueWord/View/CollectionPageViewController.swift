@@ -13,7 +13,7 @@ class CollectionPageViewController: UIViewController {
 
     private var tableView: UITableView!
     private var collectionView: UICollectionView!
-    
+    private var wrongQuestionButton = UIButton()
     private let viewModel = CollectionPageViewModel()
     private var tapCounts: [IndexPath: Int] = [:]
 
@@ -33,6 +33,17 @@ class CollectionPageViewController: UIViewController {
 
         viewModel.fetchDataFromFirebase()
         viewModel.fetchTagFromFirebase()
+        
+        
+        view.addSubview(wrongQuestionButton)
+        wrongQuestionButton.setImage(UIImage(systemName: "questionmark.folder.fill"), for: .normal)
+        wrongQuestionButton.addTarget(self, action: #selector(tapWrongButton), for: .touchUpInside)
+        wrongQuestionButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.right.equalTo(view).offset(-16)
+            make.width.height.equalTo(50)
+        }
+        
     }
 
     @objc func updateTag(_ sender: UIButton) {
@@ -47,7 +58,13 @@ class CollectionPageViewController: UIViewController {
         
         print("更新標籤: \(tagType), 索引: \(tagIndex)")
     }
-
+    
+    @objc func tapWrongButton() {
+        let newVC = WrongQuestionsPage()
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchDataFromFirebase()
@@ -251,5 +268,8 @@ extension CollectionPageViewController: UIContextMenuInteractionDelegate {
         return nil
     }
 }
+
+
+
 
 

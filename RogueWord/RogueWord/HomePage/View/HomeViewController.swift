@@ -15,17 +15,16 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.showsVerticalScrollIndicator = true
         scrollView.isUserInteractionEnabled = true
-        scrollView.bounces = false // 禁止彈性滾動
-        scrollView.minimumZoomScale = 0.5 // 最小縮放比例
-        scrollView.maximumZoomScale = 2.0 // 最大縮放比例
+        scrollView.bounces = false
+       
         return scrollView
     }()
     
     var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "testImage") // 橫向背景圖片
-        imageView.contentMode = .scaleToFill // 確保背景圖不會縮小
-        imageView.isUserInteractionEnabled = true // 使其可以接收手勢
+        imageView.image = UIImage(named: "RockBackGround")
+        imageView.contentMode = .scaleToFill
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -48,27 +47,28 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         let a = FirebaseToJSONFileUploader()
         a.fetchAndSaveWordsToJSON()
         
-        // 初始化 squareView，縮小角色
-        squareView = UIImageView(frame: CGRect(x: 50, y: 50, width: 40, height: 40)) // 縮小角色
+        squareView = UIImageView(frame: CGRect(x: view.frame.width / 2 , y: view.frame.height / 2, width: 100, height: 100))
         squareView.image = UIImage(named: homeModel.images[0])
         squareView.contentMode = .scaleAspectFit
         backgroundImageView.addSubview(squareView)
         
-        // 添加點擊手勢
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        backgroundImageView.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pushToLevelPage(_:)))
+        squareView.addGestureRecognizer(tapGesture)
+        squareView.isUserInteractionEnabled = true
         
-        // 設置計時器定期生成隨機點
         homeModel.timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(generateRandomPoint), userInfo: nil, repeats: true)
     }
 
+    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: backgroundImageView)
         generatePoint(at: location)
+        
     }
 
     @objc func generateRandomPoint() {
-        let randomPoint = homeModel.generateRandomPoint(in: backgroundImageView.bounds)
+        let screenSize = UIScreen.main.bounds
+        let randomPoint = homeModel.generateRandomPoint(in: screenSize)
         generatePoint(at: randomPoint)
     }
 
@@ -82,7 +82,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         pointView.image = UIImage(named: "wood")
         pointView.contentMode = .scaleAspectFit
         
-        // 將生成的點添加到背景圖片中
         backgroundImageView.addSubview(pointView)
 
         homeModel.points.append(pointView)
@@ -100,19 +99,17 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     func setupView() {
         view.addSubview(scrollView)
         view.addSubview(levelView)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        scrollView.delegate = self // 設置 scrollView 的 delegate
+        scrollView.delegate = self
         
-        // 將背景圖片加到 scrollView 中
         scrollView.addSubview(backgroundImageView)
         
-        // 設置 scrollView 的 contentSize 為背景圖片的大小
         if let imageSize = backgroundImageView.image?.size {
             backgroundImageView.frame = CGRect(origin: .zero, size: imageSize)
             scrollView.contentSize = imageSize
         }
-
-        // 設置初始的縮放比例
+        
         scrollView.setZoomScale(1.0, animated: false)
         
         scrollView.snp.makeConstraints { make in
@@ -120,36 +117,24 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
             make.left.right.equalTo(view)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-
+        
         levelView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.left.equalTo(view).offset(16)
             make.right.equalTo(view).offset(-16)
             make.height.equalTo(50)
         }
-
-        let levelButton = UIButton()
-        levelButton.setTitle("開始修煉", for: .normal)
-        levelButton.titleLabel?.textAlignment = .center
-        levelButton.backgroundColor = .lightGray
-        levelView.addSubview(levelButton)
         
-        levelButton.snp.makeConstraints { make in
-            make.top.equalTo(levelView)
-            make.height.equalTo(levelView)
-            make.centerX.equalTo(levelView)
-        }
-        
-        levelButton.addTarget(self, action: #selector(pushToLevelPage(_:)), for: .touchUpInside)
     }
 
-    // UIScrollViewDelegate - 指定要縮放的視圖
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return backgroundImageView
     }
 
     @objc func pushToLevelPage(_ sender: UIButton) {
         let levelUpGamePage = LevelUpGamePageViewController()
-        self.navigationController?.pushViewController(levelUpGamePage, animated: true)
+        levelUpGamePage.modalPresentationStyle = .fullScreen 
+        self.present(levelUpGamePage, animated: true, completion: nil)
     }
+
 }
