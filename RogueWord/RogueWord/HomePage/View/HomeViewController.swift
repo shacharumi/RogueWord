@@ -32,10 +32,10 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     var homeModel = HomeModel()
     var animateModel = AnimateModel()
     var characterNode: SKSpriteNode!
+    var personData: PersonDataType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.set(0, forKey: "level")
         view.backgroundColor = .white
         
         setupView()
@@ -131,15 +131,42 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
+        
+        homeModel.fetchLevelNumber() { personData in
+            if let personData = personData {
+                self.personData = personData
+                
+            } else {
+                print("Failed to fetch LevelNumber.")
+            }
+        }
     }
-    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return backgroundImageView
     }
     
     @objc func pushToLevelPage() {
         let levelUpGamePage = LevelUpGamePageViewController()
+        levelUpGamePage.levelNumber = personData?.levelNumber ?? 0
         levelUpGamePage.modalPresentationStyle = .fullScreen
         self.present(levelUpGamePage, animated: true, completion: nil)
     }
+}
+
+
+
+struct PersonDataType: Decodable {
+    var account: String
+        var password: String
+        var levelNumber: Int
+        var friendList: [String]? // 假設 FriendList 是字符串數組
+        var tag: [String]
+        
+        enum CodingKeys: String, CodingKey {
+            case account = "Account"
+            case password = "Password"
+            case levelNumber = "LevelNumber"
+            case friendList = "FriendList"
+            case tag = "Tag"
+        }
 }

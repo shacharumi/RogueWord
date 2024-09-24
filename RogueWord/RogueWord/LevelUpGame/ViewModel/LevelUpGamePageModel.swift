@@ -45,13 +45,27 @@ class LevelUpGamePageModel {
     func moveToNextQuestion() -> Bool {
         if currentQuestionIndex < questions.count - 1 {
             currentQuestionIndex += 1
+            updateLevelNumber()
             return true
         } else {
             return false
         }
     }
     
-   
+    func updateLevelNumber() {
+            let docRef = FirestoreEndpoint.fetchPersonData.ref.document(account)
+            let fieldsToUpdate: [String: Any] = [
+                "LevelNumber": currentQuestionIndex
+            ]
+            
+            FirestoreService.shared.updateData(at: docRef, with: fieldsToUpdate) { error in
+                if let error = error {
+                    print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
+                } else {
+                    print("DEBUG: Successfully updated LevelNumber to \(self.currentQuestionIndex)")
+                }
+            }
+        }
     func addToFavorites() {
         guard let word = getCurrentQuestion() else { return }
         
@@ -122,4 +136,6 @@ func loadWordsFromFile() -> [JsonWord] {
         print("Error during JSON loading or decoding: \(error.localizedDescription)")
         return []
     }
+    
+    
 }

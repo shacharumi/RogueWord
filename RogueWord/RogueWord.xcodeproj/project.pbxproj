@@ -259,7 +259,6 @@
 				C72544332C91854D00580224 /* AppDelegate.swift */,
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C72544772C92BA1700580224 /* LoginViewController.swift */,
-				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
 				C70B723A2C988540001011D6 /* Model */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
@@ -271,6 +270,7 @@
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
+				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
 			);
 			path = RogueWord;
 			sourceTree = "<group>";

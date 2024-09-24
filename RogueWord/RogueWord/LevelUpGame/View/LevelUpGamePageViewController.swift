@@ -12,7 +12,8 @@ class LevelUpGamePageViewController: UIViewController {
 
     private let viewModel = LevelUpGamePageModel()
     private var cardView: UIView!
-
+    var levelNumber = 0
+    
     private let englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +45,8 @@ class LevelUpGamePageViewController: UIViewController {
             let button = UIButton(type: .system)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle("Answer", for: .normal)
-            button.backgroundColor = .lightGray
+            button.backgroundColor = UIColor(named: "ButtonColor")
+            button.setTitleColor(.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             button.layer.cornerRadius = 25
             buttons.append(button)
@@ -54,19 +56,22 @@ class LevelUpGamePageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "PlayViewColor")
+        viewModel.currentQuestionIndex = levelNumber
         setupUI()
-        setupCustomNavigationBar() // 自訂導航欄
+        setupCustomNavigationBar()
         displayQuestion()
+        addPanGestureToCard()
     }
 
     private func setupUI() {
         cardView = UIView()
-        cardView.backgroundColor = .white
+        cardView.backgroundColor = UIColor(named: "PlayCardColor")
         cardView.layer.cornerRadius = 12
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.2
         cardView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        
         cardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardView)
 
@@ -112,7 +117,7 @@ class LevelUpGamePageViewController: UIViewController {
 
         for button in answerButtons {
             button.snp.makeConstraints { make in
-                make.height.equalTo(50) 
+                make.height.equalTo(50)
             }
 
             button.addTarget(self, action: #selector(answerTapped(_:)), for: .touchUpInside)
@@ -121,7 +126,7 @@ class LevelUpGamePageViewController: UIViewController {
 
     private func setupCustomNavigationBar() {
         let customNavBar = UIView()
-        customNavBar.backgroundColor = .white
+        customNavBar.backgroundColor = .clear
         view.addSubview(customNavBar)
 
         customNavBar.snp.makeConstraints { make in
@@ -131,7 +136,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
 
         let backButton = UIButton(type: .system)
-        backButton.setTitle("back", for: .normal)
+        backButton.setTitle("<", for: .normal)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         customNavBar.addSubview(backButton)
 
@@ -149,6 +154,42 @@ class LevelUpGamePageViewController: UIViewController {
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar)
         }
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "英翻中選擇題"
+        titleLabel.textAlignment = .center
+        customNavBar.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalTo(backButton.snp.right)
+            make.right.equalTo(previousButton.snp.left)
+            make.centerY.equalTo(customNavBar)
+        }
+        
+    }
+
+    private func addPanGestureToCard() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(_:)))
+        cardView.addGestureRecognizer(panGesture)
+    }
+
+    @objc private func handleCardPan(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+
+        switch gesture.state {
+        case .changed:
+            cardView.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y - 100)
+        case .ended:
+            let velocity = gesture.velocity(in: view)
+            if abs(velocity.x) > 500 || abs(translation.x) > 100 {
+                let direction: SlideDirection = translation.x > 0 ? .right : .left
+                animateCardOffScreen(direction: direction)
+            } else {
+                resetCardPosition()
+            }
+        default:
+            break
+        }
     }
 
     @objc private func goBack() {
@@ -158,11 +199,34 @@ class LevelUpGamePageViewController: UIViewController {
     @objc private func answerTapped(_ sender: UIButton) {
         guard let answer = sender.currentTitle else { return }
 
+        // 禁用所有按钮，防止重复点击
+        for button in answerButtons {
+            button.isEnabled = false
+        }
+
         if viewModel.checkAnswer(answer) {
-            animateCardSlide(direction: .right)
+            // 答对了，按钮变绿
+            sender.backgroundColor = .green
+            // 答对后自动右滑到下一题
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.animateCardOffScreen(direction: .right)
+            }
         } else {
+            // 答错了，选择的按钮变红
+            sender.backgroundColor = .red
+            highlightCorrectAnswer()
             viewModel.addToFavorites()
-            animateCardSlide(direction: .left)
+        }
+    }
+
+    private func highlightCorrectAnswer() {
+        guard let question = viewModel.getCurrentQuestion() else { return }
+
+        for button in answerButtons {
+            if button.currentTitle == question.chinese {
+                button.backgroundColor = .green
+                break
+            }
         }
     }
 
@@ -170,10 +234,10 @@ class LevelUpGamePageViewController: UIViewController {
         case left, right
     }
 
-    private func animateCardSlide(direction: SlideDirection) {
-        let offScreenX: CGFloat = direction == .right ? UIScreen.main.bounds.width : -UIScreen.main.bounds.width
+    private func animateCardOffScreen(direction: SlideDirection) {
+        let offScreenX: CGFloat = direction == .right ? UIScreen.main.bounds.width * 1.5 : -UIScreen.main.bounds.width * 1.5
 
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.cardView.center.x = offScreenX
             self.cardView.alpha = 0
         }) { _ in
@@ -187,7 +251,7 @@ class LevelUpGamePageViewController: UIViewController {
     }
 
     private func resetCardPosition() {
-        cardView.center = view.center
+        cardView.center = CGPoint(x: view.center.x, y: view.center.y - 100)
         cardView.alpha = 1
     }
 
@@ -196,7 +260,7 @@ class LevelUpGamePageViewController: UIViewController {
             showCompletionAlert()
             return
         }
-
+        self.viewModel.updateLevelNumber()
         englishLabel.text = question.english
         propertyLabel.text = "(\(question.property))"
         sentenceLabel.text = question.sentence
@@ -208,7 +272,8 @@ class LevelUpGamePageViewController: UIViewController {
         for (index, button) in answerButtons.enumerated() {
             if index < answers.count {
                 button.setTitle(answers[index], for: .normal)
-                button.backgroundColor = .lightGray
+                button.backgroundColor = UIColor(named: "ButtonColor")
+                button.isEnabled = true // 重新启用按钮
             }
         }
     }

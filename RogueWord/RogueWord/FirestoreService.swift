@@ -9,14 +9,14 @@ import FirebaseFirestore
 import Foundation
 
 enum FirestoreEndpoint {
-    case articles
+    case fetchPersonData
     case fetchWrongQuestion
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
 
         switch self {
-        case .articles:
-            return firestore.collection("articles")
+        case .fetchPersonData:
+            return firestore.collection("PersonAccount")
         case .fetchWrongQuestion:
             return firestore.collection("PersonAccount")
                 .document(account)
@@ -26,22 +26,59 @@ enum FirestoreEndpoint {
         
     }
 }
-
 final class FirestoreService {
     static let shared = FirestoreService()
 
     func getDocuments<T: Decodable>(_ query: Query, completion: @escaping ([T]) -> Void) {
-        query.getDocuments {[weak self] snapshot, error in
-            guard let `self` = self else { return }
+        query.getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
 
+    func getDocument<T: Decodable>(_ docRef: DocumentReference, completion: @escaping (T?) -> Void) {
+        docRef.getDocument { snapshot, error in
+            if let error = error {
+                print("DEBUG: Error fetching document -", error.localizedDescription)
+                completion(nil)
+                return
+            }
+            
+            guard let snapshot = snapshot, snapshot.exists else {
+                print("DEBUG: Document does not exist.")
+                completion(nil)
+                return
+            }
+            
+            // 打印原始數據
+            print("DEBUG: Document data: \(snapshot.data() ?? [:])")
+            
+            do {
+                let data = try snapshot.data(as: T.self)
+                completion(data)
+            } catch {
+                print("DEBUG: Error decoding document -", error.localizedDescription)
+                completion(nil)
+            }
+        }
+    }
+    func updateData(at docRef: DocumentReference, with fields: [String: Any], completion: @escaping (Error?) -> Void) {
+            docRef.updateData(fields) { error in
+                if let error = error {
+                    print("DEBUG: Error updating document -", error.localizedDescription)
+                    completion(error)
+                } else {
+                    print("DEBUG: Document successfully updated.")
+                    completion(nil)
+                }
+            }
+        }
+    
     func setData<T: Encodable>(_ data: T, at docRef: DocumentReference) {
         do {
             try docRef.setData(from: data)
         } catch {
-            print("DEBUG: Error encoding \(data.self) data -", error.localizedDescription)
+            print("DEBUG: Error encoding \(T.self) data -", error.localizedDescription)
         }
     }
 
@@ -68,7 +105,6 @@ final class FirestoreService {
         return models
     }
 }
-
 
 
 
