@@ -54,6 +54,10 @@
 		C7E0B0A22CA05FDC003395B3 /* PersonFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */; };
 		C7E0B0A42CA061F3003395B3 /* PersonFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */; };
 		C7E0B0AF2CA08ACE003395B3 /* WrongQuestionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */; };
+		C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */; };
+		C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */; };
+		C7E0B0B72CA26561003395B3 /* WrongQuestionParagraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */; };
+		C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +165,10 @@
 		C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileViewController.swift; sourceTree = "<group>"; };
 		C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileCell.swift; sourceTree = "<group>"; };
 		C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionsPage.swift; sourceTree = "<group>"; };
+		C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionWordVC.swift; sourceTree = "<group>"; };
+		C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionParagraphVC.swift; sourceTree = "<group>"; };
+		C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionReadingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,8 +256,11 @@
 			children = (
 				C7E0B0A52CA0727A003395B3 /* HomePage */,
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
-				C72544352C91854D00580224 /* SceneDelegate.swift */,
+				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C72544332C91854D00580224 /* AppDelegate.swift */,
+				C72544352C91854D00580224 /* SceneDelegate.swift */,
+				C72544772C92BA1700580224 /* LoginViewController.swift */,
+				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
 				C70B723A2C988540001011D6 /* Model */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
@@ -285,9 +296,7 @@
 		C72544792C92BA2B00580224 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C72544772C92BA1700580224 /* LoginViewController.swift */,
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
-				C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */,
 				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
 				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
 				C7E0B09A2C9FCE13003395B3 /* ExamCardCell.swift */,
@@ -379,6 +388,25 @@
 			isa = PBXGroup;
 			children = (
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0B52CA2556D003395B3 /* View */,
+			);
+			path = WrongQuestionPage;
+			sourceTree = "<group>";
+		};
+		C7E0B0B52CA2556D003395B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */,
+				C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */,
+				C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */,
+				C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -580,11 +608,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C70B722F2C96E61D001011D6 /* ParagraphCell.swift in Sources */,
+				C7E0B0B72CA26561003395B3 /* WrongQuestionParagraphVC.swift in Sources */,
 				C725443E2C91854D00580224 /* RogueWord.xcdatamodeld in Sources */,
 				C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */,
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
+				C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */,
 				C7E0B0A42CA061F3003395B3 /* PersonFileCell.swift in Sources */,
 				C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */,
 				C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */,
@@ -603,9 +633,11 @@
 				C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */,
 				C70B72432C99E775001011D6 /* ScanImageViewController.swift in Sources */,
 				C70B72272C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift in Sources */,
+				C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */,
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
 				C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */,
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
+				C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
 				C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */,

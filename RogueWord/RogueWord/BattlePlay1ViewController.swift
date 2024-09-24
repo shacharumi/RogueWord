@@ -58,7 +58,7 @@ class BattlePlay1ViewController: UIViewController {
             ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
                 if let player1Score = snapshot.value as? Float {
                     DispatchQueue.main.async {
-                        self?.player1ScoreLabel.text = "分数: \(player1Score)"
+                        self?.player1ScoreLabel.text = "分數: \(player1Score)"
                     }
                 }
             }
@@ -66,7 +66,7 @@ class BattlePlay1ViewController: UIViewController {
             ref.child("Rooms").child(roomId).child("Player2Score").observe(.value) { [weak self] snapshot in
                 if let player2Score = snapshot.value as? Float {
                     DispatchQueue.main.async {
-                        self?.player2ScoreLabel.text = "分数: \(player2Score)"
+                        self?.player2ScoreLabel.text = "分數: \(player2Score)"
                     }
                 }
             }
@@ -75,7 +75,7 @@ class BattlePlay1ViewController: UIViewController {
                 if let countdownValue = snapshot.value as? Float {
                     self?.countdownValue = countdownValue
                     DispatchQueue.main.async {
-                        self?.countdownLabel.text = "倒数: \(countdownValue) 秒"
+                        self?.countdownLabel.text = "倒數: \(countdownValue) 秒"
                     }
 
                     if countdownValue <= 0 && !(self?.hasEvaluatedCurrentQuestion ?? true) {
@@ -98,7 +98,7 @@ class BattlePlay1ViewController: UIViewController {
             ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
                 if let currentIndex = snapshot.value as? Int {
                     DispatchQueue.main.async {
-                        self?.questionIndexLabel.text = "目前题目: \(currentIndex)"
+                        self?.questionIndexLabel.text = "目前題目: \(currentIndex)"
                     }
                 }
             }
@@ -136,7 +136,7 @@ class BattlePlay1ViewController: UIViewController {
         countdownLabel.textAlignment = .center
         countdownLabel.font = UIFont.systemFont(ofSize: 32)
         countdownLabel.textColor = .black
-        countdownLabel.text = "等待玩家准备..."
+        countdownLabel.text = "等待"
         playerView.addSubview(countdownLabel)
 
         countdownLabel.snp.makeConstraints { make in
@@ -181,7 +181,7 @@ class BattlePlay1ViewController: UIViewController {
         questionIndexLabel.textAlignment = .center
         questionIndexLabel.font = UIFont.systemFont(ofSize: 32)
         questionIndexLabel.textColor = .black
-        questionIndexLabel.text = "目前题目: 0"
+        questionIndexLabel.text = "題目: 0"
         view.addSubview(questionIndexLabel)
 
         questionIndexLabel.snp.makeConstraints { make in
@@ -254,7 +254,7 @@ class BattlePlay1ViewController: UIViewController {
         player2ScoreLabel.textAlignment = .center
         player2ScoreLabel.font = UIFont.systemFont(ofSize: 20)
         player2ScoreLabel.textColor = .black
-        player2ScoreLabel.text = "分数: 0"
+        player2ScoreLabel.text = "分數: 0"
         buttonView.addSubview(player2ScoreLabel)
 
         player2ScoreLabel.snp.makeConstraints { make in
@@ -366,8 +366,6 @@ class BattlePlay1ViewController: UIViewController {
             self.player2CountDown = self.countdownValue ?? 0
 
         }
-
-        print("玩家 \(whichPlayer == 1 ? "1" : "2") 选择了：\(selectedValue ?? "未选择")")
     }
 
     func startFirebaseCountdown() {
@@ -416,7 +414,7 @@ class BattlePlay1ViewController: UIViewController {
                 let nextIndex = currentIndex + 1
 
                 DispatchQueue.main.async {
-                    self.questionIndexLabel.text = "目前题目: \(nextIndex)"
+                    self.questionIndexLabel.text = "目前題目: \(nextIndex)"
                 }
 
                 self.ref.child("Rooms").child(roomId).updateChildValues([
@@ -438,7 +436,7 @@ class BattlePlay1ViewController: UIViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.countdownLabel.text = "游戏结束！"
+                    self.countdownLabel.text = "遊戲結束！"
                     self.stopFirebaseCountdown()
                     print("Game ended")
                 }

@@ -102,7 +102,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     
     // tableView DataSource 和 Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (questions?.first?.options.count ?? 0) + 1 ?? 0 + 1 // 加 1 是為了顯示第一個問題的段落
+        return (questions?.first?.options.count ?? 0) + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,56 +163,56 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     }
     
     
-    private func saveQuestionToFirebase(paragraph: ParagraphType) {
-        // 創建一個 UIAlertController 讓用戶輸入名稱
-        let alert = UIAlertController(title: "輸入收藏名稱", message: nil, preferredStyle: .alert)
+    func saveQuestionToFirebase(paragraph: ParagraphType) {
+        // 创建一个可变副本
+        var mutableParagraph = paragraph
+
+        // 创建一个 UIAlertController 让用户输入名称
+        let alert = UIAlertController(title: "輸入錯題名稱", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "輸入名稱"
         }
-        
-        // 添加確認按鈕
+
+        // 添加确认按钮
         let confirmAction = UIAlertAction(title: "確認", style: .default) { [weak self] _ in
-            // 獲取用戶輸入的名稱
             if let documentName = alert.textFields?.first?.text, !documentName.isEmpty {
                 let db = Firestore.firestore()
-                
-                // 準備要儲存的問題資料
-                let paragraphData = paragraph.toDictionary()
-                
-                // 使用用戶輸入的名稱作為 documentID
+                mutableParagraph.title = documentName
+                let paragraphData = mutableParagraph.toDictionary()
+
                 db.collection("PersonAccount")
-                    .document(account)  // 假設你已有 account 的定義
-                    .collection("CollectionFolderParagraphQuestions")
-                    .document(documentName)  // 用戶輸入的名稱作為 documentID
+                    .document(account)
+                    .collection("CollectionFolderWrongQuestions")
+                    .document()
                     .setData(paragraphData) { error in
                         if let error = error {
                             print("Error adding document: \(error)")
                         } else {
                             print("Document added successfully to CollectionFolderWrongQuestions")
                             
-                            // 收藏成功後顯示提示
-                            let successAlert = UIAlertController(title: "收藏成功", message: "問題已成功收藏！", preferredStyle: .alert)
+                            // 收藏成功后显示提示
+                            let successAlert = UIAlertController(title: "收藏成功", message: "問題已成功被收藏！", preferredStyle: .alert)
                             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(successAlert, animated: true, completion: nil)
                         }
                     }
             } else {
-                // 如果用戶未輸入名稱，則顯示錯誤提示
-                let errorAlert = UIAlertController(title: "錯誤", message: "請輸入有效的名稱！", preferredStyle: .alert)
+                // 如果用户未输入名称，则显示错误提示
+                let errorAlert = UIAlertController(title: "錯誤", message: "請輸入有效名稱！", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self?.present(errorAlert, animated: true, completion: nil)
             }
         }
-        
-        // 添加取消按鈕
+
+        // 添加取消按钮
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
+
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
-        
-        // 顯示 alert 給用戶
+
         present(alert, animated: true, completion: nil)
     }
+
 
     
     
@@ -354,13 +354,15 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     }
 }
 
-struct ParagraphType {
+struct ParagraphType: Decodable {
     var question: String
     var options: [[String]]
     var answerOptions: [String]
     var answer: String
     
     var selectNumber: [String?]
+    var title: String?
+    var tag: String?
 }
 
 
@@ -373,10 +375,12 @@ extension ParagraphType {
         }
         
         return [
-            "Question": self.question,
-            "Options": optionsDict,  // 使用字典來取代二維陣列
-            "AnswerOptions": self.answerOptions,
-            "Answer": self.answer,
+            "questions": self.question,
+            "options": optionsDict,  // 使用字典來取代二維陣列
+            "answerOptions": self.answerOptions,
+            "answer": self.answer,
+            "title": self.title,
+            "tag": "段落填空"
         ]
     }
 }

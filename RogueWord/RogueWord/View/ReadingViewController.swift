@@ -164,7 +164,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {  // 其他 cell 显示选项
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingTestCell", for: indexPath) as? ReadingTestCell {
                 cell.answerSelectLabel.text = "(\(questions[0].selectNumber[indexPath.row - 1]))"
-                cell.questionLabel.text = questions[0].question[indexPath.row - 1]
+                cell.questionLabel.text = questions[0].questions[indexPath.row - 1]
                 cell.optionLabel0.setTitle(questions[0].options[indexPath.row - 1][0], for: .normal)
                 cell.optionLabel1.setTitle(questions[0].options[indexPath.row - 1][1], for: .normal)
                 cell.optionLabel2.setTitle(questions[0].options[indexPath.row - 1][2], for: .normal)
@@ -201,7 +201,9 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // 保存问题到 Firebase
     private func saveQuestionToFirebase(reading: ReadingType) {
-        // 創建一個 UIAlertController 讓用戶輸入名稱
+
+        var mutableReading = reading
+
         let alert = UIAlertController(title: "輸入收藏名稱", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "輸入名稱"
@@ -212,14 +214,14 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
             // 獲取用戶輸入的名稱
             if let documentName = alert.textFields?.first?.text, !documentName.isEmpty {
                 let db = Firestore.firestore()
-                
-                let readingData = reading.toDictionary()
+                mutableReading.title = documentName
+                let readingData = mutableReading.toDictionary()
 
                 // 使用用戶輸入的名稱作為 documentID
                 db.collection("PersonAccount")
                     .document(account) 
-                    .collection("CollectionFolderReadingQuestions")
-                    .document(documentName)
+                    .collection("CollectionFolderWrongQuestions")
+                    .document()
                     .setData(readingData) { error in
                         if let error = error {
                             print("Error adding document: \(error)")
@@ -373,7 +375,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
                  // 創建 ReadingType 物件
                  let readingType = ReadingType(
                      readingMessage: readingMessage,
-                     question: question,
+                     questions: question,
                      options: options,
                      answerOptions: answerOption,
                      answer: answerExplanation,
@@ -400,22 +402,24 @@ extension ReadingType {
         }
         return [
             "readingMessage": self.readingMessage,
-            "questions": self.question,
+            "questions": self.questions,
             "options": optionsDict,
             "answerOptions": self.answerOptions,
             "answer": self.answer,
-            "Tag": "閱讀理解"
+            "title": self.title,
+            "tag": "閱讀理解"
         ]
     }
 }
 
 struct ReadingType {
     var readingMessage: String
-    var question: [String]
+    var questions: [String]
     var options: [[String]]
     var answerOptions: [String]
     var answer: [String]
     var selectNumber: [String]
+    var title: String?
 }
 
 

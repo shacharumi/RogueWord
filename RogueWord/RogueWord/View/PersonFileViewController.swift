@@ -31,12 +31,22 @@ extension PersonFileViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PersonFileCell", for: indexPath) as? PersonFileCell else {
             return UITableViewCell()
         }
-        cell.personName.text = "Leo"
-        return cell
 
+        if indexPath.row == 0 {
+            cell.personName.text = "Leo"
+            cell.personDataView.isHidden = false
+        } else {
+            cell.personName.text = "Other Person"
+            cell.personDataView.isHidden = true
+        }
+
+        return cell
     }
+
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }
 
 
@@ -45,6 +55,9 @@ extension PersonFileViewController {
         view.addSubview(tableView)
         tableView.register(PersonFileCell.self, forCellReuseIdentifier: "PersonFileCell")
         tableView.backgroundColor = .lightGray
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         
         tableView.snp.makeConstraints { make in
             make.top.bottom.equalTo(view.safeAreaLayoutGuide)

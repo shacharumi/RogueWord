@@ -12,6 +12,8 @@ class PersonFileCell: UITableViewCell {
     
     var personDataView: UIView = {
        let view = UIView()
+        view.isHidden = true
+        view.backgroundColor = .lightGray
         return view
     }()
     
@@ -27,12 +29,12 @@ class PersonFileCell: UITableViewCell {
     }()
     
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(personDataView)
         personDataView.addSubview(personImage)
         personDataView.addSubview(personName)
+        setUpConstrain()
     }
     
     required init?(coder: NSCoder) {
