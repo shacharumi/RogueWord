@@ -2,89 +2,94 @@
 //  HomeModel.swift
 //  RogueWord
 //
-//  Created by shachar on 2024/9/12.
+//  Created by shachar on 2024/9/24.
 //
 
 import Foundation
 import UIKit
+import SpriteKit
 
 class HomeModel {
     
-    var currentImageIndex = 0
-    var images = ["roleAnimate0", "roleAnimate1", "roleAnimate2"]
-    var woodImages = ["woodAnimate0", "woodAnimate1", "woodAnimate2", "woodAnimate3"]
-    
-    var points: [UIImageView] = []
-    var stepsSinceLastImageChange = 0
-    let stepsPerImageChange = 10
-    
-    var timer: Timer?
-    var animationTimer: Timer?
-
-    func getNextImage() -> UIImage? {
-        currentImageIndex = (currentImageIndex + 1) % images.count
-        return UIImage(named: images[currentImageIndex])
-    }
-    
-    func generateRandomPoint(in bounds: CGRect) -> CGPoint {
-        let randomX = CGFloat.random(in: 0...bounds.width)
-        let randomY = CGFloat.random(in: 0...bounds.height)
-        return CGPoint(x: randomX, y: randomY)
-    }
-    
-    func animateWood(pointView: UIImageView, completion: @escaping () -> Void) {
-        var imageIndex = 0
-        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
-            if imageIndex < self.woodImages.count {
-                pointView.image = UIImage(named: self.woodImages[imageIndex])
-                imageIndex += 1
-            } else {
-                UIView.animate(withDuration: 1.0, animations: {
-                    pointView.alpha = 0
-                }) { _ in
-                    pointView.removeFromSuperview()
-                    timer.invalidate()
-                    completion()
-                }
-            }
+    enum CharacterState {
+            case idle
+            case running
+            case attacking
         }
-    }
-    
-    func moveSquare(_ squareView: UIImageView, to pointView: UIImageView, scrollView: UIScrollView, completion: @escaping () -> Void) {
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
-            let dx = pointView.center.x - squareView.center.x
-            let dy = pointView.center.y - squareView.center.y
-            let distance = sqrt(dx * dx + dy * dy)
+        
+        var characterState: CharacterState = .idle
+        
+        var points: [SKSpriteNode] = []
+        
+        var timer: Timer?
+        
+        func generateRandomPoint(in rect: CGRect) -> CGPoint {
+            let randomX = CGFloat.random(in: rect.minX...(rect.maxX - 50)) // 减去节点宽度，防止超出边界
+            let randomY = CGFloat.random(in: rect.minY...(rect.maxY - 50)) // 减去节点高度，防止超出边界
+            return CGPoint(x: randomX, y: randomY)
+        }
+        
+        func moveSquare(_ characterNode: SKSpriteNode, to slimeNode: SKSpriteNode, scrollView: UIScrollView, animateModel: AnimateModel, completion: @escaping () -> Void) {
+            guard let scene = characterNode.scene else { return }
             
-            if distance <= 30 {
-                timer.invalidate()
-                completion()
+            // 调整人物朝向
+            if slimeNode.position.x < characterNode.position.x {
+                characterNode.xScale = abs(characterNode.xScale) * -1 
             } else {
-                let moveStep: CGFloat = 2.0
-                let angle = atan2(dy, dx)
-                squareView.center.x += moveStep * cos(angle)
-                squareView.center.y += moveStep * sin(angle)
+                characterNode.xScale = abs(characterNode.xScale)
+            }
+            
+            if characterState != .running {
+                characterState = .running
+                characterNode.removeAllActions()
+                animateModel.runRunAnimation(on: characterNode)
+            }
+            
+            Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
+                let dx = slimeNode.position.x - characterNode.position.x
+                let dy = slimeNode.position.y - characterNode.position.y
+                let distance = sqrt(dx * dx + dy * dy)
                 
-                self.stepsSinceLastImageChange += 1
-                
-                // 檢查是否需要切換圖片
-                if self.stepsSinceLastImageChange >= self.stepsPerImageChange {
-                    squareView.image = self.getNextImage()
-                    self.stepsSinceLastImageChange = 0
+                if distance <= 60 {
+                    timer.invalidate()
+                    if slimeNode.position.x < characterNode.position.x {
+                        characterNode.xScale = abs(characterNode.xScale) * -1
+                    } else {
+                        characterNode.xScale = abs(characterNode.xScale)
+                    }
+                    self.characterState = .attacking
+                    characterNode.removeAllActions()
+                    let attackAnimations = [animateModel.runAttackAnimation1, animateModel.runAttackAnimation2, animateModel.runAttackAnimation3, animateModel.runAttackAnimation4]
+                    if let randomAttack = attackAnimations.randomElement() {
+                        randomAttack(characterNode)
+                    }
+                    slimeNode.removeAllActions()
+                    animateModel.slimeHurtAnimation(on: slimeNode)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.characterState = .idle
+                        characterNode.removeAllActions()
+                        animateModel.idleAnimate(on: characterNode)
+                        slimeNode.removeFromParent()
+                    }
+                    completion()
+                } else {
+                    let moveStep: CGFloat = 2.0
+                    let angle = atan2(dy, dx)
+                    characterNode.position.x += moveStep * cos(angle)
+                    characterNode.position.y += moveStep * sin(angle)
+                    
+                    self.updateScrollViewContentOffset(scrollView: scrollView, centeredOn: characterNode, in: scene)
                 }
-                
-                self.updateScrollViewContentOffset(scrollView: scrollView, centeredOn: squareView)
             }
         }
-    }
     
-    func updateScrollViewContentOffset(scrollView: UIScrollView, centeredOn squareView: UIView) {
-        let squareCenter = squareView.center
+    func updateScrollViewContentOffset(scrollView: UIScrollView, centeredOn characterNode: SKSpriteNode, in scene: SKScene) {
+        let nodePositionInView = scene.convertPoint(toView: characterNode.position)
         let scrollViewSize = scrollView.bounds.size
         
-        let offsetX = max(0, min(scrollView.contentSize.width - scrollViewSize.width, squareCenter.x - scrollViewSize.width / 2))
-        let offsetY = max(0, min(scrollView.contentSize.height - scrollViewSize.height, squareCenter.y - scrollViewSize.height / 2))
+        let offsetX = max(0, min(scrollView.contentSize.width - scrollViewSize.width, nodePositionInView.x - scrollViewSize.width / 2))
+        let offsetY = max(0, min(scrollView.contentSize.height - scrollViewSize.height, nodePositionInView.y - scrollViewSize.height / 2))
         
-        scrollView.setContentOffset(CGPoint(x: offsetX, y: offsetY), animated: false) // animated 設置為 false 以保持即時性
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: offsetY), animated: false)
     }
 }

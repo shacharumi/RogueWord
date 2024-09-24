@@ -2,11 +2,12 @@
 //  HomeViewController.swift
 //  RogueWord
 //
-//  Created by shachar on 2024/9/12.
+//  Created by shachar on 2024/9/24.
 //
 
 import UIKit
 import SnapKit
+import SpriteKit
 
 class HomeViewController: UIViewController, UIScrollViewDelegate {
     
@@ -16,7 +17,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.showsVerticalScrollIndicator = true
         scrollView.isUserInteractionEnabled = true
         scrollView.bounces = false
-       
         return scrollView
     }()
     
@@ -28,15 +28,11 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }()
     
-    var levelView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-    
-    var squareView: UIImageView!
+    var squareView: SKView!
     var homeModel = HomeModel()
-
+    var animateModel = AnimateModel()
+    var characterNode: SKSpriteNode!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UserDefaults.standard.set(0, forKey: "level")
@@ -44,97 +40,106 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         
         setupView()
         
-        let a = FirebaseToJSONFileUploader()
-        a.fetchAndSaveWordsToJSON()
-        
-        squareView = UIImageView(frame: CGRect(x: view.frame.width / 2 , y: view.frame.height / 2, width: 100, height: 100))
-        squareView.image = UIImage(named: homeModel.images[0])
-        squareView.contentMode = .scaleAspectFit
+        squareView = SKView()
+        squareView.backgroundColor = .clear
         backgroundImageView.addSubview(squareView)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pushToLevelPage(_:)))
+
+        squareView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        view.layoutIfNeeded()
+
+        let sceneSize = CGSize(width: backgroundImageView.frame.width, height: backgroundImageView.frame.height)
+        let scene = SKScene(size: sceneSize)
+        scene.scaleMode = .aspectFill
+        scene.backgroundColor = .clear
+
+        squareView.presentScene(scene)
+
+        characterNode = SKSpriteNode(imageNamed: "Idle (0_0)")
+        characterNode.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+        scene.addChild(characterNode)
+
+        animateModel.idleAnimate(on: characterNode)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pushToLevelPage))
         squareView.addGestureRecognizer(tapGesture)
-        squareView.isUserInteractionEnabled = true
+        scrollView.isUserInteractionEnabled = true
         
         homeModel.timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(generateRandomPoint), userInfo: nil, repeats: true)
     }
-
     
-    @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: backgroundImageView)
-        generatePoint(at: location)
-        
-    }
-
+   
+    
     @objc func generateRandomPoint() {
-        let screenSize = UIScreen.main.bounds
-        let randomPoint = homeModel.generateRandomPoint(in: screenSize)
+        let visibleRect = CGRect(origin: scrollView.contentOffset, size: scrollView.bounds.size)
+        let randomPoint = homeModel.generateRandomPoint(in: visibleRect)
         generatePoint(at: randomPoint)
     }
-
+    
     func generatePoint(at position: CGPoint) {
         if homeModel.points.count >= 1 {
-            homeModel.points.first?.removeFromSuperview()
+            homeModel.points.first?.removeFromParent()
             homeModel.points.removeAll()
         }
-
-        let pointView = UIImageView(frame: CGRect(x: position.x - 10, y: position.y - 10, width: 45, height: 45))
-        pointView.image = UIImage(named: "wood")
-        pointView.contentMode = .scaleAspectFit
         
-        backgroundImageView.addSubview(pointView)
-
-        homeModel.points.append(pointView)
-        moveSquareToPoint(pointView)
+        let slimeNode = SKSpriteNode(imageNamed: "Walk (0_0)")
+        slimeNode.position = position
+        animateModel.slimeWalkAnimate(on: slimeNode)
+        
+        if let scene = squareView.scene {
+            scene.addChild(slimeNode)
+            homeModel.points.append(slimeNode)
+        }
+        
+        moveSquareToPoint(slimeNode)
     }
-
-    func moveSquareToPoint(_ pointView: UIImageView) {
-        homeModel.moveSquare(squareView, to: pointView, scrollView: scrollView) {
-            self.homeModel.animateWood(pointView: pointView) {
-                print("Wood animation completed.")
-            }
+    
+    func moveSquareToPoint(_ slimeNode: SKSpriteNode) {
+        homeModel.moveSquare(characterNode, to: slimeNode, scrollView: scrollView, animateModel: animateModel) {
+            print("Character reached the slime.")
         }
     }
-
+    
     func setupView() {
         view.addSubview(scrollView)
-        view.addSubview(levelView)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         scrollView.delegate = self
-        
         scrollView.addSubview(backgroundImageView)
         
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            if let imageSize = backgroundImageView.image?.size {
+                make.width.equalTo(imageSize.width)
+                make.height.equalTo(imageSize.height)
+            } else {
+                make.width.equalTo(scrollView)
+                make.height.equalTo(scrollView)
+            }
+        }
+        
         if let imageSize = backgroundImageView.image?.size {
-            backgroundImageView.frame = CGRect(origin: .zero, size: imageSize)
             scrollView.contentSize = imageSize
+            print("圖片尺寸：\(imageSize)")
+        } else {
+            print("未設置圖片尺寸。")
         }
         
         scrollView.setZoomScale(1.0, animated: false)
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(view)
-            make.left.right.equalTo(view)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view)
         }
-        
-        levelView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.left.equalTo(view).offset(16)
-            make.right.equalTo(view).offset(-16)
-            make.height.equalTo(50)
-        }
-        
     }
-
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return backgroundImageView
     }
-
-    @objc func pushToLevelPage(_ sender: UIButton) {
+    
+    @objc func pushToLevelPage() {
         let levelUpGamePage = LevelUpGamePageViewController()
-        levelUpGamePage.modalPresentationStyle = .fullScreen 
+        levelUpGamePage.modalPresentationStyle = .fullScreen
         self.present(levelUpGamePage, animated: true, completion: nil)
     }
-
 }
