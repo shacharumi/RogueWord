@@ -23,11 +23,11 @@ class HomeModel {
         
         var timer: Timer?
         
-        var personData: PersonDataType?
+        var personData: UserData?
     
         func generateRandomPoint(in rect: CGRect) -> CGPoint {
-            let randomX = CGFloat.random(in: rect.minX...(rect.maxX - 50)) // 减去节点宽度，防止超出边界
-            let randomY = CGFloat.random(in: rect.minY...(rect.maxY - 50)) // 减去节点高度，防止超出边界
+            let randomX = CGFloat.random(in: rect.minX...(rect.maxX - 50))
+            let randomY = CGFloat.random(in: rect.minY...(rect.maxY - 50))
             return CGPoint(x: randomX, y: randomY)
         }
         
@@ -95,10 +95,11 @@ class HomeModel {
         scrollView.setContentOffset(CGPoint(x: offsetX, y: offsetY), animated: false)
     }
     
-    func fetchLevelNumber(completion: @escaping (PersonDataType?) -> Void) {
-        let query = FirestoreEndpoint.fetchPersonData.ref.document(account)
+    func fetchLevelNumber(completion: @escaping (UserData?) -> Void) {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
         
-        FirestoreService.shared.getDocument(query) { (personData: PersonDataType?) in
+        FirestoreService.shared.getDocument(query) { (personData: UserData?) in
             guard let personData = personData else {
                 print("DEBUG: Failed to fetch or decode PersonDataType.")
                 completion(nil)

@@ -32,7 +32,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     var homeModel = HomeModel()
     var animateModel = AnimateModel()
     var characterNode: SKSpriteNode!
-    var personData: PersonDataType?
+    var personData: UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,8 +134,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
             make.edges.equalTo(view)
         }
         
-        homeModel.fetchLevelNumber() { personData in
-            if let personData = personData {
+        homeModel.fetchLevelNumber() { UserData in
+            if let personData = UserData {
                 self.personData = personData
                 
             } else {
@@ -149,8 +149,12 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     
     @objc func pushToLevelPage() {
         let levelUpGamePage = LevelUpGamePageViewController()
+       
         levelUpGamePage.levelNumber = personData?.levelNumber ?? 0
         levelUpGamePage.modalPresentationStyle = .fullScreen
+        levelUpGamePage.returnLevelNumber = { data in
+            self.personData?.levelNumber = data
+        }
         self.present(levelUpGamePage, animated: true, completion: nil)
     }
 }

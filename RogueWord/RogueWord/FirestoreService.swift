@@ -8,9 +8,11 @@
 import FirebaseFirestore
 import Foundation
 
+
 enum FirestoreEndpoint {
     case fetchPersonData
     case fetchWrongQuestion
+    
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
 
@@ -18,12 +20,12 @@ enum FirestoreEndpoint {
         case .fetchPersonData:
             return firestore.collection("PersonAccount")
         case .fetchWrongQuestion:
+            let userID = UserDefaults.standard.string(forKey: "userID")!
             return firestore.collection("PersonAccount")
-                .document(account)
+                .document(userID)
                 .collection("CollectionFolderWrongQuestions")
 
         }
-        
     }
 }
 final class FirestoreService {

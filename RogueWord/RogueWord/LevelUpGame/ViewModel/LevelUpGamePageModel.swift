@@ -53,12 +53,13 @@ class LevelUpGamePageModel {
     }
     
     func updateLevelNumber() {
-            let docRef = FirestoreEndpoint.fetchPersonData.ref.document(account)
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
             let fieldsToUpdate: [String: Any] = [
                 "LevelNumber": currentQuestionIndex
             ]
             
-            FirestoreService.shared.updateData(at: docRef, with: fieldsToUpdate) { error in
+            FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
                 if let error = error {
                     print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
                 } else {
@@ -75,7 +76,8 @@ class LevelUpGamePageModel {
         ]
         
         let db = Firestore.firestore()
-        let userCollectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let userCollectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
         
         userCollectionRef.setData(favoriteData, merge: true) { error in
             if let error = error {
@@ -90,7 +92,9 @@ class LevelUpGamePageModel {
         guard let word = getCurrentQuestion() else {return}
         
         let db = Firestore.firestore()
-        let userCollectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+
+        let userCollectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
         
         userCollectionRef.delete() { error in
             if let error = error {

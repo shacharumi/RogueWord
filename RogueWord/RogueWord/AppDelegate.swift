@@ -10,7 +10,6 @@ import CoreData
 import FirebaseCore
 import Firebase
 
-let account = "Leo@gmail.com"
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

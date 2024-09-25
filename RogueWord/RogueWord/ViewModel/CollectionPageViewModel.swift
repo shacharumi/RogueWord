@@ -62,7 +62,8 @@ class CollectionPageViewModel {
     
     func fetchDataFromFirebase() {
         let db = Firestore.firestore()
-        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let collectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords")
         
         collectionRef.getDocuments { [weak self] (snapshot, error) in
             if let error = error {
@@ -95,7 +96,8 @@ class CollectionPageViewModel {
     
     func fetchTagFromFirebase() {
         let db = Firestore.firestore()
-        let accountRef = db.collection("PersonAccount").document(account)
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let accountRef = db.collection("PersonAccount").document(userID)
         
         accountRef.getDocument { [weak self] (document, error) in
             if let error = error {
@@ -122,7 +124,9 @@ class CollectionPageViewModel {
         let wordToRemove = words[index]
         
         let db = Firestore.firestore()
-        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+
+        let collectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords")
         
         collectionRef.document("\(wordToRemove.levelNumber)").delete() { [weak self] error in
             if let error = error {
@@ -137,7 +141,8 @@ class CollectionPageViewModel {
     func removeTag(_ index: Int) {
         let tagToRemove = tags[index]
         let db = Firestore.firestore()
-        let accountRef = db.collection("PersonAccount").document(account)
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let accountRef = db.collection("PersonAccount").document(userID)
         let collectionRef = accountRef.collection("CollectionFolderWords")
         accountRef.updateData([
             "Tag": FieldValue.arrayRemove([tagToRemove])
@@ -182,7 +187,8 @@ class CollectionPageViewModel {
 
     func updateWordTag(_ tag: String, _ levelNumber: Int) {
         let db = Firestore.firestore()
-        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let collectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords")
         print(self.words)
 
         collectionRef.document("\(levelNumber)").updateData([
@@ -205,7 +211,9 @@ class CollectionPageViewModel {
 
     func addTag(_ tagText: String) {
         let db = Firestore.firestore()
-        let accountRef = db.collection("PersonAccount").document(account)
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+
+        let accountRef = db.collection("PersonAccount").document(userID)
         
         accountRef.updateData([
             "Tag": FieldValue.arrayUnion([tagText])
@@ -223,7 +231,8 @@ class CollectionPageViewModel {
     
     func fetchFilterData(_ tag: String, completion: @escaping () -> Void) {
         let db = Firestore.firestore()
-        let collectionRef = db.collection("PersonAccount").document(account).collection("CollectionFolderWords")
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+        let collectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords")
         
         collectionRef.whereField("Tag", isEqualTo: tag).getDocuments { [weak self] (snapshot, error) in
             if let error = error {

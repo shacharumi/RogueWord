@@ -215,10 +215,11 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                     "title": documentName,
                     "tag": "單字測驗"
                 ]
+                guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
 
                 // 保存到 Firebase
                 db.collection("PersonAccount")
-                    .document(account)  
+                    .document(userID)
                     .collection("CollectionFolderWrongQuestions")
                     .document(documentName)  // 用戶輸入的名稱作為 documentID
                     .setData(combinedData) { error in

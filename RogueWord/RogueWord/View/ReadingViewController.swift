@@ -217,9 +217,9 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
                 mutableReading.title = documentName
                 let readingData = mutableReading.toDictionary()
 
-                // 使用用戶輸入的名稱作為 documentID
+                guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
                 db.collection("PersonAccount")
-                    .document(account) 
+                    .document(userID) 
                     .collection("CollectionFolderWrongQuestions")
                     .document()
                     .setData(readingData) { error in

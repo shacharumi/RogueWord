@@ -13,7 +13,8 @@ class LevelUpGamePageViewController: UIViewController {
     private let viewModel = LevelUpGamePageModel()
     private var cardView: UIView!
     var levelNumber = 0
-    
+    var returnLevelNumber: ((Int) -> Void)?
+
     private let englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -193,6 +194,7 @@ class LevelUpGamePageViewController: UIViewController {
     }
 
     @objc private func goBack() {
+        returnLevelNumber?(viewModel.currentQuestionIndex)
         self.dismiss(animated: true, completion: nil)
     }
 

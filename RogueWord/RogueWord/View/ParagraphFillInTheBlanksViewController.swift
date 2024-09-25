@@ -179,9 +179,10 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                 let db = Firestore.firestore()
                 mutableParagraph.title = documentName
                 let paragraphData = mutableParagraph.toDictionary()
+                guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
 
                 db.collection("PersonAccount")
-                    .document(account)
+                    .document(userID)
                     .collection("CollectionFolderWrongQuestions")
                     .document()
                     .setData(paragraphData) { error in
