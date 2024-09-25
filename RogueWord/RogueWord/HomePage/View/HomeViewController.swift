@@ -15,14 +15,14 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = true
         scrollView.showsVerticalScrollIndicator = true
-        scrollView.isUserInteractionEnabled = true
+        scrollView.isUserInteractionEnabled = false
         scrollView.bounces = false
         return scrollView
     }()
     
     var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "RockBackGround")
+        imageView.image = UIImage(named: "HomeBackGround")
         imageView.contentMode = .scaleToFill
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -67,6 +67,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.isUserInteractionEnabled = true
         
         homeModel.timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(generateRandomPoint), userInfo: nil, repeats: true)
+        
+        
     }
     
    

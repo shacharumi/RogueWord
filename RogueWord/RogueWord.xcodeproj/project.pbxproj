@@ -45,11 +45,11 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
+		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
 		C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */; };
 		C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */; };
 		C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */; };
 		C7E0B0992C9FCDC9003395B3 /* ExamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */; };
-		C7E0B09B2C9FCE13003395B3 /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B09A2C9FCE13003395B3 /* ExamCardCell.swift */; };
 		C7E0B0A22CA05FDC003395B3 /* PersonFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */; };
 		C7E0B0A42CA061F3003395B3 /* PersonFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */; };
 		C7E0B0AF2CA08ACE003395B3 /* WrongQuestionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */; };
@@ -156,11 +156,11 @@
 		C72544852C92BB3E00580224 /* CollectionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageCell.swift; sourceTree = "<group>"; };
 		C72544872C92BB6900580224 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
 		C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewModel.swift; sourceTree = "<group>"; };
-		C7E0B09A2C9FCE13003395B3 /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileViewController.swift; sourceTree = "<group>"; };
 		C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileCell.swift; sourceTree = "<group>"; };
 		C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionsPage.swift; sourceTree = "<group>"; };
@@ -256,8 +256,9 @@
 				C7E0B0A52CA0727A003395B3 /* HomePage */,
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
 				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
-				C72544332C91854D00580224 /* AppDelegate.swift */,
+				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
+				C72544332C91854D00580224 /* AppDelegate.swift */,
 				C72544772C92BA1700580224 /* LoginViewController.swift */,
 				C70B723A2C988540001011D6 /* Model */,
 				C72544792C92BA2B00580224 /* View */,
@@ -270,6 +271,7 @@
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
+				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
 			);
 			path = RogueWord;
@@ -297,13 +299,10 @@
 			children = (
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
 				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
-				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
-				C7E0B09A2C9FCE13003395B3 /* ExamCardCell.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
 				C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */,
-				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
 				C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
 				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
@@ -388,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
+				C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -639,9 +639,9 @@
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
 				C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
+				C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
 				C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */,
-				C7E0B09B2C9FCE13003395B3 /* ExamCardCell.swift in Sources */,
 				C72544362C91854D00580224 /* SceneDelegate.swift in Sources */,
 				C7E0B0AF2CA08ACE003395B3 /* WrongQuestionsPage.swift in Sources */,
 			);

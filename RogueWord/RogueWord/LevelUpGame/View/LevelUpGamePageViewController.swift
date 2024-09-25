@@ -136,7 +136,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
 
         let backButton = UIButton(type: .system)
-        backButton.setTitle("<", for: .normal)
+        backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         customNavBar.addSubview(backButton)
 
@@ -199,21 +199,17 @@ class LevelUpGamePageViewController: UIViewController {
     @objc private func answerTapped(_ sender: UIButton) {
         guard let answer = sender.currentTitle else { return }
 
-        // 禁用所有按钮，防止重复点击
         for button in answerButtons {
             button.isEnabled = false
         }
 
         if viewModel.checkAnswer(answer) {
-            // 答对了，按钮变绿
-            sender.backgroundColor = .green
-            // 答对后自动右滑到下一题
+            sender.backgroundColor = UIColor(named: "CorrectColor")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.animateCardOffScreen(direction: .right)
             }
         } else {
-            // 答错了，选择的按钮变红
-            sender.backgroundColor = .red
+            sender.backgroundColor = UIColor(named: "FalseColor")
             highlightCorrectAnswer()
             viewModel.addToFavorites()
         }
@@ -224,7 +220,7 @@ class LevelUpGamePageViewController: UIViewController {
 
         for button in answerButtons {
             if button.currentTitle == question.chinese {
-                button.backgroundColor = .green
+                button.backgroundColor = UIColor(named: "CorrectColor")
                 break
             }
         }
