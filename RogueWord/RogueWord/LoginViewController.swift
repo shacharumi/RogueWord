@@ -13,7 +13,9 @@ var applePersonData = UserData(
     userID: "",
     fullName: "",
     email: "",
-    realUserStatus: 0
+    realUserStatus: 0, 
+    tag: nil,
+    levelData: nil
 )
 
 
@@ -77,7 +79,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 userID: appleIDCredential.user,
                 fullName: fullName,
                 email: appleIDCredential.email,
-                realUserStatus: appleIDCredential.realUserStatus.rawValue
+                realUserStatus: appleIDCredential.realUserStatus.rawValue, 
+                tag: nil,
+                levelData: nil
+                
             )
             
             applePersonData = userData
@@ -157,7 +162,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
     
-    /// - Parameter controller: _
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
@@ -166,11 +170,34 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
 
 
 
-struct UserData: Decodable,Encodable {
+struct LevelData: Codable {
+    var correct: Int
+    var levelNumber: Int
+    var wrong: Int
+    var isCorrect: [Bool]
+    
+    enum CodingKeys: String, CodingKey {
+        case correct = "Correct"
+        case levelNumber = "LevelNumber"
+        case wrong = "Wrong"
+        case isCorrect = "isCorrect"
+    }
+}
+
+struct UserData: Codable {
     let userID: String
     let fullName: String?
     let email: String?
     let realUserStatus: Int?
     var tag: [String]?
-    var levelNumber: Int?
+    var levelData: LevelData?
+
+    enum CodingKeys: String, CodingKey {
+        case userID
+        case fullName = "fullName"
+        case email
+        case realUserStatus
+        case tag = "Tag"
+        case levelData = "LevelData"
+    }
 }

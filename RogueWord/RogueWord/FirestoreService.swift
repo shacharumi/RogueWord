@@ -12,19 +12,22 @@ import Foundation
 enum FirestoreEndpoint {
     case fetchPersonData
     case fetchWrongQuestion
-    
+    case fetchAccurencyRecords
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
+        let userID = UserDefaults.standard.string(forKey: "userID")!
 
         switch self {
         case .fetchPersonData:
             return firestore.collection("PersonAccount")
         case .fetchWrongQuestion:
-            let userID = UserDefaults.standard.string(forKey: "userID")!
             return firestore.collection("PersonAccount")
                 .document(userID)
                 .collection("CollectionFolderWrongQuestions")
-
+        case .fetchAccurencyRecords:
+            return firestore.collection("PersonAccount")
+                .document(userID)
+                .collection("AccurencyRecords")
         }
     }
 }
@@ -52,7 +55,6 @@ final class FirestoreService {
                 return
             }
             
-            // 打印原始數據
             print("DEBUG: Document data: \(snapshot.data() ?? [:])")
             
             do {
