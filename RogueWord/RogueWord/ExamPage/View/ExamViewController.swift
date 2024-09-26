@@ -1,183 +1,130 @@
 import UIKit
 import SnapKit
 
-class ExamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-
+class ExamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
+    
     var collectionView: UICollectionView!
     let data = ["單字填空", "段落填空", "閱讀理解"]
-    var currentVisibleIndex: Int?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupCollectionView()
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // 更新 itemSize 为 collectionView 的实际大小
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = collectionView.bounds.size
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startAnimationOnCenteredCell()
+    }
+    
     func setupCollectionView() {
-        let layout = CardFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-
+        layout.minimumLineSpacing = 0
+        // 初始设置 itemSize，会在 viewDidLayoutSubviews 中更新
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .lightGray
         collectionView.register(ExamCardCell.self, forCellWithReuseIdentifier: "ExamCardCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.decelerationRate = .fast
-
+        collectionView.isPagingEnabled = true  // 禁用默认的分页
+        
+        // 确保 contentInset 为零
+        collectionView.contentInset = .zero
+        
         view.addSubview(collectionView)
-
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(16)
-            make.left.right.equalTo(view)
-            make.bottom.equalTo(view).offset(-16)
+            make.top.left.right.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if let layout = collectionView.collectionViewLayout as? CardFlowLayout {
-            let layoutItemWidth = layout.itemSize.width
-            collectionView.contentInset = UIEdgeInsets(
-                top: 0,
-                left: (view.frame.width - layoutItemWidth) / 2,
-                bottom: 0,
-                right: (view.frame.width - layoutItemWidth) / 2
-            )
-        }
-    }
-
+    
+    // MARK: - UICollectionViewDataSource
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExamCardCell", for: indexPath) as! ExamCardCell
-        cell.label.text = data[indexPath.item]
-        cell.collectionView = collectionView
-        cell.index = indexPath.row  // 設定索引
-
-        // 設定點擊事件的閉包
-        cell.tapAction = { [weak self] in
-            guard let self = self else { return }
-            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        }
+        cell.button.setTitle(data[indexPath.row], for: .normal)
+        cell.index = indexPath.item  // 设置索引
+        cell.button.tag = indexPath.row
+        cell.button.addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
         return cell
     }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollToCenterAndAnimate()
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            scrollToCenterAndAnimate()
-        }
-    }
-
-    func scrollToCenterAndAnimate() {
-        // 计算中心点
-        let centerPoint = CGPoint(x: collectionView.frame.size.width / 2 + collectionView.contentOffset.x, y: collectionView.frame.size.height / 2)
-        
-        // 找到居中的单元格
-        if let indexPath = collectionView.indexPathForItem(at: centerPoint) {
-            // 滚动到居中的单元格
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-
-            // 获取居中的单元格
-            if let cell = collectionView.cellForItem(at: indexPath) as? ExamCardCell {
-                // 启动动画
-                cell.startAnimation()
-            }
-        }
-    }
-}
-
-// MARK: - CardFlowLayout
-
-class CardFlowLayout: UICollectionViewFlowLayout {
-
-    let itemScale: CGFloat = 0.6  // 非中央卡片的縮放比例
-    let itemAlpha: CGFloat = 0.7   // 非中央卡片的透明度
-    let maxScale: CGFloat = 1.0     // 中央卡片的最大縮放比例
     
-    override init() {
-        super.init()
-        scrollDirection = .horizontal
-        minimumLineSpacing = 20
-        let screenWidth = UIScreen.main.bounds.width
-        itemSize = CGSize(width: 300, height: 500)
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        updateCurrentIndex()
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        updateCurrentIndex()
     }
-
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true  // 當 bounds 改變時重新計算佈局
-    }
-
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let attributes = super.layoutAttributesForElements(in: rect),
-              let collectionView = self.collectionView else { return nil }
-
-        let centerX = collectionView.contentOffset.x + collectionView.bounds.width / 2
-
-        for attribute in attributes {
-            let distance = abs(attribute.center.x - centerX)
-            let normalizedDistance = distance / collectionView.bounds.width
-            let scale = max(itemScale, maxScale - normalizedDistance * (maxScale - itemScale))
-            let alpha = max(itemAlpha, 1 - normalizedDistance * (1 - itemAlpha))
-
-            attribute.transform = CGAffineTransform(scaleX: scale, y: scale)
-            attribute.alpha = alpha
+    
+    func updateCurrentIndex() {
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidth = layout.itemSize.width
+        let spacing = layout.minimumLineSpacing
+        
+        // 当前偏移量
+        let offset = collectionView.contentOffset.x
+        
+        // 计算当前索引
+        let index = Int(round(offset / (cellWidth + spacing)))
+        
+        // 确保索引在有效范围内
+        let clampedIndex = max(0, min(index, data.count - 1))
+        
+        print("当前索引：\(clampedIndex)")
+        
+        // 获取当前居中的单元格并触发动画
+        if let cell = collectionView.cellForItem(at: IndexPath(item: clampedIndex, section: 0)) as? ExamCardCell {
+            cell.startAnimation()
         }
-        return attributes
     }
-
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        guard let collectionView = self.collectionView else { return proposedContentOffset }
-
-        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView.bounds.width, height: collectionView.bounds.height)
-        guard let attributes = super.layoutAttributesForElements(in: targetRect) else { return proposedContentOffset }
-
-        let centerX = proposedContentOffset.x + collectionView.bounds.width / 2
-
-        var closestAttribute: UICollectionViewLayoutAttributes?
-        var minDistance = CGFloat.greatestFiniteMagnitude
-
-        for attribute in attributes {
-            let distance = attribute.center.x - centerX
-            if abs(distance) < abs(minDistance) {
-                minDistance = distance
-                closestAttribute = attribute
-            }
+    
+    func startAnimationOnCenteredCell() {
+        let centerPoint = CGPoint(x: collectionView.bounds.midX + collectionView.contentOffset.x,
+                                  y: collectionView.bounds.midY + collectionView.contentOffset.y)
+        
+        if let indexPath = collectionView.indexPathForItem(at: centerPoint),
+           let cell = collectionView.cellForItem(at: indexPath) as? ExamCardCell {
+            print("Centered cell index: \(indexPath.item)")
+            cell.startAnimation()
         }
-
-        guard let closest = closestAttribute else { return proposedContentOffset }
-
-        let adjustedOffsetX = proposedContentOffset.x + minDistance
-        return CGPoint(x: adjustedOffsetX, y: proposedContentOffset.y)
+    }
+    
+    @objc func tapButton(_ sender: UIButton) {
+        switch sender.tag {
+            
+        case 0 :
+            let presentVC = WordFillInTheBlankPageViewController()
+            presentVC.modalPresentationStyle = .fullScreen
+            self.present(presentVC, animated: true)
+        case 1:
+            let presentVC = ParagraphFillInTheBlanksViewController()
+            presentVC.modalPresentationStyle = .fullScreen
+            self.present(presentVC, animated: true)
+        case 2:
+            let presentVC = ReadingViewController()
+            presentVC.modalPresentationStyle = .fullScreen
+            self.present(presentVC, animated: true)
+        default:
+            print("DEBUG present ERROR")
+        }
     }
 }
-
-// MARK: - CardCell
-
-
-
-
-// MARK: - UIView Extension
-
-extension UIView {
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while parentResponder != nil {
-            parentResponder = parentResponder?.next
-            if let viewController = parentResponder as? UIViewController {
-                return viewController
-            }
-        }
-        return nil
-    }
-}
-

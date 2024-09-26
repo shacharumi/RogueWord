@@ -10,6 +10,44 @@ import SpriteKit
 
 class AnimateModel {
     
+    func runAttackAnimation5(on node: SKSpriteNode) {
+        let frameDuration = 0.1
+        
+        let textures1 = (0..<6).map { SKTexture(imageNamed: "Attack_1 (0_\($0))") }
+        
+        let textures2 = (0..<3).map { SKTexture(imageNamed: "Attack_2 (0_\($0))") }
+        
+        let textures3 = (0..<3).map { SKTexture(imageNamed: "Attack_3 (0_\($0))") }
+        
+        let textures4 = (0..<10).map { SKTexture(imageNamed: "Attack_4 (0_\($0))") }
+        
+        let allTextures = textures1 + textures2 + textures3 + textures4
+        
+        let animation = SKAction.animate(with: allTextures, timePerFrame: frameDuration)
+        
+        node.run(animation)
+    }
+    
+    func knightRunAttackAnimation(on node: SKSpriteNode) {
+        let frameDuration = 0.1
+        
+        let textures = (0..<17).map { SKTexture(imageNamed: "Attack\($0)") }
+        
+        let animation = SKAction.animate(with: textures, timePerFrame: frameDuration)
+        
+        node.run(animation)
+    }
+    
+    func RedHairdRunAttackAnimation(on node: SKSpriteNode) {
+        let frameDuration = 0.1
+        
+        let textures = (0..<20).map { SKTexture(imageNamed: "RedHairAttack\($0)") }
+        
+        let animation = SKAction.animate(with: textures, timePerFrame: frameDuration)
+        
+        node.run(animation)
+    }
+    
     func runAttackAnimation4(on node: SKSpriteNode) {
         let frameCount = 10
         let frameDuration = 0.1

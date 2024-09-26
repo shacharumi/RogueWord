@@ -22,8 +22,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
 
     var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "HomeBackGround")
-        imageView.contentMode = .scaleToFill
+        imageView.image = UIImage(named: "HomeBackground")
+        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -33,17 +33,32 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     var animateModel = AnimateModel()
     var characterNode: SKSpriteNode!
     var personData: UserData?
+    var isSceneSetup = false  // 用于确保场景只设置一次
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
 
         setupView()
+    }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tabBarController?.tabBar.backgroundColor = .white
+        self.tabBarController?.tabBar.tintColor = .black
+        self.tabBarController?.tabBar.alpha = 0.4
+        if !isSceneSetup {
+            setupScene()
+            isSceneSetup = true
+        }
+    }
+
+    func setupScene() {
+        // 初始化 squareView
         squareView = SKView()
         squareView.backgroundColor = .clear
         backgroundImageView.addSubview(squareView)
-
+        
         squareView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -58,10 +73,15 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         squareView.presentScene(scene)
 
         characterNode = SKSpriteNode(imageNamed: "Idle (0_0)")
-        characterNode.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+        characterNode.setScale(1.5)
+        characterNode.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 6)
         scene.addChild(characterNode)
 
         animateModel.idleAnimate(on: characterNode)
+        
+        // 更新 scrollView 的 contentOffset
+        homeModel.updateScrollViewContentOffset(scrollView: scrollView, centeredOn: characterNode, in: scene)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pushToLevelPage))
         squareView.addGestureRecognizer(tapGesture)
         scrollView.isUserInteractionEnabled = true
@@ -127,6 +147,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.setZoomScale(1.0, animated: false)
 
         scrollView.snp.makeConstraints { make in
+//            make.top.left.right.equalTo(view)
+//            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.edges.equalTo(view)
         }
 

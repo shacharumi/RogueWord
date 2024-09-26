@@ -56,7 +56,7 @@
             </objects>
             <point key="canvasLocation" x="3681.679389312977" y="-775.35211267605632"/>
         </scene>
-        <!--測試頁面-->
+        <!--Exam View Controller-->
         <scene sceneID="YdV-Z6-KV8">
             <objects>
                 <viewController id="XJH-S2-S1P" customClass="ExamViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -66,7 +66,7 @@
                         <viewLayoutGuide key="safeArea" id="WZM-1g-FZw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="測試頁面" id="kiY-a4-SNs"/>
+                    <navigationItem key="navigationItem" id="kiY-a4-SNs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lIl-eA-X9V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
