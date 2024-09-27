@@ -80,7 +80,6 @@ class ExamCardCell: UICollectionViewCell {
         let height = UIScreen.main.bounds.height
         let image = UIImage(named: "ExamBackground")
 
-        //slimeNode?.size = CGSize(width: scene.size.width * 0.8, height: scene.size.height * 0.8)
         switch index {
         case 0:
             slimeNode = SKSpriteNode(imageNamed: "Attack_1 (0_0)")

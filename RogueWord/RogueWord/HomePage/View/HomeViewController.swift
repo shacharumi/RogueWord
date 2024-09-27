@@ -33,7 +33,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     var animateModel = AnimateModel()
     var characterNode: SKSpriteNode!
     var personData: UserData?
-    var isSceneSetup = false  // 用于确保场景只设置一次
+    var isSceneSetup = false
 
     override func viewDidLoad() {
         super.viewDidLoad()

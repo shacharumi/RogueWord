@@ -5,11 +5,12 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     var collectionView: UICollectionView!
     let data = ["單字填空", "段落填空", "閱讀理解"]
-    
+    var wordData: [Accurency] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupCollectionView()
+        fetchAccurencyRecords()
     }
     
     override func viewDidLayoutSubviews() {
@@ -29,7 +30,6 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
-        // 初始设置 itemSize，会在 viewDidLayoutSubviews 中更新
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -59,7 +59,7 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExamCardCell", for: indexPath) as! ExamCardCell
-        cell.button.setTitle(data[indexPath.row], for: .normal)
+        cell.button.setTitle("\(data[indexPath.row])", for: .normal)
         cell.index = indexPath.item  // 设置索引
         cell.button.tag = indexPath.row
         cell.button.addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
@@ -108,21 +108,70 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    func fetchAccurencyRecords() {
+        let query = FirestoreEndpoint.fetchAccurencyRecords.ref
+        FirestoreService.shared.getDocuments(query) { [weak self] (accurencyRecords: [Accurency]) in
+            guard let self = self else { return }
+            let sortedAccurencyRecords = accurencyRecords.sorted(by: { $0.title < $1.title })
+            self.wordData = sortedAccurencyRecords
+            print(self.wordData)
+        }
+    }
+    
+    
     @objc func tapButton(_ sender: UIButton) {
         switch sender.tag {
             
         case 0 :
             let presentVC = WordFillInTheBlankPageViewController()
             presentVC.modalPresentationStyle = .fullScreen
+            presentVC.wordDatas = wordData[0]
+            
+            presentVC.datadismiss = { [weak self] wordsData in
+                guard let self = self else { return }
+                if let data = wordsData {
+                    self.wordData[0] = data
+                    print("收到的資料: \(data)")
+                }
+                
+            }
             self.present(presentVC, animated: true)
         case 1:
             let presentVC = ParagraphFillInTheBlanksViewController()
             presentVC.modalPresentationStyle = .fullScreen
+            
+//            if let wordDataItem = wordData.first(where: { $0.title == "Word" }) {
+//                presentVC.wordDatas = wordDataItem
+//            }
+//            
+//            presentVC.datadismiss = { [weak self] wordsData in
+//                guard let self = self else { return }
+//                if let data = wordsData {
+//                    if let index = self.wordData.firstIndex(where: { $0.title == "Word" }) {
+//                        self.wordData[index] = data
+//                        print("收到的資料: \(data)")
+//                    }
+//                }
+//            }
             self.present(presentVC, animated: true)
         case 2:
             let presentVC = ReadingViewController()
             presentVC.modalPresentationStyle = .fullScreen
-            self.present(presentVC, animated: true)
+            
+//            if let wordDataItem = wordData.first(where: { $0.title == "Word" }) {
+//                presentVC.wordDatas = wordDataItem
+//            }
+//            
+//            presentVC.datadismiss = { [weak self] wordsData in
+//                guard let self = self else { return }
+//                if let data = wordsData {
+//                    if let index = self.wordData.firstIndex(where: { $0.title == "Word" }) {
+//                        self.wordData[index] = data
+//                        print("收到的資料: \(data)")
+//                    }
+//                }
+//            }
+//            self.present(presentVC, animated: true)
         default:
             print("DEBUG present ERROR")
         }

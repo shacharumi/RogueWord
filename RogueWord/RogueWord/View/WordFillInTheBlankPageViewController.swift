@@ -6,6 +6,8 @@
 //
 import UIKit
 import Firebase
+import SnapKit
+import Lottie
 
 class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -13,71 +15,87 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     private var questions: [WordFillType] = []
     private let tableView = UITableView()
     private var answerSelect: String = ""
-    private var customNavBar: UIView! // 自定義導航欄
-    
+    private var customNavBar: UIView!
+    private let animationView = LottieAnimationView(name: "LoadingImage")
+    private let menuButton = UIButton(type: .system)
+    var wordDatas: Accurency?
+    private var isTapCheck: Bool = false
+    var datadismiss: ((Accurency?) -> Void)? // 定義 closure，用來傳遞資料
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCustomNavBar() // 設置自定義導航欄
+        view.backgroundColor = .white
+        setupCustomNavBar()
         setupTableView()
         callChatGPTAPI()
     }
     
-    // 設置自定義導航欄
     private func setupCustomNavBar() {
-        // 創建自定義的導航欄視圖
         customNavBar = UIView()
-        customNavBar.backgroundColor = .systemBlue // 設置背景顏色
+        customNavBar.backgroundColor = .white
+        
         view.addSubview(customNavBar)
         
-        // 設置自定義導航欄的約束
-        customNavBar.translatesAutoresizingMaskIntoConstraints = false
-        customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        customNavBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        customNavBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalTo(view)
+            make.height.equalTo(60)
+        }
         
-        // 創建返回按鈕
         let backButton = UIButton(type: .system)
-        backButton.setTitle("Back", for: .normal)
+        backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
         
-        // 返回按鈕約束
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.leadingAnchor.constraint(equalTo: customNavBar.leadingAnchor, constant: 16).isActive = true
-        backButton.centerYAnchor.constraint(equalTo: customNavBar.centerYAnchor).isActive = true
+        backButton.snp.makeConstraints { make in
+            make.leading.equalTo(customNavBar).offset(16)
+            make.centerY.equalTo(customNavBar)
+        }
         
-        // 創建菜單按鈕
-        let menuButton = UIButton(type: .system)
-        menuButton.setTitle("Menu", for: .normal)
-        menuButton.setTitleColor(.white, for: .normal)
-        menuButton.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside) // 將原來的菜單功能綁定到這裡
+        menuButton.isUserInteractionEnabled = false
+        menuButton.alpha = 0.5
+        menuButton.setTitle("...", for: .normal)
+        menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
-        // 菜單按鈕約束
-        menuButton.translatesAutoresizingMaskIntoConstraints = false
-        menuButton.trailingAnchor.constraint(equalTo: customNavBar.trailingAnchor, constant: -16).isActive = true
-        menuButton.centerYAnchor.constraint(equalTo: customNavBar.centerYAnchor).isActive = true
+        menuButton.snp.makeConstraints { make in
+            make.right.equalTo(customNavBar).offset(-16)
+            make.centerY.equalTo(customNavBar)
+        }
+        
     }
     
-    // 返回按鈕功能
     @objc func backButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.datadismiss?(self.wordDatas)
+        }
     }
     
     private func setupTableView() {
         view.addSubview(tableView)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(QuestionPageCell.self, forCellReuseIdentifier: "QuestionPageCell")
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(customNavBar.snp.bottom)
+            make.left.equalTo(view).offset(16)
+            make.right.equalTo(view).offset(-16)
+            make.bottom.equalTo(view)
+        }
         
-        // 設置 TableView 的約束，考慮到導航欄的高度
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = self.view.center
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.play()
+        tableView.addSubview(animationView)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,7 +106,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         if let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionPageCell", for: indexPath) as? QuestionPageCell {
             let question = questions[indexPath.row]
             cell.isUserInteractionEnabled = true
-            cell.answerSelectLabel.text = "(\(question.selectNumber ?? ""))"
+            cell.answerSelectLabel.text = "\(indexPath.row + 1). (\(question.selectNumber ?? ""))"
             cell.questionLabel.text = question.question
             cell.optionLabel0.setTitle(question.options[0], for: .normal)
             cell.optionLabel1.setTitle(question.options[1], for: .normal)
@@ -101,6 +119,30 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             cell.optionLabel3.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
             cell.translateButton.addTarget(self, action: #selector(translateText), for: .touchUpInside)
             cell.translateButton.tag = indexPath.row
+            cell.translateButton.isHidden = true
+
+            if isTapCheck {
+                let finalQuestion = questions[indexPath.row]
+                let selectedAnswer = finalQuestion.selectNumber
+                let correctAnswer = finalQuestion.answerOptions
+                
+                cell.translateButton.isHidden = false
+                if selectedAnswer == correctAnswer {
+                    cell.answerSelectLabel.textColor = .green
+                    cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
+                    self.wordDatas?.corrects += 1
+
+                } else {
+                    cell.answerSelectLabel.textColor = .red
+                    cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
+                    self.wordDatas?.wrongs += 1
+                }
+                self.wordDatas?.times += 1
+                self.updateAccurency()
+
+            }
+            
+            
             return cell
         } else {
             return UITableViewCell()
@@ -140,29 +182,11 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
+    // MARK: -- Doing
     @objc func answerButtonTapped() {
         let menu = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "答案", style: .default) { [weak self] _ in
-            for i in 0..<(self?.questions.count ?? 0) {
-                
-                let selectedAnswer = self?.questions[i].selectNumber // 使用使用者選擇的答案
-                let correctAnswer = self?.questions[i].answerOptions // 正確答案
-                
-                let indexPath = IndexPath(row: i, section: 0)
-                
-                if let cell = self?.tableView.cellForRow(at: indexPath) as? QuestionPageCell {
-                    // 判斷使用者選擇的答案是否正確
-                    if selectedAnswer == correctAnswer {
-                        cell.answerSelectLabel.textColor = .green
-                        cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
-                    } else {
-                        cell.answerSelectLabel.textColor = .red
-                        cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
-                    }
-                }
-            }
-            
+        let action1 = UIAlertAction(title: "對答案", style: .default) { [weak self] _ in
+            self?.isTapCheck = true
             self?.tableView.reloadData()
         }
         let action2 = UIAlertAction(title: "收藏", style: .default) { [weak self] _ in
@@ -181,10 +205,8 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                 allQuestionsData.append(questionData)
             }
             
-            // 保存到 Firebase，作為一個整體寫入
             self.saveQuestionToFirebase(allQuestionsData: allQuestionsData)
             
-            // 顯示收藏完成的提示
             let successAlert = UIAlertController(title: "收藏成功", message: "所有問題已成功被收藏為一個整體！", preferredStyle: .alert)
             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(successAlert, animated: true, completion: nil)
@@ -269,8 +291,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             "messages": [
                 ["role": "system", "content": "You are a helpful assistant."],
                 ["role": "user", "content": """
-                   
-                   Please generate five TOEIC English vocabulary fill-in-the-blank questions with multiple-choice answers suitable for a TOEIC score of 700. The questions should be moderately challenging, using more advanced vocabulary and grammar structures.
+                   請幫我生成十題多益單字填空，內容難度為多益700多分的題目，請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字。
                    
                    The format should be as follows:
                    [
@@ -278,19 +299,17 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                      "question": "The company has decided to ___ the launch of its new product due to unforeseen circumstances.",
                      "options": ["(A) proceed", "(B) postpone", "(C) expedite", "(D) cancel"],
                      "AnswerOption": "B",
-                     "Answer": "根據句中的語境，由於'未預見的情況'，公司應該是推遲產品發布，因此 'postpone' 是正確答案。"
+                     "Answer": "(A) 過程 (B) 拖延 (C) 加速 (D) 取消,根據句中的語境，由於'未預見的情況'，公司應該是推遲產品發布，因此 'postpone' 是正確答案。"
                    },
                    {
                      "question": "The marketing team proposed a new strategy to ___ the company's brand image in the competitive market.",
                      "options": ["(A) enhance", "(B) diminish", "(C) maintain", "(D) neglect"],
                      "AnswerOption": "A",
-                     "Answer": "在競爭激烈的市場中，市場團隊提出了一個新策略來 '增強' 公司的品牌形象。"
-                   }
+                     "Answer": "(A) 提升 (B) 減少 (C) 維持 (D) 忽視,在競爭激烈的市場中，市場團隊提出了一個新策略來 '增強' 公司的品牌形象。"
+                   },
                    ]
-                   
-                   Ensure that the questions are of appropriate difficulty for TOEIC 700, including context that challenges vocabulary and grammar comprehension. Please provide answers in Chinese explaining the reason for the correct answer. Also, ensure that the "AnswerOption" is always provided in uppercase letters (A, B, C, D).
-                   
-                   Return the result in valid JSON format.
+                   請確保有十題
+
                    """]
                 
             ]
@@ -316,20 +335,20 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                    let message = firstChoice["message"] as? [String: Any],
                    let content = message["content"] as? String {
                     
-                    // 1. 先處理 content 中的換行符號和特殊字符
                     let cleanedContent = content.replacingOccurrences(of: "\\n", with: "")
                         .replacingOccurrences(of: "\\", with: "")
                         .replacingOccurrences(of: "```", with: "" )
                         .replacingOccurrences(of: "json", with: "")
-                    // 2. 將處理過的字串再轉換成 JSON 數據
                     if let contentData = cleanedContent.data(using: .utf8) {
                         do {
                             if let jsonArray = try JSONSerialization.jsonObject(with: contentData, options: []) as? [[String: Any]] {
-                                // 解析得到問題列表
                                 let parsedQuestions = self?.parseResponse(jsonArray: jsonArray) ?? []
                                 
-                                // 更新 UI
                                 DispatchQueue.main.async {
+                                    self?.menuButton.isUserInteractionEnabled = true
+                                    self?.menuButton.alpha = 1
+                                    self?.animationView.stop()
+                                    self?.animationView.isHidden = true
                                     self?.questions = parsedQuestions
                                     self?.setupTableView()
                                     self?.tableView.reloadData()
@@ -368,6 +387,24 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         
         return questionsArray
     }
+    
+    func updateAccurency() {
+        let query = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
+        let fieldsToUpdate: [String: Any] = [
+            "Corrects": wordDatas?.corrects,
+            "Wrongs": wordDatas?.wrongs,
+            "Times": wordDatas?.times,
+            "Title": wordDatas?.title
+        ]
+        
+        FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
+            if let error = error {
+                print("DEBUG: Failed to update wordData -", error.localizedDescription)
+            } else {
+                print("DEBUG: Successfully updated wordData to \(self.wordDatas)")
+            }
+        }
+    }
 }
 
 struct WordFillType {
@@ -376,4 +413,18 @@ struct WordFillType {
     var answerOptions: String
     var answer: String
     var selectNumber: String?
+}
+
+struct Accurency: Decodable {
+    var corrects: Int
+    var wrongs: Int
+    var times: Int
+    var title: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case corrects = "Corrects"
+        case wrongs = "Wrongs"
+        case times = "Times"
+        case title = "Title"
+    }
 }
