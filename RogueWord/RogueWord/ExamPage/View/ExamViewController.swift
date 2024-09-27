@@ -139,39 +139,30 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
         case 1:
             let presentVC = ParagraphFillInTheBlanksViewController()
             presentVC.modalPresentationStyle = .fullScreen
+            presentVC.wordDatas = wordData[1]
             
-//            if let wordDataItem = wordData.first(where: { $0.title == "Word" }) {
-//                presentVC.wordDatas = wordDataItem
-//            }
-//            
-//            presentVC.datadismiss = { [weak self] wordsData in
-//                guard let self = self else { return }
-//                if let data = wordsData {
-//                    if let index = self.wordData.firstIndex(where: { $0.title == "Word" }) {
-//                        self.wordData[index] = data
-//                        print("收到的資料: \(data)")
-//                    }
-//                }
-//            }
+            presentVC.datadismiss = { [weak self] wordsData in
+                guard let self = self else { return }
+                if let data = wordsData {
+                    self.wordData[1] = data
+                    print("收到的資料: \(data)")
+                }
+                
+            }
             self.present(presentVC, animated: true)
         case 2:
             let presentVC = ReadingViewController()
             presentVC.modalPresentationStyle = .fullScreen
-            
-//            if let wordDataItem = wordData.first(where: { $0.title == "Word" }) {
-//                presentVC.wordDatas = wordDataItem
-//            }
-//            
-//            presentVC.datadismiss = { [weak self] wordsData in
-//                guard let self = self else { return }
-//                if let data = wordsData {
-//                    if let index = self.wordData.firstIndex(where: { $0.title == "Word" }) {
-//                        self.wordData[index] = data
-//                        print("收到的資料: \(data)")
-//                    }
-//                }
-//            }
-//            self.present(presentVC, animated: true)
+            presentVC.wordDatas = wordData[2]
+            presentVC.datadismiss = { [weak self] wordsData in
+                guard let self = self else { return }
+                if let data = wordsData {
+                    self.wordData[2] = data
+                    print("收到的資料: \(data)")
+                }
+                
+            }
+            self.present(presentVC, animated: true)
         default:
             print("DEBUG present ERROR")
         }

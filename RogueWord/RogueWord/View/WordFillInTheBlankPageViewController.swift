@@ -20,7 +20,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     private let menuButton = UIButton(type: .system)
     var wordDatas: Accurency?
     private var isTapCheck: Bool = false
-    var datadismiss: ((Accurency?) -> Void)? // 定義 closure，用來傳遞資料
+    var datadismiss: ((Accurency?) -> Void)? 
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -277,6 +277,31 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         present(alert, animated: true, completion: nil)
     }
 
+
+    
+    func updateAccurency() {
+        let query = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
+        let fieldsToUpdate: [String: Any] = [
+            "Corrects": wordDatas?.corrects,
+            "Wrongs": wordDatas?.wrongs,
+            "Times": wordDatas?.times,
+            "Title": wordDatas?.title
+        ]
+        
+        FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
+            if let error = error {
+                print("DEBUG: Failed to update wordData -", error.localizedDescription)
+            } else {
+                print("DEBUG: Successfully updated wordData to \(self.wordDatas)")
+            }
+        }
+    }
+}
+
+
+
+
+extension WordFillInTheBlankPageViewController {
     
     private func callChatGPTAPI() {
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else { return }
@@ -291,7 +316,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             "messages": [
                 ["role": "system", "content": "You are a helpful assistant."],
                 ["role": "user", "content": """
-                   請幫我生成十題多益單字填空，內容難度為多益700多分的題目，請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字。
+                   請幫我生成五題多益單字填空，內容難度為多益700多分的題目，不用理會範例題目內容，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題。
                    
                    The format should be as follows:
                    [
@@ -308,7 +333,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                      "Answer": "(A) 提升 (B) 減少 (C) 維持 (D) 忽視,在競爭激烈的市場中，市場團隊提出了一個新策略來 '增強' 公司的品牌形象。"
                    },
                    ]
-                   請確保有十題
+                   請確保有五題
 
                    """]
                 
@@ -386,24 +411,6 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         }
         
         return questionsArray
-    }
-    
-    func updateAccurency() {
-        let query = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
-        let fieldsToUpdate: [String: Any] = [
-            "Corrects": wordDatas?.corrects,
-            "Wrongs": wordDatas?.wrongs,
-            "Times": wordDatas?.times,
-            "Title": wordDatas?.title
-        ]
-        
-        FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
-            if let error = error {
-                print("DEBUG: Failed to update wordData -", error.localizedDescription)
-            } else {
-                print("DEBUG: Successfully updated wordData to \(self.wordDatas)")
-            }
-        }
     }
 }
 

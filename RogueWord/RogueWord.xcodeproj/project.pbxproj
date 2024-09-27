@@ -265,7 +265,6 @@
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
 				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
-				C72544332C91854D00580224 /* AppDelegate.swift */,
 				C70B723A2C988540001011D6 /* Model */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
@@ -330,6 +329,7 @@
 			children = (
 				C72544872C92BB6900580224 /* LoginViewModel.swift */,
 				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
+				C72544332C91854D00580224 /* AppDelegate.swift */,
 				C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */,
 			);
 			path = ViewModel;

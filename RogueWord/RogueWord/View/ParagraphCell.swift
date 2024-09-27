@@ -11,7 +11,21 @@ import SnapKit
 
 class ParagraphCell: UITableViewCell {
 
-    // 問題標題
+    var cardView: UIView = {
+        let view = UIView()
+        
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.black.cgColor
+        
+        view.backgroundColor = UIColor.white
+        view.layer.cornerRadius = 10
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
+        
+        return view
+    }()
     var answerSelectLabel: UILabel = {
        let label = UILabel()
        label.textColor = .black
@@ -74,16 +88,24 @@ class ParagraphCell: UITableViewCell {
        return label
     }()
     
+    var translateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("翻譯", for: .normal)
+        button.isUserInteractionEnabled = true
+        button.isHidden = true
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        contentView.addSubview(cardView)
         contentView.addSubview(answerSelectLabel)
         contentView.addSubview(answerLabel)
         contentView.addSubview(optionLabel0)
         contentView.addSubview(optionLabel1)
         contentView.addSubview(optionLabel2)
         contentView.addSubview(optionLabel3)
-        
+        contentView.addSubview(translateButton)
         setupConstraints()
     }
     
@@ -92,6 +114,11 @@ class ParagraphCell: UITableViewCell {
     }
     
     private func setupConstraints() {
+        cardView.snp.makeConstraints { make in
+            make.top.left.equalTo(contentView).offset(8)
+            make.right.bottom.equalTo(-8)
+        }
+        
         answerSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
             make.left.equalTo(contentView).offset(16)
@@ -127,6 +154,13 @@ class ParagraphCell: UITableViewCell {
             make.left.equalTo(answerSelectLabel.snp.right).offset(12)
             make.right.equalTo(contentView).offset(-16)
             make.bottom.equalTo(contentView).offset(-16)
+        }
+        
+        translateButton.snp.makeConstraints { make in
+            make.right.equalTo(contentView).offset(-16)
+            make.height.equalTo(40)
+            make.bottom.equalTo(contentView).offset(-8)
+
         }
     }
 }
