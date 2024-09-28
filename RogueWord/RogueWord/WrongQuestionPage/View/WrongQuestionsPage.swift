@@ -4,10 +4,12 @@
 //
 //  Created by shachar on 2024/9/23.
 //
+
 import Foundation
 import UIKit
 import FirebaseFirestore
 import SnapKit
+
 class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     private var collectionView: UICollectionView!
@@ -15,7 +17,8 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     private var paragraphQuestions: [GetParagraphType] = []  // 用來存儲 Firebase 中抓取的 documentIDs
     private var readingQuestions: [GetReadingType] = []  // 用來存儲 Firebase 中抓取的 documentIDs
     
-    private let buttonStackView = UIStackView()  // 新增一個 UIStackView 來容納按鈕
+    private let buttonStackView = UIStackView()  // UIStackView 來容納按鈕
+    private let indicatorView = UIView()  // 指示當前選中的指示器
     private var currentQuestionType: QuestionType = .paragraph  // 默認為段落填空
 
     override func viewDidLoad() {
@@ -62,7 +65,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         // 配置 StackView
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 10
+        buttonStackView.spacing = 0
         
         // 添加按鈕
         let wordQuizButton = createButton(title: "單字測驗")
@@ -78,10 +81,22 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         
         // 使用 SnapKit 設置 StackView 的約束，位於 navigationBar 下方
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(44)  // 設置 StackView 的高度
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(44)
+        }
+
+        // 添加指示器到 stackView 下方
+        indicatorView.backgroundColor = .systemBlue
+        view.addSubview(indicatorView)
+        
+        // 設置指示器初始位置在段落填空按鈕下方
+        indicatorView.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom)
+            make.height.equalTo(3)
+            make.width.equalTo(paragraphButton.snp.width)
+            make.left.equalTo(paragraphButton.snp.left)
         }
     }
     
@@ -93,6 +108,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        
         return button
     }
     
@@ -121,9 +137,18 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         default:
             break
         }
+
+        // 動畫移動指示器到點擊的按鈕下方
+        UIView.animate(withDuration: 0.3) {
+            self.indicatorView.snp.remakeConstraints { make in
+                make.top.equalTo(self.buttonStackView.snp.bottom)
+                make.height.equalTo(3)
+                make.width.equalTo(sender.snp.width)
+                make.left.equalTo(sender.snp.left)
+            }
+            self.view.layoutIfNeeded()
+        }
     }
-
-
     
     // 從 Firebase 抓取 .collection("CollectionFolderWrongQuestions") 的資料，只顯示 documentID
     private func fetchQuestionsFromFirebase(query: Query?, type: QuestionType) {
@@ -156,7 +181,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
-
     
     // MARK: - UICollectionViewDataSource Methods
     
@@ -201,7 +225,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         
         switch currentQuestionType {
         case .wordQuiz:
-            // 获取选择的单字测验问题
             let selectedWordQuestion = wordQuestions[indexPath.item]
             selectedQuestion = selectedWordQuestion.questions
             let wordFillVC = WrongQuestionWordVC()
@@ -209,23 +232,38 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             wordFillVC.questionsTitle = selectedWordQuestion.title
             viewControllerToPresent = wordFillVC
             
+            wordFillVC.datadismiss = {
+                let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "單字測驗")
+                self.fetchQuestionsFromFirebase(query: query, type: .wordQuiz)
+            }
+            
         case .paragraph:
-            // 获取选择的段落填空问题
             let selectedParagraphQuestion = paragraphQuestions[indexPath.item]
             selectedQuestion = selectedParagraphQuestion.questions
-            let paragraphVC = WrongQuestionParagraphVC() // 你需要创建相应的段落填空的 ViewController
+            let paragraphVC = WrongQuestionParagraphVC()
             paragraphVC.questions = selectedParagraphQuestion
             paragraphVC.questionsTitle = selectedParagraphQuestion.title
             viewControllerToPresent = paragraphVC
             
+            paragraphVC.datadismiss = {
+                let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "段落填空")
+                self.fetchQuestionsFromFirebase(query: query, type: .paragraph)
+            }
+            
         case .reading:
-            // 获取选择的阅读理解问题
             let selectedReadingQuestion = readingQuestions[indexPath.item]
             selectedQuestion = selectedReadingQuestion.questions
-            let readingVC = WrongQuestionReadingVC() // 你需要创建相应的阅读理解的 ViewController
+            let readingVC = WrongQuestionReadingVC()
             readingVC.questions = selectedReadingQuestion
             readingVC.questionsTitle = selectedReadingQuestion.title
             viewControllerToPresent = readingVC
+            
+            //重新抓資料
+            readingVC.datadismiss = {
+                self.currentQuestionType = .reading
+                let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "閱讀理解")
+                self.fetchQuestionsFromFirebase(query: query, type: .reading)
+            }
         }
         
         // 以全屏模式展示相应的 ViewController
@@ -234,6 +272,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
 }
+
 
 
 class QuestionCell: UICollectionViewCell {

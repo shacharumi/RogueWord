@@ -15,7 +15,11 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
     var questionsTitle: String?
     private let tableView = UITableView()
     private var customNavBar: UIView!  // 自定義導航欄
-    
+    private let menuButton = UIButton(type: .system)
+    private var isTapCheck: Bool = false
+    private var answerArray: [String]?
+    var datadismiss: (() -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,41 +31,38 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
     // 設置自定義導航欄
     private func setupCustomNavBar() {
         customNavBar = UIView()
-        customNavBar.backgroundColor = .systemBlue
+        customNavBar.backgroundColor = .white
+        
         view.addSubview(customNavBar)
         
-        // 使用 SnapKit 設置 customNavBar 的約束
         customNavBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalTo(view)
             make.height.equalTo(60)
         }
         
-        // 創建返回按鈕
         let backButton = UIButton(type: .system)
-        backButton.setTitle("Back", for: .normal)
+        backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
         
-        // 設置返回按鈕的約束
         backButton.snp.makeConstraints { make in
-            make.leading.equalTo(customNavBar.snp.leading).offset(16)
-            make.centerY.equalTo(customNavBar.snp.centerY)
+            make.leading.equalTo(customNavBar).offset(16)
+            make.centerY.equalTo(customNavBar)
         }
         
-        // 創建菜單按鈕
-        let menuButton = UIButton(type: .system)
-        menuButton.setTitle("Menu", for: .normal)
-        menuButton.setTitleColor(.white, for: .normal)
+        menuButton.setTitle("...", for: .normal)
+        menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        menuButton.setTitleColor(.blue, for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
-        // 設置菜單按鈕的約束
         menuButton.snp.makeConstraints { make in
-            make.trailing.equalTo(customNavBar.snp.trailing).offset(-16)
-            make.centerY.equalTo(customNavBar.snp.centerY)
+            make.right.equalTo(customNavBar).offset(-16)
+            make.centerY.equalTo(customNavBar)
         }
+        
     }
     
     // 返回按鈕功能
@@ -76,24 +77,11 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         // 解答選項
         let answerAction = UIAlertAction(title: "解答", style: .default) { [weak self] _ in
             guard let self = self else { return }
-            
-            for i in 0..<(self.questions?.options.count ?? 0) {
-                let indexPath = IndexPath(row: i, section: 0)
-                if let cell = self.tableView.cellForRow(at: indexPath) as? ParagraphCell {
-                    if let selectAnswer = self.selectAnswer?[i], selectAnswer == self.questions?.answerOptions[i] {
-                        cell.answerSelectLabel.textColor = .green
-                    } else {
-                        cell.answerSelectLabel.textColor = .red
-                    }
-                }
-            }
-            
-            
-            
-            let answerAlert = UIAlertController(title: "所有解答", message: questions?.answer, preferredStyle: .alert)
-            answerAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(answerAlert, animated: true, completion: nil)
+            isTapCheck = true
+            self.tableView.reloadData()
         }
+        
+        
         let cancelCollection = UIAlertAction(title: "取消收藏", style: .default) { [weak self] _ in
             guard let self = self else { return }
             
@@ -112,7 +100,7 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
                         self.present(noDocumentAlert, animated: true, completion: nil)
                         return
                     }
-
+                    
                     for document in snapshot.documents {
                         document.reference.delete { error in
                             if let error = error {
@@ -128,6 +116,9 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
                     }
                 }
             }
+            self.dismiss(animated: true) {
+                self.datadismiss!()
+            }
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -138,7 +129,7 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -163,7 +154,7 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (questions?.options.count ?? 0) + 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -209,12 +200,35 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
                 cell.optionLabel1.setTitle(questions?.options["option_set_\(indexPath.row-1)"]?[1], for: .normal)
                 cell.optionLabel2.setTitle(questions?.options["option_set_\(indexPath.row-1)"]?[2], for: .normal)
                 cell.optionLabel3.setTitle(questions?.options["option_set_\(indexPath.row-1)"]?[3], for: .normal)
-                cell.backgroundColor = .yellow
                 cell.isUserInteractionEnabled = true
                 cell.optionLabel0.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
                 cell.optionLabel1.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
                 cell.optionLabel2.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
                 cell.optionLabel3.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
+                cell.translateButton.addTarget(self, action: #selector(translateText), for: .touchUpInside)
+                cell.translateButton.isHidden = true
+                
+                if isTapCheck {
+                    cell.translateButton.tag = indexPath.row - 1
+                    cell.optionLabel0.isUserInteractionEnabled = false
+                    cell.optionLabel1.isUserInteractionEnabled = false
+                    cell.optionLabel2.isUserInteractionEnabled = false
+                    cell.optionLabel3.isUserInteractionEnabled = false
+                    
+                    let selectedAnswer = selectAnswer[indexPath.row - 1]
+                    let correctAnswer = questions?.answerOptions[indexPath.row - 1]
+                    
+                    cell.translateButton.isHidden = false
+                    if selectedAnswer == correctAnswer {
+                        cell.answerSelectLabel.textColor = .green
+                        cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
+                        
+                    } else {
+                        cell.answerSelectLabel.textColor = .red
+                        cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
+                    }
+                }
+                
                 return cell
             } else {
                 return UITableViewCell()
@@ -239,6 +253,14 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
             print("Option error")
         }
         tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    @objc private func translateText(_ sender: UIButton) {
+        self.answerArray = self.questions?.answer.components(separatedBy: "。")
+
+        let alert = UIAlertController(title: "Answer Text", message: answerArray?[sender.tag], preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

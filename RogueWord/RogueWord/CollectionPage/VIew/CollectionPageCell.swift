@@ -10,15 +10,40 @@ class CollectionPageCell: UITableViewCell {
         return dropDown
     }()
     
+    var cardView: UIView = {
+        let view = UIView()
+        
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.black.cgColor
+        
+        view.backgroundColor = UIColor.white
+        view.layer.cornerRadius = 10
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
+        
+        return view
+    }()
+    
     let testView: UIView = {
         let view = UIView()
-        view.backgroundColor = .brown
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.cornerRadius = 5
+        view.backgroundColor = UIColor.white
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
+        
+        view.backgroundColor = .lightGray
         return view
     }()
     
     let tagLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16)
         return label
@@ -45,6 +70,7 @@ class CollectionPageCell: UITableViewCell {
     }
     
     private func setupView() {
+        contentView.addSubview(cardView)
         contentView.addSubview(testView)
         testView.addSubview(tagLabel)
         dropDownButton.anchorView = testView
@@ -53,9 +79,17 @@ class CollectionPageCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTestViewTap))
         testView.addGestureRecognizer(tapGesture)
         
-        testView.snp.makeConstraints { make in
+        cardView.snp.makeConstraints { make in
+            make.left.equalTo(contentView).offset(16)
+            make.top.equalTo(contentView)
             make.right.equalTo(contentView).offset(-16)
-            make.height.equalTo(50)
+            make.bottom.equalTo(contentView)
+        }
+        
+        testView.snp.makeConstraints { make in
+            make.right.equalTo(cardView).offset(-16)
+            make.centerY.equalTo(contentView)
+            make.height.equalTo(24)
             make.width.equalTo(50)
         }
         
@@ -75,5 +109,11 @@ class CollectionPageCell: UITableViewCell {
         } else {
             dropDownButton.hide()
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0))
     }
 }

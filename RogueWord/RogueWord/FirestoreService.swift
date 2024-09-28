@@ -119,7 +119,8 @@ struct GetParagraphType: Decodable {
     var answerOptions: [String]
     var answer: String
     var title: String?
-    
+    var timestamp: Timestamp
+
    
 }
 
@@ -130,6 +131,7 @@ struct GetReadingType: Decodable {
     var answerOptions: [String]
     var answer: [String]
     var title: String?
+    var timestamp: Timestamp
 }
 
 struct GetWordFillType: Decodable {
@@ -143,4 +145,5 @@ struct WordFillDocument: Decodable {
     var title: String?  // 文檔的標題
     var tag: String  // 文檔的標籤
     var questions: [GetWordFillType]  // 包含的問題列表
+    var timestamp: Timestamp
 }

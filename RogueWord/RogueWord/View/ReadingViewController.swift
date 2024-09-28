@@ -479,7 +479,8 @@ extension ReadingType {
             "answerOptions": self.answerOptions,
             "answer": self.answer,
             "title": self.title,
-            "tag": "閱讀理解"
+            "tag": "閱讀理解",
+            "timestamp": Timestamp()
         ]
     }
 }

@@ -9,9 +9,10 @@ import UIKit
 class CollectionTagCell: UICollectionViewCell {
     let button: UIButton = {
         let button = UIButton(frame: .zero)
-        button.configuration?.titleAlignment = .center
-        button.titleLabel?.textColor = .white
+        button.setTitleColor(.white, for: .normal) 
         button.isUserInteractionEnabled = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
         return button
     }()
 
@@ -21,7 +22,7 @@ class CollectionTagCell: UICollectionViewCell {
         button.frame = contentView.bounds
         button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        layer.cornerRadius = 15
+        layer.cornerRadius = 5
         layer.masksToBounds = true
     }
     
@@ -41,4 +42,3 @@ class CollectionTagCell: UICollectionViewCell {
         }
     }
 }
-

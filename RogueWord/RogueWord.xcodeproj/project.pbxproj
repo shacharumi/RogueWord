@@ -265,21 +265,22 @@
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
 				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
-				C70B723A2C988540001011D6 /* Model */,
+				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
+				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
-				C72544392C91854D00580224 /* Main.storyboard */,
-				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
 				C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */,
+				C70B723A2C988540001011D6 /* Model */,
 				C70B72442C99EC08001011D6 /* GoogleService-Info.plist */,
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
+				C72544392C91854D00580224 /* Main.storyboard */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
 				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
-				C72544772C92BA1700580224 /* LoginViewController.swift */,
 				C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
+				C72544772C92BA1700580224 /* LoginViewController.swift */,
 				C7B386EB2CA697D70000F9CE /* LoadingImage.json */,
 			);
 			path = RogueWord;
@@ -305,8 +306,6 @@
 		C72544792C92BA2B00580224 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
-				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
@@ -319,7 +318,6 @@
 				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
-				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,9 +326,35 @@
 			isa = PBXGroup;
 			children = (
 				C72544872C92BB6900580224 /* LoginViewModel.swift */,
-				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
 				C72544332C91854D00580224 /* AppDelegate.swift */,
 				C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {
+			isa = PBXGroup;
+			children = (
+				C7CDBEE72CA7BB3C0023CF21 /* ViewModel */,
+				C7CDBEE62CA7BB130023CF21 /* VIew */,
+			);
+			path = CollectionPage;
+			sourceTree = "<group>";
+		};
+		C7CDBEE62CA7BB130023CF21 /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
+				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
+				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
+			);
+			path = VIew;
+			sourceTree = "<group>";
+		};
+		C7CDBEE72CA7BB3C0023CF21 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

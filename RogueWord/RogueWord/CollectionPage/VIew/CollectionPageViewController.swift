@@ -95,11 +95,12 @@ class CollectionPageViewController: UIViewController {
     }
 
     private func setupTableView() {
-        let rightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(presentAddTagAlert))
+        let rightButton = UIBarButtonItem(image:UIImage(systemName: "plus.square"), style: .plain, target: self, action: #selector(presentAddTagAlert))
         navigationItem.rightBarButtonItem = rightButton
-        rightButton.title = "+"
+        
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.register(CollectionPageCell.self, forCellReuseIdentifier: "CollectionPageCell")
 
         view.addSubview(tableView)
@@ -115,6 +116,7 @@ class CollectionPageViewController: UIViewController {
         tableView.delegate = self
     }
 
+    
     private func updateTableView() {
         print(viewModel.words)
         tableView.reloadData()
@@ -159,6 +161,11 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         
         let word = viewModel.words[indexPath.row]
         cell.textLabel?.text = word.word.english
+        cell.textLabel?.snp.makeConstraints { make in
+            make.centerY.equalTo(cell)
+            make.left.equalTo(cell.cardView).offset(16)
+            make.right.equalTo(cell.cardView).offset(-16)
+        }
         cell.tag = word.levelNumber
         cell.registerOptionButton(viewModel.tags)
         cell.cellID = word.levelNumber
@@ -168,7 +175,7 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 60
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -203,6 +210,7 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
            }
        }
 
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
             

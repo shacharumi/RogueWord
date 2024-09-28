@@ -235,7 +235,8 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                 let combinedData: [String: Any] = [
                     "questions": allQuestionsData,
                     "title": documentName,
-                    "tag": "單字測驗"
+                    "tag": "單字測驗",
+                    "timestamp": Timestamp()
                 ]
                 guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
 

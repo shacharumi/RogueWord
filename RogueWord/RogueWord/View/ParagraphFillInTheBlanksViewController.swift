@@ -331,7 +331,8 @@ extension ParagraphType {
             "answerOptions": self.answerOptions,
             "answer": self.answer,
             "title": self.title,
-            "tag": "段落填空"
+            "tag": "段落填空",
+            "timestamp": Timestamp()
         ]
     }
 }
