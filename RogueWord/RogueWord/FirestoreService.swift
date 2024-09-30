@@ -15,18 +15,18 @@ enum FirestoreEndpoint {
     case fetchAccurencyRecords
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
-        let userID = UserDefaults.standard.string(forKey: "userID")!
+        let userID = UserDefaults.standard.string(forKey: "userID")
 
         switch self {
         case .fetchPersonData:
             return firestore.collection("PersonAccount")
         case .fetchWrongQuestion:
             return firestore.collection("PersonAccount")
-                .document(userID)
+                .document(userID ?? "")
                 .collection("CollectionFolderWrongQuestions")
         case .fetchAccurencyRecords:
             return firestore.collection("PersonAccount")
-                .document(userID)
+                .document(userID ?? "")
                 .collection("AccurencyRecords")
         }
     }

@@ -25,7 +25,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         
         // 設置視圖背景顏色
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "CollectionBackGround")
         
         // 設置按鈕並放入 stackView
         setupButtons()
@@ -40,24 +40,28 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         layout.minimumInteritemSpacing = itemSpacing
         layout.minimumLineSpacing = itemSpacing
         
-        // 計算每個單元格的寬度，保證兩個單元格一行
         let itemWidth = (view.bounds.width - totalSpacing) / itemsPerRow
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)  // 設置正方形的單元格
         
         // 初始化 UICollectionView
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(QuestionCell.self, forCellWithReuseIdentifier: "QuestionCell")
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor(named: "CollectionBackGround")
         view.addSubview(collectionView)
         
         // 使用 SnapKit 設置 UICollectionView 的約束
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(10)  // 確保 UICollectionView 在 stackView 之下
-            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(buttonStackView.snp.bottom).offset(16)  
+            make.left.equalTo(view).offset(16)
+            make.right.equalTo(view).offset(-16)
+            make.bottom.equalTo(view)
         }
-        
+        currentQuestionType = .paragraph
+           let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "段落填空")
+           fetchQuestionsFromFirebase(query: query, type: .paragraph)
     }
     
     // 設置 StackView 和按鈕
@@ -82,13 +86,13 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         // 使用 SnapKit 設置 StackView 的約束，位於 navigationBar 下方
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.left.equalTo(view).offset(16)
+            make.right.equalTo(view).offset(-16)
             make.height.equalTo(44)
         }
 
         // 添加指示器到 stackView 下方
-        indicatorView.backgroundColor = .systemBlue
+        indicatorView.backgroundColor = .black
         view.addSubview(indicatorView)
         
         // 設置指示器初始位置在段落填空按鈕下方
@@ -104,8 +108,8 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     private func createButton(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(named: "CollectionBackGround")
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         
@@ -198,17 +202,17 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
-
+        cell.backgroundColor = UIColor(named: "CollectionCard")
         switch currentQuestionType {
         case .wordQuiz:
             let word = wordQuestions[indexPath.item]
-            cell.configure(with: word.title ?? "No Title")
+            cell.configure(with: word.title ?? "No Title", time: word.timestamp)
         case .paragraph:
             let paragraph = paragraphQuestions[indexPath.item]
-            cell.configure(with: paragraph.title ?? "No Title")
+            cell.configure(with: paragraph.title ?? "No Title", time: paragraph.timestamp)
         case .reading:
             let reading = readingQuestions[indexPath.item]
-            cell.configure(with: reading.title ?? "No Title")
+            cell.configure(with: reading.title ?? "No Title", time: reading.timestamp)
         }
 
         return cell
@@ -284,13 +288,27 @@ class QuestionCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
+    let timeLabel : UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(documentIDLabel)
-        
+        contentView.addSubview(timeLabel)
         documentIDLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.centerX.equalTo(contentView)
+            make.centerY.equalTo(contentView).offset(-25)
+        }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(contentView)
+            make.centerY.equalTo(contentView).offset(25)
         }
         
         contentView.layer.borderWidth = 1.0
@@ -303,8 +321,16 @@ class QuestionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with documentID: String) {
+    func configure(with documentID: String, time timeStamp: Timestamp) {
         documentIDLabel.text = documentID
+        let date = timeStamp.dateValue()
+
+
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+           let formattedDate = dateFormatter.string(from: date)
+
+           timeLabel.text = formattedDate
     }
 }
 

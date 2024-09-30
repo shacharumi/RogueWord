@@ -19,6 +19,10 @@ class CollectionPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.backgroundColor = .white
+        self.tabBarController?.tabBar.tintColor = .black
+        self.tabBarController?.tabBar.alpha = 0.4
+        view.backgroundColor = UIColor(named: "CollectionBackGround")
         setupCollectionView()
         setupTableView()
        
@@ -75,13 +79,13 @@ class CollectionPageViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
-
         collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isUserInteractionEnabled = true
+        collectionView.backgroundColor = UIColor(named: "CollectionBackGround")
         collectionView.register(CollectionTagCell.self, forCellWithReuseIdentifier: "CollectionTagCell")
 
         self.view.addSubview(collectionView)
@@ -101,6 +105,7 @@ class CollectionPageViewController: UIViewController {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(named: "CollectionBackGround")
         tableView.register(CollectionPageCell.self, forCellReuseIdentifier: "CollectionPageCell")
 
         view.addSubview(tableView)
@@ -160,6 +165,7 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         }
         
         let word = viewModel.words[indexPath.row]
+        cell.backgroundColor = UIColor(named: "CollectionBackGround")
         cell.textLabel?.text = word.word.english
         cell.textLabel?.snp.makeConstraints { make in
             make.centerY.equalTo(cell)

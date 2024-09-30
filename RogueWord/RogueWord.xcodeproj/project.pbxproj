@@ -45,11 +45,11 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
+		C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432CA92CAA841F003221E9 /* CountDown.json */; };
 		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
 		C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */; };
 		C7B386EA2CA693950000F9CE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7B386E92CA693950000F9CE /* Lottie */; };
 		C7B386EC2CA697D80000F9CE /* LoadingImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C7B386EB2CA697D70000F9CE /* LoadingImage.json */; };
-		C7CDBEF02CAA6FF20023CF21 /* CountDown.json in Resources */ = {isa = PBXBuildFile; fileRef = C7CDBEEF2CAA6FF20023CF21 /* CountDown.json */; };
 		C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */; };
 		C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */; };
 		C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */; };
@@ -160,11 +160,11 @@
 		C72544852C92BB3E00580224 /* CollectionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageCell.swift; sourceTree = "<group>"; };
 		C72544872C92BB6900580224 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		C7432CA92CAA841F003221E9 /* CountDown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDown.json; sourceTree = "<group>"; };
 		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7B386D92CA43C930000F9CE /* RogueWord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RogueWord.entitlements; sourceTree = "<group>"; };
 		C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		C7B386EB2CA697D70000F9CE /* LoadingImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingImage.json; sourceTree = "<group>"; };
-		C7CDBEEF2CAA6FF20023CF21 /* CountDown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDown.json; sourceTree = "<group>"; };
 		C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 		C7CDBEEE2CAA6FCF0023CF21 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				C7CDBEEF2CAA6FF20023CF21 /* CountDown.json */,
+				C7432CA92CAA841F003221E9 /* CountDown.json */,
 				C7B386EB2CA697D70000F9CE /* LoadingImage.json */,
 			);
 			path = Lottie;
@@ -607,7 +607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72544402C91854F00580224 /* Assets.xcassets in Resources */,
-				C7CDBEF02CAA6FF20023CF21 /* CountDown.json in Resources */,
+				C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */,
 				C7B386EC2CA697D80000F9CE /* LoadingImage.json in Resources */,
 				C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,

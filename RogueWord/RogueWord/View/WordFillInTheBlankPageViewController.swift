@@ -423,7 +423,7 @@ struct WordFillType {
     var selectNumber: String?
 }
 
-struct Accurency: Decodable {
+struct Accurency: Decodable, Encodable {
     var corrects: Int
     var wrongs: Int
     var times: Int

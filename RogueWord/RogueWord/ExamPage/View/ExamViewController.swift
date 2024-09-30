@@ -15,7 +15,11 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // 更新 itemSize 为 collectionView 的实际大小
+        self.tabBarController?.tabBar.backgroundColor = .white
+        self.tabBarController?.tabBar.tintColor = .black
+        self.tabBarController?.tabBar.alpha = 0.4
+        self.automaticallyAdjustsScrollViewInsets = false
+
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize = collectionView.bounds.size
         }
@@ -46,8 +50,7 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(view)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.right.bottom.equalTo(view)
         }
     }
     

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import FirebaseDatabase
 import SnapKit
-
+import Lottie
 
 class BattlePlay1ViewController: UIViewController {
     
@@ -11,9 +11,8 @@ class BattlePlay1ViewController: UIViewController {
     var roomId: String?
     var ref: DatabaseReference!
     var rank: Rank?
-
-    // MARK: - UI Elements
     
+    // MARK: - UI Elements
     var countdownLabel: UILabel!
     var questionIndexLabel: UILabel!
     var wordLabel: UILabel!
@@ -25,6 +24,7 @@ class BattlePlay1ViewController: UIViewController {
     var player2ProgressView: UIProgressView!
     var buttonView: UIView!
     var buttonArray: [UIButton] = []
+    private let animationView = LottieAnimationView(name: "CountDown")
     
     // MARK: - Game State Variables
     
@@ -43,11 +43,11 @@ class BattlePlay1ViewController: UIViewController {
     var player2Score: Float = 0
     var player1Correct: Float = 0
     var player2Correct: Float = 0
-
+    
     var countdownTimer: Timer?
     var countdownValue: Float = 10
     var datadismiss: ((Rank?) -> Void)?
-
+    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -66,11 +66,11 @@ class BattlePlay1ViewController: UIViewController {
     // MARK: - Setup Methods
     
     func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named:"playRoomBackGround")
         
         // Player View
         let playerView = UIView()
-        playerView.backgroundColor = .orange
+        playerView.backgroundColor = .clear
         view.addSubview(playerView)
         playerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -79,46 +79,65 @@ class BattlePlay1ViewController: UIViewController {
             make.height.equalTo(100)
         }
         
-        // Countdown Label
-        countdownLabel = UILabel()
-        countdownLabel.textAlignment = .center
-        countdownLabel.font = UIFont.systemFont(ofSize: 32)
-        countdownLabel.textColor = .black
-        countdownLabel.text = "等待"
-        playerView.addSubview(countdownLabel)
         
-        countdownLabel.snp.makeConstraints { make in
-            make.top.equalTo(playerView).offset(16)
+        animationView.contentMode = .scaleAspectFit
+        animationView.tintColor = UIColor(named: "questionColor")
+        animationView.loopMode = .loop
+        
+        playerView.addSubview(animationView)
+        
+        animationView.snp.makeConstraints { make in
+            make.centerY.equalTo(playerView)
             make.centerX.equalTo(playerView)
+            make.top.equalTo(playerView).offset(16)
+            make.width.height.equalTo(60)
         }
         
-        // Player 1 Name Label
+        
+        let player1ImageView = UIImageView()
+        player1ImageView.image = UIImage(systemName: "person")
+        playerView.addSubview(player1ImageView)
+        player1ImageView.snp.makeConstraints { make in
+            make.right.equalTo(animationView.snp.left).offset(-32)
+            make.top.equalTo(playerView).offset(16)
+            make.height.width.equalTo(40)
+        }
+        
         player1NameLabel = UILabel()
-        player1NameLabel.textColor = .black
-        player1NameLabel.font = UIFont.systemFont(ofSize: 32)
+        player1NameLabel.textColor =  UIColor(named: "questionColor")
+        player1NameLabel.font = UIFont.systemFont(ofSize: 16)
         player1NameLabel.text = "Player 1"
         playerView.addSubview(player1NameLabel)
         player1NameLabel.snp.makeConstraints { make in
-            make.top.equalTo(playerView).offset(16)
-            make.left.equalTo(playerView).offset(16)
-            make.right.equalTo(countdownLabel.snp.left).offset(-16)
+            make.top.equalTo(player1ImageView.snp.bottom).offset(16)
+            make.centerX.equalTo(player1ImageView)
         }
         
-        // Player 2 Name Label
+        
+        let player2ImageView = UIImageView()
+        player2ImageView.image = UIImage(systemName: "person")
+        playerView.addSubview(player2ImageView)
+        player2ImageView.snp.makeConstraints { make in
+            make.top.equalTo(playerView).offset(16)
+            make.left.equalTo(animationView.snp.right).offset(32)
+            make.height.width.equalTo(40)
+        }
+        
+        
         player2NameLabel = UILabel()
-        player2NameLabel.textColor = .black
-        player2NameLabel.font = UIFont.systemFont(ofSize: 32)
+        player2NameLabel.textColor = UIColor(named: "questionColor")
+        player2NameLabel.font = UIFont.systemFont(ofSize: 16)
         player2NameLabel.text = "Player 2"
         playerView.addSubview(player2NameLabel)
         player2NameLabel.snp.makeConstraints { make in
-            make.top.equalTo(playerView).offset(16)
-            make.left.equalTo(countdownLabel.snp.right).offset(16)
-            make.right.equalTo(playerView).offset(-16)
+            make.top.equalTo(player2ImageView.snp.bottom).offset(16)
+            make.centerX.equalTo(player2ImageView)
         }
         
-        // Question View
         let questionView = UIView()
-        questionView.backgroundColor = .yellow
+        questionView.backgroundColor = .white
+        questionView.layer.cornerRadius = 15
+        questionView.layer.masksToBounds = false
         view.addSubview(questionView)
         questionView.snp.makeConstraints { make in
             make.top.equalTo(playerView.snp.bottom).offset(16)
@@ -127,12 +146,11 @@ class BattlePlay1ViewController: UIViewController {
             make.height.equalTo(200)
         }
         
-        // Question Index Label
         questionIndexLabel = UILabel()
         questionIndexLabel.textAlignment = .center
         questionIndexLabel.font = UIFont.systemFont(ofSize: 32)
-        questionIndexLabel.textColor = .black
-        questionIndexLabel.text = "題目: 0"
+        questionIndexLabel.textColor = UIColor(named: "questionColor")
+        questionIndexLabel.text = "Q0"
         view.addSubview(questionIndexLabel)
         
         questionIndexLabel.snp.makeConstraints { make in
@@ -140,11 +158,10 @@ class BattlePlay1ViewController: UIViewController {
             make.centerX.equalTo(view)
         }
         
-        // Word Label
         wordLabel = UILabel()
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.systemFont(ofSize: 32)
-        wordLabel.textColor = .black
+        wordLabel.textColor = UIColor(named: "questionColor")
         view.addSubview(wordLabel)
         
         wordLabel.snp.makeConstraints { make in
@@ -152,7 +169,6 @@ class BattlePlay1ViewController: UIViewController {
             make.centerX.equalTo(view)
         }
         
-        // Button View
         buttonView = UIView()
         view.addSubview(buttonView)
         
@@ -163,69 +179,67 @@ class BattlePlay1ViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        // Player 1 Progress View
         player1ProgressView = UIProgressView(progressViewStyle: .bar)
-        player1ProgressView.progressTintColor = .blue
-        player1ProgressView.trackTintColor = .lightGray
+        player1ProgressView.progressTintColor = UIColor(named: "progressBarColor")
+        player1ProgressView.trackTintColor = UIColor(named: "progressBarBackColor")
+        player1ProgressView.layer.cornerRadius = 7
+        player1ProgressView.layer.masksToBounds = true
         buttonView.addSubview(player1ProgressView)
         player1ProgressView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
         
         player1ProgressView.snp.makeConstraints { make in
             make.centerX.equalTo(buttonView.snp.left).offset(16)
             make.centerY.equalTo(buttonView)
-            make.height.equalTo(10)
-            make.width.equalTo(buttonView.snp.height).offset(-48)
+            make.height.equalTo(15)
+            make.width.equalTo(buttonView.snp.height).offset(-60)
         }
         
-        // Player 1 Score Label
         player1ScoreLabel = UILabel()
         player1ScoreLabel.textAlignment = .center
         player1ScoreLabel.font = UIFont.systemFont(ofSize: 20)
-        player1ScoreLabel.textColor = .black
+        player1ScoreLabel.textColor = UIColor(named: "questionColor")
         player1ScoreLabel.text = "0"
         buttonView.addSubview(player1ScoreLabel)
         
         player1ScoreLabel.snp.makeConstraints { make in
-            make.left.equalTo(buttonView).offset(16)
+            make.centerX.equalTo(player1ProgressView)
             make.top.equalTo(buttonView).offset(8)
         }
         
-        // Player 2 Progress View
         player2ProgressView = UIProgressView(progressViewStyle: .bar)
-        player2ProgressView.progressTintColor = .red
-        player2ProgressView.trackTintColor = .lightGray
+        player2ProgressView.progressTintColor = UIColor(named: "progressBarColor")
+        player2ProgressView.trackTintColor = UIColor(named: "progressBarBackColor")
+        player2ProgressView.layer.cornerRadius = 7
+        player2ProgressView.layer.masksToBounds = true
         buttonView.addSubview(player2ProgressView)
-        
         player2ProgressView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
         
         player2ProgressView.snp.makeConstraints { make in
             make.centerX.equalTo(buttonView.snp.right).offset(-16)
             make.centerY.equalTo(buttonView)
-            make.height.equalTo(10)
-            make.width.equalTo(buttonView.snp.height).offset(-48)
+            make.height.equalTo(15)
+            make.width.equalTo(buttonView.snp.height).offset(-60)
         }
         
-        // Player 2 Score Label
         player2ScoreLabel = UILabel()
         player2ScoreLabel.textAlignment = .center
         player2ScoreLabel.font = UIFont.systemFont(ofSize: 20)
-        player2ScoreLabel.textColor = .black
-        player2ScoreLabel.text = "分數: 0"
+        player2ScoreLabel.textColor = UIColor(named: "questionColor")
+        player2ScoreLabel.text = "0"
         buttonView.addSubview(player2ScoreLabel)
         
         player2ScoreLabel.snp.makeConstraints { make in
-            make.right.equalTo(buttonView).offset(-16)
+            make.centerX.equalTo(player2ProgressView)
             make.top.equalTo(buttonView).offset(8)
         }
         
-        // 设置选项按钮
         setupButtons()
     }
     
     func setupButtons() {
         for i in 0..<4 {
             let button = UIButton(type: .system)
-            button.backgroundColor = .lightGray
+            button.backgroundColor = UIColor(named: "buttonBackGroundColor")
             button.setTitleColor(.white, for: .normal)
             button.layer.cornerRadius = 25
             button.layer.shadowColor = UIColor.black.cgColor
@@ -238,9 +252,9 @@ class BattlePlay1ViewController: UIViewController {
             
             button.snp.makeConstraints { make in
                 make.centerX.equalTo(buttonView)
-                make.top.equalTo(buttonView.snp.top).offset(40 + i * 70)
-                make.left.equalTo(buttonView).offset(26)
-                make.right.equalTo(buttonView).offset(-26)
+                make.top.equalTo(buttonView.snp.top).offset(65 + i * 80)
+                make.left.equalTo(buttonView).offset(48)
+                make.right.equalTo(buttonView).offset(-48)
                 make.height.equalTo(50)
             }
         }
@@ -274,7 +288,7 @@ class BattlePlay1ViewController: UIViewController {
             if let player1Score = snapshot.value as? Float {
                 self?.player1Score = player1Score
                 DispatchQueue.main.async {
-                    self?.player1ScoreLabel.text = "分數: \(player1Score)"
+                    self?.player1ScoreLabel.text = "\(player1Score)"
                     self?.player1ProgressView.progress = player1Score / 100.0
                 }
             }
@@ -284,7 +298,7 @@ class BattlePlay1ViewController: UIViewController {
             if let player2Score = snapshot.value as? Float {
                 self?.player2Score = player2Score
                 DispatchQueue.main.async {
-                    self?.player2ScoreLabel.text = "分數: \(player2Score)"
+                    self?.player2ScoreLabel.text = "\(player2Score)"
                     self?.player2ProgressView.progress = player2Score / 100.0
                 }
             }
@@ -293,9 +307,7 @@ class BattlePlay1ViewController: UIViewController {
         ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
             if let countdownValue = snapshot.value as? Float {
                 self?.countdownValue = countdownValue
-                DispatchQueue.main.async {
-                    self?.countdownLabel.text = "倒數: \(countdownValue) 秒"
-                }
+                
                 
                 if countdownValue <= 0  {
                     if self?.whichPlayer == 1 {
@@ -315,82 +327,100 @@ class BattlePlay1ViewController: UIViewController {
         ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
             if let currentIndex = snapshot.value as? Int {
                 if currentIndex > 10 {
-                        
-                        DispatchQueue.main.async {
-                            self?.countdownLabel.text = "遊戲結束！"
-                            self?.stopFirebaseCountdown()
-                            print("Game ended")
+                    
+                    DispatchQueue.main.async {
+                        self?.animationView.stop()
+                        self?.stopFirebaseCountdown()
+                        print("Game ended")
+                    }
+                    
+                    // 分別檢查每個屬性
+                    guard let whichPlayer = self?.whichPlayer else {
+                        print("Error: whichPlayer is nil")
+                        return
+                    }
+                    guard let player1Correct = self?.player1Correct else {
+                        print("Error: player1Correct is nil")
+                        return
+                    }
+                    guard let player2Correct = self?.player2Correct else {
+                        print("Error: player2Correct is nil")
+                        return
+                    }
+                    guard let player1Score = self?.player1Score else {
+                        print("Error: player1Score is nil")
+                        return
+                    }
+                    guard let player2Score = self?.player2Score else {
+                        print("Error: player2Score is nil")
+                        return
+                    }
+                    guard var rank = self?.rank else {
+                        print("Error: rank is nil")
+                        return
+                    }
+                    guard let datadismiss = self?.datadismiss else {
+                        print("Error: datadismiss is nil")
+                        return
+                    }
+                    
+                    if whichPlayer == 1 {
+                        if player1Score >= player2Score {
+                            rank.playTimes += 1
+                            rank.winRate += 1
+                            rank.rankScore += 30
+                            rank.correct += player1Correct
+                        } else if player2Score > player1Score {
+                            rank.playTimes += 1
+                            rank.rankScore -= 30
+                            rank.correct += player1Correct
                         }
-                        
-                        // 分別檢查每個屬性
-                        guard let whichPlayer = self?.whichPlayer else {
-                            print("Error: whichPlayer is nil")
-                            return
+                    } else {
+                        if player2Score >= player1Score {
+                            rank.playTimes += 1
+                            rank.winRate += 1
+                            rank.rankScore += 30
+                            rank.correct += player2Correct
+                        } else if player1Score > player2Score {
+                            rank.playTimes += 1
+                            rank.rankScore -= 30
+                            rank.correct += player2Correct
                         }
-                        guard let player1Correct = self?.player1Correct else {
-                            print("Error: player1Correct is nil")
-                            return
-                        }
-                        guard let player2Correct = self?.player2Correct else {
-                            print("Error: player2Correct is nil")
-                            return
-                        }
-                        guard let player1Score = self?.player1Score else {
-                            print("Error: player1Score is nil")
-                            return
-                        }
-                        guard let player2Score = self?.player2Score else {
-                            print("Error: player2Score is nil")
-                            return
-                        }
-                        guard var rank = self?.rank else {
-                            print("Error: rank is nil")
-                            return
-                        }
-                        guard let datadismiss = self?.datadismiss else {
-                            print("Error: datadismiss is nil")
-                            return
-                        }
-                        
-                        // 如果所有屬性都不為 nil，則繼續執行邏輯
-                        if whichPlayer == 1 {
-                            if player1Score >= player2Score {
-                                rank.playTimes += 1
-                                rank.winRate += 1
-                                rank.rankScore += 30
-                                rank.correct += player1Correct
-                            } else if player2Score > player1Score {
-                                rank.playTimes += 1
-                                rank.rankScore -= 30
-                                rank.correct += player1Correct
-                            }
+                    }
+                    var mes = ""
+                    if whichPlayer == 1 {
+                        if player1Score > player2Score {
+                            mes = "恭喜玩家勝利！！"
                         } else {
-                            if player2Score >= player1Score {
-                                rank.playTimes += 1
-                                rank.winRate += 1
-                                rank.rankScore += 30
-                                rank.correct += player2Correct
-                            } else if player1Score > player2Score {
-                                rank.playTimes += 1
-                                rank.rankScore -= 30
-                                rank.correct += player2Correct
-                            }
+                            mes = "繼續加油！！"
                         }
+                    } else {
+                        if player1Score < player2Score {
+                            mes = "恭喜玩家勝利！！"
+                        } else {
+                            mes = "繼續加油！！"
+                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        let alert = UIAlertController(title: "結算畫面", message: mes, preferredStyle: .alert)
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        alert.addAction(UIAlertAction(title: "下一場", style: .default, handler: { _ in
                             self?.dismiss(animated: true) {
                                 datadismiss(rank)
                             }
-                        }
-                    
+                        }))
+                        
+                        self?.present(alert, animated: true, completion: nil)
+                    }
                     
                     
                 } else {
                     DispatchQueue.main.async {
-                        self?.questionIndexLabel.text = "目前題目: \(currentIndex)"
+                        self?.questionIndexLabel.text = "Q\(currentIndex)"
                     }
                     
-
+                    
                 }
             }
         }
@@ -431,6 +461,7 @@ class BattlePlay1ViewController: UIViewController {
     }
     
     func startFirebaseCountdown() {
+        animationView.play()
         guard whichPlayer == 1 else { return }
         
         countdownTimer?.invalidate()
@@ -474,7 +505,7 @@ class BattlePlay1ViewController: UIViewController {
                 currentQuestionIndex = currentIndex + 1
                 
                 DispatchQueue.main.async {
-                    self.questionIndexLabel.text = "目前題目: \(self.currentQuestionIndex)"
+                    self.questionIndexLabel.text = "Q\(self.currentQuestionIndex)"
                 }
                 
                 self.ref.child("Rooms").child(roomId).updateChildValues([
@@ -504,6 +535,7 @@ class BattlePlay1ViewController: UIViewController {
     }
     
     func evaluateAnswersAndScore() {
+        animationView.stop()
         guard let roomId = roomId, let currentWord = currentWord else { return }
         
         if self.player1Select == self.currentWord?.chinese {
