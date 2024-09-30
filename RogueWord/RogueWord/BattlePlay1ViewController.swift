@@ -3,13 +3,15 @@ import UIKit
 import FirebaseDatabase
 import SnapKit
 
+
 class BattlePlay1ViewController: UIViewController {
     
     // MARK: - Properties
     
     var roomId: String?
     var ref: DatabaseReference!
-    
+    var rank: Rank?
+
     // MARK: - UI Elements
     
     var countdownLabel: UILabel!
@@ -30,6 +32,7 @@ class BattlePlay1ViewController: UIViewController {
     var player1Id: String?
     var whichPlayer: Int?
     var currentWord: JsonWord?
+    var currentQuestionIndex: Int = 0
     var score: Int = 0
     var countdownActive = true
     var player1CountDown: Float = 0
@@ -38,11 +41,13 @@ class BattlePlay1ViewController: UIViewController {
     var player2Select = ""
     var player1Score: Float = 0
     var player2Score: Float = 0
-    
-    var hasEvaluatedCurrentQuestion = false
+    var player1Correct: Float = 0
+    var player2Correct: Float = 0
+
     var countdownTimer: Timer?
     var countdownValue: Float = 10
-    
+    var datadismiss: ((Rank?) -> Void)?
+
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -249,7 +254,6 @@ class BattlePlay1ViewController: UIViewController {
             return
         }
         
-        // Player1Name 监听
         ref.child("Rooms").child(roomId).child("Player1Name").observe(.value) { [weak self] snapshot in
             if let player1Name = snapshot.value as? String {
                 DispatchQueue.main.async {
@@ -258,7 +262,6 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // Player2Name 监听
         ref.child("Rooms").child(roomId).child("Player2Name").observe(.value) { [weak self] snapshot in
             if let player2Name = snapshot.value as? String {
                 DispatchQueue.main.async {
@@ -267,7 +270,6 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // Player1Score 监听
         ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
             if let player1Score = snapshot.value as? Float {
                 self?.player1Score = player1Score
@@ -278,7 +280,6 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // Player2Score 监听
         ref.child("Rooms").child(roomId).child("Player2Score").observe(.value) { [weak self] snapshot in
             if let player2Score = snapshot.value as? Float {
                 self?.player2Score = player2Score
@@ -289,7 +290,6 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // PlayCounting 监听
         ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
             if let countdownValue = snapshot.value as? Float {
                 self?.countdownValue = countdownValue
@@ -297,8 +297,7 @@ class BattlePlay1ViewController: UIViewController {
                     self?.countdownLabel.text = "倒數: \(countdownValue) 秒"
                 }
                 
-                if countdownValue <= 0 && !(self?.hasEvaluatedCurrentQuestion ?? true) {
-                    self?.hasEvaluatedCurrentQuestion = true
+                if countdownValue <= 0  {
                     if self?.whichPlayer == 1 {
                         self?.evaluateAnswersAndScore()
                         self?.updateQuestionAndResetValues()
@@ -307,23 +306,95 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // QuestionData 监听
         ref.child("Rooms").child(roomId).child("QuestionData").observe(.value) { [weak self] snapshot in
             if let questionData = snapshot.value as? [String: Any] {
                 self?.updateQuestionFromFirebase(questionData: questionData)
             }
         }
         
-        // CurrentQuestionIndex 监听
         ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
             if let currentIndex = snapshot.value as? Int {
-                DispatchQueue.main.async {
-                    self?.questionIndexLabel.text = "目前題目: \(currentIndex)"
+                if currentIndex > 10 {
+                        
+                        DispatchQueue.main.async {
+                            self?.countdownLabel.text = "遊戲結束！"
+                            self?.stopFirebaseCountdown()
+                            print("Game ended")
+                        }
+                        
+                        // 分別檢查每個屬性
+                        guard let whichPlayer = self?.whichPlayer else {
+                            print("Error: whichPlayer is nil")
+                            return
+                        }
+                        guard let player1Correct = self?.player1Correct else {
+                            print("Error: player1Correct is nil")
+                            return
+                        }
+                        guard let player2Correct = self?.player2Correct else {
+                            print("Error: player2Correct is nil")
+                            return
+                        }
+                        guard let player1Score = self?.player1Score else {
+                            print("Error: player1Score is nil")
+                            return
+                        }
+                        guard let player2Score = self?.player2Score else {
+                            print("Error: player2Score is nil")
+                            return
+                        }
+                        guard var rank = self?.rank else {
+                            print("Error: rank is nil")
+                            return
+                        }
+                        guard let datadismiss = self?.datadismiss else {
+                            print("Error: datadismiss is nil")
+                            return
+                        }
+                        
+                        // 如果所有屬性都不為 nil，則繼續執行邏輯
+                        if whichPlayer == 1 {
+                            if player1Score >= player2Score {
+                                rank.playTimes += 1
+                                rank.winRate += 1
+                                rank.rankScore += 30
+                                rank.correct += player1Correct
+                            } else if player2Score > player1Score {
+                                rank.playTimes += 1
+                                rank.rankScore -= 30
+                                rank.correct += player1Correct
+                            }
+                        } else {
+                            if player2Score >= player1Score {
+                                rank.playTimes += 1
+                                rank.winRate += 1
+                                rank.rankScore += 30
+                                rank.correct += player2Correct
+                            } else if player1Score > player2Score {
+                                rank.playTimes += 1
+                                rank.rankScore -= 30
+                                rank.correct += player2Correct
+                            }
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            self?.dismiss(animated: true) {
+                                datadismiss(rank)
+                            }
+                        }
+                    
+                    
+                    
+                } else {
+                    DispatchQueue.main.async {
+                        self?.questionIndexLabel.text = "目前題目: \(currentIndex)"
+                    }
+                    
+
                 }
             }
         }
         
-        // RoomIsStart 监听
         ref.child("Rooms").child(roomId).child("RoomIsStart").observe(.value) { [weak self] snapshot in
             if let roomIsStart = snapshot.value as? Bool, roomIsStart {
                 if self?.whichPlayer == 1 {
@@ -334,7 +405,6 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // Player1Select 监听
         ref.child("Rooms").child(roomId).child("Player1Select").observe(.value) { [weak self] snapshot in
             self?.player1CountDown = self?.countdownValue ?? 0
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 1)
@@ -345,6 +415,8 @@ class BattlePlay1ViewController: UIViewController {
             self?.player2CountDown = self?.countdownValue ?? 0
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 2)
         }
+        
+        
     }
     
     // MARK: - Game Logic Methods
@@ -363,7 +435,6 @@ class BattlePlay1ViewController: UIViewController {
         
         countdownTimer?.invalidate()
         countdownValue = 10
-        hasEvaluatedCurrentQuestion = false
         
         if let roomId = roomId {
             ref.child("Rooms").child(roomId).child("PlayCounting").setValue(countdownValue)
@@ -379,11 +450,10 @@ class BattlePlay1ViewController: UIViewController {
             
             if self.countdownValue <= 0 {
                 timer.invalidate()
-                if !self.hasEvaluatedCurrentQuestion {
-                    self.hasEvaluatedCurrentQuestion = true
-                    self.evaluateAnswersAndScore()
-                    self.updateQuestionAndResetValues()
-                }
+                
+                self.evaluateAnswersAndScore()
+                self.updateQuestionAndResetValues()
+                
             }
         }
         
@@ -401,14 +471,14 @@ class BattlePlay1ViewController: UIViewController {
             guard let self = self else { return }
             
             if let currentIndex = snapshot.value as? Int, currentIndex < 10 {
-                let nextIndex = currentIndex + 1
+                currentQuestionIndex = currentIndex + 1
                 
                 DispatchQueue.main.async {
-                    self.questionIndexLabel.text = "目前題目: \(nextIndex)"
+                    self.questionIndexLabel.text = "目前題目: \(self.currentQuestionIndex)"
                 }
                 
                 self.ref.child("Rooms").child(roomId).updateChildValues([
-                    "CurrentQuestionIndex": nextIndex,
+                    "CurrentQuestionIndex": currentQuestionIndex,
                     "Player1Select": "",
                     "Player2Select": "",
                     "PlayCounting": 10
@@ -418,18 +488,17 @@ class BattlePlay1ViewController: UIViewController {
                             self.randomizeWordAndOptions()
                             self.startFirebaseCountdown()
                         }
-                        self.hasEvaluatedCurrentQuestion = false
-                        print("Moved to next question: \(nextIndex)")
+                        print("Moved to next question: \(self.currentQuestionIndex)")
                     } else {
                         print("Failed to update question: \(error!.localizedDescription)")
                     }
                 }
             } else {
-                DispatchQueue.main.async {
-                    self.countdownLabel.text = "遊戲結束！"
-                    self.stopFirebaseCountdown()
-                    print("Game ended")
-                }
+                
+                currentQuestionIndex += 1
+                self.ref.child("Rooms").child(roomId).updateChildValues([
+                    "CurrentQuestionIndex": currentQuestionIndex ])
+                
             }
         }
     }
@@ -439,11 +508,13 @@ class BattlePlay1ViewController: UIViewController {
         
         if self.player1Select == self.currentWord?.chinese {
             self.player1Score += 1 * self.player1CountDown
+            self.player1Correct += 1
             self.ref.child("Rooms").child(roomId).child("Player1Score").setValue(self.player1Score)
         }
         
         if self.player2Select == self.currentWord?.chinese {
             self.player2Score += 1 * self.player2CountDown
+            self.player2Correct += 1
             self.ref.child("Rooms").child(roomId).child("Player2Score").setValue(self.player2Score)
         }
     }
@@ -459,8 +530,7 @@ class BattlePlay1ViewController: UIViewController {
             print("Player2 Select: \(player2Select)")
         }
         
-        if !player1Select.isEmpty && !player2Select.isEmpty && !self.hasEvaluatedCurrentQuestion {
-            self.hasEvaluatedCurrentQuestion = true
+        if !player1Select.isEmpty && !player2Select.isEmpty  {
             
             if whichPlayer == 1 {
                 self.stopFirebaseCountdown()
@@ -509,7 +579,7 @@ class BattlePlay1ViewController: UIViewController {
     
     func startGameForPlayer2() {
         guard let roomId = roomId else { return }
-
+        
         ref.child("Rooms").child(roomId).child("RoomIsStart").observeSingleEvent(of: .value) { [weak self] snapshot in
             if let roomIsStart = snapshot.value as? Bool, roomIsStart {
                 if self?.whichPlayer == 1 {
@@ -518,7 +588,7 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
     }
-
+    
     
     func updateQuestionFromFirebase(questionData: [String: Any]) {
         if let question = questionData["Question"] as? String,

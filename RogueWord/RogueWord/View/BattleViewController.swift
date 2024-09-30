@@ -13,6 +13,7 @@ class BattleViewController: UIViewController {
     var ref: DatabaseReference!
     
     var actionButton: UIButton!
+    var rank: Rank?
     
     var cardView: UIView = {
        let view = UIView()
@@ -43,37 +44,28 @@ class BattleViewController: UIViewController {
         return view
     }()
     
+    var rankScoreLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        return label
+    }()
+    
     var winRateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-
-        if let rank = UserDefaults.standard.getStruct(forKey: "rank", as: Rank.self) {
-            let winRate = (rank.winRate / rank.playTimes) * 100
-            label.text = "對戰勝率 \(winRate) % "
-        }
-
         return label
     }()
     
     var accurencyLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-
-        if let rank = UserDefaults.standard.getStruct(forKey: "rank", as: Rank.self) {
-            let accurency = rank.correct / (rank.playTimes * 10) * 100
-            label.text = "準確率 \(accurency) % "
-        }
         return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("aaaa")
-        print(UserDefaults.standard.getStruct(forKey: "rank", as: Rank.self))
-        print("aaaa")
-
         ref = Database.database().reference()
-        
+        fectchRank()
         setupUI()
     }
     
@@ -105,9 +97,18 @@ class BattleViewController: UIViewController {
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(3)
         }
+        
+        cardView.addSubview(rankScoreLabel)
+        rankScoreLabel.snp.makeConstraints { make in
+            make.top.equalTo(divideLine.snp.bottom).offset(16)
+            make.left.equalTo(cardView).offset(16)
+            make.right.equalTo(cardView).offset(-16)
+            make.height.equalTo(40)
+        }
+        
         cardView.addSubview(winRateLabel)
         winRateLabel.snp.makeConstraints { make in
-            make.top.equalTo(divideLine.snp.bottom).offset(16)
+            make.top.equalTo(rankScoreLabel.snp.bottom).offset(16)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(40)
@@ -129,6 +130,33 @@ class BattleViewController: UIViewController {
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(40)
+        }
+    }
+    
+    func fectchRank() {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
+                let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
+
+        FirestoreService.shared.getDocument(query) { (personData: UserData?) in
+            if let personData = personData {
+                self.rank = personData.rank
+                print("DEBUG here \(personData.rank)")
+                self.updateAccuracyLabel()
+            } else {
+                print("DEBUG: Failed to fetch or decode UserData.")
+            }
+        }
+    }
+    
+    func updateAccuracyLabel() {
+        if let rank = self.rank {
+            let accurency = (rank.correct / (rank.playTimes * 10)) * 100
+            let winRate = (rank.winRate / rank.playTimes) * 100
+            rankScoreLabel.text = "天梯分數 \(rank.rankScore)"
+            winRateLabel.text = "對戰勝率 \(winRate) % "
+            accurencyLabel.text = "準確率 \(accurency) % "
+        } else {
+            accurencyLabel.text = "準確率無法取得"
         }
     }
     
@@ -187,7 +215,31 @@ class BattleViewController: UIViewController {
                 battlePage.roomId = roomId
                 battlePage.player1Id = "Player1"
                 battlePage.whichPlayer = 1
-                self.navigationController?.pushViewController(battlePage, animated: true)
+                battlePage.rank = self.rank
+                battlePage.modalPresentationStyle = .fullScreen
+                battlePage.datadismiss = { [weak self] rank in
+                    guard let self = self else { return }
+                    if let rank = rank {
+                        self.rank = rank
+                        let newRank = [
+                            "rank.correct" : rank.correct,
+                            "rank.winRate" : rank.winRate,
+                            "rank.playTimes" : rank.playTimes,
+                            "rank.rankScore" : rank.rankScore
+                        ]
+                        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+                        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
+                        FirestoreService.shared.updateData(at: query, with: newRank) { error in
+                            if let error = error {
+                                print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
+                            } else {
+                                print("DEBUG: Successfully updated LevelNumber to \(newRank)")
+                            }
+                        }
+                    }
+                    
+                }
+                self.present(battlePage, animated: true)
             }
         }
     }
@@ -206,8 +258,33 @@ class BattleViewController: UIViewController {
                 battlePage.roomId = roomId
                 battlePage.player2Id = "Player2"
                 battlePage.whichPlayer = 2
-                self.navigationController?.pushViewController(battlePage, animated: true)
+                battlePage.rank = self.rank
+                battlePage.modalPresentationStyle = .fullScreen
+                battlePage.datadismiss = { [weak self] rank in
+                    guard let self = self else { return }
+                    if let rank = rank {
+                        self.rank = rank
+                        let newRank = [
+                            "rank.correct" : rank.correct,
+                            "rank.winRate" : rank.winRate,
+                            "rank.playTimes" : rank.playTimes,
+                            "rank.rankScore" : rank.rankScore
+                        ]
+                        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+                        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
+                        FirestoreService.shared.updateData(at: query, with: newRank) { error in
+                            if let error = error {
+                                print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
+                            } else {
+                                print("DEBUG: Successfully updated LevelNumber to \(newRank)")
+                            }
+                        }
+                    }
+                    
+                }
                 
+                self.present(battlePage, animated: true)
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.ref.child("Rooms").child(roomId).updateChildValues(["RoomIsStart": true]) { error, _ in
                         if error == nil {
