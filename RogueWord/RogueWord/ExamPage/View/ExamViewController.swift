@@ -6,6 +6,7 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
     var collectionView: UICollectionView!
     let data = ["單字填空", "段落填空", "閱讀理解"]
     var wordData: [Accurency] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -62,13 +63,18 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExamCardCell", for: indexPath) as! ExamCardCell
-        cell.button.setTitle("\(data[indexPath.row])", for: .normal)
+        cell.accurencyData = wordData
+        //cell.label.text = "\(data[indexPath.row])"  // 使用 Label 來顯示文字
         cell.index = indexPath.item  // 设置索引
-        cell.button.tag = indexPath.row
-        cell.button.addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
+        
+        // 添加點擊手勢
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        cell.customView.tag = indexPath.row
+        cell.customView.addGestureRecognizer(tapGesture)
+        cell.customView.isUserInteractionEnabled = true
+        
         return cell
     }
-    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         updateCurrentIndex()
@@ -118,14 +124,15 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
             let sortedAccurencyRecords = accurencyRecords.sorted(by: { $0.title < $1.title })
             self.wordData = sortedAccurencyRecords
             print(self.wordData)
+            self.collectionView.reloadData()
         }
     }
     
-    
-    @objc func tapButton(_ sender: UIButton) {
-        switch sender.tag {
-            
-        case 0 :
+    @objc func viewTapped(_ sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        
+        switch view.tag {
+        case 0:
             let presentVC = WordFillInTheBlankPageViewController()
             presentVC.modalPresentationStyle = .fullScreen
             presentVC.wordDatas = wordData[0]
@@ -136,9 +143,9 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
                     self.wordData[0] = data
                     print("收到的資料: \(data)")
                 }
-                
             }
             self.present(presentVC, animated: true)
+            
         case 1:
             let presentVC = ParagraphFillInTheBlanksViewController()
             presentVC.modalPresentationStyle = .fullScreen
@@ -150,22 +157,23 @@ class ExamViewController: UIViewController, UICollectionViewDataSource, UICollec
                     self.wordData[1] = data
                     print("收到的資料: \(data)")
                 }
-                
             }
             self.present(presentVC, animated: true)
+            
         case 2:
             let presentVC = ReadingViewController()
             presentVC.modalPresentationStyle = .fullScreen
             presentVC.wordDatas = wordData[2]
+            
             presentVC.datadismiss = { [weak self] wordsData in
                 guard let self = self else { return }
                 if let data = wordsData {
                     self.wordData[2] = data
                     print("收到的資料: \(data)")
                 }
-                
             }
             self.present(presentVC, animated: true)
+            
         default:
             print("DEBUG present ERROR")
         }
