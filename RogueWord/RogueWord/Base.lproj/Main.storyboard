@@ -23,11 +23,11 @@
             </objects>
             <point key="canvasLocation" x="-424" y="-829"/>
         </scene>
-        <!--Item-->
+        <!--首頁-->
         <scene sceneID="og2-QB-LLp">
             <objects>
                 <navigationController id="9VD-Jo-YvG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="lu5-ix-386"/>
+                    <tabBarItem key="tabBarItem" title="首頁" image="house" catalog="system" selectedImage="house.fill" id="lu5-ix-386"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Zc-4y-fd4">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -54,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlg-xD-FLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3683" y="-775"/>
+            <point key="canvasLocation" x="3681.679389312977" y="-775.35211267605632"/>
         </scene>
         <!--Exam View Controller-->
         <scene sceneID="YdV-Z6-KV8">
@@ -88,11 +88,11 @@
             </objects>
             <point key="canvasLocation" x="3682" y="680"/>
         </scene>
-        <!--Item-->
+        <!--設定-->
         <scene sceneID="1ik-hP-iFX">
             <objects>
                 <navigationController id="snw-wl-yau" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5II-Lr-tnV"/>
+                    <tabBarItem key="tabBarItem" title="設定" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="5II-Lr-tnV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VcK-pM-PiY">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -105,7 +105,7 @@
             </objects>
             <point key="canvasLocation" x="1952" y="2180"/>
         </scene>
-        <!--Battle View Controller-->
+        <!--單字對戰-->
         <scene sceneID="Wzv-EA-HKP">
             <objects>
                 <viewController id="nx0-fi-dA1" customClass="BattleViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -115,16 +115,16 @@
                         <viewLayoutGuide key="safeArea" id="64g-6v-XL1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="mu6-bG-tLE"/>
+                    <navigationItem key="navigationItem" title="單字對戰" id="mu6-bG-tLE"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYX-gz-xCv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3682" y="1420"/>
         </scene>
-        <!--View Controller-->
+        <!--Person File View Controller-->
         <scene sceneID="dkY-CR-jCl">
             <objects>
-                <viewController id="JfZ-1a-uaL" sceneMemberID="viewController">
+                <viewController id="JfZ-1a-uaL" customClass="PersonFileViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hxb-aa-8dx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,11 +137,11 @@
             </objects>
             <point key="canvasLocation" x="3667" y="2175"/>
         </scene>
-        <!--Item-->
+        <!--測驗-->
         <scene sceneID="EWc-Sx-361">
             <objects>
                 <navigationController id="QGJ-ci-i4o" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="eYK-yB-YqM"/>
+                    <tabBarItem key="tabBarItem" title="測驗" image="pencil.and.list.clipboard" catalog="system" selectedImage="pencil.and.list.clipboard.rtl" id="eYK-yB-YqM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qk6-hO-tp7">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -154,11 +154,11 @@
             </objects>
             <point key="canvasLocation" x="1931" y="-48"/>
         </scene>
-        <!--Item-->
+        <!--收藏-->
         <scene sceneID="taO-6K-1ZD">
             <objects>
                 <navigationController id="vd3-WD-dDw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Acv-Wx-OJb"/>
+                    <tabBarItem key="tabBarItem" title="收藏" image="books.vertical" catalog="system" selectedImage="books.vertical.fill" id="Acv-Wx-OJb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="62u-84-qHF">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -171,11 +171,11 @@
             </objects>
             <point key="canvasLocation" x="1931" y="680"/>
         </scene>
-        <!--Item-->
+        <!--對戰-->
         <scene sceneID="bMp-LV-XUk">
             <objects>
                 <navigationController id="2Fw-xF-cDV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="yRi-Mz-jxB"/>
+                    <tabBarItem key="tabBarItem" title="對戰" image="gamecontroller" catalog="system" selectedImage="gamecontroller.fill" id="yRi-Mz-jxB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fmR-yw-ARR">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -211,6 +211,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="books.vertical" catalog="system" width="128" height="107"/>
+        <image name="books.vertical.fill" catalog="system" width="128" height="110"/>
+        <image name="gamecontroller" catalog="system" width="128" height="79"/>
+        <image name="gamecontroller.fill" catalog="system" width="128" height="79"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="123"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="pencil.and.list.clipboard" catalog="system" width="114" height="128"/>
+        <image name="pencil.and.list.clipboard.rtl" catalog="system" width="105" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
