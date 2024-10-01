@@ -32,6 +32,7 @@ class LevelUpGamePageViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
+        
         return label
     }()
     
