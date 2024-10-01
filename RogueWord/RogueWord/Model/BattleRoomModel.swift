@@ -17,6 +17,7 @@ struct Room {
     var player2Select: Int
     var player1Prepare: Bool
     var player2Prepare: Bool
+    
 }
 
 struct FireBaseWord {
@@ -37,10 +38,12 @@ struct Question {
     let questionText: String
     let options: [String]
     let answer: String
+    var selectedAnswer: String?
+
 }
 
 struct ChatGPTAPIKey {
-    static let key = ""
+    static let key = "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"
 }
 
 struct AIModel {
@@ -56,7 +59,7 @@ struct OpenAIBody: Encodable {
     let model: String
     let messages: [Message]
     let temperature = 0.0
-    let max_tokens = 512
+    let max_tokens = 1024
     let top_p = 1.0
     let frequency_penalty = 0.0
     let presence_penalty = 0.0

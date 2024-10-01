@@ -18,7 +18,6 @@
 		C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72342C97BE24001011D6 /* BattleViewController.swift */; };
 		C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */; };
 		C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72382C988531001011D6 /* BattleRoomModel.swift */; };
-		C70B72432C99E775001011D6 /* ScanImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72422C99E775001011D6 /* ScanImageViewController.swift */; };
 		C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C70B72442C99EC08001011D6 /* GoogleService-Info.plist */; };
 		C70B72552C9A7AFB001011D6 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; };
 		C70B72562C9A7AFB001011D6 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -46,6 +45,24 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
+		C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432CA92CAA841F003221E9 /* CountDown.json */; };
+		C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432CE82CABCC1A003221E9 /* LoginModel.swift */; };
+		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
+		C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */; };
+		C7B386EA2CA693950000F9CE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7B386E92CA693950000F9CE /* Lottie */; };
+		C7B386EC2CA697D80000F9CE /* LoadingImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C7B386EB2CA697D70000F9CE /* LoadingImage.json */; };
+		C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */; };
+		C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */; };
+		C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */; };
+		C7E0B0992C9FCDC9003395B3 /* ExamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */; };
+		C7E0B0A22CA05FDC003395B3 /* PersonFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */; };
+		C7E0B0A42CA061F3003395B3 /* PersonFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */; };
+		C7E0B0AF2CA08ACE003395B3 /* WrongQuestionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */; };
+		C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */; };
+		C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */; };
+		C7E0B0B72CA26561003395B3 /* WrongQuestionParagraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */; };
+		C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */; };
+		C7E0B0C12CA2AA88003395B3 /* AnimateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +122,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7432CCA2CABBAF5003221E9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -119,7 +146,6 @@
 		C70B72342C97BE24001011D6 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePlay1ViewController.swift; sourceTree = "<group>"; };
 		C70B72382C988531001011D6 /* BattleRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleRoomModel.swift; sourceTree = "<group>"; };
-		C70B72422C99E775001011D6 /* ScanImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanImageViewController.swift; sourceTree = "<group>"; };
 		C70B72442C99EC08001011D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTagCell.swift; sourceTree = "<group>"; };
@@ -145,6 +171,26 @@
 		C72544852C92BB3E00580224 /* CollectionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageCell.swift; sourceTree = "<group>"; };
 		C72544872C92BB6900580224 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		C7432CA92CAA841F003221E9 /* CountDown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDown.json; sourceTree = "<group>"; };
+		C7432CB62CABBAF3003221E9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		C7432CB82CABBAF3003221E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		C7432CE82CABCC1A003221E9 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
+		C7B386D92CA43C930000F9CE /* RogueWord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RogueWord.entitlements; sourceTree = "<group>"; };
+		C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		C7B386EB2CA697D70000F9CE /* LoadingImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingImage.json; sourceTree = "<group>"; };
+		C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTestCell.swift; sourceTree = "<group>"; };
+		C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningTestCell.swift; sourceTree = "<group>"; };
+		C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
+		C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewModel.swift; sourceTree = "<group>"; };
+		C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileViewController.swift; sourceTree = "<group>"; };
+		C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileCell.swift; sourceTree = "<group>"; };
+		C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionsPage.swift; sourceTree = "<group>"; };
+		C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionWordVC.swift; sourceTree = "<group>"; };
+		C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionParagraphVC.swift; sourceTree = "<group>"; };
+		C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionReadingVC.swift; sourceTree = "<group>"; };
+		C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C725446C2C918C5A00580224 /* FirebaseDatabase in Frameworks */,
+				C7B386EA2CA693950000F9CE /* Lottie in Frameworks */,
 				C72544702C918C5A00580224 /* FirebaseStorage in Frameworks */,
 				C725446A2C918C5A00580224 /* FirebaseAuth in Frameworks */,
 				C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */,
@@ -181,6 +228,7 @@
 		C70B723A2C988540001011D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */,
 				C70B72382C988531001011D6 /* BattleRoomModel.swift */,
 			);
 			path = Model;
@@ -199,6 +247,8 @@
 		C70B72542C9A7AFB001011D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7432CB62CABBAF3003221E9 /* WidgetKit.framework */,
+				C7432CB82CABBAF3003221E9 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,7 +256,6 @@
 		C72544272C91854D00580224 = {
 			isa = PBXGroup;
 			children = (
-				C70B72422C99E775001011D6 /* ScanImageViewController.swift */,
 				C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */,
 				C72544322C91854D00580224 /* RogueWord */,
 				C725444C2C91854F00580224 /* RogueWordTests */,
@@ -229,19 +278,28 @@
 		C72544322C91854D00580224 /* RogueWord */ = {
 			isa = PBXGroup;
 			children = (
-				C72544332C91854D00580224 /* AppDelegate.swift */,
-				C72544352C91854D00580224 /* SceneDelegate.swift */,
-				C70B723A2C988540001011D6 /* Model */,
+				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
+				C7E0B0A52CA0727A003395B3 /* HomePage */,
+				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
+				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
+				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
+				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
+				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
-				C72544392C91854D00580224 /* Main.storyboard */,
-				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
 				C70B72202C944469001011D6 /* FirebaseToJSONFileUploader.swift */,
+				C70B723A2C988540001011D6 /* Model */,
 				C70B72442C99EC08001011D6 /* GoogleService-Info.plist */,
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
+				C72544392C91854D00580224 /* Main.storyboard */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
+				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
+				C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */,
+				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
+				C7432CEC2CABCCC2003221E9 /* LoginPage */,
+				C7CDBEEE2CAA6FCF0023CF21 /* Lottie */,
 			);
 			path = RogueWord;
 			sourceTree = "<group>";
@@ -266,20 +324,18 @@
 		C72544792C92BA2B00580224 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C72544772C92BA1700580224 /* LoginViewController.swift */,
-				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
-				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
-				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
-				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
-				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
+				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
+				C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */,
+				C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
 				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
+				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
-				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
+				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,12 +343,142 @@
 		C72544822C92BAF700580224 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C72544332C91854D00580224 /* AppDelegate.swift */,
+				C7E0B0982C9FCDC9003395B3 /* ExamViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C7432CEC2CABCCC2003221E9 /* LoginPage */ = {
+			isa = PBXGroup;
+			children = (
+				C7432CE82CABCC1A003221E9 /* LoginModel.swift */,
 				C72544872C92BB6900580224 /* LoginViewModel.swift */,
-				C72544892C92BB8C00580224 /* HomeModel.swift */,
-				C72544832C92BB0F00580224 /* LevelUpGamePageModel.swift */,
+				C72544772C92BA1700580224 /* LoginViewController.swift */,
+			);
+			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {
+			isa = PBXGroup;
+			children = (
+				C7CDBEE72CA7BB3C0023CF21 /* ViewModel */,
+				C7CDBEE62CA7BB130023CF21 /* VIew */,
+			);
+			path = CollectionPage;
+			sourceTree = "<group>";
+		};
+		C7CDBEE62CA7BB130023CF21 /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
+				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
+				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
+			);
+			path = VIew;
+			sourceTree = "<group>";
+		};
+		C7CDBEE72CA7BB3C0023CF21 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
 				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C7CDBEEE2CAA6FCF0023CF21 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				C7432CA92CAA841F003221E9 /* CountDown.json */,
+				C7B386EB2CA697D70000F9CE /* LoadingImage.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		C7E0B0A52CA0727A003395B3 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0A62CA0728E003395B3 /* View */,
+				C7E0B0A72CA07295003395B3 /* ViewModel */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		C7E0B0A62CA0728E003395B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C7E0B0A72CA07295003395B3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C72544892C92BB8C00580224 /* HomeModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C7E0B0A92CA072C5003395B3 /* LevelUpGame */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0AB2CA072D7003395B3 /* ViewModel */,
+				C7E0B0AA2CA072D3003395B3 /* View */,
+			);
+			path = LevelUpGame;
+			sourceTree = "<group>";
+		};
+		C7E0B0AA2CA072D3003395B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C7E0B0AB2CA072D7003395B3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C72544832C92BB0F00580224 /* LevelUpGamePageModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C7E0B0AC2CA081FD003395B3 /* ExamPage */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0AD2CA0820B003395B3 /* View */,
+			);
+			path = ExamPage;
+			sourceTree = "<group>";
+		};
+		C7E0B0AD2CA0820B003395B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C70B72282C968E37001011D6 /* ExamViewController.swift */,
+				C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0B52CA2556D003395B3 /* View */,
+			);
+			path = WrongQuestionPage;
+			sourceTree = "<group>";
+		};
+		C7E0B0B52CA2556D003395B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0AE2CA08ACE003395B3 /* WrongQuestionsPage.swift */,
+				C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */,
+				C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */,
+				C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +493,7 @@
 				C725442E2C91854D00580224 /* Resources */,
 				C70B723F2C99BD62001011D6 /* ShellScript */,
 				C70B72572C9A7AFB001011D6 /* Embed Frameworks */,
+				C7432CCA2CABBAF5003221E9 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -320,6 +507,7 @@
 				C725446D2C918C5A00580224 /* FirebaseFirestore */,
 				C725446F2C918C5A00580224 /* FirebaseStorage */,
 				C725448C2C92BBDF00580224 /* SnapKit */,
+				C7B386E92CA693950000F9CE /* Lottie */,
 			);
 			productName = RogueWord;
 			productReference = C72544302C91854D00580224 /* RogueWord.app */;
@@ -396,6 +584,7 @@
 			packageReferences = (
 				C72544682C918C5A00580224 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C725448B2C92BBDF00580224 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				C7B386E82CA693950000F9CE /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = C72544312C91854D00580224 /* Products */;
 			projectDirPath = "";
@@ -444,6 +633,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72544402C91854F00580224 /* Assets.xcassets in Resources */,
+				C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */,
+				C7B386EC2CA697D80000F9CE /* LoadingImage.json in Resources */,
 				C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,
 				C725443B2C91854D00580224 /* Base in Resources */,
@@ -492,30 +683,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				C70B722F2C96E61D001011D6 /* ParagraphCell.swift in Sources */,
+				C7E0B0B72CA26561003395B3 /* WrongQuestionParagraphVC.swift in Sources */,
 				C725443E2C91854D00580224 /* RogueWord.xcdatamodeld in Sources */,
+				C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */,
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
+				C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */,
+				C7E0B0A42CA061F3003395B3 /* PersonFileCell.swift in Sources */,
 				C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */,
 				C70B72212C944469001011D6 /* FirebaseToJSONFileUploader.swift in Sources */,
+				C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */,
 				C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */,
 				C70B72292C968E37001011D6 /* ExamViewController.swift in Sources */,
 				C70B725C2C9ACE2C001011D6 /* CollectionTagCell.swift in Sources */,
+				C7E0B0992C9FCDC9003395B3 /* ExamViewModel.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
+				C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
 				C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
+				C7E0B0A22CA05FDC003395B3 /* PersonFileViewController.swift in Sources */,
 				C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */,
 				C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */,
-				C70B72432C99E775001011D6 /* ScanImageViewController.swift in Sources */,
+				C7E0B0C12CA2AA88003395B3 /* AnimateModel.swift in Sources */,
+				C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */,
 				C70B72272C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift in Sources */,
+				C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */,
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
 				C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */,
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
+				C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
+				C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */,
+				C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
 				C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */,
 				C72544362C91854D00580224 /* SceneDelegate.swift in Sources */,
+				C7E0B0AF2CA08ACE003395B3 /* WrongQuestionsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,8 +903,10 @@
 		C725445E2C91854F00580224 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RogueWord/RogueWord.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7346552Z5J;
@@ -720,6 +927,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.YuanDongZheng.RogueWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -728,8 +936,10 @@
 		C725445F2C91854F00580224 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RogueWord/RogueWord.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7346552Z5J;
@@ -750,6 +960,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.YuanDongZheng.RogueWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -885,6 +1096,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		C7B386E82CA693950000F9CE /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -912,6 +1131,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C725448B2C92BBDF00580224 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		C7B386E92CA693950000F9CE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7B386E82CA693950000F9CE /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 
