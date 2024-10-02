@@ -47,6 +47,9 @@
 		C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432CE82CABCC1A003221E9 /* LoginModel.swift */; };
 		C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; };
 		C7432D072CACCF9E003221E9 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C7432D122CAD17FE003221E9 /* PersonFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */; };
+		C7432D182CAD2931003221E9 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */; };
+		C7432D1A2CAD2931003221E9 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */; };
 		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
 		C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */; };
 		C7B386EA2CA693950000F9CE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7B386E92CA693950000F9CE /* Lottie */; };
@@ -168,6 +171,7 @@
 		C7432CB82CABBAF3003221E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C7432CE82CABCC1A003221E9 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = "../../../Downloads/DropDown-2ab6f6ce19f0117d1a76ea043ef8f57722c65d16/DropDown.xcodeproj"; sourceTree = "<group>"; };
+		C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileViewModel.swift; sourceTree = "<group>"; };
 		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7B386D92CA43C930000F9CE /* RogueWord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RogueWord.entitlements; sourceTree = "<group>"; };
 		C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -192,11 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C725446C2C918C5A00580224 /* FirebaseDatabase in Frameworks */,
+				C7432D182CAD2931003221E9 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				C7B386EA2CA693950000F9CE /* Lottie in Frameworks */,
 				C72544702C918C5A00580224 /* FirebaseStorage in Frameworks */,
 				C725446A2C918C5A00580224 /* FirebaseAuth in Frameworks */,
 				C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */,
 				C725448D2C92BBDF00580224 /* SnapKit in Frameworks */,
+				C7432D1A2CAD2931003221E9 /* FirebaseStorageCombine-Community in Frameworks */,
 				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,6 +268,8 @@
 			isa = PBXGroup;
 			children = (
 				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
+				C7432CEC2CABCCC2003221E9 /* LoginPage */,
+				C7432D0E2CACE9A6003221E9 /* PersonFilePage */,
 				C7E0B0A52CA0727A003395B3 /* HomePage */,
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
 				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
@@ -281,7 +289,6 @@
 				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
 				C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
-				C7432CEC2CABCCC2003221E9 /* LoginPage */,
 				C7CDBEEE2CAA6FCF0023CF21 /* Lottie */,
 			);
 			path = RogueWord;
@@ -311,8 +318,6 @@
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
-				C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */,
-				C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
 				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
@@ -350,6 +355,16 @@
 				C7432D052CACCF94003221E9 /* DropDown.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C7432D0E2CACE9A6003221E9 /* PersonFilePage */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */,
+				C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */,
+				C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */,
+			);
+			path = PersonFilePage;
 			sourceTree = "<group>";
 		};
 		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {
@@ -500,6 +515,8 @@
 				C725446F2C918C5A00580224 /* FirebaseStorage */,
 				C725448C2C92BBDF00580224 /* SnapKit */,
 				C7B386E92CA693950000F9CE /* Lottie */,
+				C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */,
+				C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */,
 			);
 			productName = RogueWord;
 			productReference = C72544302C91854D00580224 /* RogueWord.app */;
@@ -705,6 +722,7 @@
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
 				C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */,
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
+				C7432D122CAD17FE003221E9 /* PersonFileViewModel.swift in Sources */,
 				C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
 				C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */,
@@ -1118,6 +1136,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C725448B2C92BBDF00580224 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C72544682C918C5A00580224 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C72544682C918C5A00580224 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
 		};
 		C7B386E92CA693950000F9CE /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -11,7 +11,7 @@
         <!--Login View Controller-->
         <scene sceneID="sWh-ft-0uJ">
             <objects>
-                <viewController id="m5S-ss-nhr" customClass="LoginViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="m5S-ss-nhr" customClass="LoginViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ato-NX-bEk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

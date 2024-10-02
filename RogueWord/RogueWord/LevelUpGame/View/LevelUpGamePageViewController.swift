@@ -323,9 +323,8 @@ class LevelUpGamePageViewController: UIViewController {
 
     @objc private func goToPreviousQuestion() {
         if viewModel.currentQuestionIndex > 0 {
-            
             viewModel.currentQuestionIndex -= 1
-            
+
             if isCorrect[viewModel.currentQuestionIndex] {
                 viewModel.currentCorrect -= 1
                 isCorrect.remove(at: viewModel.currentQuestionIndex)
