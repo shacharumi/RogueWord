@@ -19,8 +19,6 @@
 		C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */; };
 		C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72382C988531001011D6 /* BattleRoomModel.swift */; };
 		C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C70B72442C99EC08001011D6 /* GoogleService-Info.plist */; };
-		C70B72552C9A7AFB001011D6 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; };
-		C70B72562C9A7AFB001011D6 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70B725C2C9ACE2C001011D6 /* CollectionTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
@@ -47,6 +45,8 @@
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
 		C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432CA92CAA841F003221E9 /* CountDown.json */; };
 		C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432CE82CABCC1A003221E9 /* LoginModel.swift */; };
+		C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; };
+		C7432D072CACCF9E003221E9 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
 		C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */; };
 		C7B386EA2CA693950000F9CE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7B386E92CA693950000F9CE /* Lottie */; };
@@ -66,34 +66,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C70B724C2C9A7A28001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0A76440F1B676C2300BF1A2D;
-			remoteInfo = Demo;
-		};
-		C70B724E2C9A7A28001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0A7644241B676C2300BF1A2D;
-			remoteInfo = DropDownTests;
-		};
-		C70B72502C9A7A28001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
-			remoteInfo = DropDown;
-		};
-		C70B72522C9A7AF3001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0AB5D8701D0EEECD002D3A17;
-			remoteInfo = DropDown;
-		};
 		C725444A2C91854F00580224 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C72544282C91854D00580224 /* Project object */;
@@ -108,6 +80,27 @@
 			remoteGlobalIDString = C725442F2C91854D00580224;
 			remoteInfo = RogueWord;
 		};
+		C7432D002CACCF94003221E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A76440F1B676C2300BF1A2D;
+			remoteInfo = Demo;
+		};
+		C7432D022CACCF94003221E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A7644241B676C2300BF1A2D;
+			remoteInfo = DropDownTests;
+		};
+		C7432D042CACCF94003221E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
+			remoteInfo = DropDown;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,7 +110,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C70B72562C9A7AFB001011D6 /* DropDown.framework in Embed Frameworks */,
+				C7432D072CACCF9E003221E9 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,7 +140,6 @@
 		C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePlay1ViewController.swift; sourceTree = "<group>"; };
 		C70B72382C988531001011D6 /* BattleRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleRoomModel.swift; sourceTree = "<group>"; };
 		C70B72442C99EC08001011D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTagCell.swift; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +167,7 @@
 		C7432CB62CABBAF3003221E9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C7432CB82CABBAF3003221E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C7432CE82CABCC1A003221E9 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = "../../../Downloads/DropDown-2ab6f6ce19f0117d1a76ea043ef8f57722c65d16/DropDown.xcodeproj"; sourceTree = "<group>"; };
 		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7B386D92CA43C930000F9CE /* RogueWord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RogueWord.entitlements; sourceTree = "<group>"; };
 		C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +197,7 @@
 				C725446A2C918C5A00580224 /* FirebaseAuth in Frameworks */,
 				C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */,
 				C725448D2C92BBDF00580224 /* SnapKit in Frameworks */,
-				C70B72552C9A7AFB001011D6 /* DropDown.framework in Frameworks */,
+				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,16 +227,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C70B72472C9A7A27001011D6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C70B724D2C9A7A28001011D6 /* Demo.app */,
-				C70B724F2C9A7A28001011D6 /* DropDownTests.xctest */,
-				C70B72512C9A7A28001011D6 /* DropDown.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C70B72542C9A7AFB001011D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +239,7 @@
 		C72544272C91854D00580224 = {
 			isa = PBXGroup;
 			children = (
-				C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */,
+				C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */,
 				C72544322C91854D00580224 /* RogueWord */,
 				C725444C2C91854F00580224 /* RogueWordTests */,
 				C72544562C91854F00580224 /* RogueWordUITests */,
@@ -357,6 +340,16 @@
 				C72544772C92BA1700580224 /* LoginViewController.swift */,
 			);
 			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		C7432CFB2CACCF94003221E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C7432D012CACCF94003221E9 /* Demo.app */,
+				C7432D032CACCF94003221E9 /* DropDownTests.xctest */,
+				C7432D052CACCF94003221E9 /* DropDown.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {
@@ -498,7 +491,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C70B72532C9A7AF3001011D6 /* PBXTargetDependency */,
 			);
 			name = RogueWord;
 			packageProductDependencies = (
@@ -590,8 +582,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C70B72472C9A7A27001011D6 /* Products */;
-					ProjectRef = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
+					ProductGroup = C7432CFB2CACCF94003221E9 /* Products */;
+					ProjectRef = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -604,25 +596,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C70B724D2C9A7A28001011D6 /* Demo.app */ = {
+		C7432D012CACCF94003221E9 /* Demo.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = Demo.app;
-			remoteRef = C70B724C2C9A7A28001011D6 /* PBXContainerItemProxy */;
+			remoteRef = C7432D002CACCF94003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C70B724F2C9A7A28001011D6 /* DropDownTests.xctest */ = {
+		C7432D032CACCF94003221E9 /* DropDownTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = DropDownTests.xctest;
-			remoteRef = C70B724E2C9A7A28001011D6 /* PBXContainerItemProxy */;
+			remoteRef = C7432D022CACCF94003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C70B72512C9A7A28001011D6 /* DropDown.framework */ = {
+		C7432D052CACCF94003221E9 /* DropDown.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = DropDown.framework;
-			remoteRef = C70B72502C9A7A28001011D6 /* PBXContainerItemProxy */;
+			remoteRef = C7432D042CACCF94003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -744,11 +736,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C70B72532C9A7AF3001011D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DropDown;
-			targetProxy = C70B72522C9A7AF3001011D6 /* PBXContainerItemProxy */;
-		};
 		C725444B2C91854F00580224 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C725442F2C91854D00580224 /* RogueWord */;
