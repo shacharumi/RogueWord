@@ -88,7 +88,7 @@ class BattleViewController: UIViewController {
         
         let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()  // 設置為不透明背景
-            appearance.backgroundColor = UIColor.systemBackground  // 背景顏色
+            appearance.backgroundColor = UIColor.black  // 背景顏色
 
             // 設置字體大小和粗細
             appearance.titleTextAttributes = [

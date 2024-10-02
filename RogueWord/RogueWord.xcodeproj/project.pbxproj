@@ -287,6 +287,7 @@
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
 				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
+				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
 				C7CDBEEE2CAA6FCF0023CF21 /* Lottie */,
@@ -315,7 +316,6 @@
 			isa = PBXGroup;
 			children = (
 				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
-				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,

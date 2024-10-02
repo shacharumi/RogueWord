@@ -4,6 +4,7 @@ import SnapKit
 class PersonFileViewController: UIViewController {
 
     let tableView = UITableView()
+    let headerView = UIView()
 
     let viewModel = PersonFileViewModel()
 
@@ -31,7 +32,7 @@ class PersonFileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "CollectionBackGround")
+        view.backgroundColor = UIColor(named: "viewBackGround")
 
         setupNavigationBar()
         setupUI()
@@ -43,10 +44,20 @@ class PersonFileViewController: UIViewController {
     }
 
     func setupNavigationBar() {
+        
         navigationItem.title = "個人頁面"
-        navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.black
+        self.navigationController?.navigationBar.isTranslucent = false
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "tabBarColor")
+        appearance.titleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .heavy),
+            .foregroundColor: UIColor.white
         ]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
+
     }
 
     func loadUserData() {
@@ -56,14 +67,18 @@ class PersonFileViewController: UIViewController {
     }
 
     func setupUI() {
-        let headerView = UIView()
-        headerView.backgroundColor = .clear
+        headerView.backgroundColor = .white
+        headerView.layer.cornerRadius = 20
+        headerView.layer.shadowColor = UIColor.lightGray.cgColor
+        headerView.layer.shadowOpacity = 0.2
+        headerView.layer.shadowOffset = CGSize(width: 5, height: 5)
         view.addSubview(headerView)
 
         headerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.equalTo(view)
-            make.height.equalTo(180)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.left.equalTo(view).offset(16)
+            make.right.equalTo(view).offset(-16)
+            make.height.equalTo(200)
         }
 
         headerView.addSubview(profileImageView)
@@ -89,11 +104,11 @@ class PersonFileViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = UIColor(named: "viewBackGround")
         tableView.tableFooterView = UIView()
 
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(180)
+            make.top.equalTo(headerView.snp.bottom).offset(24)
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -231,7 +246,6 @@ class PersonFileViewController: UIViewController {
     }
 
     func logout() {
-        // 清除用户数据
         viewModel.clearUserData()
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -162,7 +162,7 @@ final class FirestoreService {
     
     func downloadImageData(path: String, completion: @escaping (Data?) -> Void) {
         let storageRef = FirestoreService.storage.reference().child(path)
-        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+        storageRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if let error = error {
                 print("DEBUG: Error downloading image data - \(error.localizedDescription)")
                 completion(nil)
