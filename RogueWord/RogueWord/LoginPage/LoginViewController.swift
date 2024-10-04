@@ -5,102 +5,137 @@ import SnapKit
 class LoginViewController: UIViewController {
     
     let backgroundImageView = UIImageView()
-      let titleLabel = UILabel()
-      let subtitleLabel = UILabel()
-      let buttonView = UIView()
-      let viewModel = LoginViewModel()
+    let titleLabel = UILabel()
+    let subtitleLabel = UILabel()
+    let buttonView = UIView()
+    let viewModel = LoginViewModel()
+    
+    var backgroundImages: [UIImage] = []
+    var currentFrameIndex: Int = 0
+    var animationTimer: Timer?
+    let totalFrames = 64
+    let frameDuration: TimeInterval = 0.1
+    
+    var buttonOriginalCenterY: CGFloat = 0
+    var isButtonMovedDown: Bool = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupUI()
+        setupBindings()
+        startBackgroundAnimation()
+    }
+    
+    deinit {
+        animationTimer?.invalidate()
+    }
+    
+    func setupUI() {
+        setupBackground()
+        
       
-      override func viewDidLoad() {
-          super.viewDidLoad()
-          
-          setupUI()
-          setupBindings()
-      }
-      
-      func setupUI() {
-          // 設置背景圖片或漸變色
-          setupBackground()
-          
-          // 設置標題
-          titleLabel.text = "歡迎來到 RogueWord"
-          titleLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-          titleLabel.textColor = .white
-          titleLabel.textAlignment = .center
-          view.addSubview(titleLabel)
-          
-          // 設置副標題
-          subtitleLabel.text = "請使用 Apple 登錄以繼續"
-          subtitleLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-          subtitleLabel.textColor = .white
-          subtitleLabel.textAlignment = .center
-          subtitleLabel.numberOfLines = 0
-          view.addSubview(subtitleLabel)
-          
-          // 設置 Apple 登錄按鈕
-          let authorizationAppleIDButton: ASAuthorizationAppleIDButton = ASAuthorizationAppleIDButton()
-          authorizationAppleIDButton.addTarget(self, action: #selector(pressSignInWithAppleButton), for: .touchUpInside)
-          
-          buttonView.addSubview(authorizationAppleIDButton)
-          view.addSubview(buttonView)
-          
-         
-          
-          // 使用 SnapKit 設置佈局
-          titleLabel.snp.makeConstraints { make in
-              make.top.equalTo(view.safeAreaLayoutGuide).offset(80)
-              make.left.right.equalTo(view).inset(20)
-          }
-          
-          subtitleLabel.snp.makeConstraints { make in
-              make.top.equalTo(titleLabel.snp.bottom).offset(20)
-              make.left.right.equalTo(view).inset(40)
-          }
-          
-          buttonView.snp.makeConstraints { make in
-              make.center.equalTo(view)
-              make.height.equalTo(50)
-              make.left.right.equalTo(view).inset(40)
-          }
-          
-          authorizationAppleIDButton.snp.makeConstraints { make in
-              make.edges.equalTo(buttonView)
-          }
-          
-      }
+        
+        let authorizationAppleIDButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black) 
+        authorizationAppleIDButton.addTarget(self, action: #selector(pressSignInWithAppleButton), for: .touchUpInside)
+        
+        buttonView.addSubview(authorizationAppleIDButton)
+        view.addSubview(buttonView)
+        
+        
+        buttonView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.height.equalTo(40)
+            make.width.equalTo(200)
+            make.bottom.equalTo(view).offset(-100)
+        }
+        
+        authorizationAppleIDButton.snp.makeConstraints { make in
+            make.edges.equalTo(buttonView)
+        }
+        
+        view.layoutIfNeeded()
+        buttonOriginalCenterY = buttonView.center.y
+    }
     
     func setupBackground() {
-           // 方法一：使用漸變色
-           let gradientLayer = CAGradientLayer()
-           gradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.systemTeal.cgColor]
-           gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-           gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-           gradientLayer.frame = view.bounds
-           view.layer.insertSublayer(gradientLayer, at: 0)
-           
-           // 方法二：使用背景圖片
-           /*
-           backgroundImageView.image = UIImage(named: "background")
-           backgroundImageView.contentMode = .scaleAspectFill
-           view.addSubview(backgroundImageView)
-           backgroundImageView.snp.makeConstraints { make in
-               make.edges.equalTo(view)
-           }
-           */
-       }
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.clipsToBounds = true
+        view.addSubview(backgroundImageView)
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
+        
+        for i in 0...63 {
+            let imageName = String(format: "login%02d", i)
+            if let image = UIImage(named: imageName) {
+                backgroundImages.append(image)
+            } else {
+                print("未找到圖片: \(imageName)")
+            }
+        }
+        
+        if let firstImage = backgroundImages.first {
+            backgroundImageView.image = firstImage
+        }
+    }
+    
+    func startBackgroundAnimation() {
+        animationTimer = Timer.scheduledTimer(timeInterval: frameDuration, target: self, selector: #selector(updateBackgroundImage), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateBackgroundImage() {
+        guard !backgroundImages.isEmpty else { return }
+        
+        currentFrameIndex = (currentFrameIndex + 1) % totalFrames
+        backgroundImageView.image = backgroundImages[currentFrameIndex]
+        
+        handleButtonMovement(for: currentFrameIndex)
+    }
+    
+    func handleButtonMovement(for frameIndex: Int) {
+        let framesToMove: [Int: CGFloat] = [
+            6: 5,
+            8: -5,
+            10: 5,
+            12: -5,
+            22: 5,
+            23: -5,
+            25: 5,
+            28: -5,
+            38: 5,
+            40: -5,
+            42: 5,
+            44: -5,
+            54: 5,
+            56: -5,
+            58: 5,
+            60: -5
+        ]
+        
+        if let movement = framesToMove[frameIndex] {
+            animateButton(by: movement)
+        }
+    }
+    
+    func animateButton(by deltaY: CGFloat) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.buttonView.center.y += deltaY
+        }) { _ in
+        
+        }
+    }
     
     func setupBindings() {
         viewModel.onUserDataSaved = { [weak self] in
-            // 跳转到主页面
             self?.navigateToMainScreen()
         }
         
         viewModel.onError = { [weak self] errorMessage in
-            // 显示错误提示
             self?.presentErrorAlert(message: errorMessage)
         }
         
         viewModel.onPromptForUserName = { [weak self] completion in
-            // 提示用户输入名字
             self?.promptForUserName(completion: completion)
         }
     }
@@ -170,7 +205,6 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        // 将授权结果传递给 ViewModel
         viewModel.handleAuthorization(authorization: authorization)
     }
     

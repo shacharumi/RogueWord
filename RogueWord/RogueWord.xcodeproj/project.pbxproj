@@ -268,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
+				C7432D1F2CAE5FD9003221E9 /* BattlePage */,
 				C7432CEC2CABCCC2003221E9 /* LoginPage */,
 				C7432D0E2CACE9A6003221E9 /* PersonFilePage */,
 				C7E0B0A52CA0727A003395B3 /* HomePage */,
@@ -275,7 +276,6 @@
 				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
 				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
-				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
@@ -319,7 +319,6 @@
 				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
 				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
 				C70B72322C974528001011D6 /* ListeningViewController.swift */,
-				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
 				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
@@ -365,6 +364,15 @@
 				C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */,
 			);
 			path = PersonFilePage;
+			sourceTree = "<group>";
+		};
+		C7432D1F2CAE5FD9003221E9 /* BattlePage */ = {
+			isa = PBXGroup;
+			children = (
+				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
+				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
+			);
+			path = BattlePage;
 			sourceTree = "<group>";
 		};
 		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {

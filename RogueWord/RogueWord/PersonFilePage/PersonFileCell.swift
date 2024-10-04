@@ -36,6 +36,7 @@ class PersonFileCell: UITableViewCell {
         containerView.layer.shadowOpacity = 0.1
         containerView.layer.shadowOffset = CGSize(width: 0, height: 2)
         containerView.layer.shadowRadius = 4
+        containerView.alpha = 0.8
 
         contentView.addSubview(containerView)
         containerView.addSubview(iconImageView)

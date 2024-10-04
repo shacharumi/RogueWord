@@ -2,12 +2,17 @@ import UIKit
 import SnapKit
 
 class PersonFileViewController: UIViewController {
-
+    
     let tableView = UITableView()
     let headerView = UIView()
 
     let viewModel = PersonFileViewModel()
-
+    let backGroudView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "personBackGround")
+        return imageView
+    }()
+    
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "default_avatar")
@@ -29,10 +34,23 @@ class PersonFileViewController: UIViewController {
         label.isUserInteractionEnabled = true
         return label
     }()
+    
+    let tableViewCard: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "viewBackGround")
+        view.alpha = 0.7
+        return view
+    }()
+    
+    let catImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "cat0")
+        return imageView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "viewBackGround")
+        view.backgroundColor = .clear
 
         setupNavigationBar()
         setupUI()
@@ -41,21 +59,56 @@ class PersonFileViewController: UIViewController {
         viewModel.requestNotificationAuthorization()
 
         loadUserData()
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(catImageTapped))
+           catImage.isUserInteractionEnabled = true
+           catImage.addGestureRecognizer(tapGestureRecognizer)
+        
+        startImageSlideshow()
+
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        roundTopCorners(view: tableViewCard, radius: 60)
+    }
+    
+    @objc func catImageTapped() {
+       if  catImage.image == UIImage(named: "cat0") {
+           catImage.image = UIImage(named: "cat1")
+       } else {
+           catImage.image = UIImage(named: "cat0")
+       }
     }
 
+    func startImageSlideshow() {
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(changeCatImage), userInfo: nil, repeats: true)
+    }
+
+    @objc func changeCatImage() {
+        if  catImage.image == UIImage(named: "cat0") {
+            catImage.image = UIImage(named: "cat1")
+        } else {
+            catImage.image = UIImage(named: "cat0")
+        }
+    }
+    
+    
     func setupNavigationBar() {
         
         navigationItem.title = "個人頁面"
-        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.backgroundColor = .clear
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(named: "tabBarColor")
-        appearance.titleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 20, weight: .heavy),
-            .foregroundColor: UIColor.white
-        ]
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.black
+
+            appearance.titleTextAttributes = [
+                .font: UIFont.systemFont(ofSize: 20, weight: .heavy),
+                .foregroundColor: UIColor.black
+            ]
+
+            navigationController?.navigationBar.standardAppearance = appearance
 
 
     }
@@ -67,11 +120,16 @@ class PersonFileViewController: UIViewController {
     }
 
     func setupUI() {
-        headerView.backgroundColor = .white
-        headerView.layer.cornerRadius = 20
-        headerView.layer.shadowColor = UIColor.lightGray.cgColor
-        headerView.layer.shadowOpacity = 0.2
-        headerView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        self.tabBarController?.tabBar.backgroundColor = .white
+        self.tabBarController?.tabBar.tintColor = .black
+        self.tabBarController?.tabBar.isTranslucent = false
+        view.addSubview(backGroudView)
+        backGroudView.snp.makeConstraints { make in
+
+            make.edges.equalTo(view)
+        }
+        
+        headerView.backgroundColor = .clear
         view.addSubview(headerView)
 
         headerView.snp.makeConstraints { make in
@@ -85,7 +143,7 @@ class PersonFileViewController: UIViewController {
         headerView.addSubview(nameLabel)
 
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(headerView).offset(20)
+            make.top.equalTo(headerView)
             make.centerX.equalTo(headerView)
             make.width.height.equalTo(100)
         }
@@ -99,19 +157,51 @@ class PersonFileViewController: UIViewController {
     }
 
     func setupTableView() {
+        view.addSubview(tableViewCard)
+        
+        tableViewCard.alpha = 0.7
+        
+        tableViewCard.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(8)
+            make.left.equalTo(view)
+            make.right.equalTo(view)
+            make.bottom.equalTo(view)
+        }
+        
         view.addSubview(tableView)
         tableView.register(PersonFileCell.self, forCellReuseIdentifier: "PersonFileCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(named: "viewBackGround")
+        tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
 
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(24)
-            make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.equalTo(tableViewCard).offset(24)
+            make.right.equalTo(tableViewCard).offset(-24)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        view.addSubview(catImage)
+        catImage.snp.makeConstraints { make in
+            make.bottom.equalTo(tableViewCard.snp.top).offset(50)
+            make.right.equalTo(view).offset(5)
+            make.width.height.equalTo(80)
         }
     }
+    
+    func roundTopCorners(view: UIView, radius: CGFloat) {
+        let path = UIBezierPath(
+            roundedRect: view.bounds,
+            byRoundingCorners: [.topLeft, .topRight],
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        view.layer.mask = maskLayer
+    }
+    
+    
 
     @objc func changeProfileImage() {
         showEditProfileAlert()
@@ -345,3 +435,5 @@ extension PersonFileViewController: UIImagePickerControllerDelegate, UINavigatio
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
+
