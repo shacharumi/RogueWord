@@ -7,6 +7,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     
     private var questions: [ParagraphType]? = []
     private let tableView = UITableView()
+    let animateLabel = UILabel()
     private var answerSelect: String = ""
     private let urlString = "https://api.openai.com/v1/chat/completions"
     private var customNavBar: UIView!
@@ -22,7 +23,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "CollectionBackGround")
         cardView.isHidden = true
         setupCustomNavBar()
         setupTableView()
@@ -35,6 +36,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(ParagraphCell.self, forCellReuseIdentifier: "ParagraphCell")
+        tableView.backgroundColor = UIColor(named: "CollectionBackGround")
         tableView.frame = CGRect(x: 0, y: 60, width: view.frame.width, height: view.frame.height - 60)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(customNavBar.snp.bottom)
@@ -49,11 +51,24 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         animationView.loopMode = .loop
         animationView.play()
         tableView.addSubview(animationView)
+        
+        animateLabel.text = "正在Loading 請稍等"
+        animateLabel.textColor = .black
+        animateLabel.textAlignment = .center
+        tableView.addSubview(animateLabel)
+        animateLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(animationView.snp.top).offset(16)
+            make.centerX.equalTo(view)
+        }
+        DispatchQueue.main.async {
+            
+            self.startFlashingLabel(self.animateLabel)
+        }
     }
     
     private func setupCustomNavBar() {
         customNavBar = UIView()
-        customNavBar.backgroundColor = .white
+        customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
         
         view.addSubview(customNavBar)
         
@@ -61,6 +76,13 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
             make.height.equalTo(60)
+        }
+        let navLabel = UILabel()
+        navLabel.text = "段落填空"
+        navLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        customNavBar.addSubview(navLabel)
+        navLabel.snp.makeConstraints { make in
+            make.centerY.centerX.equalTo(customNavBar)
         }
         
         let backButton = UIButton(type: .system)
@@ -123,7 +145,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {  // 第一個 cell 顯示問題的段落
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            
+            cell.backgroundColor = UIColor(named: "CollectionBackGround")
             // 創建一個卡片樣式的 view
             cardView.backgroundColor = .white
             cardView.layer.cornerRadius = 10
@@ -157,7 +179,8 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
             return cell
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ParagraphCell", for: indexPath) as? ParagraphCell {
-                cell.answerSelectLabel.text = "(\(questions?[0].selectNumber[indexPath.row - 1] ?? "()"))"
+                cell.answerSelectLabel.text = "(\(questions?[0].selectNumber[indexPath.row - 1] ?? "\(indexPath.row)()"))"
+                cell.backgroundColor = UIColor(named: "CollectionBackGround")
                 cell.optionLabel0.setTitle(questions?[0].options[indexPath.row - 1][0], for: .normal)
                 cell.optionLabel1.setTitle(questions?[0].options[indexPath.row - 1][1], for: .normal)
                 cell.optionLabel2.setTitle(questions?[0].options[indexPath.row - 1][2], for: .normal)
@@ -303,6 +326,16 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         }
         tableView.reloadRows(at: [indexPath], with: .none)
     }
+    
+    func startFlashingLabel(_ label: UILabel) {
+        label.alpha = 1.0
+        UIView.animate(withDuration: 1,
+                       delay: 0.0,
+                       options: [.repeat, .autoreverse],
+                       animations: {
+                           label.alpha = 0.0
+                       }, completion: nil)
+    }
 }
 
 struct ParagraphType: Decodable {
@@ -410,6 +443,7 @@ extension ParagraphFillInTheBlanksViewController {
                                     self?.menuButton.isUserInteractionEnabled = true
                                     self?.menuButton.alpha = 1
                                     self?.animationView.stop()
+                                    self?.animateLabel.isHidden = true
                                     self?.animationView.isHidden = true
                                     self?.questions = parsedQuestions
                                     self?.answerArray = self?.questions?[0].answer.components(separatedBy: "。")

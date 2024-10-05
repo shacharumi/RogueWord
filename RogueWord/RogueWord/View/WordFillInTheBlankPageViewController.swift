@@ -16,6 +16,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     private let tableView = UITableView()
     private var answerSelect: String = ""
     private var customNavBar: UIView!
+    let animateLabel = UILabel()
     private let animationView = LottieAnimationView(name: "LoadingImage")
     private let menuButton = UIButton(type: .system)
     var wordDatas: Accurency?
@@ -24,7 +25,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "CollectionBackGround")
         setupCustomNavBar()
         setupTableView()
         callChatGPTAPI()
@@ -32,7 +33,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     
     private func setupCustomNavBar() {
         customNavBar = UIView()
-        customNavBar.backgroundColor = .white
+        customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
         
         view.addSubview(customNavBar)
         
@@ -40,6 +41,14 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
             make.height.equalTo(60)
+        }
+        
+        let navLabel = UILabel()
+        navLabel.text = "單字填空"
+        navLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        customNavBar.addSubview(navLabel)
+        navLabel.snp.makeConstraints { make in
+            make.centerY.centerX.equalTo(customNavBar)
         }
         
         let backButton = UIButton(type: .system)
@@ -81,6 +90,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         tableView.delegate = self
         tableView.register(QuestionPageCell.self, forCellReuseIdentifier: "QuestionPageCell")
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = UIColor(named: "CollectionBackGround")
         tableView.separatorStyle = .none
         tableView.snp.makeConstraints { make in
             make.top.equalTo(customNavBar.snp.bottom)
@@ -96,6 +106,18 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         animationView.play()
         tableView.addSubview(animationView)
         
+        animateLabel.text = "正在Loading 請稍等"
+        animateLabel.textColor = .black
+        animateLabel.textAlignment = .center
+        tableView.addSubview(animateLabel)
+        animateLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(animationView.snp.top).offset(16)
+            make.centerX.equalTo(view)
+        }
+        DispatchQueue.main.async {
+            
+            self.startFlashingLabel(self.animateLabel)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,6 +127,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionPageCell", for: indexPath) as? QuestionPageCell {
             let question = questions[indexPath.row]
+            cell.backgroundColor = UIColor(named: "CollectionBackGround")
             cell.isUserInteractionEnabled = true
             cell.answerSelectLabel.text = "\(indexPath.row + 1). (\(question.selectNumber ?? ""))"
             cell.questionLabel.text = question.question
@@ -297,6 +320,16 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             }
         }
     }
+    
+    func startFlashingLabel(_ label: UILabel) {
+        label.alpha = 1.0
+        UIView.animate(withDuration: 1,
+                       delay: 0.0,
+                       options: [.repeat, .autoreverse],
+                       animations: {
+                           label.alpha = 0.0
+                       }, completion: nil)
+    }
 }
 
 
@@ -374,6 +407,7 @@ extension WordFillInTheBlankPageViewController {
                                     self?.menuButton.isUserInteractionEnabled = true
                                     self?.menuButton.alpha = 1
                                     self?.animationView.stop()
+                                    self?.animateLabel.isHidden = true
                                     self?.animationView.isHidden = true
                                     self?.questions = parsedQuestions
                                     self?.setupTableView()
