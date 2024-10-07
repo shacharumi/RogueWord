@@ -14,7 +14,6 @@
 		C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */; };
 		C70B722F2C96E61D001011D6 /* ParagraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722E2C96E61D001011D6 /* ParagraphCell.swift */; };
 		C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72302C9738F2001011D6 /* ReadingViewController.swift */; };
-		C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72322C974528001011D6 /* ListeningViewController.swift */; };
 		C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72342C97BE24001011D6 /* BattleViewController.swift */; };
 		C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */; };
 		C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72382C988531001011D6 /* BattleRoomModel.swift */; };
@@ -49,8 +48,6 @@
 		C7432D122CAD17FE003221E9 /* PersonFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */; };
 		C7432D182CAD2931003221E9 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */; };
 		C7432D1A2CAD2931003221E9 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */; };
-		C7432D492CAFD0DE003221E9 /* UPCarouselFlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D482CAFD0CE003221E9 /* UPCarouselFlowLayout.framework */; };
-		C7432D4A2CAFD0DE003221E9 /* UPCarouselFlowLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D482CAFD0CE003221E9 /* UPCarouselFlowLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C7432D4C2CAFD969003221E9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D4B2CAFD969003221E9 /* GameScene.swift */; };
 		C7432D552CB0F368003221E9 /* LoadingImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432D542CB0F367003221E9 /* LoadingImage.json */; };
 		C7432D592CB1A4B4003221E9 /* CollectionGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D582CB1A4B4003221E9 /* CollectionGameScene.swift */; };
@@ -111,20 +108,6 @@
 			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
 			remoteInfo = DropDown;
 		};
-		C7432D452CAFD0CE003221E9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C7432D402CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 01D3876B1D1C4B9D00CE4E1F;
-			remoteInfo = UPCarouselFlowLayoutDemo;
-		};
-		C7432D472CAFD0CE003221E9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C7432D402CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 841C94FD1DDEE57F00B997F5;
-			remoteInfo = UPCarouselFlowLayout;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,7 +118,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C7432D072CACCF9E003221E9 /* DropDown.framework in Embed Frameworks */,
-				C7432D4A2CAFD0DE003221E9 /* UPCarouselFlowLayout.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,7 +142,6 @@
 		C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphFillInTheBlanksViewController.swift; sourceTree = "<group>"; };
 		C70B722E2C96E61D001011D6 /* ParagraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphCell.swift; sourceTree = "<group>"; };
 		C70B72302C9738F2001011D6 /* ReadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
-		C70B72322C974528001011D6 /* ListeningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningViewController.swift; sourceTree = "<group>"; };
 		C70B72342C97BE24001011D6 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePlay1ViewController.swift; sourceTree = "<group>"; };
 		C70B72382C988531001011D6 /* BattleRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleRoomModel.swift; sourceTree = "<group>"; };
@@ -193,7 +174,6 @@
 		C7432CE82CABCC1A003221E9 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = "../../../Downloads/DropDown-2ab6f6ce19f0117d1a76ea043ef8f57722c65d16/DropDown.xcodeproj"; sourceTree = "<group>"; };
 		C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileViewModel.swift; sourceTree = "<group>"; };
-		C7432D402CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UPCarouselFlowLayoutDemo.xcodeproj; path = "../../../Downloads/UPCarouselFlowLayout-master/UPCarouselFlowLayoutDemo.xcodeproj"; sourceTree = "<group>"; };
 		C7432D4B2CAFD969003221E9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		C7432D542CB0F367003221E9 /* LoadingImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingImage.json; sourceTree = "<group>"; };
 		C7432D582CB1A4B4003221E9 /* CollectionGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionGameScene.swift; sourceTree = "<group>"; };
@@ -226,7 +206,6 @@
 				C725446C2C918C5A00580224 /* FirebaseDatabase in Frameworks */,
 				C7432D182CAD2931003221E9 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				C7B386EA2CA693950000F9CE /* Lottie in Frameworks */,
-				C7432D492CAFD0DE003221E9 /* UPCarouselFlowLayout.framework in Frameworks */,
 				C72544702C918C5A00580224 /* FirebaseStorage in Frameworks */,
 				C725446A2C918C5A00580224 /* FirebaseAuth in Frameworks */,
 				C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */,
@@ -274,7 +253,6 @@
 		C72544272C91854D00580224 = {
 			isa = PBXGroup;
 			children = (
-				C7432D402CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.xcodeproj */,
 				C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */,
 				C72544322C91854D00580224 /* RogueWord */,
 				C725444C2C91854F00580224 /* RogueWordTests */,
@@ -297,15 +275,15 @@
 		C72544322C91854D00580224 /* RogueWord */ = {
 			isa = PBXGroup;
 			children = (
+				C7432D1F2CAE5FD9003221E9 /* BattlePage */,
+				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
 				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
 				C7E0B0A52CA0727A003395B3 /* HomePage */,
 				C7432CEC2CABCCC2003221E9 /* LoginPage */,
 				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
-				C7432D1F2CAE5FD9003221E9 /* BattlePage */,
 				C7432D0E2CACE9A6003221E9 /* PersonFilePage */,
 				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
-				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
@@ -318,7 +296,6 @@
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
 				C7432D712CB2CC9F003221E9 /* TabBarController.swift */,
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
-				C7432D732CB2E325003221E9 /* BattleGameScene.swift */,
 				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
 				C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
@@ -347,13 +324,6 @@
 		C72544792C92BA2B00580224 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
-				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
-				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
-				C70B72322C974528001011D6 /* ListeningViewController.swift */,
-				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
-				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
-				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -400,19 +370,11 @@
 		C7432D1F2CAE5FD9003221E9 /* BattlePage */ = {
 			isa = PBXGroup;
 			children = (
+				C7432D732CB2E325003221E9 /* BattleGameScene.swift */,
 				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
 				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
 			);
 			path = BattlePage;
-			sourceTree = "<group>";
-		};
-		C7432D412CAFD0CE003221E9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C7432D462CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.app */,
-				C7432D482CAFD0CE003221E9 /* UPCarouselFlowLayout.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {
@@ -491,6 +453,12 @@
 		C7E0B0AA2CA072D3003395B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
+				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
+				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
+				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
+				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
+				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
 			);
 			path = View;
@@ -654,10 +622,6 @@
 					ProductGroup = C7432CFB2CACCF94003221E9 /* Products */;
 					ProjectRef = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
 				},
-				{
-					ProductGroup = C7432D412CAFD0CE003221E9 /* Products */;
-					ProjectRef = C7432D402CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -688,20 +652,6 @@
 			fileType = wrapper.framework;
 			path = DropDown.framework;
 			remoteRef = C7432D042CACCF94003221E9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C7432D462CAFD0CE003221E9 /* UPCarouselFlowLayoutDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = UPCarouselFlowLayoutDemo.app;
-			remoteRef = C7432D452CAFD0CE003221E9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C7432D482CAFD0CE003221E9 /* UPCarouselFlowLayout.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = UPCarouselFlowLayout.framework;
-			remoteRef = C7432D472CAFD0CE003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -784,7 +734,6 @@
 				C7432D592CB1A4B4003221E9 /* CollectionGameScene.swift in Sources */,
 				C7432D6D2CB27BAF003221E9 /* HomeGameScene.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
-				C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
 				C7432D5B2CB1A55E003221E9 /* CollectionViewController.swift in Sources */,
 				C7E0B0A22CA05FDC003395B3 /* PersonFileViewController.swift in Sources */,

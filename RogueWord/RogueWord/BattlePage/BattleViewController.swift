@@ -81,18 +81,16 @@ class BattleViewController: UIViewController {
         return view
     }()
     
-    // 添加自定义导航栏视图
     var customNavBar: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         return view
     }()
     
-    // 添加返回按钮
     var backButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = UIColor.black
+        button.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
+        button.tintColor = .black
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -105,21 +103,18 @@ class BattleViewController: UIViewController {
     }
     
     func setupUI() {
-        // 添加背景图片
         view.addSubview(backGroundView)
         backGroundView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
         
-        // 添加自定义导航栏视图
         view.addSubview(customNavBar)
         customNavBar.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
             make.left.right.equalTo(view)
-            make.height.equalTo(88) // 导航栏高度，包括状态栏
+            make.height.equalTo(88)
         }
         
-        // 添加返回按钮到导航栏
         customNavBar.addSubview(backButton)
         backButton.snp.makeConstraints { make in
             make.left.equalTo(customNavBar.snp.left).offset(16)
@@ -127,7 +122,6 @@ class BattleViewController: UIViewController {
             make.width.height.equalTo(44)
         }
         
-        // 添加卡片视图
         view.addSubview(cardView)
         cardView.alpha = 0.8
         cardView.snp.makeConstraints { make in
@@ -137,8 +131,7 @@ class BattleViewController: UIViewController {
             make.height.equalTo(450)
         }
         
-        // 以下是原有的视图设置代码
-        // userImage 设置
+
         cardView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(16)
@@ -146,16 +139,13 @@ class BattleViewController: UIViewController {
             make.width.height.equalTo(80)
         }
         
-        // userName 设置
         cardView.addSubview(userName)
         userName.snp.makeConstraints { make in
             make.top.equalTo(userImage.snp.bottom).offset(8)
             make.centerX.equalTo(cardView)
         }
-        // 修改字体大小与粗细
         userName.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         
-        // divideLine 设置
         cardView.addSubview(divideLine)
         divideLine.snp.makeConstraints { make in
             make.top.equalTo(userName.snp.bottom).offset(8)
@@ -164,7 +154,6 @@ class BattleViewController: UIViewController {
             make.height.equalTo(1)
         }
         
-        // Rank Card 设置
         let rankCardView = UIView()
         rankCardView.backgroundColor = UIColor(named: "waitingButtonBackGround")
         rankCardView.layer.cornerRadius = 10
@@ -172,16 +161,15 @@ class BattleViewController: UIViewController {
         cardView.addSubview(rankCardView)
         
         rankCardView.snp.makeConstraints { make in
-            make.top.equalTo(divideLine.snp.bottom).offset(36)
+            make.top.equalTo(divideLine.snp.bottom).offset(72)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(60)
         }
         
-        // Rank Label 设置
         let rankLabel = UILabel()
         rankLabel.textColor = UIColor(named: "waitingLabel")
-        rankLabel.text = "排名分数"
+        rankLabel.text = "排名分數"
         rankLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         rankCardView.addSubview(rankLabel)
         
@@ -190,7 +178,6 @@ class BattleViewController: UIViewController {
             make.left.equalTo(rankCardView).offset(16)
         }
         
-        // Rank Score 设置
         rankCardView.addSubview(rankScoreLabel)
         rankScoreLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         rankScoreLabel.snp.makeConstraints { make in
@@ -198,7 +185,6 @@ class BattleViewController: UIViewController {
             make.right.equalTo(rankCardView).offset(-16)
         }
         
-        // WinRate Card 设置
         let winRateCardView = UIView()
         winRateCardView.backgroundColor = UIColor(named: "waitingButtonBackGround")
         winRateCardView.layer.cornerRadius = 10
@@ -215,7 +201,7 @@ class BattleViewController: UIViewController {
         // WinRate Label 设置
         let winRateLabel = UILabel()
         winRateLabel.textColor = UIColor(named: "waitingLabel")
-        winRateLabel.text = "胜率"
+        winRateLabel.text = "勝率"
         winRateLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         winRateCardView.addSubview(winRateLabel)
         
@@ -224,7 +210,6 @@ class BattleViewController: UIViewController {
             make.left.equalTo(winRateCardView).offset(16)
         }
         
-        // WinRate Score 设置
         winRateCardView.addSubview(winRateScoreLabel)
         winRateScoreLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         winRateScoreLabel.snp.makeConstraints { make in
@@ -232,7 +217,6 @@ class BattleViewController: UIViewController {
             make.right.equalTo(winRateCardView).offset(-16)
         }
         
-        // Accurency Card 设置
         let accurencyCardView = UIView()
         accurencyCardView.backgroundColor = UIColor(named: "waitingButtonBackGround")
         accurencyCardView.layer.cornerRadius = 10
@@ -246,10 +230,9 @@ class BattleViewController: UIViewController {
             make.height.equalTo(60)
         }
         
-        // Accurency Label 设置
         let accurencyLabel = UILabel()
         accurencyLabel.textColor = UIColor(named: "waitingLabel")
-        accurencyLabel.text = "正确率"
+        accurencyLabel.text = "準確率"
         accurencyLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         accurencyCardView.addSubview(accurencyLabel)
         
@@ -258,7 +241,6 @@ class BattleViewController: UIViewController {
             make.left.equalTo(accurencyCardView).offset(16)
         }
         
-        // Accurency Score 设置
         accurencyCardView.addSubview(accurencyScoreLabel)
         accurencyScoreLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         accurencyScoreLabel.snp.makeConstraints { make in
@@ -280,7 +262,7 @@ class BattleViewController: UIViewController {
         }
         
         actionButton = UIButton(type: .system)
-        actionButton.setTitle("开始对战", for: .normal)
+        actionButton.setTitle("開始對戰", for: .normal)
         actionButton.tintColor = UIColor(named: "waitingLabel")
         actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         actionButton.backgroundColor = .clear
@@ -318,7 +300,7 @@ class BattleViewController: UIViewController {
             winRateScoreLabel.text = String(format: "%.1f %%", winRate)
             accurencyScoreLabel.text = String(format: "%.1f %%", accurency)
         } else {
-            accurencyScoreLabel.text = "准确率无法取得"
+            accurencyScoreLabel.text = "正確率取得失敗"
         }
     }
     
@@ -401,6 +383,7 @@ class BattleViewController: UIViewController {
                     }
                 }
                 self.present(battlePage, animated: true)
+
             }
         }
     }
@@ -452,7 +435,7 @@ class BattleViewController: UIViewController {
                             battlePage.startGameForPlayer2()
                             battlePage.animationView.play()
                         } else {
-                            print("无法更新 RoomIsStart: \(error?.localizedDescription ?? "未知错误")")
+                            print("無法更新 RoomIsStart: \(error?.localizedDescription ?? "未知錯誤")")
                         }
                     }
                 }

@@ -188,21 +188,6 @@
             </objects>
             <point key="canvasLocation" x="1934" y="1421"/>
         </scene>
-        <!--Listening Test Cell-->
-        <scene sceneID="8QO-8U-y9V">
-            <objects>
-                <viewController id="PCo-Jw-Jv2" customClass="ListeningTestCell" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="I4S-66-xuZ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="DDx-qo-Ip2"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="H6h-R2-O3f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1348" y="377"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gpw-g2-I8g">
             <objects>

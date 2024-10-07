@@ -1,10 +1,3 @@
-//
-//  CollectionGameScene.swift
-//  RogueWord
-//
-//  Created by shachar on 2024/10/6.
-//
-
 import SpriteKit
 import UIKit
 
@@ -13,9 +6,14 @@ class CollectionGameScene: SKScene {
     var enchantress: SKSpriteNode!
     var knight: SKSpriteNode!
     var musketeer: SKSpriteNode!
+    var slime: SKSpriteNode!
     var tags: [String] = []
     var characterArray: [SKSpriteNode] = []
     weak var viewController: UIViewController?
+    var isDragging: Bool = false // 判斷是否正在拖曳
+    var selectedCharacter: SKSpriteNode?
+    let viewModel = CollectionPageViewModel()
+    var onDeletionComplete: (() -> Void)?
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -24,12 +22,16 @@ class CollectionGameScene: SKScene {
         enchantress = createCharacter(named: "Enchantress", position: CGPoint(x: frame.midX - 150, y: frame.midY))
         knight = createCharacter(named: "Knight", position: CGPoint(x: frame.midX, y: frame.midY))
         musketeer = createCharacter(named: "Musketeer", position: CGPoint(x: frame.midX + 150, y: frame.midY))
+        
+        slime = createCharacter(named: "Slime", position: CGPoint(x: frame.maxX - 70, y: frame.minY + 200))
+        
         characterArray.append(contentsOf: [enchantress, knight, musketeer])
-        
-        
+
         runRandomAction(for: enchantress, characterName: "Enchantress")
         runRandomAction(for: knight, characterName: "Knight")
         runRandomAction(for: musketeer, characterName: "Musketeer")
+        
+        runIdleAnimation(for: slime, characterName: "Slime", imageName: "Idle", imageCount: 6)
         
         for i in 0..<characterArray.count {
             characterArray[i].isHidden = true
@@ -40,37 +42,42 @@ class CollectionGameScene: SKScene {
         }
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let location = touch.location(in: self)
-            let touchedNodes = nodes(at: location)
-
-            for node in touchedNodes {
-                if let characterNode = node as? SKSpriteNode, let characterName = characterNode.name {
-                    handleCharacterTap(characterName)
-                    break
-                }
-            }
+    func runIdleAnimation(for character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int) {
+        var idleTextures: [SKTexture] = []
+        for i in 0...imageCount {
+            let textureName = "\(characterName)\(imageName)\(i)"
+            let texture = SKTexture(imageNamed: textureName)
+            idleTextures.append(texture)
         }
+        let idleAnimation = SKAction.animate(with: idleTextures, timePerFrame: 0.2)
+        let repeatIdleAnimation = SKAction.repeatForever(idleAnimation)
+        character.run(repeatIdleAnimation, withKey: "\(imageName)Animation")
     }
-
 
     func handleCharacterTap(_ characterName: String) {
-        if let viewController = self.view?.window?.rootViewController {
-            let collectionVC = CollectionPageViewController()
-            collectionVC.characterTag = characterName
+        if characterName == "Slime" {
+                let text = "1. 想要增加角色請到關卡頁面收藏單字\n2.要刪除Tag的話長按角色拖曳到這裡即可刪除"
+                let alert = UIAlertController(title: "Hint", message: text, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
+            self.viewController?.present(alert, animated: true, completion: nil)
             
-            collectionVC.modalPresentationStyle = .fullScreen
-            viewController.present(collectionVC, animated: true, completion: nil)
+        } else {
+                let collectionVC = CollectionPageViewController()
+                collectionVC.characterTag = characterName
+                collectionVC.modalPresentationStyle = .fullScreen
+                collectionVC.onTagComplete = { [weak self] in
+                    self?.onDeletionComplete?()
+                }
+                
+            self.viewController?.present(collectionVC, animated: true, completion: nil)
+            
         }
     }
-
 
     func createCharacter(named characterName: String, position: CGPoint) -> SKSpriteNode {
         let character = SKSpriteNode(imageNamed: "\(characterName)Idle0")
         character.position = position
         character.name = characterName
-        
         character.zPosition = 1
         addChild(character)
 
@@ -92,19 +99,37 @@ class CollectionGameScene: SKScene {
             fontName = "Courier-Bold"
             character.name = tags.count > 2 ? tags[2] : "Musketeer"
 
+        case "Slime":
+            labelText = "DeleteTag"
+            fontName = "HelveticaNeue-Bold"
+            character.name = "Slime"
+            
         default:
             labelText = ""
             fontName = "Helvetica"
         }
 
-
         if !labelText.isEmpty {
             let label = SKLabelNode(text: labelText)
             label.fontName = fontName
             label.fontSize = 20
-            label.fontColor = .black
+            label.fontColor = UIColor(named: "HomeTextColor")
+            
+            label.verticalAlignmentMode = .center
+            label.horizontalAlignmentMode = .center
             label.position = CGPoint(x: 0, y: character.size.height / 2 + 10)
             label.name = "label"
+            
+            let backgroundSize = CGSize(width: label.frame.width + 15, height: label.frame.height + 5)
+            
+            let background = SKShapeNode(path: UIBezierPath(roundedRect: CGRect(origin: .zero, size: backgroundSize), cornerRadius: 10).cgPath)
+            background.fillColor = UIColor(named: "HomeTextBackGround") ?? .white
+            background.strokeColor = .clear
+            background.alpha = 0.8
+            
+            background.position = CGPoint(x: label.position.x - backgroundSize.width / 2, y: label.position.y - backgroundSize.height / 2)
+            
+            character.addChild(background)
             character.addChild(label)
         }
 
@@ -163,7 +188,7 @@ class CollectionGameScene: SKScene {
             break
         }
     }
-    
+
     // 執行跑步動畫並移動
     func runAnimationAndMove(_ character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int) {
         var runTextures: [SKTexture] = []
@@ -203,7 +228,6 @@ class CollectionGameScene: SKScene {
         character.run(sequence)
     }
 
-    
     func stopAnimation(_ character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int, timePerFrame: Double) {
         var idleTextures: [SKTexture] = []
         for i in 0...imageCount {
@@ -218,4 +242,73 @@ class CollectionGameScene: SKScene {
         }])
         character.run(sequence)
     }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            let touchedNodes = nodes(at: location)
+
+            for node in touchedNodes {
+                if let characterNode = node as? SKSpriteNode {
+                    selectedCharacter = characterNode
+                    isDragging = false // 重置拖曳標誌
+                    break
+                }
+            }
+        }
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first, let character = selectedCharacter {
+            let location = touch.location(in: self)
+            character.position = location
+            isDragging = true // 當角色移動時，設置拖曳標誌
+            
+            // 檢查角色是否與 slime 發生碰撞
+            if character.frame.intersects(slime.frame) {
+                showAlertForDeletion(character.name ?? "")
+            }
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 如果不是拖曳操作，則處理點擊
+        if let character = selectedCharacter, !isDragging {
+            handleCharacterTap(character.name ?? "")
+        }
+        selectedCharacter = nil
+    }
+
+    // 顯示刪除確認的 alert
+    func showAlertForDeletion(_ tag: String) {
+        if let viewController = self.view?.window?.rootViewController {
+            let alert = UIAlertController(title: "刪除確認", message: "你確定要刪除嗎？", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "刪除", style: .destructive, handler: { _ in
+                self.selectedCharacter?.removeFromParent()
+                let query = FirestoreEndpoint.fetchFolderWords.ref.whereField("Tag", isEqualTo: tag)
+                let userID = UserDefaults.standard.string(forKey: "userID")
+                let updateQuery = FirestoreEndpoint.fetchPersonData.ref.document(userID ?? "")
+                FirestoreService.shared.deleteDocuments(matching: query) { error in
+                    if let error = error {
+                        print("DEBUG: 删除失败 - \(error.localizedDescription)")
+                    } else {
+                        print("DEBUG: 删除成功。")
+                    }
+                }
+                self.tags.removeAll(){ $0 == tag }
+                
+                FirestoreService.shared.updateData(at: updateQuery, with: ["Tag":self.tags]) { error in
+                    if let error = error {
+                        print("DEBUG: 删除失败 - \(error.localizedDescription)")
+                    } else {
+                        print("DEBUG: 删除成功。")
+                        self.onDeletionComplete?()
+                    }
+                }
+            }))
+            viewController.present(alert, animated: true, completion: nil)
+        }
+    }
+
 }

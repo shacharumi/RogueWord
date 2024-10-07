@@ -31,7 +31,7 @@ class TabBarController: UITabBarController {
 
         // 创建自定义的 TabBar 视图
         customTabBarView = UIView(frame: CGRect(x: 20, y: view.frame.height - height - 20 - view.safeAreaInsets.bottom, width: view.frame.width - 40, height: height))
-        customTabBarView.backgroundColor = .black
+        customTabBarView.backgroundColor = .black.withAlphaComponent(0.7)
         customTabBarView.layer.cornerRadius = height / 2
         customTabBarView.layer.shadowColor = UIColor.black.cgColor
         customTabBarView.layer.shadowOpacity = 0.2
@@ -85,7 +85,7 @@ class TabBarController: UITabBarController {
             if i == index {
                 UIView.animate(withDuration: 0.3, animations: {
                     button.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-                    button.tintColor = .orange
+                    button.tintColor = UIColor(named: "TextColor")
                 })
             } else {
                 // 未选中状态

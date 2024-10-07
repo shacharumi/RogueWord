@@ -21,7 +21,8 @@ class CollectionPageViewController: UIViewController {
     private let viewModel = CollectionPageViewModel()
     private var tapCounts: [IndexPath: Int] = [:]
     var characterTag: String = ""
-    
+    var onTagComplete: (() -> Void)?
+
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -55,14 +56,16 @@ class CollectionPageViewController: UIViewController {
         
         let titlelabel = UILabel()
         titlelabel.text = characterTag
+        titlelabel.textColor = UIColor(named: "TextColor")
+        titlelabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         headerView.addSubview(titlelabel)
         titlelabel.snp.makeConstraints { make in
             make.centerY.centerX.equalTo(headerView)
         }
         
         // 设置返回按钮
-        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        backButton.tintColor = .black
+        backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
+        backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
         headerView.addSubview(backButton)
         backButton.snp.makeConstraints { make in
@@ -73,7 +76,7 @@ class CollectionPageViewController: UIViewController {
         
         // 设置添加按钮
         addButton.setImage(UIImage(systemName: "plus.square"), for: .normal)
-        addButton.tintColor = .black
+        addButton.tintColor = UIColor(named: "TextColor")
         addButton.addTarget(self, action: #selector(presentAddTagAlert), for: .touchUpInside)
         headerView.addSubview(addButton)
         addButton.snp.makeConstraints { make in
@@ -135,8 +138,7 @@ class CollectionPageViewController: UIViewController {
     @objc func tapWrongButton() {
         let newVC = WrongQuestionsPage()
         self.present(newVC, animated: true, completion: nil)
-        // 如果您仍然希望使用导航控制器进行跳转，请确保当前视图控制器被嵌入在导航控制器中，然后使用以下代码：
-        // self.navigationController?.pushViewController(newVC, animated: true)
+     
     }
     
     @objc func updateTag(_ sender: UIButton) {
@@ -162,6 +164,7 @@ class CollectionPageViewController: UIViewController {
         let addAction = UIAlertAction(title: "新增", style: .default) { [weak self] (_) in
             if let tagName = alert.textFields?.first?.text, !tagName.isEmpty {
                 self?.viewModel.addTag(tagName)
+                self?.onTagComplete?()
             }
         }
         

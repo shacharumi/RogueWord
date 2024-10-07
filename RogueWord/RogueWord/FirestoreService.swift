@@ -12,6 +12,7 @@ import FirebaseStorage
 enum FirestoreEndpoint {
     case fetchPersonData
     case fetchWrongQuestion
+    case fetchFolderWords
     case fetchAccurencyRecords
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
@@ -24,6 +25,10 @@ enum FirestoreEndpoint {
             return firestore.collection("PersonAccount")
                 .document(userID ?? "")
                 .collection("CollectionFolderWrongQuestions")
+        case .fetchFolderWords:
+            return firestore.collection("PersonAccount")
+                .document(userID ?? "")
+                .collection("CollectionFolderWords")
         case .fetchAccurencyRecords:
             return firestore.collection("PersonAccount")
                 .document(userID ?? "")
@@ -109,6 +114,51 @@ final class FirestoreService {
         }
         return models
     }
+    
+    func deleteDocuments(matching query: Query, completion: @escaping (Error?) -> Void) {
+            query.getDocuments { snapshot, error in
+                if let error = error {
+                    print("DEBUG: 查询文档失败 - \(error.localizedDescription)")
+                    completion(error)
+                    return
+                }
+                
+                guard let snapshot = snapshot else {
+                    print("DEBUG: 没有匹配的文档。")
+                    completion(nil)
+                    return
+                }
+                
+                let batch = Firestore.firestore().batch()
+                for document in snapshot.documents {
+                    batch.deleteDocument(document.reference)
+                }
+                
+                batch.commit { error in
+                    if let error = error {
+                        print("DEBUG: 批量删除文档失败 - \(error.localizedDescription)")
+                        completion(error)
+                    } else {
+                        print("DEBUG: 所有匹配的文档已成功删除。")
+                        completion(nil)
+                    }
+                }
+            }
+        }
+    
+    func deleteDocument(at docRef: DocumentReference, completion: @escaping (Error?) -> Void) {
+           docRef.delete { error in
+               if let error = error {
+                   print("DEBUG: 删除文档失败 -", error.localizedDescription)
+                   completion(error)
+               } else {
+                   print("DEBUG: 文档已成功删除。")
+                   completion(nil)
+               }
+           }
+       }
+    
+    
     
     func uploadImage(image: UIImage, path: String, completion: @escaping (URL?) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {

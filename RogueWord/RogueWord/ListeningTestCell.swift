@@ -28,7 +28,7 @@ class ListeningTestCell: UIViewController {
             
            let skView = SKView(frame: self.view.bounds)
            skView.backgroundColor = UIColor.clear
-           skView.isOpaque = false // 允许透明背景
+           skView.isOpaque = false 
            self.view.addSubview(skView)
 
            let scene = BattleGameScene(size: skView.bounds.size)
