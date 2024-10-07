@@ -47,7 +47,7 @@ class ReadingTestCell: UITableViewCell {
     var optionLabel0: UIButton = {
        let button = UIButton()
         button.tag = 0
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.contentHorizontalAlignment = .left
@@ -58,7 +58,7 @@ class ReadingTestCell: UITableViewCell {
     var optionLabel1: UIButton = {
         let button = UIButton()
         button.tag = 1
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.contentHorizontalAlignment = .left
@@ -69,7 +69,7 @@ class ReadingTestCell: UITableViewCell {
     var optionLabel2: UIButton = {
         let button = UIButton()
         button.tag = 2
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.contentHorizontalAlignment = .left
@@ -80,7 +80,7 @@ class ReadingTestCell: UITableViewCell {
     var optionLabel3: UIButton = {
         let button = UIButton()
         button.tag = 3
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.contentHorizontalAlignment = .left

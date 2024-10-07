@@ -120,9 +120,7 @@ class PersonFileViewController: UIViewController {
     }
 
     func setupUI() {
-        self.tabBarController?.tabBar.backgroundColor = .white
-        self.tabBarController?.tabBar.tintColor = .black
-        self.tabBarController?.tabBar.isTranslucent = false
+      
         view.addSubview(backGroudView)
         backGroudView.snp.makeConstraints { make in
 

@@ -4,6 +4,7 @@
 //
 //  Created by shachar on 2024/9/16.
 //
+
 import UIKit
 import FirebaseDatabase
 import SnapKit
@@ -16,7 +17,7 @@ class BattleViewController: UIViewController {
     var rank: Rank?
     
     var cardView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
         view.layer.masksToBounds = false
@@ -36,7 +37,6 @@ class BattleViewController: UIViewController {
             image.image = UIImage(data: imageData)
         } else {
             image.image = UIImage(systemName: "person")
-
         }
         return image
     }()
@@ -56,7 +56,6 @@ class BattleViewController: UIViewController {
         view.backgroundColor = .lightGray
         return view
     }()
-    
     
     var rankScoreLabel: UILabel = {
         let label = UILabel()
@@ -82,62 +81,81 @@ class BattleViewController: UIViewController {
         return view
     }()
     
+    // 添加自定义导航栏视图
+    var customNavBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    // 添加返回按钮
+    var backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.tintColor = UIColor.black
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         fectchRank()
         setupUI()
-        
-        
-        let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor.black
-
-            appearance.titleTextAttributes = [
-                .font: UIFont.systemFont(ofSize: 20, weight: .heavy),
-                .foregroundColor: UIColor.black
-            ]
-
-            navigationController?.navigationBar.standardAppearance = appearance
-        
     }
     
     func setupUI() {
-        self.tabBarController?.tabBar.backgroundColor = .white
-        self.tabBarController?.tabBar.tintColor = .black
-        self.tabBarController?.tabBar.isTranslucent = false
+        // 添加背景图片
         view.addSubview(backGroundView)
         backGroundView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
         
+        // 添加自定义导航栏视图
+        view.addSubview(customNavBar)
+        customNavBar.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.left.right.equalTo(view)
+            make.height.equalTo(88) // 导航栏高度，包括状态栏
+        }
+        
+        // 添加返回按钮到导航栏
+        customNavBar.addSubview(backButton)
+        backButton.snp.makeConstraints { make in
+            make.left.equalTo(customNavBar.snp.left).offset(16)
+            make.bottom.equalTo(customNavBar.snp.bottom).offset(-8)
+            make.width.height.equalTo(44)
+        }
+        
+        // 添加卡片视图
         view.addSubview(cardView)
         cardView.alpha = 0.8
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(24)
+            make.top.equalTo(customNavBar.snp.bottom).offset(16)
             make.width.equalTo(view).offset(-56)
             make.height.equalTo(450)
         }
-
-        // userImage 設置
+        
+        // 以下是原有的视图设置代码
+        // userImage 设置
         cardView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(16)
             make.centerX.equalTo(cardView)
             make.width.height.equalTo(80)
         }
-
-        // userName 設置
+        
+        // userName 设置
         cardView.addSubview(userName)
         userName.snp.makeConstraints { make in
             make.top.equalTo(userImage.snp.bottom).offset(8)
             make.centerX.equalTo(cardView)
         }
-        // 修改字體大小與粗細
+        // 修改字体大小与粗细
         userName.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-
-        // divideLine 設置
+        
+        // divideLine 设置
         cardView.addSubview(divideLine)
         divideLine.snp.makeConstraints { make in
             make.top.equalTo(userName.snp.bottom).offset(8)
@@ -145,111 +163,110 @@ class BattleViewController: UIViewController {
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(1)
         }
-
-        // Rank Card 設置
+        
+        // Rank Card 设置
         let rankCardView = UIView()
         rankCardView.backgroundColor = UIColor(named: "waitingButtonBackGround")
         rankCardView.layer.cornerRadius = 10
         rankCardView.layer.masksToBounds = false
         cardView.addSubview(rankCardView)
-
+        
         rankCardView.snp.makeConstraints { make in
             make.top.equalTo(divideLine.snp.bottom).offset(36)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(60)
         }
-
-        // Rank Label 設置
+        
+        // Rank Label 设置
         let rankLabel = UILabel()
         rankLabel.textColor = UIColor(named: "waitingLabel")
-        rankLabel.text = "排名分數"
+        rankLabel.text = "排名分数"
         rankLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         rankCardView.addSubview(rankLabel)
-
+        
         rankLabel.snp.makeConstraints { make in
             make.centerY.equalTo(rankCardView)
             make.left.equalTo(rankCardView).offset(16)
         }
-
-        // Rank Score 設置
+        
+        // Rank Score 设置
         rankCardView.addSubview(rankScoreLabel)
         rankScoreLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         rankScoreLabel.snp.makeConstraints { make in
             make.centerY.equalTo(rankCardView)
             make.right.equalTo(rankCardView).offset(-16)
         }
-
-        // WinRate Card 設置
+        
+        // WinRate Card 设置
         let winRateCardView = UIView()
         winRateCardView.backgroundColor = UIColor(named: "waitingButtonBackGround")
         winRateCardView.layer.cornerRadius = 10
         winRateCardView.layer.masksToBounds = false
         cardView.addSubview(winRateCardView)
-
+        
         winRateCardView.snp.makeConstraints { make in
             make.top.equalTo(rankCardView.snp.bottom).offset(36)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(60)
         }
-
-        // WinRate Label 設置
+        
+        // WinRate Label 设置
         let winRateLabel = UILabel()
         winRateLabel.textColor = UIColor(named: "waitingLabel")
-        winRateLabel.text = "勝率"
+        winRateLabel.text = "胜率"
         winRateLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         winRateCardView.addSubview(winRateLabel)
-
+        
         winRateLabel.snp.makeConstraints { make in
             make.centerY.equalTo(winRateCardView)
             make.left.equalTo(winRateCardView).offset(16)
         }
-
-        // WinRate Score 設置
+        
+        // WinRate Score 设置
         winRateCardView.addSubview(winRateScoreLabel)
         winRateScoreLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         winRateScoreLabel.snp.makeConstraints { make in
             make.centerY.equalTo(winRateCardView)
             make.right.equalTo(winRateCardView).offset(-16)
         }
-
-        // Accurency Card 設置
+        
+        // Accurency Card 设置
         let accurencyCardView = UIView()
         accurencyCardView.backgroundColor = UIColor(named: "waitingButtonBackGround")
         accurencyCardView.layer.cornerRadius = 10
         accurencyCardView.layer.masksToBounds = false
         cardView.addSubview(accurencyCardView)
-
+        
         accurencyCardView.snp.makeConstraints { make in
             make.top.equalTo(winRateCardView.snp.bottom).offset(36)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(60)
         }
-
-        // Accurency Label 設置
+        
+        // Accurency Label 设置
         let accurencyLabel = UILabel()
         accurencyLabel.textColor = UIColor(named: "waitingLabel")
-        accurencyLabel.text = "正確率"
+        accurencyLabel.text = "正确率"
         accurencyLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         accurencyCardView.addSubview(accurencyLabel)
-
+        
         accurencyLabel.snp.makeConstraints { make in
             make.centerY.equalTo(accurencyCardView)
             make.left.equalTo(accurencyCardView).offset(16)
         }
-
-        // Accurency Score 設置
+        
+        // Accurency Score 设置
         accurencyCardView.addSubview(accurencyScoreLabel)
         accurencyScoreLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         accurencyScoreLabel.snp.makeConstraints { make in
             make.centerY.equalTo(accurencyCardView)
             make.right.equalTo(accurencyCardView).offset(-16)
         }
-
-        let buttonView = UIView()
         
+        let buttonView = UIView()
         view.addSubview(buttonView)
         buttonView.backgroundColor = UIColor(named: "viewBackGround")
         buttonView.layer.cornerRadius = 10
@@ -263,7 +280,7 @@ class BattleViewController: UIViewController {
         }
         
         actionButton = UIButton(type: .system)
-        actionButton.setTitle("開始對戰", for: .normal)
+        actionButton.setTitle("开始对战", for: .normal)
         actionButton.tintColor = UIColor(named: "waitingLabel")
         actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         actionButton.backgroundColor = .clear
@@ -273,12 +290,15 @@ class BattleViewController: UIViewController {
             make.centerX.centerY.equalTo(buttonView)
         }
     }
-
+    
+    @objc func backButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func fectchRank() {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
-                let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
-
+        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
+        
         FirestoreService.shared.getDocument(query) { (personData: UserData?) in
             if let personData = personData {
                 self.rank = personData.rank
@@ -295,10 +315,10 @@ class BattleViewController: UIViewController {
             let accurency = (rank.correct / (rank.playTimes * 10)) * 100
             let winRate = (rank.winRate / rank.playTimes) * 100
             rankScoreLabel.text = String(format: "%.f", rank.rankScore)
-            winRateScoreLabel.text = String(format: "%.1f %", winRate)
-            accurencyScoreLabel.text = String(format: "%.1f %", accurency)
+            winRateScoreLabel.text = String(format: "%.1f %%", winRate)
+            accurencyScoreLabel.text = String(format: "%.1f %%", accurency)
         } else {
-            accurencyScoreLabel.text = "準確率無法取得"
+            accurencyScoreLabel.text = "准确率无法取得"
         }
     }
     
@@ -325,34 +345,34 @@ class BattleViewController: UIViewController {
     
     func createRoom() {
         let roomId = UUID().uuidString
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else {return}
-           let roomData: [String: Any] = [
-               "Player1Name": userName,
-               "Player2Name": "",
-               "Player1Score": 0,
-               "Player2Score": 0,
-               "CurrentQuestionIndex": 0,
-               "PlayCounting": 10,
-               "Player1Select": "",
-               "Player2Select": "",
-               "RoomIsStart": false,
-               "QuestionData": [
-                   "Question": "",
-                   "Options": [
-                       "Option0": "",
-                       "Option1": "",
-                       "Option2": "",
-                       "Option3": ""
-                   ],
-                   "CorrectAnswer": ""
-               ]
-           ]
+        guard let userName = UserDefaults.standard.string(forKey: "userName") else { return }
+        let roomData: [String: Any] = [
+            "Player1Name": userName,
+            "Player2Name": "",
+            "Player1Score": 0,
+            "Player2Score": 0,
+            "CurrentQuestionIndex": 0,
+            "PlayCounting": 10,
+            "Player1Select": "",
+            "Player2Select": "",
+            "RoomIsStart": false,
+            "QuestionData": [
+                "Question": "",
+                "Options": [
+                    "Option0": "",
+                    "Option1": "",
+                    "Option2": "",
+                    "Option3": ""
+                ],
+                "CorrectAnswer": ""
+            ]
+        ]
         
         ref.child("Rooms").child(roomId).setValue(roomData) { error, _ in
             if let error = error {
-                print("建立房間失敗: \(error.localizedDescription)")
+                print("建立房间失败: \(error.localizedDescription)")
             } else {
-                print("房間建立成功，房間ID: \(roomId)")
+                print("房间建立成功，房间ID: \(roomId)")
                 let battlePage = BattlePlay1ViewController()
                 battlePage.roomId = roomId
                 battlePage.player1Id = userName
@@ -364,12 +384,12 @@ class BattleViewController: UIViewController {
                     if let rank = rank {
                         self.rank = rank
                         let newRank = [
-                            "rank.correct" : rank.correct,
-                            "rank.winRate" : rank.winRate,
-                            "rank.playTimes" : rank.playTimes,
-                            "rank.rankScore" : rank.rankScore
+                            "rank.correct": rank.correct,
+                            "rank.winRate": rank.winRate,
+                            "rank.playTimes": rank.playTimes,
+                            "rank.rankScore": rank.rankScore
                         ]
-                        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+                        guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
                         let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
                         FirestoreService.shared.updateData(at: query, with: newRank) { error in
                             if let error = error {
@@ -379,7 +399,6 @@ class BattleViewController: UIViewController {
                             }
                         }
                     }
-                    
                 }
                 self.present(battlePage, animated: true)
             }
@@ -388,14 +407,14 @@ class BattleViewController: UIViewController {
     
     func joinRoom(roomId: String, roomData: [String: Any]) {
         var updatedRoomData = roomData
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else {return}
+        guard let userName = UserDefaults.standard.string(forKey: "userName") else { return }
         updatedRoomData["Player2Name"] = userName
         
         ref.child("Rooms").child(roomId).updateChildValues(updatedRoomData) { error, _ in
             if let error = error {
-                print("加入房間失敗: \(error.localizedDescription)")
+                print("加入房间失败: \(error.localizedDescription)")
             } else {
-                print("成功加入房間: \(roomId)")
+                print("成功加入房间: \(roomId)")
                 
                 let battlePage = BattlePlay1ViewController()
                 battlePage.roomId = roomId
@@ -408,12 +427,12 @@ class BattleViewController: UIViewController {
                     if let rank = rank {
                         self.rank = rank
                         let newRank = [
-                            "rank.correct" : rank.correct,
-                            "rank.winRate" : rank.winRate,
-                            "rank.playTimes" : rank.playTimes,
-                            "rank.rankScore" : rank.rankScore
+                            "rank.correct": rank.correct,
+                            "rank.winRate": rank.winRate,
+                            "rank.playTimes": rank.playTimes,
+                            "rank.rankScore": rank.rankScore
                         ]
-                        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+                        guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
                         let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
                         FirestoreService.shared.updateData(at: query, with: newRank) { error in
                             if let error = error {
@@ -423,23 +442,21 @@ class BattleViewController: UIViewController {
                             }
                         }
                     }
-                    
                 }
                 
                 self.present(battlePage, animated: true)
-
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.ref.child("Rooms").child(roomId).updateChildValues(["RoomIsStart": true]) { error, _ in
                         if error == nil {
                             battlePage.startGameForPlayer2()
                             battlePage.animationView.play()
                         } else {
-                            print("無法更新 RoomIsStart: \(error?.localizedDescription ?? "未知錯誤")")
+                            print("无法更新 RoomIsStart: \(error?.localizedDescription ?? "未知错误")")
                         }
                     }
                 }
             }
         }
     }
-
 }

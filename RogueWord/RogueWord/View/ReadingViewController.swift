@@ -51,7 +51,8 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         animationView.play()
         tableView.addSubview(animationView)
         
-        animateLabel.text = "正在Loading 請稍等"
+        animateLabel.text = "正在Loading，請稍等"
+        animateLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         animateLabel.textColor = .black
         animateLabel.textAlignment = .center
         tableView.addSubview(animateLabel)
@@ -78,6 +79,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         let navLabel = UILabel()
         navLabel.text = "閱讀理解"
+        navLabel.textColor = UIColor(named: "TextColor")
         navLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         customNavBar.addSubview(navLabel)
         navLabel.snp.makeConstraints { make in
@@ -87,6 +89,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
+        backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
         
@@ -99,13 +102,14 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         menuButton.alpha = 0.5
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
+        menuButton.tintColor = UIColor(named: "TextColor")
         menuButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
-            make.centerY.equalTo(customNavBar)
+            make.centerY.equalTo(customNavBar).offset(-5)
         }
         
     }
@@ -116,9 +120,8 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    // MARK: -- doing
     @objc private func didTapMenu() {
-        let menu = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        let menu = UIAlertController(title: "功能", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "對答案", style: .default) { [weak self] _ in
             self?.isTapCheck = true
             
@@ -145,10 +148,9 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {  // 第一個 cell 顯示問題的段落
+        if indexPath.row == 0 {  
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.backgroundColor = UIColor(named: "CollectionBackGround")
-            // 創建一個卡片樣式的 view
             cardView.backgroundColor = .white
             cardView.layer.cornerRadius = 10
             cardView.layer.shadowColor = UIColor.black.cgColor
@@ -157,12 +159,12 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
             cardView.layer.shadowRadius = 4
             cell.contentView.addSubview(cardView)
             
-            // 添加 label 到卡片內
             questionLabel.text = questions?.first?.readingMessage
             questionLabel.numberOfLines = 0
+            questionLabel.font = UIFont.systemFont(ofSize: 20)
+            questionLabel.textColor = .black
             cardView.addSubview(questionLabel)
             
-            // 使用 SnapKit 設置卡片的 Auto Layout 約束
             cardView.snp.makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp.top).offset(10)
                 make.leading.equalTo(cell.contentView.snp.leading).offset(10)
@@ -170,7 +172,6 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
                 make.bottom.equalTo(cell.contentView.snp.bottom).offset(-10)
             }
             
-            // 設置 label 的約束
             questionLabel.snp.makeConstraints { make in
                 make.top.equalTo(cardView.snp.top).offset(15)
                 make.leading.equalTo(cardView.snp.leading).offset(15)
@@ -182,6 +183,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingTestCell", for: indexPath) as? ReadingTestCell {
                 cell.backgroundColor = UIColor(named: "CollectionBackGround")
+                cell.selectionStyle = .none
                 cell.answerSelectLabel.text = "(\(questions?[0].selectNumber[indexPath.row - 1] ?? "\(indexPath.row) ()"))"
                 cell.questionLabel.text = questions?[0].questions[indexPath.row - 1]
                 cell.optionLabel0.setTitle(questions?[0].options[indexPath.row - 1][0], for: .normal)
@@ -203,7 +205,6 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
                     cell.optionLabel1.isUserInteractionEnabled = false
                     cell.optionLabel2.isUserInteractionEnabled = false
                     cell.optionLabel3.isUserInteractionEnabled = false
-                    //cell.translateButton.isUserInteractionEnabled
 
                     if selectedAnswer == correctAnswer {
                         cell.answerSelectLabel.textColor = .green
@@ -230,16 +231,13 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     func saveQuestionToFirebase(paragraph: ReadingType) {
-        // 创建一个可变副本
         var mutableParagraph = paragraph
         
-        // 创建一个 UIAlertController 让用户输入名称
         let alert = UIAlertController(title: "輸入錯題名稱", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "輸入名稱"
         }
         
-        // 添加确认按钮
         let confirmAction = UIAlertAction(title: "確認", style: .default) { [weak self] _ in
             if let documentName = alert.textFields?.first?.text, !documentName.isEmpty {
                 let db = Firestore.firestore()
@@ -257,21 +255,18 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
                         } else {
                             print("Document added successfully to CollectionFolderWrongQuestions")
                             
-                            // 收藏成功后显示提示
                             let successAlert = UIAlertController(title: "收藏成功", message: "問題已成功被收藏！", preferredStyle: .alert)
                             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(successAlert, animated: true, completion: nil)
                         }
                     }
             } else {
-                // 如果用户未输入名称，则显示错误提示
                 let errorAlert = UIAlertController(title: "錯誤", message: "請輸入有效名稱！", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self?.present(errorAlert, animated: true, completion: nil)
             }
         }
         
-        // 添加取消按钮
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         alert.addAction(confirmAction)
@@ -307,7 +302,6 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
         self.present(alert, animated: true, completion: nil)
     }
     
-    // 處理選項選擇
     @objc func tapOptions(_ sender: UIButton) {
         print("aa")
         guard let cell = sender.superview?.superview as? ReadingTestCell else { return }
@@ -347,6 +341,7 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
 extension ReadingViewController {
     private func callChatGPTAPI() {
         guard let url = URL(string: urlString) else { return }
+        guard let version = UserDefaults.standard.string(forKey: "version") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(ChatGPTAPIKey.key)", forHTTPHeaderField: "Authorization")
@@ -358,7 +353,7 @@ extension ReadingViewController {
             "messages": [
                 ["role": "system", "content": "You are a helpful assistant."],
                 ["role": "user", "content": """
-                請幫我生成一題多益閱讀題，內容難度為多益700多分的題目，我要的內容跟範例不相干，不用理會範例題目內容，請出全新的題目，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題，解答請給我中文回答。
+                請幫我生成一題\(version)閱讀題，內容難度為\(version)高分的題目，我要的內容跟範例不相干，不用理會範例題目內容，請出全新的題目，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題，解答請給我中文回答。
                 The format should be as follows:
                 [
                 {
@@ -391,7 +386,7 @@ extension ReadingViewController {
                     ]
                 }
                 ]
-                
+                請確保有五題
                 """]
             ]
         ]
@@ -417,14 +412,12 @@ extension ReadingViewController {
                    let message = firstChoice["message"] as? [String: Any],
                    let content = message["content"] as? String {
                     
-                    // 處理 content 中的換行符號和特殊字符
                     let cleanedContent = content.replacingOccurrences(of: "\\n", with: "")
                                                 .replacingOccurrences(of: "\\", with: "")
                                                 .replacingOccurrences(of: "```", with: "" )
                                                 .replacingOccurrences(of: "json", with: "")
 
                     
-                    // 將處理過的字串再轉換成 JSON 數據
                     if let contentData = cleanedContent.data(using: .utf8) {
                         do {
                             if let jsonArray = try JSONSerialization.jsonObject(with: contentData, options: []) as? [[String: Any]] {
@@ -465,10 +458,8 @@ extension ReadingViewController {
                let answerOption = jsonObject["AnswerOption"] as? [String],
                let answerExplanation = jsonObject["Answer"] as? [String] {
                 
-                // 初始化選擇數組，根據選項的數量來設置
                 let selectNumber = Array(repeating: "", count: options.count)
                 
-                // 創建 ReadingType 物件
                 let readingType = ReadingType(
                     readingMessage: readingMessage,
                     questions: question,

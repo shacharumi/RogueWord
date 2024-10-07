@@ -38,7 +38,7 @@ class ParagraphCell: UITableViewCell {
     var optionLabel0: UIButton = {
        let button = UIButton()
        button.tag = 0
-       button.setTitleColor(.darkGray, for: .normal)  // 調整成深灰色
+       button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)  // 調整成深灰色
        button.titleLabel?.numberOfLines = 0
        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)  // 加大字型
        button.contentHorizontalAlignment = .left
@@ -49,7 +49,7 @@ class ParagraphCell: UITableViewCell {
     var optionLabel1: UIButton = {
         let button = UIButton()
         button.tag = 1
-        button.setTitleColor(.darkGray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.contentHorizontalAlignment = .left
@@ -60,7 +60,7 @@ class ParagraphCell: UITableViewCell {
     var optionLabel2: UIButton = {
         let button = UIButton()
         button.tag = 2
-        button.setTitleColor(.darkGray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.contentHorizontalAlignment = .left
@@ -71,7 +71,7 @@ class ParagraphCell: UITableViewCell {
     var optionLabel3: UIButton = {
         let button = UIButton()
         button.tag = 3
-        button.setTitleColor(.darkGray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.contentHorizontalAlignment = .left
@@ -90,7 +90,7 @@ class ParagraphCell: UITableViewCell {
     
     var translateButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("翻譯", for: .normal)
+        button.setTitle("解答", for: .normal)
         button.isUserInteractionEnabled = true
         button.isHidden = true
         return button

@@ -45,7 +45,8 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         
         let navLabel = UILabel()
         navLabel.text = "單字填空"
-        navLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        navLabel.textColor = UIColor(named: "TextColor")
+        navLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         customNavBar.addSubview(navLabel)
         navLabel.snp.makeConstraints { make in
             make.centerY.centerX.equalTo(customNavBar)
@@ -53,6 +54,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
+        backButton.tintColor = UIColor(named: "TextColor")
         backButton.setTitleColor(.white, for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
@@ -66,13 +68,13 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         menuButton.alpha = 0.5
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
-            make.centerY.equalTo(customNavBar)
+            make.centerY.equalTo(customNavBar).offset(-5)
         }
         
     }
@@ -106,7 +108,8 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         animationView.play()
         tableView.addSubview(animationView)
         
-        animateLabel.text = "正在Loading 請稍等"
+        animateLabel.text = "正在Loading，請稍等"
+        animateLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         animateLabel.textColor = .black
         animateLabel.textAlignment = .center
         tableView.addSubview(animateLabel)
@@ -129,6 +132,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             let question = questions[indexPath.row]
             cell.backgroundColor = UIColor(named: "CollectionBackGround")
             cell.isUserInteractionEnabled = true
+            cell.selectionStyle = .none
             cell.answerSelectLabel.text = "\(indexPath.row + 1). (\(question.selectNumber ?? ""))"
             cell.questionLabel.text = question.question
             cell.optionLabel0.setTitle(question.options[0], for: .normal)
@@ -207,7 +211,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     }
     // MARK: -- Doing
     @objc func answerButtonTapped() {
-        let menu = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        let menu = UIAlertController(title: "功能", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "對答案", style: .default) { [weak self] _ in
             self?.isTapCheck = true
             self?.tableView.reloadData()
@@ -215,7 +219,6 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         let action2 = UIAlertAction(title: "收藏", style: .default) { [weak self] _ in
             guard let self = self else { return }
             
-            // 創建一個包含所有問題的數據結構
             var allQuestionsData: [[String: Any]] = []
             
             for question in self.questions {
@@ -254,7 +257,6 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             if let documentName = alert.textFields?.first?.text, !documentName.isEmpty {
                 let db = Firestore.firestore()
 
-                // 创建集合数据字典
                 let combinedData: [String: Any] = [
                     "questions": allQuestionsData,
                     "title": documentName,
@@ -263,30 +265,26 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                 ]
                 guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
 
-                // 保存到 Firebase
                 db.collection("PersonAccount")
                     .document(userID)
                     .collection("CollectionFolderWrongQuestions")
-                    .document(documentName)  // 用戶輸入的名稱作為 documentID
+                    .document(documentName)
                     .setData(combinedData) { error in
                         if let error = error {
                             print("Error adding document: \(error)")
                             
-                            // 显示错误提示
                             let errorAlert = UIAlertController(title: "錯誤", message: "問題收藏失敗，請重試！", preferredStyle: .alert)
                             errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(errorAlert, animated: true, completion: nil)
                         } else {
                             print("Document added successfully to CollectionFolderWrongQuestions")
                             
-                            // 收藏成功后显示提示
                             let successAlert = UIAlertController(title: "收藏成功", message: "所有問題已成功被收藏！", preferredStyle: .alert)
                             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(successAlert, animated: true, completion: nil)
                         }
                     }
             } else {
-                // 如果用户未输入名称，则显示错误提示
                 let errorAlert = UIAlertController(title: "錯誤", message: "請輸入有效名稱！", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self?.present(errorAlert, animated: true, completion: nil)
@@ -339,7 +337,7 @@ extension WordFillInTheBlankPageViewController {
     
     private func callChatGPTAPI() {
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else { return }
-        
+        guard let version = UserDefaults.standard.string(forKey: "version") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(ChatGPTAPIKey.key)", forHTTPHeaderField: "Authorization")
@@ -350,7 +348,7 @@ extension WordFillInTheBlankPageViewController {
             "messages": [
                 ["role": "system", "content": "You are a helpful assistant."],
                 ["role": "user", "content": """
-                   請幫我生成五題多益單字填空，內容難度為多益700多分的題目，不用理會範例題目內容，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題。
+                   請幫我生成五題\(version)單字填空，內容難度為\(version)高階的題目，不用理會範例題目內容，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題。
                    
                    The format should be as follows:
                    [

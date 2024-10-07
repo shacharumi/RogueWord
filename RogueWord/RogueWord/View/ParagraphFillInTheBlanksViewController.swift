@@ -52,7 +52,8 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         animationView.play()
         tableView.addSubview(animationView)
         
-        animateLabel.text = "正在Loading 請稍等"
+        animateLabel.text = "正在Loading，請稍等"
+        animateLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         animateLabel.textColor = .black
         animateLabel.textAlignment = .center
         tableView.addSubview(animateLabel)
@@ -79,6 +80,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         }
         let navLabel = UILabel()
         navLabel.text = "段落填空"
+        navLabel.textColor = UIColor(named: "TextColor")
         navLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         customNavBar.addSubview(navLabel)
         navLabel.snp.makeConstraints { make in
@@ -88,6 +90,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
+        backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
         
@@ -100,13 +103,13 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         menuButton.alpha = 0.5
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
-            make.centerY.equalTo(customNavBar)
+            make.centerY.equalTo(customNavBar).offset(-5)
         }
         
     }
@@ -117,9 +120,8 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         }
     }
     
-    // MARK: -- doing
     @objc private func didTapMenu() {
-        let menu = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        let menu = UIAlertController(title: "功能", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "對答案", style: .default) { [weak self] _ in
             self?.isTapCheck = true
             
@@ -143,10 +145,9 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {  // 第一個 cell 顯示問題的段落
+        if indexPath.row == 0 {  
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.backgroundColor = UIColor(named: "CollectionBackGround")
-            // 創建一個卡片樣式的 view
             cardView.backgroundColor = .white
             cardView.layer.cornerRadius = 10
             cardView.layer.shadowColor = UIColor.black.cgColor
@@ -155,12 +156,11 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
             cardView.layer.shadowRadius = 4
             cell.contentView.addSubview(cardView)
             
-            // 添加 label 到卡片內
             questionLabel.text = questions?.first?.question
             questionLabel.numberOfLines = 0
+            questionLabel.font = UIFont.systemFont(ofSize: 20)
             cardView.addSubview(questionLabel)
             
-            // 使用 SnapKit 設置卡片的 Auto Layout 約束
             cardView.snp.makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp.top).offset(10)
                 make.leading.equalTo(cell.contentView.snp.leading).offset(10)
@@ -168,7 +168,6 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                 make.bottom.equalTo(cell.contentView.snp.bottom).offset(-10)
             }
             
-            // 設置 label 的約束
             questionLabel.snp.makeConstraints { make in
                 make.top.equalTo(cardView.snp.top).offset(15)
                 make.leading.equalTo(cardView.snp.leading).offset(15)
@@ -180,6 +179,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ParagraphCell", for: indexPath) as? ParagraphCell {
                 cell.answerSelectLabel.text = "(\(questions?[0].selectNumber[indexPath.row - 1] ?? "\(indexPath.row)()"))"
+                cell.selectionStyle = .none
                 cell.backgroundColor = UIColor(named: "CollectionBackGround")
                 cell.optionLabel0.setTitle(questions?[0].options[indexPath.row - 1][0], for: .normal)
                 cell.optionLabel1.setTitle(questions?[0].options[indexPath.row - 1][1], for: .normal)
@@ -227,16 +227,13 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     
     
     func saveQuestionToFirebase(paragraph: ParagraphType) {
-        // 创建一个可变副本
         var mutableParagraph = paragraph
         
-        // 创建一个 UIAlertController 让用户输入名称
         let alert = UIAlertController(title: "輸入錯題名稱", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "輸入名稱"
         }
         
-        // 添加确认按钮
         let confirmAction = UIAlertAction(title: "確認", style: .default) { [weak self] _ in
             if let documentName = alert.textFields?.first?.text, !documentName.isEmpty {
                 let db = Firestore.firestore()
@@ -254,21 +251,18 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                         } else {
                             print("Document added successfully to CollectionFolderWrongQuestions")
                             
-                            // 收藏成功后显示提示
                             let successAlert = UIAlertController(title: "收藏成功", message: "問題已成功被收藏！", preferredStyle: .alert)
                             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(successAlert, animated: true, completion: nil)
                         }
                     }
             } else {
-                // 如果用户未输入名称，则显示错误提示
                 let errorAlert = UIAlertController(title: "錯誤", message: "請輸入有效名稱！", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self?.present(errorAlert, animated: true, completion: nil)
             }
         }
         
-        // 添加取消按钮
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         alert.addAction(confirmAction)
@@ -304,7 +298,6 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         self.present(alert, animated: true, completion: nil)
     }
     
-    // 處理選項選擇
     @objc func tapOptions(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? ParagraphCell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
@@ -352,7 +345,6 @@ struct ParagraphType: Decodable {
 
 extension ParagraphType {
     func toDictionary() -> [String: Any] {
-        // 將 options 轉換為字典，每組選項用 key 表示
         var optionsDict: [String: [String]] = [:]
         for (index, optionSet) in options.enumerated() {
             optionsDict["option_set_\(index)"] = optionSet
@@ -360,7 +352,7 @@ extension ParagraphType {
         
         return [
             "questions": self.question,
-            "options": optionsDict,  // 使用字典來取代二維陣列
+            "options": optionsDict,
             "answerOptions": self.answerOptions,
             "answer": self.answer,
             "title": self.title,
@@ -377,17 +369,17 @@ extension ParagraphFillInTheBlanksViewController {
     private func callChatGPTAPI() {
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
+        guard let version = UserDefaults.standard.string(forKey: "version") else { return }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(ChatGPTAPIKey.key)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
         
-        // 定義 API 請求的 body
         let openAIBody: [String: Any] = [
             "model": "gpt-3.5-turbo",
             "messages": [
                 ["role": "system", "content": "You are a helpful assistant."],
                 ["role": "user", "content": """
-                請幫我生成一題多益段落測驗題，內容難度為多益700多分的題目，著重於單字跟文法，我要的內容跟範例不相干，不用理會範例題目內容，請出全新的題目，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題。
+                請幫我生成一題\(version)段落測驗題，內容難度為\(version)高分的題目，著重於單字跟文法，我要的內容跟範例不相干，不用理會範例題目內容，請出全新的題目，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題。
                 The format should be as follows:
                 [
                 {
@@ -403,7 +395,7 @@ extension ParagraphFillInTheBlanksViewController {
                   "Answer": "1. (A) 減少 (B) 增加 (C) 解散 (D) 避免, 'increase' 是正確答案，因為根據語境，行銷部門旨在提高公司的全球市場能見度。2. (A) 實行 (B) 避免 (C) 威懾 (D) 破壞, 'implementing' 意味著採用創新策略，與前述語境吻合。3. (A) 捕捉 (B) 避免 (C) 忽視 (D) 移除, 'capture' 指的是獲取更廣泛的客戶群，是根據上下文得出的正確答案。4. (A) 使用 (B) 拒絕 (C) 停止 (D) 忽略, 'utilize' 是正確答案，因為這裡指的是利用社交媒體平台來接觸年輕的受眾。5. (A) 避免 (B) 採用 (C) 簡化 (D) 懷疑, 'adopting' 是正確答案，因為年輕人以擁抱科技和線上溝通著稱。"
                 }
                 ]
-                
+                請確保有五題
                 
                 """]
             ]

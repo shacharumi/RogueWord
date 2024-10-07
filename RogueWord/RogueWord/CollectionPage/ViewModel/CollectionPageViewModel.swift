@@ -6,6 +6,7 @@ class CollectionPageViewModel {
     var onDataChange: (() -> Void)?
     var onTagChange: (() -> Void)?
     var onFilterChange: (() -> Void)?
+    var viewModelTag: String?
     private(set) var words: [FireBaseWord] = [] {
         didSet {
             onDataChange?()
@@ -63,7 +64,7 @@ class CollectionPageViewModel {
     func fetchDataFromFirebase() {
         let db = Firestore.firestore()
         guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
-        let collectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords")
+        let collectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords").whereField("Tag", isEqualTo: viewModelTag)
         
         collectionRef.getDocuments { [weak self] (snapshot, error) in
             if let error = error {
@@ -113,7 +114,7 @@ class CollectionPageViewModel {
             if let tags = document.data()?["Tag"] as? [String] {
                 self?.tags = tags
                 
-                self?.onTagChange?()
+                //self?.onTagChange?()
             } else {
                 print("No tags found in the document.")
             }

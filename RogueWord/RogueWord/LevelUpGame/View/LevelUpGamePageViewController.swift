@@ -70,11 +70,23 @@ class LevelUpGamePageViewController: UIViewController {
             button.backgroundColor = UIColor(named: "ButtonColor")
             button.setTitleColor(.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-            button.layer.cornerRadius = 25
+            button.layer.cornerRadius = 15
             buttons.append(button)
         }
         return buttons
     }()
+    
+    private let alertLabel: UILabel = {
+        let label = UILabel()
+        label.text = "左滑收藏單字，右滑進入下一題"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.textAlignment = .center
+        label.isHidden = true
+        label.numberOfLines = 2
+        return label
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +116,10 @@ class LevelUpGamePageViewController: UIViewController {
         cardView.addSubview(englishLabel)
         cardView.addSubview(propertyLabel)
         cardView.addSubview(sentenceLabel)
-
+        cardView.addSubview(alertLabel)
+        
+        alertLabel.isHidden = true
+        
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view).offset(-100)
@@ -137,11 +152,17 @@ class LevelUpGamePageViewController: UIViewController {
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
         }
-
+        
+        alertLabel.snp.makeConstraints { make in
+            make.top.equalTo(sentenceLabel.snp.bottom).offset(32)
+            make.centerX.equalTo(cardView.snp.centerX)
+        }
+        
         let stackView = UIStackView(arrangedSubviews: answerButtons)
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillEqually
         view.addSubview(stackView)
 
         stackView.snp.makeConstraints { make in
@@ -152,10 +173,6 @@ class LevelUpGamePageViewController: UIViewController {
         }
 
         for button in answerButtons {
-            button.snp.makeConstraints { make in
-                make.height.equalTo(50)
-            }
-
             button.addTarget(self, action: #selector(answerTapped(_:)), for: .touchUpInside)
         }
     }
@@ -172,6 +189,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
 
         let backButton = UIButton(type: .system)
+        backButton.tintColor = UIColor(named: "TextColor")
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         customNavBar.addSubview(backButton)
@@ -183,6 +201,9 @@ class LevelUpGamePageViewController: UIViewController {
 
         let previousButton = UIButton(type: .system)
         previousButton.setTitle("上一題", for: .normal)
+        previousButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
+        previousButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+
         previousButton.addTarget(self, action: #selector(goToPreviousQuestion), for: .touchUpInside)
         customNavBar.addSubview(previousButton)
 
@@ -193,6 +214,7 @@ class LevelUpGamePageViewController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.text = "英翻中選擇題"
+        titleLabel.textColor = UIColor(named: "TextColor")
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         titleLabel.textAlignment = .center
         customNavBar.addSubview(titleLabel)
@@ -251,6 +273,8 @@ class LevelUpGamePageViewController: UIViewController {
             }
         } else {
             sender.backgroundColor = UIColor(named: "FalseColor")
+            alertLabel.isHidden = false
+            startFlashingAlertLabel()
             viewModel.currentWrong += 1
             isCorrect.append(false)
             viewModel.currentIsCorrect = isCorrect
@@ -294,6 +318,9 @@ class LevelUpGamePageViewController: UIViewController {
     private func resetCardPosition() {
         cardView.center = CGPoint(x: view.center.x, y: view.center.y - 100)
         cardView.alpha = 1
+        alertLabel.isHidden = true
+
+        alertLabel.layer.removeAllAnimations()
     }
 
     private func displayQuestion() {
@@ -353,5 +380,12 @@ class LevelUpGamePageViewController: UIViewController {
         let alert = UIAlertController(title: "完成", message: "你已經完成所有問題", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func startFlashingAlertLabel() {
+        alertLabel.alpha = 1.0
+        UIView.animate(withDuration: 1, delay: 0.0, options: [.repeat, .autoreverse], animations: {
+            self.alertLabel.alpha = 0.0
+        }, completion: nil)
     }
 }

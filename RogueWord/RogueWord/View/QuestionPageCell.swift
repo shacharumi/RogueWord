@@ -39,16 +39,15 @@ class QuestionPageCell: UITableViewCell {
        label.textColor = .black
        label.numberOfLines = 0
        label.font = UIFont.boldSystemFont(ofSize: 16)
-       //label.text = "()"
        return label
     }()
     
     var optionLabel0: UIButton = {
        let button = UIButton()
         button.tag = 0
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
@@ -58,9 +57,9 @@ class QuestionPageCell: UITableViewCell {
     var optionLabel1: UIButton = {
         let button = UIButton()
         button.tag = 1
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
@@ -70,9 +69,9 @@ class QuestionPageCell: UITableViewCell {
     var optionLabel2: UIButton = {
         let button = UIButton()
         button.tag = 2
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
@@ -82,9 +81,9 @@ class QuestionPageCell: UITableViewCell {
     var optionLabel3: UIButton = {
         let button = UIButton()
         button.tag = 3
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
@@ -101,7 +100,7 @@ class QuestionPageCell: UITableViewCell {
     
     var translateButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("翻譯", for: .normal)
+        button.setTitle("解答", for: .normal)
         button.isUserInteractionEnabled = true
         button.isHidden = true
         return button
@@ -127,7 +126,6 @@ class QuestionPageCell: UITableViewCell {
         contentView.addSubview(optionLabel3)
         contentView.addSubview(answerLabel)
         contentView.addSubview(translateButton)
-       // contentView.addSubview(translatedLabel)
         
         setupConstraints()
     }
@@ -178,12 +176,6 @@ class QuestionPageCell: UITableViewCell {
             make.bottom.equalTo(contentView).offset(-8)
 
         }
-//        translatedLabel.snp.makeConstraints { make in
-//            make.top.equalTo(translateButton.snp.bottom).offset(8)
-//            make.left.equalTo(contentView).offset(16)
-//            make.right.equalTo(contentView).offset(-16)
-//            make.bottom.equalTo(contentView).offset(-16)
-//        }
     }
     
     
