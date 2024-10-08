@@ -14,13 +14,10 @@
 		C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */; };
 		C70B722F2C96E61D001011D6 /* ParagraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B722E2C96E61D001011D6 /* ParagraphCell.swift */; };
 		C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72302C9738F2001011D6 /* ReadingViewController.swift */; };
-		C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72322C974528001011D6 /* ListeningViewController.swift */; };
 		C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72342C97BE24001011D6 /* BattleViewController.swift */; };
 		C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */; };
 		C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B72382C988531001011D6 /* BattleRoomModel.swift */; };
 		C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C70B72442C99EC08001011D6 /* GoogleService-Info.plist */; };
-		C70B72552C9A7AFB001011D6 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; };
-		C70B72562C9A7AFB001011D6 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C70B72512C9A7A28001011D6 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70B725C2C9ACE2C001011D6 /* CollectionTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */; };
 		C72544342C91854D00580224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544332C91854D00580224 /* AppDelegate.swift */; };
 		C72544362C91854D00580224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544352C91854D00580224 /* SceneDelegate.swift */; };
@@ -36,7 +33,6 @@
 		C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C725446D2C918C5A00580224 /* FirebaseFirestore */; };
 		C72544702C918C5A00580224 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C725446F2C918C5A00580224 /* FirebaseStorage */; };
 		C72544782C92BA1700580224 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544772C92BA1700580224 /* LoginViewController.swift */; };
-		C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725447A2C92BA3E00580224 /* HomeViewController.swift */; };
 		C725447D2C92BA6100580224 /* CollectionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725447C2C92BA6100580224 /* CollectionPageViewController.swift */; };
 		C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */; };
 		C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */; };
@@ -47,10 +43,22 @@
 		C725448D2C92BBDF00580224 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
 		C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432CA92CAA841F003221E9 /* CountDown.json */; };
 		C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432CE82CABCC1A003221E9 /* LoginModel.swift */; };
+		C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; };
+		C7432D072CACCF9E003221E9 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C7432D122CAD17FE003221E9 /* PersonFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */; };
+		C7432D182CAD2931003221E9 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */; };
+		C7432D1A2CAD2931003221E9 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */; };
+		C7432D4C2CAFD969003221E9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D4B2CAFD969003221E9 /* GameScene.swift */; };
+		C7432D552CB0F368003221E9 /* LoadingImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432D542CB0F367003221E9 /* LoadingImage.json */; };
+		C7432D592CB1A4B4003221E9 /* CollectionGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D582CB1A4B4003221E9 /* CollectionGameScene.swift */; };
+		C7432D5B2CB1A55E003221E9 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D5A2CB1A55E003221E9 /* CollectionViewController.swift */; };
+		C7432D6D2CB27BAF003221E9 /* HomeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D6C2CB27BAF003221E9 /* HomeGameScene.swift */; };
+		C7432D702CB27BEA003221E9 /* HomeGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D6F2CB27BEA003221E9 /* HomeGameViewController.swift */; };
+		C7432D722CB2CC9F003221E9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D712CB2CC9F003221E9 /* TabBarController.swift */; };
+		C7432D742CB2E325003221E9 /* BattleGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D732CB2E325003221E9 /* BattleGameScene.swift */; };
 		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
 		C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */; };
 		C7B386EA2CA693950000F9CE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7B386E92CA693950000F9CE /* Lottie */; };
-		C7B386EC2CA697D80000F9CE /* LoadingImage.json in Resources */ = {isa = PBXBuildFile; fileRef = C7B386EB2CA697D70000F9CE /* LoadingImage.json */; };
 		C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */; };
 		C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */; };
 		C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */; };
@@ -62,38 +70,9 @@
 		C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */; };
 		C7E0B0B72CA26561003395B3 /* WrongQuestionParagraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */; };
 		C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */; };
-		C7E0B0C12CA2AA88003395B3 /* AnimateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C70B724C2C9A7A28001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0A76440F1B676C2300BF1A2D;
-			remoteInfo = Demo;
-		};
-		C70B724E2C9A7A28001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0A7644241B676C2300BF1A2D;
-			remoteInfo = DropDownTests;
-		};
-		C70B72502C9A7A28001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
-			remoteInfo = DropDown;
-		};
-		C70B72522C9A7AF3001011D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0AB5D8701D0EEECD002D3A17;
-			remoteInfo = DropDown;
-		};
 		C725444A2C91854F00580224 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C72544282C91854D00580224 /* Project object */;
@@ -108,6 +87,27 @@
 			remoteGlobalIDString = C725442F2C91854D00580224;
 			remoteInfo = RogueWord;
 		};
+		C7432D002CACCF94003221E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A76440F1B676C2300BF1A2D;
+			remoteInfo = Demo;
+		};
+		C7432D022CACCF94003221E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0A7644241B676C2300BF1A2D;
+			remoteInfo = DropDownTests;
+		};
+		C7432D042CACCF94003221E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
+			remoteInfo = DropDown;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,7 +117,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C70B72562C9A7AFB001011D6 /* DropDown.framework in Embed Frameworks */,
+				C7432D072CACCF9E003221E9 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,12 +142,10 @@
 		C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphFillInTheBlanksViewController.swift; sourceTree = "<group>"; };
 		C70B722E2C96E61D001011D6 /* ParagraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphCell.swift; sourceTree = "<group>"; };
 		C70B72302C9738F2001011D6 /* ReadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
-		C70B72322C974528001011D6 /* ListeningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningViewController.swift; sourceTree = "<group>"; };
 		C70B72342C97BE24001011D6 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlePlay1ViewController.swift; sourceTree = "<group>"; };
 		C70B72382C988531001011D6 /* BattleRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleRoomModel.swift; sourceTree = "<group>"; };
 		C70B72442C99EC08001011D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTagCell.swift; sourceTree = "<group>"; };
 		C72544302C91854D00580224 /* RogueWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RogueWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72544332C91854D00580224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 		C72544572C91854F00580224 /* RogueWordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITests.swift; sourceTree = "<group>"; };
 		C72544592C91854F00580224 /* RogueWordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RogueWordUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C72544772C92BA1700580224 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		C725447A2C92BA3E00580224 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C725447C2C92BA6100580224 /* CollectionPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageViewController.swift; sourceTree = "<group>"; };
 		C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageViewModel.swift; sourceTree = "<group>"; };
 		C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpGamePageViewController.swift; sourceTree = "<group>"; };
@@ -175,10 +172,19 @@
 		C7432CB62CABBAF3003221E9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C7432CB82CABBAF3003221E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C7432CE82CABCC1A003221E9 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = "../../../Downloads/DropDown-2ab6f6ce19f0117d1a76ea043ef8f57722c65d16/DropDown.xcodeproj"; sourceTree = "<group>"; };
+		C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFileViewModel.swift; sourceTree = "<group>"; };
+		C7432D4B2CAFD969003221E9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		C7432D542CB0F367003221E9 /* LoadingImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingImage.json; sourceTree = "<group>"; };
+		C7432D582CB1A4B4003221E9 /* CollectionGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionGameScene.swift; sourceTree = "<group>"; };
+		C7432D5A2CB1A55E003221E9 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		C7432D6C2CB27BAF003221E9 /* HomeGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameScene.swift; sourceTree = "<group>"; };
+		C7432D6F2CB27BEA003221E9 /* HomeGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameViewController.swift; sourceTree = "<group>"; };
+		C7432D712CB2CC9F003221E9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		C7432D732CB2E325003221E9 /* BattleGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleGameScene.swift; sourceTree = "<group>"; };
 		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7B386D92CA43C930000F9CE /* RogueWord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RogueWord.entitlements; sourceTree = "<group>"; };
 		C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		C7B386EB2CA697D70000F9CE /* LoadingImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingImage.json; sourceTree = "<group>"; };
 		C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningTestCell.swift; sourceTree = "<group>"; };
 		C7E0B0962C9FCDAB003395B3 /* ExamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamModel.swift; sourceTree = "<group>"; };
@@ -190,7 +196,6 @@
 		C7E0B0B22CA170E1003395B3 /* WrongQuestionWordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionWordVC.swift; sourceTree = "<group>"; };
 		C7E0B0B62CA26561003395B3 /* WrongQuestionParagraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionParagraphVC.swift; sourceTree = "<group>"; };
 		C7E0B0B82CA284D5003395B3 /* WrongQuestionReadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionReadingVC.swift; sourceTree = "<group>"; };
-		C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,12 +204,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C725446C2C918C5A00580224 /* FirebaseDatabase in Frameworks */,
+				C7432D182CAD2931003221E9 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				C7B386EA2CA693950000F9CE /* Lottie in Frameworks */,
 				C72544702C918C5A00580224 /* FirebaseStorage in Frameworks */,
 				C725446A2C918C5A00580224 /* FirebaseAuth in Frameworks */,
 				C725446E2C918C5A00580224 /* FirebaseFirestore in Frameworks */,
 				C725448D2C92BBDF00580224 /* SnapKit in Frameworks */,
-				C70B72552C9A7AFB001011D6 /* DropDown.framework in Frameworks */,
+				C7432D1A2CAD2931003221E9 /* FirebaseStorageCombine-Community in Frameworks */,
+				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,16 +241,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C70B72472C9A7A27001011D6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C70B724D2C9A7A28001011D6 /* Demo.app */,
-				C70B724F2C9A7A28001011D6 /* DropDownTests.xctest */,
-				C70B72512C9A7A28001011D6 /* DropDown.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C70B72542C9A7AFB001011D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +253,7 @@
 		C72544272C91854D00580224 = {
 			isa = PBXGroup;
 			children = (
-				C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */,
+				C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */,
 				C72544322C91854D00580224 /* RogueWord */,
 				C725444C2C91854F00580224 /* RogueWordTests */,
 				C72544562C91854F00580224 /* RogueWordUITests */,
@@ -278,13 +275,15 @@
 		C72544322C91854D00580224 /* RogueWord */ = {
 			isa = PBXGroup;
 			children = (
-				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
-				C7E0B0A52CA0727A003395B3 /* HomePage */,
-				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
-				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
-				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
+				C7432D1F2CAE5FD9003221E9 /* BattlePage */,
 				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
-				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
+				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
+				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
+				C7E0B0A52CA0727A003395B3 /* HomePage */,
+				C7432CEC2CABCCC2003221E9 /* LoginPage */,
+				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
+				C7432D0E2CACE9A6003221E9 /* PersonFilePage */,
+				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C72544792C92BA2B00580224 /* View */,
 				C72544822C92BAF700580224 /* ViewModel */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
@@ -295,10 +294,11 @@
 				C72544392C91854D00580224 /* Main.storyboard */,
 				C72544442C91854F00580224 /* Info.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
-				C7E0B0C02CA2AA88003395B3 /* AnimateModel.swift */,
+				C7432D712CB2CC9F003221E9 /* TabBarController.swift */,
+				C72544352C91854D00580224 /* SceneDelegate.swift */,
+				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
 				C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
-				C7432CEC2CABCCC2003221E9 /* LoginPage */,
 				C7CDBEEE2CAA6FCF0023CF21 /* Lottie */,
 			);
 			path = RogueWord;
@@ -324,18 +324,6 @@
 		C72544792C92BA2B00580224 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
-				C72544352C91854D00580224 /* SceneDelegate.swift */,
-				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
-				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
-				C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */,
-				C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */,
-				C70B72322C974528001011D6 /* ListeningViewController.swift */,
-				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
-				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
-				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
-				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
-				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -359,6 +347,36 @@
 			path = LoginPage;
 			sourceTree = "<group>";
 		};
+		C7432CFB2CACCF94003221E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C7432D012CACCF94003221E9 /* Demo.app */,
+				C7432D032CACCF94003221E9 /* DropDownTests.xctest */,
+				C7432D052CACCF94003221E9 /* DropDown.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7432D0E2CACE9A6003221E9 /* PersonFilePage */ = {
+			isa = PBXGroup;
+			children = (
+				C7E0B0A12CA05FDC003395B3 /* PersonFileViewController.swift */,
+				C7E0B0A32CA061F3003395B3 /* PersonFileCell.swift */,
+				C7432D112CAD17FE003221E9 /* PersonFileViewModel.swift */,
+			);
+			path = PersonFilePage;
+			sourceTree = "<group>";
+		};
+		C7432D1F2CAE5FD9003221E9 /* BattlePage */ = {
+			isa = PBXGroup;
+			children = (
+				C7432D732CB2E325003221E9 /* BattleGameScene.swift */,
+				C70B72362C97F8BB001011D6 /* BattlePlay1ViewController.swift */,
+				C70B72342C97BE24001011D6 /* BattleViewController.swift */,
+			);
+			path = BattlePage;
+			sourceTree = "<group>";
+		};
 		C7CDBEE52CA7BB070023CF21 /* CollectionPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +389,7 @@
 		C7CDBEE62CA7BB130023CF21 /* VIew */ = {
 			isa = PBXGroup;
 			children = (
+				C7432D5A2CB1A55E003221E9 /* CollectionViewController.swift */,
 				C725447C2C92BA6100580224 /* CollectionPageViewController.swift */,
 				C72544852C92BB3E00580224 /* CollectionPageCell.swift */,
 				C70B725B2C9ACE2C001011D6 /* CollectionTagCell.swift */,
@@ -381,6 +400,7 @@
 		C7CDBEE72CA7BB3C0023CF21 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C7432D582CB1A4B4003221E9 /* CollectionGameScene.swift */,
 				C725447E2C92BA7E00580224 /* CollectionPageViewModel.swift */,
 			);
 			path = ViewModel;
@@ -390,7 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				C7432CA92CAA841F003221E9 /* CountDown.json */,
-				C7B386EB2CA697D70000F9CE /* LoadingImage.json */,
+				C7432D542CB0F367003221E9 /* LoadingImage.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -407,7 +427,8 @@
 		C7E0B0A62CA0728E003395B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C725447A2C92BA3E00580224 /* HomeViewController.swift */,
+				C7432D6F2CB27BEA003221E9 /* HomeGameViewController.swift */,
+				C7432D6C2CB27BAF003221E9 /* HomeGameScene.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -432,6 +453,12 @@
 		C7E0B0AA2CA072D3003395B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C70B72262C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift */,
+				C70B722C2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift */,
+				C70B72302C9738F2001011D6 /* ReadingViewController.swift */,
+				C70B722E2C96E61D001011D6 /* ParagraphCell.swift */,
+				C7E0B0652C9D4B0D003395B3 /* ReadingTestCell.swift */,
+				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
 			);
 			path = View;
@@ -457,6 +484,7 @@
 			isa = PBXGroup;
 			children = (
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
+				C7432D4B2CAFD969003221E9 /* GameScene.swift */,
 				C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */,
 			);
 			path = View;
@@ -498,7 +526,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C70B72532C9A7AF3001011D6 /* PBXTargetDependency */,
 			);
 			name = RogueWord;
 			packageProductDependencies = (
@@ -508,6 +535,8 @@
 				C725446F2C918C5A00580224 /* FirebaseStorage */,
 				C725448C2C92BBDF00580224 /* SnapKit */,
 				C7B386E92CA693950000F9CE /* Lottie */,
+				C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */,
+				C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */,
 			);
 			productName = RogueWord;
 			productReference = C72544302C91854D00580224 /* RogueWord.app */;
@@ -590,8 +619,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C70B72472C9A7A27001011D6 /* Products */;
-					ProjectRef = C70B72462C9A7A27001011D6 /* DropDown.xcodeproj */;
+					ProductGroup = C7432CFB2CACCF94003221E9 /* Products */;
+					ProjectRef = C7432CFA2CACCF94003221E9 /* DropDown.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -604,25 +633,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C70B724D2C9A7A28001011D6 /* Demo.app */ = {
+		C7432D012CACCF94003221E9 /* Demo.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = Demo.app;
-			remoteRef = C70B724C2C9A7A28001011D6 /* PBXContainerItemProxy */;
+			remoteRef = C7432D002CACCF94003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C70B724F2C9A7A28001011D6 /* DropDownTests.xctest */ = {
+		C7432D032CACCF94003221E9 /* DropDownTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = DropDownTests.xctest;
-			remoteRef = C70B724E2C9A7A28001011D6 /* PBXContainerItemProxy */;
+			remoteRef = C7432D022CACCF94003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C70B72512C9A7A28001011D6 /* DropDown.framework */ = {
+		C7432D052CACCF94003221E9 /* DropDown.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = DropDown.framework;
-			remoteRef = C70B72502C9A7A28001011D6 /* PBXContainerItemProxy */;
+			remoteRef = C7432D042CACCF94003221E9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -634,9 +663,9 @@
 			files = (
 				C72544402C91854F00580224 /* Assets.xcassets in Resources */,
 				C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */,
-				C7B386EC2CA697D80000F9CE /* LoadingImage.json in Resources */,
 				C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,
+				C7432D552CB0F368003221E9 /* LoadingImage.json in Resources */,
 				C725443B2C91854D00580224 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,7 +715,9 @@
 				C7E0B0B72CA26561003395B3 /* WrongQuestionParagraphVC.swift in Sources */,
 				C725443E2C91854D00580224 /* RogueWord.xcdatamodeld in Sources */,
 				C7E0B0972C9FCDAB003395B3 /* ExamModel.swift in Sources */,
+				C7432D742CB2E325003221E9 /* BattleGameScene.swift in Sources */,
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
+				C7432D722CB2CC9F003221E9 /* TabBarController.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
 				C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */,
@@ -700,19 +731,21 @@
 				C7E0B0992C9FCDC9003395B3 /* ExamViewModel.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
 				C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */,
+				C7432D592CB1A4B4003221E9 /* CollectionGameScene.swift in Sources */,
+				C7432D6D2CB27BAF003221E9 /* HomeGameScene.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
-				C70B72332C974528001011D6 /* ListeningViewController.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
+				C7432D5B2CB1A55E003221E9 /* CollectionViewController.swift in Sources */,
 				C7E0B0A22CA05FDC003395B3 /* PersonFileViewController.swift in Sources */,
 				C70B72352C97BE24001011D6 /* BattleViewController.swift in Sources */,
 				C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */,
-				C7E0B0C12CA2AA88003395B3 /* AnimateModel.swift in Sources */,
 				C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */,
 				C70B72272C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift in Sources */,
 				C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */,
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
-				C725447B2C92BA3E00580224 /* HomeViewController.swift in Sources */,
+				C7432D4C2CAFD969003221E9 /* GameScene.swift in Sources */,
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
+				C7432D122CAD17FE003221E9 /* PersonFileViewModel.swift in Sources */,
 				C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
 				C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */,
@@ -720,6 +753,7 @@
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
 				C70B72312C9738F2001011D6 /* ReadingViewController.swift in Sources */,
 				C72544362C91854D00580224 /* SceneDelegate.swift in Sources */,
+				C7432D702CB27BEA003221E9 /* HomeGameViewController.swift in Sources */,
 				C7E0B0AF2CA08ACE003395B3 /* WrongQuestionsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -744,11 +778,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C70B72532C9A7AF3001011D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DropDown;
-			targetProxy = C70B72522C9A7AF3001011D6 /* PBXContainerItemProxy */;
-		};
 		C725444B2C91854F00580224 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C725442F2C91854D00580224 /* RogueWord */;
@@ -1131,6 +1160,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C725448B2C92BBDF00580224 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		C7432D172CAD2931003221E9 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C72544682C918C5A00580224 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		C7432D192CAD2931003221E9 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C72544682C918C5A00580224 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
 		};
 		C7B386E92CA693950000F9CE /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

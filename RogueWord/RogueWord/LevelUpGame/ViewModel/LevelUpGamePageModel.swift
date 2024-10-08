@@ -157,9 +157,7 @@ class LevelUpGamePageModel {
                 }
                 return false
             }
-            
-            //print(sortedWords.map { $0.value })
-            
+                        
             return sortedWords.map { $0.value }
         } catch {
             print("Error during JSON loading or decoding: \(error.localizedDescription)")

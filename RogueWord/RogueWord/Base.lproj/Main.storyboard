@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m5S-ss-nhr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NPc-Gl-Zbs">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
@@ -11,7 +11,7 @@
         <!--Login View Controller-->
         <scene sceneID="sWh-ft-0uJ">
             <objects>
-                <viewController id="m5S-ss-nhr" customClass="LoginViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="m5S-ss-nhr" customClass="LoginViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ato-NX-bEk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -40,17 +40,17 @@
             </objects>
             <point key="canvasLocation" x="1934" y="-774"/>
         </scene>
-        <!--Home View Controller-->
+        <!--關卡-->
         <scene sceneID="Gtn-fi-u9N">
             <objects>
-                <viewController id="7YB-7s-FAn" customClass="HomeViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7YB-7s-FAn" customClass="HomeGameViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zsA-7b-Al4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="h5b-oP-SzV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SaP-HG-hbd"/>
+                    <navigationItem key="navigationItem" title="關卡" id="SaP-HG-hbd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlg-xD-FLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -75,7 +75,7 @@
         <!--收藏-->
         <scene sceneID="49J-Wd-N5g">
             <objects>
-                <viewController id="3DF-je-fOr" customClass="CollectionPageViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3DF-je-fOr" customClass="CollectionViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d6Q-JP-Yoj">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,7 +108,7 @@
         <!--單字對戰-->
         <scene sceneID="Wzv-EA-HKP">
             <objects>
-                <viewController id="nx0-fi-dA1" customClass="BattleViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nx0-fi-dA1" customClass="ListeningTestCell" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZWW-7s-Mzk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -191,7 +191,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="gpw-g2-I8g">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" id="NPc-Gl-Zbs" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" modalTransitionStyle="partialCurl" id="NPc-Gl-Zbs" customClass="TabBarController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Og-hL-omo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

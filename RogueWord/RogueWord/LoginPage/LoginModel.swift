@@ -38,6 +38,7 @@ struct UserData: Codable {
     var levelData: LevelData?
     var rank: Rank?
     var image: String?
+    var version: String?
     
     enum CodingKeys: String, CodingKey {
         case userID
@@ -49,6 +50,7 @@ struct UserData: Codable {
         case levelData = "LevelData"
         case rank
         case image
+        case version
     }
 }
 
