@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NPc-Gl-Zbs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m5S-ss-nhr">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
@@ -40,7 +40,7 @@
             </objects>
             <point key="canvasLocation" x="1934" y="-774"/>
         </scene>
-        <!--關卡-->
+        <!--Home Game View Controller-->
         <scene sceneID="Gtn-fi-u9N">
             <objects>
                 <viewController id="7YB-7s-FAn" customClass="HomeGameViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -50,7 +50,7 @@
                         <viewLayoutGuide key="safeArea" id="h5b-oP-SzV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="關卡" id="SaP-HG-hbd"/>
+                    <navigationItem key="navigationItem" id="SaP-HG-hbd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlg-xD-FLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,7 +72,7 @@
             </objects>
             <point key="canvasLocation" x="3681.679389312977" y="-49.295774647887328"/>
         </scene>
-        <!--收藏-->
+        <!--Collection View Controller-->
         <scene sceneID="49J-Wd-N5g">
             <objects>
                 <viewController id="3DF-je-fOr" customClass="CollectionViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -82,7 +82,7 @@
                         <viewLayoutGuide key="safeArea" id="e6L-U9-VPS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="收藏" id="SeI-NC-CjW"/>
+                    <navigationItem key="navigationItem" id="SeI-NC-CjW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Whf-L7-oRi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,7 +105,7 @@
             </objects>
             <point key="canvasLocation" x="1952" y="2180"/>
         </scene>
-        <!--單字對戰-->
+        <!--Listening Test Cell-->
         <scene sceneID="Wzv-EA-HKP">
             <objects>
                 <viewController id="nx0-fi-dA1" customClass="ListeningTestCell" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -115,7 +115,7 @@
                         <viewLayoutGuide key="safeArea" id="64g-6v-XL1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="單字對戰" id="mu6-bG-tLE"/>
+                    <navigationItem key="navigationItem" id="mu6-bG-tLE"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYX-gz-xCv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
