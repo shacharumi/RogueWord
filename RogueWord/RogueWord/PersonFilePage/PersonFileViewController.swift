@@ -363,6 +363,11 @@ class PersonFileViewController: UIViewController {
                    let window = delegate.window {
                     window.rootViewController = navController
                     window.makeKeyAndVisible()
+                    guard let userId = UserDefaults.standard.string(forKey: "userID") else { return }
+                    let query = FirestoreEndpoint.fetchPersonData.ref.document(userId)
+                    FirestoreService.shared.deleteDocument(at: query) { errer in
+                        print("delete")
+                    }
                 }
             }
         }

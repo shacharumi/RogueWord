@@ -127,6 +127,7 @@ class LoginViewController: UIViewController {
     }
     
     func setupBindings() {
+        
         viewModel.onUserDataSaved = { [weak self] in
             self?.navigateToMainScreen()
         }
