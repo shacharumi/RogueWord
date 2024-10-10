@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import AVFoundation
 
 class PersonFileViewController: UIViewController {
     
@@ -61,24 +62,23 @@ class PersonFileViewController: UIViewController {
         loadUserData()
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(catImageTapped))
-           catImage.isUserInteractionEnabled = true
-           catImage.addGestureRecognizer(tapGestureRecognizer)
+        catImage.isUserInteractionEnabled = true
+        catImage.addGestureRecognizer(tapGestureRecognizer)
         
         startImageSlideshow()
-
     }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         roundTopCorners(view: tableViewCard, radius: 60)
     }
     
     @objc func catImageTapped() {
-       if  catImage.image == UIImage(named: "cat0") {
-           catImage.image = UIImage(named: "cat1")
-       } else {
-           catImage.image = UIImage(named: "cat0")
-       }
+        if catImage.image == UIImage(named: "cat0") {
+            catImage.image = UIImage(named: "cat1")
+        } else {
+            catImage.image = UIImage(named: "cat0")
+        }
     }
 
     func startImageSlideshow() {
@@ -86,31 +86,27 @@ class PersonFileViewController: UIViewController {
     }
 
     @objc func changeCatImage() {
-        if  catImage.image == UIImage(named: "cat0") {
+        if catImage.image == UIImage(named: "cat0") {
             catImage.image = UIImage(named: "cat1")
         } else {
             catImage.image = UIImage(named: "cat0")
         }
     }
     
-    
     func setupNavigationBar() {
-        
         navigationItem.title = "個人頁面"
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.backgroundColor = .clear
         let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor.black
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.black
 
-            appearance.titleTextAttributes = [
-                .font: UIFont.systemFont(ofSize: 20, weight: .heavy),
-                .foregroundColor: UIColor.black
-            ]
+        appearance.titleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .heavy),
+            .foregroundColor: UIColor.black
+        ]
 
-            navigationController?.navigationBar.standardAppearance = appearance
-
-
+        navigationController?.navigationBar.standardAppearance = appearance
     }
 
     func loadUserData() {
@@ -120,10 +116,8 @@ class PersonFileViewController: UIViewController {
     }
 
     func setupUI() {
-      
         view.addSubview(backGroudView)
         backGroudView.snp.makeConstraints { make in
-
             make.edges.equalTo(view)
         }
         
@@ -156,14 +150,10 @@ class PersonFileViewController: UIViewController {
 
     func setupTableView() {
         view.addSubview(tableViewCard)
-        
         tableViewCard.alpha = 0.7
-        
         tableViewCard.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(8)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
-            make.bottom.equalTo(view)
+            make.left.right.bottom.equalTo(view)
         }
         
         view.addSubview(tableView)
@@ -199,8 +189,6 @@ class PersonFileViewController: UIViewController {
         view.layer.mask = maskLayer
     }
     
-    
-
     @objc func changeProfileImage() {
         showEditProfileAlert()
     }
@@ -244,6 +232,18 @@ class PersonFileViewController: UIViewController {
         alertController.addAction(changeProfilePictureAction)
         alertController.addAction(cancelAction)
 
+        // 配置 popoverPresentationController
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(alertController, animated: true, completion: nil)
     }
 
@@ -264,15 +264,56 @@ class PersonFileViewController: UIViewController {
         alertController.addAction(chooseFromLibraryAction)
         alertController.addAction(cancelAction)
 
+        // 配置 popoverPresentationController
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(alertController, animated: true, completion: nil)
     }
 
     func showImagePicker(sourceType: UIImagePickerController.SourceType) {
+        // 檢查相機權限
+        if sourceType == .camera {
+            let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
+            
+            switch cameraAuthStatus {
+            case .authorized:
+                presentImagePicker(sourceType: sourceType)
+            case .notDetermined:
+                // 請求相機權限
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    if granted {
+                        DispatchQueue.main.async {
+                            self.presentImagePicker(sourceType: sourceType)
+                        }
+                    } else {
+                        print("相機權限未授予")
+                    }
+                }
+            case .denied, .restricted:
+                print("相機權限被拒絕或受限")
+            @unknown default:
+                print("未知的權限狀態")
+            }
+        } else {
+            presentImagePicker(sourceType: sourceType)
+        }
+    }
+
+    func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
             print("該功能在此裝置不適用")
             return
         }
-
+        
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
@@ -280,32 +321,44 @@ class PersonFileViewController: UIViewController {
     }
 
     func showTimePicker() {
-            let alertController = UIAlertController(title: "選擇時間", message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
-            
-            let datePicker = UIDatePicker()
-            datePicker.datePickerMode = .time
-            datePicker.preferredDatePickerStyle = .wheels
-            datePicker.minuteInterval = 30
-            datePicker.translatesAutoresizingMaskIntoConstraints = false
-            alertController.view.addSubview(datePicker)
-            
-            datePicker.snp.makeConstraints { make in
-                make.leading.equalTo(alertController.view).offset(20)
-                make.trailing.equalTo(alertController.view).offset(-20)
-                make.top.equalTo(alertController.view).offset(50)
-                make.height.equalTo(150)
-            }
-            
-            let confirmAction = UIAlertAction(title: "確認", style: .default) { _ in
-                let selectedDate = datePicker.date
-                self.viewModel.scheduleNotification(for: selectedDate)
-            }
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            alertController.addAction(confirmAction)
-            alertController.addAction(cancelAction)
-            
-            present(alertController, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "選擇時間", message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
+        
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.minuteInterval = 1
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        alertController.view.addSubview(datePicker)
+        
+        datePicker.snp.makeConstraints { make in
+            make.leading.equalTo(alertController.view).offset(20)
+            make.trailing.equalTo(alertController.view).offset(-20)
+            make.top.equalTo(alertController.view).offset(50)
+            make.height.equalTo(150)
         }
+        
+        let confirmAction = UIAlertAction(title: "確認", style: .default) { _ in
+            let selectedDate = datePicker.date
+            self.viewModel.scheduleNotification(for: selectedDate)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        // 配置 popoverPresentationController
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
+        present(alertController, animated: true, completion: nil)
+    }
 
     func showVersionPicker() {
         let alertController = UIAlertController(title: "選擇版本", message: nil, preferredStyle: .actionSheet)
@@ -323,6 +376,17 @@ class PersonFileViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
+        // 配置 popoverPresentationController
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
 
         present(alertController, animated: true, completion: nil)
     }
@@ -365,7 +429,7 @@ class PersonFileViewController: UIViewController {
                     window.makeKeyAndVisible()
                     guard let userId = UserDefaults.standard.string(forKey: "userID") else { return }
                     let query = FirestoreEndpoint.fetchPersonData.ref.document(userId)
-                    FirestoreService.shared.deleteDocument(at: query) { errer in
+                    FirestoreService.shared.deleteDocument(at: query) { error in
                         print("delete")
                     }
                 }
@@ -438,5 +502,3 @@ extension PersonFileViewController: UIImagePickerControllerDelegate, UINavigatio
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-

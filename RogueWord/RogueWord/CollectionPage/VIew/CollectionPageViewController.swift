@@ -85,7 +85,6 @@ class CollectionPageViewController: UIViewController {
             make.width.height.equalTo(30)
         }
         
-        // 添加错误问题按钮
         view.addSubview(wrongQuestionButton)
         wrongQuestionButton.setImage(UIImage(systemName: "questionmark.folder.fill"), for: .normal)
         wrongQuestionButton.tintColor = .black
@@ -155,6 +154,14 @@ class CollectionPageViewController: UIViewController {
     }
     
     @objc func presentAddTagAlert() {
+        if self.viewModel.tags.count > 4 {
+            let limitAlert = UIAlertController(title: nil, message: "Tag數量已達上限\n請先刪除其他Tag", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+            limitAlert.addAction(okAction)
+            self.present(limitAlert, animated: true, completion: nil)
+            return
+        }
+        
         let alert = UIAlertController(title: "新增標籤", message: "請輸入新的標籤名稱", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -175,6 +182,7 @@ class CollectionPageViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
+
     
     // MARK: - Helper Methods
     

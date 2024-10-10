@@ -30,7 +30,7 @@ struct Rank: Codable {
 
 struct UserData: Codable {
     let userID: String
-    let fullName: String?
+    var fullName: String?
     var userName: String?
     let email: String?
     let realUserStatus: Int?

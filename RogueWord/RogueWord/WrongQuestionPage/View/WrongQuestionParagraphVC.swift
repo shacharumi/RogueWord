@@ -44,6 +44,7 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
+        backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
         
@@ -54,7 +55,7 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
@@ -135,7 +136,9 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ParagraphCell.self, forCellReuseIdentifier: "ParagraphCell")
-        
+        tableView.backgroundColor = UIColor(named: "CollectionBackGround")
+        tableView.separatorStyle = .none
+
         tableView.snp.makeConstraints { make in
             make.top.equalTo(customNavBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
@@ -158,7 +161,8 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            
+            cell.backgroundColor = UIColor(named: "CollectionBackGround")
+
             // 創建一個卡片樣式的 view
             let cardView = UIView()
             cardView.backgroundColor = .white
@@ -195,6 +199,8 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ParagraphCell", for: indexPath) as? ParagraphCell {
                 guard let selectAnswer = self.selectAnswer else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.backgroundColor = UIColor(named: "CollectionBackGround")
                 cell.answerSelectLabel.text = "(\(selectAnswer[indexPath.row-1]))"
                 cell.optionLabel0.setTitle(questions?.options["option_set_\(indexPath.row-1)"]?[0], for: .normal)
                 cell.optionLabel1.setTitle(questions?.options["option_set_\(indexPath.row-1)"]?[1], for: .normal)

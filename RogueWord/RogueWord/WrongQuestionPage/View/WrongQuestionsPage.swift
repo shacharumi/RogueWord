@@ -20,7 +20,8 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     private let buttonStackView = UIStackView()  // UIStackView 來容納按鈕
     private let indicatorView = UIView()  // 指示當前選中的指示器
     private var currentQuestionType: QuestionType = .paragraph  // 默認為段落填空
-
+    private let navView = UIView()
+    private let navButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,11 +67,35 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     
     // 設置 StackView 和按鈕
     private func setupButtons() {
-        // 配置 StackView
+        navView.backgroundColor = .clear
+        view.addSubview(navView)
+        navView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalTo(view)
+            make.height.equalTo(32)
+        }
+        
+        navButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
+        navButton.tintColor = UIColor(named: "TextColor")
+        navButton.addTarget(self, action: #selector(backTap), for: .touchUpInside)
+        navView.addSubview(navButton)
+        navButton.snp.makeConstraints { make in
+            make.centerY.equalTo(navView)
+            make.left.equalTo(navView).offset(16)
+            make.width.height.equalTo(30)        }
+        
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 0
-        
+        let navLabel = UILabel()
+        navLabel.text = "錯題本"
+        navLabel.textColor = UIColor(named: "TextColor")
+        navLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        navView.addSubview(navLabel)
+        navLabel.snp.makeConstraints { make in
+            make.centerY.centerX.equalTo(navView)
+            make.height.equalTo(30)
+        }
         // 添加按鈕
         let wordQuizButton = createButton(title: "單字測驗")
         let paragraphButton = createButton(title: "段落填空")
@@ -85,14 +110,14 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         
         // 使用 SnapKit 設置 StackView 的約束，位於 navigationBar 下方
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(navView.snp.bottom)
             make.left.equalTo(view).offset(16)
             make.right.equalTo(view).offset(-16)
             make.height.equalTo(44)
         }
 
         // 添加指示器到 stackView 下方
-        indicatorView.backgroundColor = .black
+        indicatorView.backgroundColor = UIColor(named: "TextColor")
         view.addSubview(indicatorView)
         
         // 設置指示器初始位置在段落填空按鈕下方
@@ -103,12 +128,15 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.equalTo(paragraphButton.snp.left)
         }
     }
+    @objc func backTap() {
+        self.dismiss(animated: true)
+    }
     
     // 工具函數來創建按鈕
     private func createButton(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         button.backgroundColor = UIColor(named: "CollectionBackGround")
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
@@ -202,7 +230,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
-        cell.backgroundColor = UIColor(named: "CollectionCard")
+        cell.backgroundColor = UIColor(named: "viewBackGround")
         switch currentQuestionType {
         case .wordQuiz:
             let word = wordQuestions[indexPath.item]

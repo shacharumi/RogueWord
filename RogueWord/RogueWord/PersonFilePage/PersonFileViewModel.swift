@@ -20,6 +20,18 @@ class PersonFileViewModel {
         let appLink = "沒有連結QQ"
         let activityVC = UIActivityViewController(activityItems: ["快點下載這個好用APP", appLink], applicationActivities: nil)
         
+        // 配置 popoverPresentationController
+        if let popoverController = activityVC.popoverPresentationController {
+            popoverController.sourceView = viewController.view
+            popoverController.sourceRect = CGRect(
+                x: viewController.view.bounds.midX,
+                y: viewController.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+        
         viewController.present(activityVC, animated: true, completion: nil)
     }
     
@@ -66,7 +78,7 @@ class PersonPageModel {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "userName")
-            guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+            guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
             let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
             let fieldsToUpdate: [String: Any] = [
                 "userName": newValue,
@@ -100,8 +112,6 @@ class PersonPageModel {
         }
     }
     
-    
-    
     func uploadImageToFirebase(image: UIImage) {
         guard let imageData = image.pngData() else {
             print("DEBUG 無法將圖片轉換為 PNG")
@@ -121,19 +131,19 @@ class PersonPageModel {
                 if let error = error {
                     print("DEBUG 獲取圖片 URL 失敗: \(error.localizedDescription)")
                 } else if let downloadURL = url {
-                    UserDefaults.standard.set(downloadURL, forKey: "userImage")
+                    UserDefaults.standard.set(downloadURL, forKey: "userImageURL")
                     print("圖片上傳成功，下載 URL: \(downloadURL)")
                     
-                    guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+                    guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
                     let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
                     let fieldsToUpdate: [String: Any] = [
                         "image": "\(fileName)/userImage.png",
                     ]
                     FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
                         if let error = error {
-                            print("DEBUG: Failed to update userName -", error.localizedDescription)
+                            print("DEBUG: Failed to update image -", error.localizedDescription)
                         } else {
-                            print("DEBUG: Successfully updated userName to \(downloadURL)")
+                            print("DEBUG: Successfully updated image to \(downloadURL)")
                         }
                     }
                 }
@@ -141,14 +151,13 @@ class PersonPageModel {
         }
     }
     
-    
     var selectedVersion: String {
         get {
             return UserDefaults.standard.string(forKey: "userVersion") ?? "多益"
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "version")
-            guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+            UserDefaults.standard.set(newValue, forKey: "userVersion")
+            guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
             let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
             let fieldsToUpdate: [String: Any] = [
                 "version": newValue,
@@ -156,9 +165,9 @@ class PersonPageModel {
             
             FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
                 if let error = error {
-                    print("DEBUG: Failed to update userName -", error.localizedDescription)
+                    print("DEBUG: Failed to update version -", error.localizedDescription)
                 } else {
-                    print("DEBUG: Successfully updated userName to \(newValue)")
+                    print("DEBUG: Successfully updated version to \(newValue)")
                 }
             }
         }
@@ -166,7 +175,7 @@ class PersonPageModel {
     
     func clearUserData() {
         UserDefaults.standard.removeObject(forKey: "userName")
-        UserDefaults.standard.removeObject(forKey: "image")
-        UserDefaults.standard.removeObject(forKey: "version")
+        UserDefaults.standard.removeObject(forKey: "imageData")
+        UserDefaults.standard.removeObject(forKey: "userVersion")
     }
 }

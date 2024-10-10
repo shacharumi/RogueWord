@@ -84,13 +84,17 @@ final class FirestoreService {
         }
     }
     
-    func setData<T: Encodable>(_ data: T, at docRef: DocumentReference) {
+    func setData<T: Encodable>(_ data: T, at documentRef: DocumentReference, completion: ((Error?) -> Void)? = nil) {
         do {
-            try docRef.setData(from: data)
-        } catch {
-            print("DEBUG: Error encoding \(T.self) data -", error.localizedDescription)
+            let encodedData = try Firestore.Encoder().encode(data)
+            documentRef.setData(encodedData) { error in
+                completion?(error)
+            }
+        } catch let error {
+            completion?(error)
         }
     }
+
     
     func newDocument(of collection: CollectionReference) -> DocumentReference {
         collection.document()

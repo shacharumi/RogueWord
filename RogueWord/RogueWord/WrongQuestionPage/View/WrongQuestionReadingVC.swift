@@ -44,6 +44,8 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        backButton.tintColor = UIColor(named: "TextColor")
+
         customNavBar.addSubview(backButton)
         
         backButton.snp.makeConstraints { make in
@@ -53,7 +55,7 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
@@ -134,7 +136,8 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ReadingTestCell.self, forCellReuseIdentifier: "ReadingTestCell")
-        
+        tableView.backgroundColor = UIColor(named: "CollectionBackGround")
+        tableView.separatorStyle = .none
         tableView.snp.makeConstraints { make in
             make.top.equalTo(customNavBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
@@ -157,7 +160,7 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {  // 第一个 cell 显示 readingMessage，并带有卡片样式
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor(named: "CollectionBackGround")
 
             let cardView = UIView()
             cardView.backgroundColor = .white
@@ -185,6 +188,8 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingTestCell", for: indexPath) as? ReadingTestCell {
                 guard let selectAnswer = self.selectAnswer else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.backgroundColor = UIColor(named: "CollectionBackGround")
                 cell.answerSelectLabel.text = "(\(selectAnswer[indexPath.row-1]))"
                 cell.questionLabel.text = questions?.questions[indexPath.row-1]
                 cell.optionLabel0.setTitle(questions?.options["option_set_\(indexPath.row-1)"]?[0], for: .normal)

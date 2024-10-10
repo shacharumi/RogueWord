@@ -14,7 +14,7 @@ class WrongQuestionWordVC: UIViewController, UITableViewDataSource, UITableViewD
     var selectAnswer: [String]?
     var questionsTitle: String?
     private let tableView = UITableView()
-    private var customNavBar: UIView!  // 自定義導航欄
+    private var customNavBar: UIView!  
     private let menuButton = UIButton(type: .system)
     private var isTapCheck: Bool = false
     var datadismiss: (() -> Void)?
@@ -22,15 +22,14 @@ class WrongQuestionWordVC: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white  // 設置背景色
-        setupCustomNavBar()  // 設置自定義導航欄
-        setupTableView()     // 設置表格視圖
+        setupCustomNavBar()
+        setupTableView()
     }
     
     // 設置自定義導航欄
     private func setupCustomNavBar() {
         customNavBar = UIView()
-        customNavBar.backgroundColor = .white
+        customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
         
         view.addSubview(customNavBar)
         
@@ -43,6 +42,8 @@ class WrongQuestionWordVC: UIViewController, UITableViewDataSource, UITableViewD
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
+        backButton.tintColor = UIColor(named: "TextColor")
+
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
         
@@ -53,7 +54,7 @@ class WrongQuestionWordVC: UIViewController, UITableViewDataSource, UITableViewD
         
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        menuButton.setTitleColor(.blue, for: .normal)
+        menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
         
@@ -133,6 +134,8 @@ class WrongQuestionWordVC: UIViewController, UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(QuestionPageCell.self, forCellReuseIdentifier: "QuestionPageCell")
+        tableView.backgroundColor = UIColor(named: "CollectionBackGround")
+        tableView.separatorStyle = .none
         
         tableView.snp.makeConstraints { make in
             make.top.equalTo(customNavBar.snp.bottom)
@@ -150,6 +153,9 @@ class WrongQuestionWordVC: UIViewController, UITableViewDataSource, UITableViewD
         if let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionPageCell", for: indexPath) as? QuestionPageCell {
             let question = questions[indexPath.row]
             guard let selectAnswer = self.selectAnswer else { return UITableViewCell() }
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor(named: "CollectionBackGround")
+
             cell.answerSelectLabel.text = "(\(selectAnswer[indexPath.row]))"
             
             cell.questionLabel.text = question.question

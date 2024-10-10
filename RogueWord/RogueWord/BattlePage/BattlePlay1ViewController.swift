@@ -24,11 +24,14 @@ class BattlePlay1ViewController: UIViewController {
     var player2ProgressView: UIProgressView!
     var buttonView: UIView!
     var buttonArray: [UIButton] = []
-     let animationView = LottieAnimationView(name: "CountDown")
-    
-    // 新增：用於翻轉動畫的視圖
+    let animationView = LottieAnimationView(name: "CountDown")
+    let waitingAnimationView = LottieAnimationView(name: "searchBattle")
+
+    // 新增：用于翻转动画的视图
     var questionContainerView: UIView!
     
+    // 新增：遮罩视图
+    var overlayView: UIView!
     // MARK: - Game State Variables
     
     var player2Id: String?
@@ -71,7 +74,6 @@ class BattlePlay1ViewController: UIViewController {
     func setupUI() {
         let backgroundView = UIImageView()
         backgroundView.image = UIImage(named: "battlingBackGround")
-        //view.backgroundColor = UIColor(named:"playRoomBackGround")
         view.addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in
             make.edges.equalTo(view)
@@ -147,7 +149,7 @@ class BattlePlay1ViewController: UIViewController {
             make.centerX.equalTo(player2ImageView)
         }
         
-        // 新增：用於翻轉動畫的容器視圖
+        // 新增：用于翻转动画的容器视图
         questionContainerView = UIView()
         questionContainerView.backgroundColor = .clear
         view.addSubview(questionContainerView)
@@ -255,8 +257,58 @@ class BattlePlay1ViewController: UIViewController {
         }
         
         setupButtons()
+        
+        overlayView = UIView()
+        overlayView.isHidden = true 
+        overlayView.backgroundColor = .white.withAlphaComponent(0.6)
+        view.addSubview(overlayView)
+        overlayView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
+        
+        
+        
+           waitingAnimationView.loopMode = .loop
+           overlayView.addSubview(waitingAnimationView)
+           waitingAnimationView.snp.makeConstraints { make in
+               make.center.equalTo(overlayView)
+               make.width.height.equalTo(300)
+           }
+        
+        
+        let backButton = UIButton()
+        backButton.setTitle("退出等待", for: .normal)
+        backButton.setTitleColor(.black, for: .normal)
+        backButton.layer.cornerRadius = 30
+        backButton.layer.masksToBounds = false
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 24,weight: .heavy)
+        backButton.backgroundColor = UIColor(named: "viewBackGround")
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+
+        overlayView.addSubview(backButton)
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(waitingAnimationView.snp.bottom).offset(16)
+            make.centerX.equalTo(waitingAnimationView)
+            make.height.equalTo(60)
+            make.width.equalTo(180)
+        }
+        view.bringSubviewToFront(overlayView)
     }
     
+    @objc func back() {
+        guard let roomId = roomId else { return }
+        ref.child("Rooms").child(roomId).removeValue { [weak self] error, _ in
+            if let error = error {
+                print("Error deleting room: \(error.localizedDescription)")
+            } else {
+                DispatchQueue.main.async {
+                    self?.dismiss(animated: true)
+                }
+            }
+        }
+    }
+
     func setupButtons() {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -310,6 +362,10 @@ class BattlePlay1ViewController: UIViewController {
                     } else {
                         self?.player1ImageView.image = UIImage(systemName: "person")
                     }
+                    
+                    self?.overlayView.isHidden = false
+                    self?.waitingAnimationView.play()
+
                 }
             }
         }
@@ -326,7 +382,7 @@ class BattlePlay1ViewController: UIViewController {
                 }
             }
         }
- 
+     
         ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
             if let player1Score = snapshot.value as? Float {
                 self?.player1Score = player1Score
@@ -354,7 +410,6 @@ class BattlePlay1ViewController: UIViewController {
         ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
             if let countdownValue = snapshot.value as? Float {
                 self?.countdownValue = countdownValue
-                
                 
                 if countdownValue <= 0  {
                     if self?.whichPlayer == 1 {
@@ -508,6 +563,12 @@ class BattlePlay1ViewController: UIViewController {
                     self?.ref.child("Rooms").child(roomId).child("RoomIsStart").setValue(false)
                     self?.animationView.play()
                 }
+                
+                DispatchQueue.main.async {
+                    self?.overlayView.isHidden = true
+                    self?.waitingAnimationView.stop()
+
+                }
             }
         }
         
@@ -516,13 +577,10 @@ class BattlePlay1ViewController: UIViewController {
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 1)
         }
         
-        // Player2Select 监听
         ref.child("Rooms").child(roomId).child("Player2Select").observe(.value) { [weak self] snapshot in
             self?.player2CountDown = self?.countdownValue ?? 0
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 2)
         }
-        
-        
     }
     
     // MARK: - Game Logic Methods

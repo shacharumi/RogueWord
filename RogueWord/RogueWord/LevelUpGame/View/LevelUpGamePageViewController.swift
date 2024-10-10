@@ -18,6 +18,8 @@ class LevelUpGamePageViewController: UIViewController {
     var isCorrect: [Bool] = []
     
     var returnLevelNumber: ((Int) -> Void)?
+    
+    var hasSelectedAnswer: Bool = false
 
     private let accurencyLabel: UILabel = {
         let label = UILabel()
@@ -32,7 +34,6 @@ class LevelUpGamePageViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
-        
         return label
     }()
     
@@ -128,6 +129,7 @@ class LevelUpGamePageViewController: UIViewController {
             make.height.equalTo(400)
         }
         
+        accurencyLabel.text = "\(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100))"
         accurencyLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(50)
             make.centerX.equalTo(cardView)
@@ -233,6 +235,11 @@ class LevelUpGamePageViewController: UIViewController {
     }
 
     @objc private func handleCardPan(_ gesture: UIPanGestureRecognizer) {
+        // 如果還沒有選擇答案，則不允許滑動
+        guard hasSelectedAnswer else {
+            return
+        }
+
         let translation = gesture.translation(in: view)
 
         switch gesture.state {
@@ -262,6 +269,8 @@ class LevelUpGamePageViewController: UIViewController {
         for button in answerButtons {
             button.isEnabled = false
         }
+
+        hasSelectedAnswer = true
 
         if viewModel.checkAnswer(answer) {
             viewModel.currentCorrect += 1
@@ -328,6 +337,9 @@ class LevelUpGamePageViewController: UIViewController {
             showCompletionAlert()
             return
         }
+
+        hasSelectedAnswer = false
+       
         self.viewModel.updateLevelNumber()
         accurencyLabel.text = "答對率: \(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100)) "
         indexLabel.text = "當前題數: \(viewModel.currentQuestionIndex)"

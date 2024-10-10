@@ -126,7 +126,7 @@ class BattleViewController: UIViewController {
         cardView.alpha = 0.8
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.top.equalTo(customNavBar.snp.bottom).offset(16)
+            make.top.equalTo(customNavBar.snp.bottom).offset(32)
             make.width.equalTo(view).offset(-56)
             make.height.equalTo(450)
         }
@@ -161,7 +161,7 @@ class BattleViewController: UIViewController {
         cardView.addSubview(rankCardView)
         
         rankCardView.snp.makeConstraints { make in
-            make.top.equalTo(divideLine.snp.bottom).offset(72)
+            make.top.equalTo(divideLine.snp.bottom).offset(36)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(60)
