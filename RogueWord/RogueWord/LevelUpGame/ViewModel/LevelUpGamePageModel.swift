@@ -10,12 +10,13 @@ import Firebase
 
 class LevelUpGamePageModel {
     
-    private var words: [JsonWord] = []
-    private var questions: [JsonWord] = []
+    var words: [JsonWord] = []
+    var questions: [JsonWord] = []
     var currentQuestionIndex: Int = 0
     var currentCorrect: Int = 0
     var currentWrong: Int = 0
     var currentIsCorrect: [Bool] = []
+    var titleLevel = "LevelData"
     
     init() {
         if FirebaseApp.app() == nil {
@@ -59,9 +60,9 @@ class LevelUpGamePageModel {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
         let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
         let fieldsToUpdate: [String: Any] = [
-            "LevelData.Correct": currentCorrect,
-            "LevelData.Wrong": currentWrong,
-            "LevelData.isCorrect": currentIsCorrect
+            "\(titleLevel).Correct": currentCorrect,
+            "\(titleLevel).Wrong": currentWrong,
+            "\(titleLevel).isCorrect": currentIsCorrect
         ]
         
         FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
@@ -78,7 +79,7 @@ class LevelUpGamePageModel {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
         let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
         let fieldsToUpdate: [String: Any] = [
-            "LevelData.LevelNumber": currentQuestionIndex
+            "\(titleLevel).LevelNumber": currentQuestionIndex
         ]
         
         FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
@@ -112,22 +113,22 @@ class LevelUpGamePageModel {
         }
     }
     
-    func removeToFavorites() {
-        guard let word = getCurrentQuestion() else {return}
-        
-        let db = Firestore.firestore()
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
-        
-        let userCollectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
-        
-        userCollectionRef.delete() { error in
-            if let error = error {
-                print("Error remove document: \(error)")
-            } else {
-                print("Document removed with ID: \(self.currentQuestionIndex)")
-            }
-        }
-    }
+//    func removeToFavorites() {
+//        guard let word = getCurrentQuestion() else {return}
+//        
+//        let db = Firestore.firestore()
+//        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
+//        
+//        let userCollectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
+//        
+//        userCollectionRef.delete() { error in
+//            if let error = error {
+//                print("Error remove document: \(error)")
+//            } else {
+//                print("Document removed with ID: \(self.currentQuestionIndex)")
+//            }
+//        }
+//    }
     
     
     

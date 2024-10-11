@@ -1,16 +1,16 @@
 //
-//  LevelUpGamePageViewController.swift
+//  SentenceFillGamePageViewController.swift
 //  RogueWord
 //
-//  Created by shachar on 2024/9/12.
+//  Created by shachar on 2024/10/10.
 //
 
 import UIKit
 import SnapKit
 
-class LevelUpGamePageViewController: UIViewController {
-
-    private let viewModel = LevelUpGamePageModel()
+class SentenceFillGamePageViewController: UIViewController {
+    
+    private let viewModel = SentenceFillGamePageModel()
     private var cardView: UIView!
     var levelNumber = 0
     var correctCount: Int = 0
@@ -18,9 +18,8 @@ class LevelUpGamePageViewController: UIViewController {
     var isCorrect: [Bool] = []
     
     var returnLevelNumber: ((Int) -> Void)?
-    
     var hasSelectedAnswer: Bool = false
-
+    
     private let accurencyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,22 +36,6 @@ class LevelUpGamePageViewController: UIViewController {
         return label
     }()
     
-    private let englishLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let propertyLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        label.textAlignment = .center
-        return label
-    }()
-
     private let sentenceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +44,7 @@ class LevelUpGamePageViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-
+    
     private let answerButtons: [UIButton] = {
         var buttons = [UIButton]()
         for _ in 0..<4 {
@@ -76,7 +59,6 @@ class LevelUpGamePageViewController: UIViewController {
         }
         return buttons
     }()
-    
     private let alertLabel: UILabel = {
         let label = UILabel()
         label.text = "左滑收藏單字，右滑進入下一題"
@@ -88,7 +70,6 @@ class LevelUpGamePageViewController: UIViewController {
         return label
     }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "PlayViewColor")
@@ -101,7 +82,7 @@ class LevelUpGamePageViewController: UIViewController {
         displayQuestion()
         addPanGestureToCard()
     }
-
+    
     private func setupUI() {
         cardView = UIView()
         cardView.backgroundColor = UIColor(named: "PlayCardColor")
@@ -112,14 +93,9 @@ class LevelUpGamePageViewController: UIViewController {
         
         cardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardView)
-        cardView.addSubview(accurencyLabel)
         cardView.addSubview(indexLabel)
-        cardView.addSubview(englishLabel)
-        cardView.addSubview(propertyLabel)
+        cardView.addSubview(accurencyLabel)
         cardView.addSubview(sentenceLabel)
-        cardView.addSubview(alertLabel)
-        
-        alertLabel.isHidden = true
         
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
@@ -130,27 +106,20 @@ class LevelUpGamePageViewController: UIViewController {
         }
         
         accurencyLabel.text = "\(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100))"
+        
         accurencyLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(50)
             make.centerX.equalTo(cardView)
         }
         
+        indexLabel.text = "當前題數: \(viewModel.currentQuestionIndex)"
         indexLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(100)
             make.centerX.equalTo(cardView)
         }
         
-        englishLabel.snp.makeConstraints { make in
-            make.top.equalTo(cardView).offset(150)
-            make.centerX.equalTo(cardView)
-        }
-        propertyLabel.snp.makeConstraints { make in
-            make.top.equalTo(englishLabel.snp.bottom).offset(8)
-            make.centerX.equalTo(englishLabel)
-        }
-
         sentenceLabel.snp.makeConstraints { make in
-            make.top.equalTo(propertyLabel.snp.bottom).offset(8)
+            make.top.equalTo(indexLabel.snp.bottom).offset(32)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
         }
@@ -166,56 +135,56 @@ class LevelUpGamePageViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
-
+        
         stackView.snp.makeConstraints { make in
             make.top.equalTo(cardView.snp.bottom).offset(16)
             make.left.equalTo(view).offset(32)
             make.right.equalTo(view).offset(-32)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
-
+        
         for button in answerButtons {
             button.addTarget(self, action: #selector(answerTapped(_:)), for: .touchUpInside)
         }
     }
-
+    
     private func setupCustomNavigationBar() {
         let customNavBar = UIView()
         customNavBar.backgroundColor = .clear
         view.addSubview(customNavBar)
-
+    
         customNavBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalTo(view)
             make.height.equalTo(50)
         }
-
+    
         let backButton = UIButton(type: .system)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         customNavBar.addSubview(backButton)
-
+    
         backButton.snp.makeConstraints { make in
             make.left.equalTo(customNavBar).offset(16)
             make.centerY.equalTo(customNavBar)
         }
-
+    
         let previousButton = UIButton(type: .system)
         previousButton.setTitle("上一題", for: .normal)
         previousButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         previousButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-
+    
         previousButton.addTarget(self, action: #selector(goToPreviousQuestion), for: .touchUpInside)
         customNavBar.addSubview(previousButton)
-
+    
         previousButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar)
         }
         
         let titleLabel = UILabel()
-        titleLabel.text = "英翻中選擇題"
+        titleLabel.text = "句子填空題"
         titleLabel.textColor = UIColor(named: "TextColor")
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         titleLabel.textAlignment = .center
@@ -226,22 +195,20 @@ class LevelUpGamePageViewController: UIViewController {
             make.right.equalTo(previousButton.snp.left)
             make.centerY.equalTo(customNavBar)
         }
-        
     }
-
+    
     private func addPanGestureToCard() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(_:)))
         cardView.addGestureRecognizer(panGesture)
     }
-
+    
     @objc private func handleCardPan(_ gesture: UIPanGestureRecognizer) {
-        // 如果還沒有選擇答案，則不允許滑動
         guard hasSelectedAnswer else {
             return
         }
-
+    
         let translation = gesture.translation(in: view)
-
+    
         switch gesture.state {
         case .changed:
             cardView.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y - 100)
@@ -257,21 +224,21 @@ class LevelUpGamePageViewController: UIViewController {
             break
         }
     }
-
+    
     @objc private func goBack() {
         returnLevelNumber?(viewModel.currentQuestionIndex)
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     @objc private func answerTapped(_ sender: UIButton) {
         guard let answer = sender.currentTitle else { return }
-
+    
         for button in answerButtons {
             button.isEnabled = false
         }
-
+    
         hasSelectedAnswer = true
-
+    
         if viewModel.checkAnswer(answer) {
             viewModel.currentCorrect += 1
             isCorrect.append(true)
@@ -284,33 +251,29 @@ class LevelUpGamePageViewController: UIViewController {
             sender.backgroundColor = UIColor(named: "FalseColor")
             alertLabel.isHidden = false
             startFlashingAlertLabel()
+            highlightCorrectAnswer()
             viewModel.currentWrong += 1
             isCorrect.append(false)
             viewModel.currentIsCorrect = isCorrect
-            highlightCorrectAnswer()
-            viewModel.addToFavorites()
         }
         viewModel.updateAccurency()
     }
-
+    
     private func highlightCorrectAnswer() {
-        guard let question = viewModel.getCurrentQuestion() else { return }
-
         for button in answerButtons {
-            if button.currentTitle == question.chinese {
+            if button.currentTitle == viewModel.missingWord {
                 button.backgroundColor = UIColor(named: "CorrectColor")
                 break
             }
         }
     }
-
+    
     private enum SlideDirection {
         case left, right
     }
-
+    
     private func animateCardOffScreen(direction: SlideDirection) {
         let offScreenX: CGFloat = direction == .right ? UIScreen.main.bounds.width * 1.5 : -UIScreen.main.bounds.width * 1.5
-        
         if direction == .left {
             self.viewModel.addToFavorites()
         }
@@ -318,45 +281,40 @@ class LevelUpGamePageViewController: UIViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.cardView.center.x = offScreenX
             self.cardView.alpha = 0
-            
-            
         }) { _ in
             self.resetCardPosition()
             if self.viewModel.moveToNextQuestion() {
                 self.displayQuestion()
+
             } else {
                 self.showCompletionAlert()
             }
         }
     }
-
+    
     private func resetCardPosition() {
         cardView.center = CGPoint(x: view.center.x, y: view.center.y - 100)
         cardView.alpha = 1
         alertLabel.isHidden = true
-
         alertLabel.layer.removeAllAnimations()
     }
-
+    
     private func displayQuestion() {
-        guard let question = viewModel.getCurrentQuestion() else {
+        guard let question = viewModel.getFillCurrentQuestion() else {
             showCompletionAlert()
             return
         }
-
+    
         hasSelectedAnswer = false
-       
-        self.viewModel.updateLevelNumber()
-        accurencyLabel.text = "答對率: \(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100)) "
+        viewModel.updateLevelNumber()
+        accurencyLabel.text = "答對率: \(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100))"
+        sentenceLabel.text = question
         indexLabel.text = "當前題數: \(viewModel.currentQuestionIndex)"
-        englishLabel.text = question.english
-        propertyLabel.text = "(\(question.property))"
-        sentenceLabel.text = question.sentence
 
-        var answers = [question.chinese]
-        answers.append(contentsOf: viewModel.generateWrongAnswers(for: question.chinese))
+        var answers = [viewModel.missingWord]
+        answers.append(contentsOf: viewModel.generateWrongAnswers(for: viewModel.missingWord))
         answers.shuffle()
-
+    
         for (index, button) in answerButtons.enumerated() {
             if index < answers.count {
                 button.setTitle(answers[index], for: .normal)
@@ -365,11 +323,11 @@ class LevelUpGamePageViewController: UIViewController {
             }
         }
     }
-
+    
     @objc private func goToPreviousQuestion() {
         if viewModel.currentQuestionIndex > 0 {
             viewModel.currentQuestionIndex -= 1
-
+    
             if isCorrect[viewModel.currentQuestionIndex] {
                 viewModel.currentCorrect -= 1
                 isCorrect.remove(at: viewModel.currentQuestionIndex)
@@ -393,7 +351,7 @@ class LevelUpGamePageViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
     }
-
+    
     private func showCompletionAlert() {
         let alert = UIAlertController(title: "完成", message: "你已經完成所有問題", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
@@ -407,3 +365,4 @@ class LevelUpGamePageViewController: UIViewController {
         }, completion: nil)
     }
 }
+

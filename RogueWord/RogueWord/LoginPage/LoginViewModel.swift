@@ -46,6 +46,7 @@ class LoginViewModel {
                 realUserStatus: appleIDCredential.realUserStatus.rawValue,
                 tag: ["All"],
                 levelData: LevelData(correct: 0, levelNumber: 0, wrong: 0, isCorrect: []),
+                fillLevelData: LevelData(correct: 0, levelNumber: 0, wrong: 0, isCorrect: []),
                 rank: Rank(correct: 0.0, playTimes: 0.0, winRate: 0.0, rankScore: 0.0),
                 image: "",
                 version: "多益"

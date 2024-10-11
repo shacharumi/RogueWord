@@ -36,6 +36,7 @@
 		C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544852C92BB3E00580224 /* CollectionPageCell.swift */; };
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
+		C74264A22CB9910A00FCF5D2 /* SayingGoesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264A12CB9910A00FCF5D2 /* SayingGoesPageViewController.swift */; };
 		C7432CAA2CAA841F003221E9 /* CountDown.json in Resources */ = {isa = PBXBuildFile; fileRef = C7432CA92CAA841F003221E9 /* CountDown.json */; };
 		C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432CE82CABCC1A003221E9 /* LoginModel.swift */; };
 		C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7432D052CACCF94003221E9 /* DropDown.framework */; };
@@ -75,6 +76,8 @@
 		C7856BDA2CB77C8200842B94 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = C7856BD92CB77C8200842B94 /* FirebaseVertexAI-Preview */; };
 		C7856BDD2CB77C8D00842B94 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7856BDC2CB77C8D00842B94 /* Lottie */; };
 		C7856BE02CB77C9A00842B94 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C7856BDF2CB77C9A00842B94 /* SnapKit */; };
+		C7856BE82CB8337700842B94 /* SentenceFillGamePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7856BE72CB8337700842B94 /* SentenceFillGamePageViewController.swift */; };
+		C7856BEA2CB834BF00842B94 /* SentenceFillGamePageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7856BE92CB834BF00842B94 /* SentenceFillGamePageModel.swift */; };
 		C7B3277A2CB589EA006EAC93 /* searchBattle.json in Resources */ = {isa = PBXBuildFile; fileRef = C7B327792CB589EA006EAC93 /* searchBattle.json */; };
 		C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */; };
 		C7B386E72CA68EE50000F9CE /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B386E62CA68E8D0000F9CE /* LoadingViewController.swift */; };
@@ -187,6 +190,7 @@
 		C72544852C92BB3E00580224 /* CollectionPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPageCell.swift; sourceTree = "<group>"; };
 		C72544872C92BB6900580224 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C72544892C92BB8C00580224 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		C74264A12CB9910A00FCF5D2 /* SayingGoesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SayingGoesPageViewController.swift; sourceTree = "<group>"; };
 		C7432CA92CAA841F003221E9 /* CountDown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDown.json; sourceTree = "<group>"; };
 		C7432CB62CABBAF3003221E9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C7432CB82CABBAF3003221E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -201,6 +205,8 @@
 		C7432D6F2CB27BEA003221E9 /* HomeGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameViewController.swift; sourceTree = "<group>"; };
 		C7432D712CB2CC9F003221E9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C7432D732CB2E325003221E9 /* BattleGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleGameScene.swift; sourceTree = "<group>"; };
+		C7856BE72CB8337700842B94 /* SentenceFillGamePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceFillGamePageViewController.swift; sourceTree = "<group>"; };
+		C7856BE92CB834BF00842B94 /* SentenceFillGamePageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceFillGamePageModel.swift; sourceTree = "<group>"; };
 		C7B327792CB589EA006EAC93 /* searchBattle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchBattle.json; sourceTree = "<group>"; };
 		C7B386CE2CA3A7DD0000F9CE /* ExamCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamCardCell.swift; sourceTree = "<group>"; };
 		C7B386D92CA43C930000F9CE /* RogueWord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RogueWord.entitlements; sourceTree = "<group>"; };
@@ -485,6 +491,8 @@
 			isa = PBXGroup;
 			children = (
 				C72544802C92BAB500580224 /* LevelUpGamePageViewController.swift */,
+				C7856BE72CB8337700842B94 /* SentenceFillGamePageViewController.swift */,
+				C74264A12CB9910A00FCF5D2 /* SayingGoesPageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -493,6 +501,7 @@
 			isa = PBXGroup;
 			children = (
 				C72544832C92BB0F00580224 /* LevelUpGamePageModel.swift */,
+				C7856BE92CB834BF00842B94 /* SentenceFillGamePageModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -781,8 +790,10 @@
 				C7E0B0992C9FCDC9003395B3 /* ExamViewModel.swift in Sources */,
 				C72544782C92BA1700580224 /* LoginViewController.swift in Sources */,
 				C7E0B0682C9D631A003395B3 /* ListeningTestCell.swift in Sources */,
+				C7856BE82CB8337700842B94 /* SentenceFillGamePageViewController.swift in Sources */,
 				C7432D592CB1A4B4003221E9 /* CollectionGameScene.swift in Sources */,
 				C7432D6D2CB27BAF003221E9 /* HomeGameScene.swift in Sources */,
+				C74264A22CB9910A00FCF5D2 /* SayingGoesPageViewController.swift in Sources */,
 				C725447F2C92BA7E00580224 /* CollectionPageViewModel.swift in Sources */,
 				C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */,
 				C7432D5B2CB1A55E003221E9 /* CollectionViewController.swift in Sources */,
@@ -798,6 +809,7 @@
 				C7432D122CAD17FE003221E9 /* PersonFileViewModel.swift in Sources */,
 				C7E0B0B12CA1079F003395B3 /* FirestoreService.swift in Sources */,
 				C72544342C91854D00580224 /* AppDelegate.swift in Sources */,
+				C7856BEA2CB834BF00842B94 /* SentenceFillGamePageModel.swift in Sources */,
 				C7B386CF2CA3A7DD0000F9CE /* ExamCardCell.swift in Sources */,
 				C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,

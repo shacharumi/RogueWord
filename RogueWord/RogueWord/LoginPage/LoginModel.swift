@@ -36,6 +36,7 @@ struct UserData: Codable {
     let realUserStatus: Int?
     var tag: [String]?
     var levelData: LevelData?
+    var fillLevelData: LevelData?
     var rank: Rank?
     var image: String?
     var version: String?
@@ -51,6 +52,7 @@ struct UserData: Codable {
         case rank
         case image
         case version
+        case fillLevelData
     }
 }
 

@@ -52,8 +52,8 @@ class HomeGameScene: SKScene {
             if let characterNode = self.childNode(withName: characterName) as? SKSpriteNode,
                let warningBox = characterNode.childNode(withName: "warningBox") as? SKShapeNode,
                let warningLabel = warningBox.childNode(withName: "warningLabel") as? SKLabelNode {
-
-                warningLabel.text = "請先通關前面關卡\n當前通關進度: \(playerLevel)"
+                
+                warningLabel.text = "請先通關前面關卡\n再進到下一階段"
 
                 warningBox.xScale = 1 / characterNode.xScale
 
@@ -70,23 +70,43 @@ class HomeGameScene: SKScene {
             }
             return
         }
-
-        let levelUpGamePage = LevelUpGamePageViewController()
-        levelUpGamePage.levelNumber = personData.levelData?.levelNumber ?? 0
-        levelUpGamePage.correctCount = personData.levelData?.correct ?? 0
-        levelUpGamePage.wrongCount = personData.levelData?.wrong ?? 0
-        levelUpGamePage.isCorrect = personData.levelData?.isCorrect ?? []
-        levelUpGamePage.modalPresentationStyle = .fullScreen
-        levelUpGamePage.returnLevelNumber = { [weak self] data in
-            guard let self = self else { return }
-            if self.personData?.levelData == nil {
-                self.personData?.levelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
-            } else {
-                self.personData?.levelData?.levelNumber = data
+        
+        if characterName == "0" {
+            let levelUpGamePage = LevelUpGamePageViewController()
+            levelUpGamePage.levelNumber = personData.levelData?.levelNumber ?? 0
+            levelUpGamePage.correctCount = personData.levelData?.correct ?? 0
+            levelUpGamePage.wrongCount = personData.levelData?.wrong ?? 0
+            levelUpGamePage.isCorrect = personData.levelData?.isCorrect ?? []
+            levelUpGamePage.modalPresentationStyle = .fullScreen
+            levelUpGamePage.returnLevelNumber = { [weak self] data in
+                guard let self = self else { return }
+                if self.personData?.levelData == nil {
+                    self.personData?.levelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
+                } else {
+                    self.personData?.levelData?.levelNumber = data
+                }
+                print("Updated levelNumber: \(data)")
             }
-            print("Updated levelNumber: \(data)")
+            viewController?.present(levelUpGamePage, animated: true, completion: nil)
+        } else if characterName == "99" {
+            let fillLevelUpGamePage = SentenceFillGamePageViewController()
+            fillLevelUpGamePage.levelNumber = personData.fillLevelData?.levelNumber ?? 0
+            fillLevelUpGamePage.correctCount = personData.fillLevelData?.correct ?? 0
+            fillLevelUpGamePage.wrongCount = personData.fillLevelData?.wrong ?? 0
+            fillLevelUpGamePage.isCorrect = personData.fillLevelData?.isCorrect ?? []
+            fillLevelUpGamePage.modalPresentationStyle = .fullScreen
+            fillLevelUpGamePage.returnLevelNumber = { [weak self] data in
+                guard let self = self else { return }
+                if self.personData?.fillLevelData == nil {
+                    self.personData?.fillLevelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
+                } else {
+                    self.personData?.fillLevelData?.levelNumber = data
+                }
+                print("Updated levelNumber: \(data)")
+            }
+            viewController?.present(fillLevelUpGamePage, animated: true, completion: nil)
         }
-        viewController?.present(levelUpGamePage, animated: true, completion: nil)
+        
     }
 
     func createCharacter(named characterName: String, position: CGPoint) -> SKSpriteNode {
@@ -101,19 +121,19 @@ class HomeGameScene: SKScene {
         let fontName: String
         switch characterName {
         case "Enchantress":
-            labelText = "初階關卡"
+            labelText = "單字英翻中"
             fontName = "Arial-BoldMT"
             character.name = "0"
 
         case "Knight":
-            labelText = "中階關卡"
+            labelText = "句子填空"
             fontName = "HelveticaNeue-Bold"
-            character.name = "999"
+            character.name = "99"
 
         case "Musketeer":
-            labelText = "高階關卡"
+            labelText = "文法測試"
             fontName = "Courier-Bold"
-            character.name = "1999"
+            character.name = "199"
 
         default:
             labelText = ""
