@@ -264,12 +264,10 @@ class UnitGameViewController: UIViewController {
         guard !hasSelectedAnswer, let selectedAnswer = sender.currentTitle else { return }
         hasSelectedAnswer = true
 
-        // 禁用所有按鈕
         for button in answerButtons {
             button.isEnabled = false
         }
 
-        // 獲取當前題目
         let currentWord = collectionData[currentQuestionIndex].word
 
         if selectedAnswer == currentWord.chinese {

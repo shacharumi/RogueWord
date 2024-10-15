@@ -15,7 +15,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     private let animationView = LottieAnimationView(name: "LoadingImage")
     private var answerArray: [String]?
     var wordDatas: Accurency?
-    var datadismiss: ((Accurency?) -> Void)? // 定義 closure，用來傳遞資料
+    var datadismiss: ((Accurency?) -> Void)? 
     let cardView = UIView()
     let questionLabel = UILabel()
     private var isTapCheck: Bool = false

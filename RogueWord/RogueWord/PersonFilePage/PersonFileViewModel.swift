@@ -20,7 +20,6 @@ class PersonFileViewModel {
         let appLink = "沒有連結QQ"
         let activityVC = UIActivityViewController(activityItems: ["快點下載這個好用APP", appLink], applicationActivities: nil)
         
-        // 配置 popoverPresentationController
         if let popoverController = activityVC.popoverPresentationController {
             popoverController.sourceView = viewController.view
             popoverController.sourceRect = CGRect(
@@ -175,6 +174,7 @@ class PersonPageModel {
     
     func clearUserData() {
         UserDefaults.standard.removeObject(forKey: "userName")
+        UserDefaults.standard.removeObject(forKey: "email")
         UserDefaults.standard.removeObject(forKey: "imageData")
         UserDefaults.standard.removeObject(forKey: "userVersion")
     }

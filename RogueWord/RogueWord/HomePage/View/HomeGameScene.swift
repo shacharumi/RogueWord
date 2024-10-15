@@ -5,166 +5,135 @@
 //  Created by shachar on 2024/10/6.
 //
 
+
 import SpriteKit
 import UIKit
 
 class HomeGameScene: SKScene {
 
-    var enchantress: SKSpriteNode!
-    var knight: SKSpriteNode!
-    var musketeer: SKSpriteNode!
-    var personData: UserData?
+
+    var viewModel: HomeGameSceneViewModel!
     weak var viewController: UIViewController?
+    var characterNodes: [Int: SKSpriteNode] = [:]
+    var personData: UserData?
+
 
     override func didMove(to view: SKView) {
-        super.didMove(to: view)
-        self.backgroundColor = UIColor.clear
+           super.didMove(to: view)
+           self.backgroundColor = UIColor.clear
 
-        enchantress = createCharacter(named: "Enchantress", position: CGPoint(x: frame.midX - 150, y: frame.midY))
-        knight = createCharacter(named: "Knight", position: CGPoint(x: frame.midX, y: frame.midY))
-        musketeer = createCharacter(named: "Musketeer", position: CGPoint(x: frame.midX + 150, y: frame.midY))
-        
-        runRandomAction(for: enchantress, characterName: "Enchantress")
-        runRandomAction(for: knight, characterName: "Knight")
-        runRandomAction(for: musketeer, characterName: "Musketeer")
-      
+           viewModel = HomeGameSceneViewModel(personData: personData)
+
+           viewModel.onCharactersUpdated = { [weak self] in
+               self?.setupCharacters()
+           }
+
+           viewModel.createCharacters()
+       }
+
+
+    func setupCharacters() {
+        for node in characterNodes.values {
+            node.removeFromParent()
+        }
+        characterNodes.removeAll()
+
+        for character in viewModel.characters {
+            let characterNode = createCharacterNode(for: character)
+            characterNode.position = CGPoint(x: frame.midX + character.position.x, y: frame.midY + character.position.y)
+            addChild(characterNode)
+            characterNodes[character.characterID] = characterNode
+
+            runRandomAction(for: characterNode, character: character)
+        }
     }
+
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
             let touchedNodes = nodes(at: location)
             for node in touchedNodes {
-                if let characterNode = node as? SKSpriteNode, let characterName = characterNode.name {
-                    handleCharacterTap(characterName)
+                if let characterNode = node as? SKSpriteNode, let characterIDString = characterNode.name, let characterID = Int(characterIDString) {
+                    handleCharacterTap(characterID)
                     break
                 }
             }
         }
     }
 
-    func handleCharacterTap(_ characterName: String) {
-        guard let personData = self.personData else { return }
-        guard let requiredLevel = Int(characterName) else { return }
-        let playerLevel = personData.levelData?.levelNumber ?? 0
-
-        if playerLevel < requiredLevel {
-            if let characterNode = self.childNode(withName: characterName) as? SKSpriteNode,
-               let warningBox = characterNode.childNode(withName: "warningBox") as? SKShapeNode,
-               let warningLabel = warningBox.childNode(withName: "warningLabel") as? SKLabelNode {
-                
-                warningLabel.text = "請先通關前面關卡\n再進到下一階段"
-
-                warningBox.xScale = 1 / characterNode.xScale
-
-                warningBox.isHidden = false
-
-                let fadeIn = SKAction.fadeIn(withDuration: 0.3)
-                let wait = SKAction.wait(forDuration: 2.0)
-                let fadeOut = SKAction.fadeOut(withDuration: 0.3)
-                let hideAction = SKAction.run {
-                    warningBox.isHidden = true
+    func handleCharacterTap(_ characterID: Int) {
+        viewModel.handleCharacterTap(characterID: characterID) { [weak self] action in
+            guard let self = self else { return }
+            switch action {
+            case .showWarning(let message):
+                if let characterNode = self.characterNodes[characterID] {
+                    self.showWarning(message: message, on: characterNode)
                 }
-                let sequence = SKAction.sequence([fadeIn, wait, fadeOut, hideAction])
-                warningBox.run(sequence)
+            case .navigateToLevelUpGame:
+                let levelUpGamePage = LevelUpGamePageViewController()
+                levelUpGamePage.levelNumber = self.viewModel.personData?.levelData?.levelNumber ?? 0
+                levelUpGamePage.correctCount = self.viewModel.personData?.levelData?.correct ?? 0
+                levelUpGamePage.wrongCount = self.viewModel.personData?.levelData?.wrong ?? 0
+                levelUpGamePage.isCorrect = self.viewModel.personData?.levelData?.isCorrect ?? []
+                levelUpGamePage.modalPresentationStyle = .fullScreen
+                levelUpGamePage.returnLevelNumber = { [weak self] data in
+                    guard let self = self else { return }
+                    if self.viewModel.personData?.levelData == nil {
+                        self.viewModel.personData?.levelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
+                    } else {
+                        self.viewModel.personData?.levelData?.levelNumber = data
+                    }
+                    print("Updated levelNumber: \(data)")
+                }
+                self.viewController?.present(levelUpGamePage, animated: true, completion: nil)
+            case .navigateToSentenceFillGame:
+                let fillLevelUpGamePage = SentenceFillGamePageViewController()
+                fillLevelUpGamePage.levelNumber = self.viewModel.personData?.fillLevelData?.levelNumber ?? 0
+                fillLevelUpGamePage.correctCount = self.viewModel.personData?.fillLevelData?.correct ?? 0
+                fillLevelUpGamePage.wrongCount = self.viewModel.personData?.fillLevelData?.wrong ?? 0
+                fillLevelUpGamePage.isCorrect = self.viewModel.personData?.fillLevelData?.isCorrect ?? []
+                fillLevelUpGamePage.modalPresentationStyle = .fullScreen
+                fillLevelUpGamePage.returnLevelNumber = { [weak self] data in
+                    guard let self = self else { return }
+                    if self.viewModel.personData?.fillLevelData == nil {
+                        self.viewModel.personData?.fillLevelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
+                    } else {
+                        self.viewModel.personData?.fillLevelData?.levelNumber = data
+                    }
+                    print("Updated levelNumber: \(data)")
+                }
+                self.viewController?.present(fillLevelUpGamePage, animated: true, completion: nil)
             }
-            return
         }
-        
-        if characterName == "0" {
-            let levelUpGamePage = LevelUpGamePageViewController()
-            levelUpGamePage.levelNumber = personData.levelData?.levelNumber ?? 0
-            levelUpGamePage.correctCount = personData.levelData?.correct ?? 0
-            levelUpGamePage.wrongCount = personData.levelData?.wrong ?? 0
-            levelUpGamePage.isCorrect = personData.levelData?.isCorrect ?? []
-            levelUpGamePage.modalPresentationStyle = .fullScreen
-            levelUpGamePage.returnLevelNumber = { [weak self] data in
-                guard let self = self else { return }
-                if self.personData?.levelData == nil {
-                    self.personData?.levelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
-                } else {
-                    self.personData?.levelData?.levelNumber = data
-                }
-                print("Updated levelNumber: \(data)")
-            }
-            viewController?.present(levelUpGamePage, animated: true, completion: nil)
-        } else if characterName == "99" {
-            let fillLevelUpGamePage = SentenceFillGamePageViewController()
-            fillLevelUpGamePage.levelNumber = personData.fillLevelData?.levelNumber ?? 0
-            fillLevelUpGamePage.correctCount = personData.fillLevelData?.correct ?? 0
-            fillLevelUpGamePage.wrongCount = personData.fillLevelData?.wrong ?? 0
-            fillLevelUpGamePage.isCorrect = personData.fillLevelData?.isCorrect ?? []
-            fillLevelUpGamePage.modalPresentationStyle = .fullScreen
-            fillLevelUpGamePage.returnLevelNumber = { [weak self] data in
-                guard let self = self else { return }
-                if self.personData?.fillLevelData == nil {
-                    self.personData?.fillLevelData = LevelData(correct: 0, levelNumber: data, wrong: 0, isCorrect: [])
-                } else {
-                    self.personData?.fillLevelData?.levelNumber = data
-                }
-                print("Updated levelNumber: \(data)")
-            }
-            viewController?.present(fillLevelUpGamePage, animated: true, completion: nil)
-        }
-        
     }
 
-    func createCharacter(named characterName: String, position: CGPoint) -> SKSpriteNode {
-        let character = SKSpriteNode(imageNamed: "\(characterName)Idle0")
-        character.position = position
-        character.name = characterName
-        
-        character.zPosition = 1
-        addChild(character)
 
-        let labelText: String
-        let fontName: String
-        switch characterName {
-        case "Enchantress":
-            labelText = "單字英翻中"
-            fontName = "Arial-BoldMT"
-            character.name = "0"
+    func createCharacterNode(for character: GameCharacter) -> SKSpriteNode {
+        let characterNode = SKSpriteNode(imageNamed: "\(character.name)Idle0")
+        characterNode.name = "\(character.characterID)"
+        characterNode.zPosition = 1
 
-        case "Knight":
-            labelText = "句子填空"
-            fontName = "HelveticaNeue-Bold"
-            character.name = "99"
+        let label = SKLabelNode(text: character.displayName)
+        label.fontName = character.fontName
+        label.fontSize = 20
+        label.fontColor = UIColor(named: "HomeTextColor")
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.position = CGPoint(x: 0, y: characterNode.size.height / 2 + 10)
+        label.name = "label"
 
-        case "Musketeer":
-            labelText = "文法測試"
-            fontName = "Courier-Bold"
-            character.name = "199"
+        let backgroundSize = CGSize(width: label.frame.width + 15, height: label.frame.height + 5)
+        let background = SKShapeNode(path: UIBezierPath(roundedRect: CGRect(origin: .zero, size: backgroundSize), cornerRadius: 10).cgPath)
+        background.fillColor = UIColor(named: "HomeTextBackGround") ?? .white
+        background.strokeColor = .clear
+        background.alpha = 0.8
+        background.position = CGPoint(x: label.position.x - backgroundSize.width / 2, y: label.position.y - backgroundSize.height / 2)
 
-        default:
-            labelText = ""
-            fontName = "Helvetica"
-        }
+        characterNode.addChild(background)
+        characterNode.addChild(label)
 
-        if !labelText.isEmpty {
-            let label = SKLabelNode(text: labelText)
-            label.fontName = fontName
-            label.fontSize = 20
-            label.fontColor = UIColor(named: "HomeTextColor")
-            
-            label.verticalAlignmentMode = .center
-            label.horizontalAlignmentMode = .center
-            label.position = CGPoint(x: 0, y: character.size.height / 2 + 10)
-            label.name = "label"
-            
-            let backgroundSize = CGSize(width: label.frame.width + 15, height: label.frame.height + 5)
-            
-            let background = SKShapeNode(path: UIBezierPath(roundedRect: CGRect(origin: .zero, size: backgroundSize), cornerRadius: 10).cgPath)
-            background.fillColor = UIColor(named: "HomeTextBackGround") ?? .white
-            background.strokeColor = .clear
-            background.alpha = 0.8
-            
-            background.position = CGPoint(x: label.position.x - backgroundSize.width / 2, y: label.position.y - backgroundSize.height / 2)
-            
-            character.addChild(background)
-            character.addChild(label)
-        }
-        
-        let warningLabel = SKLabelNode(text: "請先通關前面關卡\n當前通關進度: 初階")
+        let warningLabel = SKLabelNode(text: "")
         warningLabel.fontName = "Arial-BoldMT"
         warningLabel.fontSize = 14
         warningLabel.fontColor = .white
@@ -172,134 +141,177 @@ class HomeGameScene: SKScene {
         warningLabel.horizontalAlignmentMode = .center
         warningLabel.numberOfLines = 2
         warningLabel.name = "warningLabel"
-        
+
         let padding: CGFloat = 20
         let warningBoxWidth = warningLabel.frame.width + padding
         let warningBoxHeight = warningLabel.frame.height + padding
-        
+
         let warningBox = SKShapeNode(rectOf: CGSize(width: warningBoxWidth, height: warningBoxHeight), cornerRadius: 10)
         warningBox.fillColor = UIColor.red.withAlphaComponent(0.7)
         warningBox.strokeColor = .clear
         warningBox.zPosition = 10
         warningBox.isHidden = true
         warningBox.name = "warningBox"
-        
+
         warningBox.addChild(warningLabel)
         warningLabel.position = CGPoint(x: 0, y: 0)
-        
-        warningBox.position = CGPoint(x: 0, y: character.size.height / 2 + 80)
-        character.addChild(warningBox)
 
-        return character
+        warningBox.position = CGPoint(x: 0, y: characterNode.size.height / 2 + 80)
+        characterNode.addChild(warningBox)
+
+        return characterNode
     }
-    
-    func runRandomAction(for character: SKSpriteNode, characterName: String) {
-        let randomChoice = Int.random(in: 0...5)
-        
-        switch randomChoice {
-        case 0:
-            if characterName == "Enchantress" || characterName == "Musketeer" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Run", imageCount: 13)
-            } else if characterName == "Knight" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Run", imageCount: 11)
+
+
+    func showWarning(message: String, on characterNode: SKSpriteNode) {
+        if let warningBox = characterNode.childNode(withName: "warningBox") as? SKShapeNode,
+           let warningLabel = warningBox.childNode(withName: "warningLabel") as? SKLabelNode {
+            
+            warningLabel.text = message
+            
+            let padding: CGFloat = 20
+            let warningBoxWidth = warningLabel.frame.width + padding
+            let warningBoxHeight = warningLabel.frame.height + padding
+            
+            let newRect = CGRect(x: -warningBoxWidth / 2, y: -warningBoxHeight / 2, width: warningBoxWidth, height: warningBoxHeight)
+            let newPath = UIBezierPath(roundedRect: newRect, cornerRadius: 10).cgPath
+            warningBox.path = newPath
+            
+            warningLabel.position = CGPoint(x: 0, y: 0)
+            
+            warningBox.xScale = 1 / characterNode.xScale
+            
+            warningBox.isHidden = false
+            
+            let fadeIn = SKAction.fadeIn(withDuration: 0.3)
+            let wait = SKAction.wait(forDuration: 2.0)
+            let fadeOut = SKAction.fadeOut(withDuration: 0.3)
+            let hideAction = SKAction.run {
+                warningBox.isHidden = true
             }
-        case 1:
-            if characterName == "Enchantress" || characterName == "Musketeer" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Walk", imageCount: 13)
-            } else if characterName == "Knight" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Walk", imageCount: 12)
-            }
-        case 2:
-            if characterName == "Enchantress" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 7)
-            } else if characterName == "Knight" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 5)
-            } else if characterName == "Musketeer" {
-                runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 6)
-            }
-        case 3:
-            if characterName == "Enchantress" {
-                stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 7, timePerFrame: 0.5)
-            } else if characterName == "Knight" {
-                stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 5, timePerFrame: 0.5)
-            } else if characterName == "Musketeer" {
-                stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 4, timePerFrame: 0.5)
-            }
-        case 4:
-            if characterName == "Enchantress" {
-                stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 4, timePerFrame: 0.5)
-            } else if characterName == "Knight" {
-                stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 3, timePerFrame: 0.5)
-            } else if  characterName == "Musketeer" {
-                stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 3, timePerFrame: 0.5)
-            }
-        case 5:
-            if characterName == "Enchantress" {
-                stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 21, timePerFrame: 0.2)
-            } else if characterName == "Knight" {
-                stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 16, timePerFrame: 0.2)
-            } else if characterName == "Musketeer" {
-                stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 19, timePerFrame: 0.2)
-            }
+            let sequence = SKAction.sequence([fadeIn, wait, fadeOut, hideAction])
+            warningBox.run(sequence)
+        }
+    }
+
+
+    func runRandomAction(for characterNode: SKSpriteNode, character: GameCharacter) {
+        let action = viewModel.getRandomAction(for: character)
+        switch action.actionName {
+        case "Run":
+            runAnimationAndMove(characterNode, character: character, imageName: "Run")
+        case "Walk":
+            runAnimationAndMove(characterNode, character: character, imageName: "Walk")
+        case "Jump", "Idle", "Dead", "Attack":
+            stopAnimation(characterNode, character: character, imageName: action.actionName)
         default:
             break
         }
     }
-    
-    func runAnimationAndMove(_ character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int) {
-        var runTextures: [SKTexture] = []
+
+    func runAnimationAndMove(_ characterNode: SKSpriteNode, character: GameCharacter, imageName: String) {
+        var textures: [SKTexture] = []
+        let imageCount = getImageCount(characterName: character.name, actionName: imageName)
         for i in 0...imageCount {
-            let textureName = "\(characterName)\(imageName)\(i)"
+            let textureName = "\(character.name)\(imageName)\(i)"
             let texture = SKTexture(imageNamed: textureName)
-            runTextures.append(texture)
+            textures.append(texture)
         }
-        let runAnimation = SKAction.animate(with: runTextures, timePerFrame: 0.1)
-        let repeatRunAnimation = SKAction.repeatForever(runAnimation)
-        
-        let randomX = CGFloat.random(in: 0...(frame.size.width - 50))
-        let randomY = CGFloat.random(in: 0...(frame.size.height - 50))
+        let animation = SKAction.animate(with: textures, timePerFrame: 0.1)
+        let repeatAnimation = SKAction.repeatForever(animation)
+
+        let randomX = CGFloat.random(in: 0...(size.width - 50))
+        let randomY = CGFloat.random(in: 0...(size.height - 50))
         let randomPoint = CGPoint(x: randomX, y: randomY)
-        
-        let deltaX = randomX - character.position.x
+
+        let deltaX = randomX - characterNode.position.x
         if deltaX < 0 {
-            character.xScale = -1
+            characterNode.xScale = -1
         } else {
-            character.xScale = 1
-        }
-        
-        if let label = character.childNode(withName: "label") as? SKLabelNode {
-            label.xScale = 1 / character.xScale
+            characterNode.xScale = 1
         }
 
-        if let warningBox = character.childNode(withName: "warningBox") as? SKShapeNode {
-            warningBox.xScale = 1 / character.xScale
+        if let label = characterNode.childNode(withName: "label") as? SKLabelNode {
+            label.xScale = 1 / characterNode.xScale
         }
-        
-        character.run(repeatRunAnimation, withKey: "\(imageName)Animation")
-        
+
+        if let warningBox = characterNode.childNode(withName: "warningBox") as? SKShapeNode {
+            warningBox.xScale = 1 / characterNode.xScale
+        }
+
+        characterNode.run(repeatAnimation, withKey: "\(imageName)Animation")
+
         let moveAction = SKAction.move(to: randomPoint, duration: 7)
-        
-        let moveCompletion = SKAction.run {
-            character.removeAction(forKey: "\(imageName)Animation")
-            self.runRandomAction(for: character, characterName: characterName)
+
+        let moveCompletion = SKAction.run { [weak self] in
+            characterNode.removeAction(forKey: "\(imageName)Animation")
+            self?.runRandomAction(for: characterNode, character: character)
         }
-        
+
         let sequence = SKAction.sequence([moveAction, moveCompletion])
-        character.run(sequence)
+        characterNode.run(sequence)
     }
 
-    func stopAnimation(_ character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int, timePerFrame: Double) {
-        var idleTextures: [SKTexture] = []
+    func stopAnimation(_ characterNode: SKSpriteNode, character: GameCharacter, imageName: String) {
+        var textures: [SKTexture] = []
+        let imageCount = getImageCount(characterName: character.name, actionName: imageName)
+        let timePerFrame = getTimePerFrame(actionName: imageName)
         for i in 0...imageCount {
-            let textureName = "\(characterName)\(imageName)\(i)"
+            let textureName = "\(character.name)\(imageName)\(i)"
             let texture = SKTexture(imageNamed: textureName)
-            idleTextures.append(texture)
+            textures.append(texture)
         }
-        let idleAnimation = SKAction.animate(with: idleTextures, timePerFrame: timePerFrame)
-        
-        let sequence = SKAction.sequence([idleAnimation, SKAction.run {
-            self.runRandomAction(for: character, characterName: characterName)
+        let animation = SKAction.animate(with: textures, timePerFrame: timePerFrame)
+
+        let sequence = SKAction.sequence([animation, SKAction.run { [weak self] in
+            self?.runRandomAction(for: characterNode, character: character)
         }])
-        character.run(sequence)
+        characterNode.run(sequence)
+    }
+
+    func getImageCount(characterName: String, actionName: String) -> Int {
+        switch (characterName, actionName) {
+        case ("Enchantress", "Run"), ("Musketeer", "Run"):
+            return 13
+        case ("Knight", "Run"):
+            return 11
+        case ("Enchantress", "Walk"), ("Musketeer", "Walk"):
+            return 13
+        case ("Knight", "Walk"):
+            return 12
+        case ("Enchantress", "Jump"):
+            return 7
+        case ("Knight", "Jump"):
+            return 5
+        case ("Musketeer", "Jump"):
+            return 6
+        case ("Enchantress", "Idle"):
+            return 7
+        case ("Knight", "Idle"):
+            return 5
+        case ("Musketeer", "Idle"):
+            return 4
+        case ("Enchantress", "Dead"):
+            return 4
+        case ("Knight", "Dead"), ("Musketeer", "Dead"):
+            return 3
+        case ("Enchantress", "Attack"):
+            return 21
+        case ("Knight", "Attack"):
+            return 16
+        case ("Musketeer", "Attack"):
+            return 19
+        default:
+            return 0
+        }
+    }
+
+    func getTimePerFrame(actionName: String) -> Double {
+        switch actionName {
+        case "Attack":
+            return 0.2
+        default:
+            return 0.5
+        }
     }
 }

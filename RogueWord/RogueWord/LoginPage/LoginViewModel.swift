@@ -2,19 +2,6 @@ import Foundation
 import AuthenticationServices
 import FirebaseFirestore
 
-// 添加擴展
-extension Encodable {
-    func toDictionary() -> [String: Any]? {
-        do {
-            let data = try Firestore.Encoder().encode(self)
-            return data
-        } catch {
-            print("Error converting to dictionary: \(error)")
-            return nil
-        }
-    }
-}
-
 class LoginViewModel {
     
     private let model = FirestoreService()
@@ -26,8 +13,6 @@ class LoginViewModel {
     
     init() {
         self.jsonFileModel.fetchAndSaveWordsToJSON()
-        self.jsonFileModel.loadWordsFromFile()
-        self.jsonFileModel.readWordsFromJSONFile()
     }
     
     func handleAuthorization(authorization: ASAuthorization) {
@@ -36,7 +21,6 @@ class LoginViewModel {
             print("fullName: \(String(describing: appleIDCredential.fullName))")
             print("Email: \(String(describing: appleIDCredential.email))")
             print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
-            
             
             var userData = UserData(
                 userID: appleIDCredential.user,
@@ -57,7 +41,7 @@ class LoginViewModel {
             let query = FirestoreEndpoint.fetchPersonData.ref.document(appleIDCredential.user)
             FirestoreService.shared.getDocument(query) { (personData: UserData?) in
                 if let personData = personData {
-                    print("DEBUG here \(personData)")
+                    print("DEBUG personData \(personData)")
                     userData = personData
                     
                     self.model.downloadImageData(path: personData.image ?? "") { [weak self] imageData in
@@ -127,7 +111,6 @@ class LoginViewModel {
                     dispatchGroup.notify(queue: .main) {
                         self.saveToUserDefaults(userData)
                         self.onUserDataSaved?()
-                        
                     }
                 }
             }

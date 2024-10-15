@@ -131,7 +131,7 @@ class BattleViewController: UIViewController {
             make.height.equalTo(450)
         }
         
-
+        
         cardView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(16)
@@ -378,12 +378,15 @@ class BattleViewController: UIViewController {
                                 print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
                             } else {
                                 print("DEBUG: Successfully updated LevelNumber to \(newRank)")
+                                DispatchQueue.main.async {
+                                    self.updateAccuracyLabel()
+                                }
                             }
                         }
                     }
                 }
                 self.present(battlePage, animated: true)
-
+                
             }
         }
     }
@@ -422,6 +425,9 @@ class BattleViewController: UIViewController {
                                 print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
                             } else {
                                 print("DEBUG: Successfully updated LevelNumber to \(newRank)")
+                                DispatchQueue.main.async {
+                                    self.updateAccuracyLabel()
+                                }
                             }
                         }
                     }

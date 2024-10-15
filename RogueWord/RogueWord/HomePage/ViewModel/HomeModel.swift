@@ -13,7 +13,6 @@ import SpriteKit
 class HomeModel { 
     var personData: UserData?
 
-
     func fetchLevelNumber(completion: @escaping (UserData?) -> Void) {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else {
             print("User ID not found.")

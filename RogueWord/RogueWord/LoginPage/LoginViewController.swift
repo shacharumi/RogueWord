@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         setupUI()
         setupBindings()
         startBackgroundAnimation()
@@ -120,23 +119,13 @@ class LoginViewController: UIViewController {
     func animateButton(by deltaY: CGFloat) {
         UIView.animate(withDuration: 0.3, animations: {
             self.buttonView.center.y += deltaY
-        }) { _ in
-            
-        }
+        })
     }
     
     func setupBindings() {
         
         viewModel.onUserDataSaved = { [weak self] in
             self?.navigateToMainScreen()
-        }
-        
-        viewModel.onError = { [weak self] errorMessage in
-            self?.presentErrorAlert(message: errorMessage)
-        }
-        
-        viewModel.onPromptForUserName = { [weak self] completion in
-            self?.promptForUserName(completion: completion)
         }
     }
     
@@ -176,36 +165,6 @@ class LoginViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func promptForUserName(completion: @escaping (String) -> Void) {
-        let alertController = UIAlertController(title: "輸入遊戲暱稱", message: "請輸入您的遊戲暱稱", preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "名字"
-        }
-        
-        let confirmAction = UIAlertAction(title: "確認", style: .default) { _ in
-            if let userName = alertController.textFields?.first?.text, !userName.isEmpty {
-                completion(userName)
-            } else {
-                self.presentErrorAlert(message: "名字不能為空")
-                self.promptForUserName(completion: completion)
-            }
-        }
-        alertController.addAction(confirmAction)
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
-            print("使用者取消了輸入名字")
-        }
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func presentErrorAlert(message: String) {
-        let alert = UIAlertController(title: "提示", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
 }
 

@@ -167,7 +167,7 @@ class PersonFileViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.top.left.equalTo(tableViewCard).offset(24)
             make.right.equalTo(tableViewCard).offset(-24)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
         }
         
         view.addSubview(catImage)
@@ -232,7 +232,6 @@ class PersonFileViewController: UIViewController {
         alertController.addAction(changeProfilePictureAction)
         alertController.addAction(cancelAction)
 
-        // 配置 popoverPresentationController
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(
@@ -264,7 +263,6 @@ class PersonFileViewController: UIViewController {
         alertController.addAction(chooseFromLibraryAction)
         alertController.addAction(cancelAction)
 
-        // 配置 popoverPresentationController
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(
@@ -280,7 +278,6 @@ class PersonFileViewController: UIViewController {
     }
 
     func showImagePicker(sourceType: UIImagePickerController.SourceType) {
-        // 檢查相機權限
         if sourceType == .camera {
             let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
             
@@ -288,7 +285,6 @@ class PersonFileViewController: UIViewController {
             case .authorized:
                 presentImagePicker(sourceType: sourceType)
             case .notDetermined:
-                // 請求相機權限
                 AVCaptureDevice.requestAccess(for: .video) { granted in
                     if granted {
                         DispatchQueue.main.async {
@@ -345,7 +341,6 @@ class PersonFileViewController: UIViewController {
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         
-        // 配置 popoverPresentationController
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(
@@ -376,7 +371,6 @@ class PersonFileViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-        // 配置 popoverPresentationController
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(
@@ -442,7 +436,6 @@ class PersonFileViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension PersonFileViewController: UITableViewDelegate, UITableViewDataSource {
 

@@ -24,15 +24,21 @@ class BattleGameScene: SKScene {
         let center = CGPoint(x: size.width / 2, y: size.height / 2)
         self.backgroundColor = .clear
 
+        // Create Characters
         enchantress = createCharacter(named: "Enchantress", position: CGPoint(x: center.x - 100, y: center.y + 30))
         knight = createCharacter(named: "Knight", position: CGPoint(x: center.x - 100, y: center.y - 170))
         musketeer = createCharacter(named: "Musketeer", position: CGPoint(x: center.x + 100, y: center.y - 170))
         wizard = createCharacter(named: "Wizard", position: CGPoint(x: center.x + 100, y: center.y + 30))
 
+        // Run animations only for Enchantress and Wizard
         runRandomAction(for: enchantress, characterName: "Enchantress")
-        runRandomAction(for: knight, characterName: "Knight")
-        runRandomAction(for: musketeer, characterName: "Musketeer")
         runRandomAction(for: wizard, characterName: "Wizard")
+
+        // Disable Knight and Musketeer
+        let disabledCharacters = [knight, musketeer]
+        for character in disabledCharacters {
+            disableCharacter(character!)
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -49,13 +55,22 @@ class BattleGameScene: SKScene {
     }
 
     func handleCharacterTap(_ characterName: String, node: SKSpriteNode) {
+        // Check if the character is disabled
+        if let isDisabled = node.userData?["disabled"] as? Bool, isDisabled {
+            // Optionally, provide feedback to the user
+            let alert = UIAlertController(title: "不可用", message: "此角色目前不可用。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
+            self.viewController?.present(alert, animated: true, completion: nil)
+            return
+        }
+
         guard let rank = self.rank else { return }
         guard let requiredLevel = node.userData?["requiredLevel"] as? Int else { return }
         let rankScore = Int(rank.rankScore) ?? 0
 
-        if characterName == "Knight" {
+        if characterName == "Wizard" {
             // Present alert with options
-            let alert = UIAlertController(title: "Knight", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "多人連線", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "創建房間", style: .default, handler: { [weak self] _ in
                 self?.createRoom()
             }))
@@ -75,43 +90,38 @@ class BattleGameScene: SKScene {
     }
 
     func createRoom() {
-        // 使用编码后的电子邮件作为唯一的房间 ID
         let email = UserDefaults.standard.string(forKey: "email") ?? "unknownEmail"
         let roomID = encodeEmail(email)
 
-        // 获取 Firebase Realtime Database 的引用
         let ref = Database.database().reference()
 
-        // 获取当前用户的信息
         let playerName = UserDefaults.standard.string(forKey: "fullName") ?? "Unknown Player"
         let userEmail = email
 
-        // 创建房间节点的数据
         let roomData: [String: Any] = [
             "createdBy": playerName,
-            "createdByEmail": userEmail, // 使用电子邮件识别房间创建者
+            "createdByEmail": userEmail,
             "score": 0,
             "isStart": false,
             "participants": [
                 encodeEmail(userEmail): [
                     "name": playerName,
-                    "accurency": 0,
+                    "accuracy": 0,
                     "time": 0
                 ]
             ]
         ]
 
-        // 保存到数据库
         ref.child("rooms").child(roomID).setValue(roomData) { [weak self] (error, _) in
             if let error = error {
                 print("Error creating room: \(error.localizedDescription)")
-                // 显示错误给用户
+                // Show error to user
                 let errorAlert = UIAlertController(title: "错误", message: error.localizedDescription, preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
                 self?.viewController?.present(errorAlert, animated: true, completion: nil)
             } else {
-                // 成功创建房间
-                // 跳转到 RoomViewController
+                // Successfully created room
+                // Navigate to RoomViewController
                 let roomVC = RoomViewController()
                 roomVC.roomID = roomID
                 roomVC.modalPresentationStyle = .fullScreen
@@ -122,7 +132,7 @@ class BattleGameScene: SKScene {
 
     func scanQRCode() {
         let scannerVC = QRCodeScannerViewController()
-        scannerVC.delegate = self  // 设置委托
+        scannerVC.delegate = self  // Set delegate
         scannerVC.modalPresentationStyle = .fullScreen
         self.viewController?.present(scannerVC, animated: true, completion: nil)
     }
@@ -141,22 +151,22 @@ class BattleGameScene: SKScene {
 
         switch characterName {
         case "Enchantress":
-            labelText = "銅牌"
+            labelText = "積分對戰"
             fontName = "Arial-BoldMT"
             requiredLevel = 0
 
         case "Knight":
-            labelText = "銀牌"
+            labelText = "未來可期"
             fontName = "HelveticaNeue-Bold"
             requiredLevel = 200
 
         case "Musketeer":
-            labelText = "金牌"
+            labelText = "未來可期"
             fontName = "Courier-Bold"
             requiredLevel = 500
 
         case "Wizard":
-            labelText = "大師"
+            labelText = "多人對戰"
             fontName = "Courier-Bold"
             requiredLevel = 1000
 
@@ -227,8 +237,23 @@ class BattleGameScene: SKScene {
     func decodeEmail(_ encodedEmail: String) -> String {
         return encodedEmail.replacingOccurrences(of: ",", with: ".")
     }
-}
 
+    func disableCharacter(_ character: SKSpriteNode) {
+        character.color = .gray
+        character.colorBlendFactor = 1.0
+
+        character.removeAllActions()
+
+        if character.userData == nil {
+            character.userData = [:]
+        }
+        character.userData?["disabled"] = true
+
+        // Optionally, reduce opacity to emphasize disabled state
+        character.alpha = 0.6
+
+    }
+}
 
 extension BattleGameScene: QRCodeScannerDelegate {
     func didScanQRCode(with roomID: String) {
@@ -243,7 +268,7 @@ extension BattleGameScene: QRCodeScannerDelegate {
 
         ref.child("rooms").child(roomID).child("participants").child(encodeEmail(userEmail)).setValue([
             "name": playerName,
-            "accurency": 0,
+            "accuracy": 0,
             "time": 0
         ]) { [weak self] (error, _) in
             if let error = error {

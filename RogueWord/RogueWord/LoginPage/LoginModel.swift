@@ -55,4 +55,3 @@ struct UserData: Codable {
         case fillLevelData
     }
 }
-
