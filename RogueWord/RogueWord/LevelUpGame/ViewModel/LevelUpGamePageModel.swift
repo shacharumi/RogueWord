@@ -113,25 +113,6 @@ class LevelUpGamePageModel {
         }
     }
     
-//    func removeToFavorites() {
-//        guard let word = getCurrentQuestion() else {return}
-//        
-//        let db = Firestore.firestore()
-//        guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
-//        
-//        let userCollectionRef = db.collection("PersonAccount").document(userID).collection("CollectionFolderWords").document("\(currentQuestionIndex)")
-//        
-//        userCollectionRef.delete() { error in
-//            if let error = error {
-//                print("Error remove document: \(error)")
-//            } else {
-//                print("Document removed with ID: \(self.currentQuestionIndex)")
-//            }
-//        }
-//    }
-    
-    
-    
     func loadWordsFromFile() -> [JsonWord] {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Error: Could not find the documents directory.")

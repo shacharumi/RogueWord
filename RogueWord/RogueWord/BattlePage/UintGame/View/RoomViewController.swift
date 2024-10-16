@@ -188,12 +188,174 @@ class RoomViewController: UIViewController, UITableViewDelegate, UITableViewData
         gameVC.roomID = self.roomID
         
         let data: [FireBaseWord] = [
-            FireBaseWord(levelNumber: 2, tag: "All", word: JsonWord(levelNumber: 2, english: "several", chinese: "幾個的;一些的", property: "quant.", sentence: "She has several books on her desk.")),
-            FireBaseWord(levelNumber: 2, tag: "All", word: JsonWord(levelNumber: 2, english: "hurry", chinese: "匆忙", property: "verb", sentence: "We need to hurry or we'll miss the train.")),
-            FireBaseWord(levelNumber: 2, tag: "All", word: JsonWord(levelNumber: 2, english: "complicated", chinese: "複雜的", property: "adj.", sentence: "The instructions are too complicated for beginners.")),
-            FireBaseWord(levelNumber: 2, tag: "All", word: JsonWord(levelNumber: 2, english: "solution", chinese: "解決方法", property: "noun", sentence: "He came up with a clever solution to the problem.")),
-            FireBaseWord(levelNumber: 2, tag: "All", word: JsonWord(levelNumber: 2, english: "quickly", chinese: "快速地", property: "adv.", sentence: "The athlete quickly crossed the finish line."))
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "ubiquitous",
+                    chinese: "無處不在的",
+                    property: "adj.",
+                    sentence: "Smartphones have become ubiquitous in modern society."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "quintessential",
+                    chinese: "典型的",
+                    property: "adj.",
+                    sentence: "She is the quintessential professional, always prepared and punctual."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "conundrum",
+                    chinese: "難題",
+                    property: "noun",
+                    sentence: "The issue presents a conundrum that has yet to be resolved."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "ephemeral",
+                    chinese: "短暫的",
+                    property: "adj.",
+                    sentence: "Fashions are ephemeral, they change with time."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "juxtapose",
+                    chinese: "並列",
+                    property: "verb",
+                    sentence: "The exhibition juxtaposes modern art with classical sculptures."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "esoteric",
+                    chinese: "深奧的",
+                    property: "adj.",
+                    sentence: "The professor's lectures were so esoteric that only a few students could understand them."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "meticulous",
+                    chinese: "一絲不苟的",
+                    property: "adj.",
+                    sentence: "She is meticulous in her work, ensuring every detail is perfect."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "ambivalent",
+                    chinese: "矛盾的",
+                    property: "adj.",
+                    sentence: "He felt ambivalent about the promotion, excited yet apprehensive."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "cogent",
+                    chinese: "有說服力的",
+                    property: "adj.",
+                    sentence: "She presented a cogent argument that convinced everyone."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "perfunctory",
+                    chinese: "敷衍的",
+                    property: "adj.",
+                    sentence: "His perfunctory response indicated a lack of interest."
+                )
+            ),
+            // 新增五個高難度項目
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "lucid",
+                    chinese: "清晰的",
+                    property: "adj.",
+                    sentence: "She gave a lucid account of the complex situation."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "intransigent",
+                    chinese: "不妥協的",
+                    property: "adj.",
+                    sentence: "The negotiators found the other party to be intransigent."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "obfuscate",
+                    chinese: "使模糊",
+                    property: "verb",
+                    sentence: "The company's financial statement was designed to obfuscate the real situation."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "magnanimous",
+                    chinese: "寬宏大量的",
+                    property: "adj.",
+                    sentence: "Despite the rivalry, he was magnanimous in victory."
+                )
+            ),
+            FireBaseWord(
+                levelNumber: 900,
+                tag: "Advanced",
+                word: JsonWord(
+                    levelNumber: 900,
+                    english: "sagacious",
+                    chinese: "睿智的",
+                    property: "adj.",
+                    sentence: "Her sagacious decisions have greatly benefited the company."
+                )
+            )
         ]
+
         gameVC.collectionData = data
         gameVC.modalPresentationStyle = .fullScreen
         self.present(gameVC, animated: true, completion: nil)

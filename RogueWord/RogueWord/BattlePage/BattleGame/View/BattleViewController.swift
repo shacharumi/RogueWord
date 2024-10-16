@@ -11,10 +11,9 @@ import SnapKit
 
 class BattleViewController: UIViewController {
     
-    var ref: DatabaseReference!
-    
-    var actionButton: UIButton!
+    var viewModel: BattleViewModel!
     var rank: Rank?
+    var actionButton: UIButton!
     
     var cardView: UIView = {
         let view = UIView()
@@ -25,7 +24,6 @@ class BattleViewController: UIViewController {
     }()
     
     var userImage: UIImageView = {
-        let imageURL = UserDefaults.standard.string(forKey: "image")
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
@@ -41,7 +39,7 @@ class BattleViewController: UIViewController {
         return image
     }()
     
-    var userName: UILabel = {
+    var userNameLabel: UILabel = {
         let label = UILabel()
         let userName = UserDefaults.standard.string(forKey: "userName")
         if let userNamedata = userName {
@@ -97,9 +95,27 @@ class BattleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
-        fectchRank()
         setupUI()
+        setupBindings()
+        viewModel.fetchRank()
+    }
+    
+    // 设置数据绑定
+    func setupBindings() {
+        viewModel = BattleViewModel()
+        
+        viewModel.onRankFetched = { [weak self] rank in
+            DispatchQueue.main.async {
+                self?.updateAccuracyLabel()
+            }
+        }
+        
+        viewModel.onError = { [weak self] error in
+            DispatchQueue.main.async {
+                // 处理错误，例如显示警告
+                print("Error: \(error.localizedDescription)")
+            }
+        }
     }
     
     func setupUI() {
@@ -131,7 +147,6 @@ class BattleViewController: UIViewController {
             make.height.equalTo(450)
         }
         
-        
         cardView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(16)
@@ -139,16 +154,16 @@ class BattleViewController: UIViewController {
             make.width.height.equalTo(80)
         }
         
-        cardView.addSubview(userName)
-        userName.snp.makeConstraints { make in
+        cardView.addSubview(userNameLabel)
+        userNameLabel.snp.makeConstraints { make in
             make.top.equalTo(userImage.snp.bottom).offset(8)
             make.centerX.equalTo(cardView)
         }
-        userName.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        userNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         
         cardView.addSubview(divideLine)
         divideLine.snp.makeConstraints { make in
-            make.top.equalTo(userName.snp.bottom).offset(8)
+            make.top.equalTo(userNameLabel.snp.bottom).offset(8)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
             make.height.equalTo(1)
@@ -198,7 +213,6 @@ class BattleViewController: UIViewController {
             make.height.equalTo(60)
         }
         
-        // WinRate Label 设置
         let winRateLabel = UILabel()
         winRateLabel.textColor = UIColor(named: "waitingLabel")
         winRateLabel.text = "勝率"
@@ -277,175 +291,25 @@ class BattleViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func fectchRank() {
-        guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
-        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
-        
-        FirestoreService.shared.getDocument(query) { (personData: UserData?) in
-            if let personData = personData {
-                self.rank = personData.rank
-                print("DEBUG here \(personData.rank)")
-                self.updateAccuracyLabel()
-            } else {
-                print("DEBUG: Failed to fetch or decode UserData.")
-            }
-        }
-    }
-    
+    // 更新准确率标签
     func updateAccuracyLabel() {
-        if let rank = self.rank {
-            let accurency = (rank.correct / (rank.playTimes * 10)) * 100
-            let winRate = (rank.winRate / rank.playTimes) * 100
+        if let rank = viewModel.rank {
+            let totalQuestions = rank.playTimes * 10
+            let accurency = totalQuestions > 0 ? (rank.correct / totalQuestions) * 100 : 0
+            let winRate = rank.playTimes > 0 ? (rank.winRate / rank.playTimes) * 100 : 0
             rankScoreLabel.text = String(format: "%.f", rank.rankScore)
             winRateScoreLabel.text = String(format: "%.1f %%", winRate)
             accurencyScoreLabel.text = String(format: "%.1f %%", accurency)
         } else {
             accurencyScoreLabel.text = "正確率取得失敗"
+            rankScoreLabel.text = "--"
+            winRateScoreLabel.text = "--"
         }
     }
     
     @objc func handleRoomAction() {
-        ref.child("Rooms").observeSingleEvent(of: .value) { snapshot in
-            if let roomsData = snapshot.value as? [String: [String: Any]] {
-                let availableRooms = roomsData.filter { room in
-                    if let player2Name = room.value["Player2Name"] as? String {
-                        return player2Name.isEmpty
-                    }
-                    return false
-                }
-                
-                if let randomRoom = availableRooms.randomElement() {
-                    self.joinRoom(roomId: randomRoom.key, roomData: randomRoom.value)
-                } else {
-                    self.createRoom()
-                }
-            } else {
-                self.createRoom()
-            }
-        }
-    }
-    
-    func createRoom() {
-        let roomId = UUID().uuidString
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else { return }
-        let roomData: [String: Any] = [
-            "Player1Name": userName,
-            "Player2Name": "",
-            "Player1Score": 0,
-            "Player2Score": 0,
-            "CurrentQuestionIndex": 0,
-            "PlayCounting": 10,
-            "Player1Select": "",
-            "Player2Select": "",
-            "RoomIsStart": false,
-            "QuestionData": [
-                "Question": "",
-                "Options": [
-                    "Option0": "",
-                    "Option1": "",
-                    "Option2": "",
-                    "Option3": ""
-                ],
-                "CorrectAnswer": ""
-            ]
-        ]
-        
-        ref.child("Rooms").child(roomId).setValue(roomData) { error, _ in
-            if let error = error {
-                print("建立房间失败: \(error.localizedDescription)")
-            } else {
-                print("房间建立成功，房间ID: \(roomId)")
-                let battlePage = BattlePlay1ViewController()
-                battlePage.roomId = roomId
-                battlePage.player1Id = userName
-                battlePage.whichPlayer = 1
-                battlePage.rank = self.rank
-                battlePage.modalPresentationStyle = .fullScreen
-                battlePage.datadismiss = { [weak self] rank in
-                    guard let self = self else { return }
-                    if let rank = rank {
-                        self.rank = rank
-                        let newRank = [
-                            "rank.correct": rank.correct,
-                            "rank.winRate": rank.winRate,
-                            "rank.playTimes": rank.playTimes,
-                            "rank.rankScore": rank.rankScore
-                        ]
-                        guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
-                        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
-                        FirestoreService.shared.updateData(at: query, with: newRank) { error in
-                            if let error = error {
-                                print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
-                            } else {
-                                print("DEBUG: Successfully updated LevelNumber to \(newRank)")
-                                DispatchQueue.main.async {
-                                    self.updateAccuracyLabel()
-                                }
-                            }
-                        }
-                    }
-                }
-                self.present(battlePage, animated: true)
-                
-            }
-        }
-    }
-    
-    func joinRoom(roomId: String, roomData: [String: Any]) {
-        var updatedRoomData = roomData
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else { return }
-        updatedRoomData["Player2Name"] = userName
-        
-        ref.child("Rooms").child(roomId).updateChildValues(updatedRoomData) { error, _ in
-            if let error = error {
-                print("加入房间失败: \(error.localizedDescription)")
-            } else {
-                print("成功加入房间: \(roomId)")
-                
-                let battlePage = BattlePlay1ViewController()
-                battlePage.roomId = roomId
-                battlePage.player2Id = userName
-                battlePage.whichPlayer = 2
-                battlePage.rank = self.rank
-                battlePage.modalPresentationStyle = .fullScreen
-                battlePage.datadismiss = { [weak self] rank in
-                    guard let self = self else { return }
-                    if let rank = rank {
-                        self.rank = rank
-                        let newRank = [
-                            "rank.correct": rank.correct,
-                            "rank.winRate": rank.winRate,
-                            "rank.playTimes": rank.playTimes,
-                            "rank.rankScore": rank.rankScore
-                        ]
-                        guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
-                        let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
-                        FirestoreService.shared.updateData(at: query, with: newRank) { error in
-                            if let error = error {
-                                print("DEBUG: Failed to update LevelNumber -", error.localizedDescription)
-                            } else {
-                                print("DEBUG: Successfully updated LevelNumber to \(newRank)")
-                                DispatchQueue.main.async {
-                                    self.updateAccuracyLabel()
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                self.present(battlePage, animated: true)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.ref.child("Rooms").child(roomId).updateChildValues(["RoomIsStart": true]) { error, _ in
-                        if error == nil {
-                            battlePage.startGameForPlayer2()
-                            battlePage.animationView.play()
-                        } else {
-                            print("無法更新 RoomIsStart: \(error?.localizedDescription ?? "未知錯誤")")
-                        }
-                    }
-                }
-            }
+        viewModel.handleRoomAction { [weak self] battlePage in
+            self?.present(battlePage, animated: true)
         }
     }
 }

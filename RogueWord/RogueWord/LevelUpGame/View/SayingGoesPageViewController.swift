@@ -183,7 +183,6 @@ class SayingGoesPageViewController: UIViewController {
             highlightCorrectAnswer()
         }
         
-        // 延遲2秒後翻轉卡片並顯示下一題
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             UIView.transition(with: self.cardView, duration: 0.5, options: .transitionFlipFromRight, animations: {
                 self.moveToNextQuestion()
@@ -203,7 +202,7 @@ class SayingGoesPageViewController: UIViewController {
         if currentQuestionIndex < sayings.count - 1 {
             currentQuestionIndex += 1
         } else {
-            currentQuestionIndex = 0 // 如果已經是最後一題，重新從第一題開始
+            currentQuestionIndex = 0 
         }
         displayQuestion()
     }

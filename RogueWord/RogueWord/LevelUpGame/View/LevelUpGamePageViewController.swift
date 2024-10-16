@@ -235,7 +235,6 @@ class LevelUpGamePageViewController: UIViewController {
     }
 
     @objc private func handleCardPan(_ gesture: UIPanGestureRecognizer) {
-        // 如果還沒有選擇答案，則不允許滑動
         guard hasSelectedAnswer else {
             return
         }

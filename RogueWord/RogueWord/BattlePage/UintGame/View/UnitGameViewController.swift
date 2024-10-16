@@ -248,12 +248,10 @@ class UnitGameViewController: UIViewController {
         customNavBar.addSubview(titleLabel)
 
         titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(backButton.snp.right)
             make.centerY.centerX.equalTo(customNavBar)
         }
     }
 
-    // MARK: - Actions
 
     @objc private func goBack() {
         self.dismiss(animated: true, completion: nil)
@@ -317,7 +315,7 @@ class UnitGameViewController: UIViewController {
         currentQuestionIndex += 1
         hasSelectedAnswer = false
 
-        if currentQuestionIndex < collectionData.count && currentQuestionIndex < 5 {
+        if currentQuestionIndex < collectionData.count && currentQuestionIndex < 15 {
             alertLabel.isHidden = true
             displayQuestion()
         } else {

@@ -238,12 +238,15 @@ class BattleGameScene: SKScene {
         return encodedEmail.replacingOccurrences(of: ",", with: ".")
     }
 
+    // Helper function to disable characters
     func disableCharacter(_ character: SKSpriteNode) {
         character.color = .gray
         character.colorBlendFactor = 1.0
 
+        // Stop all animations
         character.removeAllActions()
 
+        // Mark as disabled using userData
         if character.userData == nil {
             character.userData = [:]
         }
