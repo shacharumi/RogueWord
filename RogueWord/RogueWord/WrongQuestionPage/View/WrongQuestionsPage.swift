@@ -5,67 +5,37 @@
 //  Created by shachar on 2024/9/23.
 //
 
-import Foundation
 import UIKit
 import FirebaseFirestore
 import SnapKit
 
-class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    private var collectionView: UICollectionView!
-    private var wordQuestions: [WordFillDocument] = []
-    private var paragraphQuestions: [GetParagraphType] = []  // 用來存儲 Firebase 中抓取的 documentIDs
-    private var readingQuestions: [GetReadingType] = []  // 用來存儲 Firebase 中抓取的 documentIDs
+class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    private let buttonStackView = UIStackView()  // UIStackView 來容納按鈕
-    private let indicatorView = UIView()  // 指示當前選中的指示器
-    private var currentQuestionType: QuestionType = .paragraph  // 默認為段落填空
+    // MARK: - Properties
+    private var collectionView: UICollectionView!
+    private let buttonStackView = UIStackView()
+    private let indicatorView = UIView()
     private let navView = UIView()
     private let navButton = UIButton()
+    
+    private let viewModel = WrongQuestionsViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 設置視圖背景顏色
-        view.backgroundColor = UIColor(named: "CollectionBackGround")
-        
-        // 設置按鈕並放入 stackView
-        setupButtons()
-        
-        // 設置 UICollectionViewFlowLayout 來實現兩列佈局
-        let layout = UICollectionViewFlowLayout()
-        let itemSpacing: CGFloat = 10
-        let itemsPerRow: CGFloat = 2
-        let padding: CGFloat = 16
-        let totalSpacing = (itemsPerRow - 1) * itemSpacing + padding * 2
-        
-        layout.minimumInteritemSpacing = itemSpacing
-        layout.minimumLineSpacing = itemSpacing
-        
-        let itemWidth = (view.bounds.width - totalSpacing) / itemsPerRow
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)  // 設置正方形的單元格
-        
-        // 初始化 UICollectionView
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(QuestionCell.self, forCellWithReuseIdentifier: "QuestionCell")
-        collectionView.backgroundColor = UIColor(named: "CollectionBackGround")
-        view.addSubview(collectionView)
-        
-        // 使用 SnapKit 設置 UICollectionView 的約束
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(16)  
-            make.left.equalTo(view).offset(16)
-            make.right.equalTo(view).offset(-16)
-            make.bottom.equalTo(view)
-        }
-        currentQuestionType = .paragraph
-           let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "段落填空")
-           fetchQuestionsFromFirebase(query: query, type: .paragraph)
+        setupUI()
+        setupBindings()
+        viewModel.fetchQuestions()
     }
     
-    // 設置 StackView 和按鈕
+    // MARK: - Setup Methods
+    private func setupUI() {
+        view.backgroundColor = UIColor(named: "CollectionBackGround")
+        setupButtons()
+        setupCollectionView()
+    }
+    
     private func setupButtons() {
         navView.backgroundColor = .clear
         view.addSubview(navView)
@@ -82,7 +52,8 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         navButton.snp.makeConstraints { make in
             make.centerY.equalTo(navView)
             make.left.equalTo(navView).offset(16)
-            make.width.height.equalTo(30)        }
+            make.width.height.equalTo(30)
+        }
         
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
@@ -115,7 +86,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.right.equalTo(view).offset(-16)
             make.height.equalTo(44)
         }
-
+        
         // 添加指示器到 stackView 下方
         indicatorView.backgroundColor = UIColor(named: "TextColor")
         view.addSubview(indicatorView)
@@ -128,6 +99,73 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.equalTo(paragraphButton.snp.left)
         }
     }
+    
+    private func setupCollectionView() {
+        // 設置 UICollectionViewFlowLayout 來實現兩列佈局
+        let layout = UICollectionViewFlowLayout()
+        let itemSpacing: CGFloat = 10
+        let itemsPerRow: CGFloat = 2
+        let padding: CGFloat = 16
+        let totalSpacing = (itemsPerRow - 1) * itemSpacing + padding * 2
+        
+        layout.minimumInteritemSpacing = itemSpacing
+        layout.minimumLineSpacing = itemSpacing
+        
+        let itemWidth = (view.bounds.width - totalSpacing) / itemsPerRow
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)  // 設置正方形的單元格
+        
+        // 初始化 UICollectionView
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(QuestionCell.self, forCellWithReuseIdentifier: "QuestionCell")
+        collectionView.backgroundColor = UIColor(named: "CollectionBackGround")
+        view.addSubview(collectionView)
+        
+        // 使用 SnapKit 設置 UICollectionView 的約束
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(16)
+            make.left.equalTo(view).offset(16)
+            make.right.equalTo(view).offset(-16)
+            make.bottom.equalTo(view)
+        }
+    }
+    
+    private func setupBindings() {
+        viewModel.onDataUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
+    // MARK: - Button Actions
+    @objc private func buttonTapped(_ sender: UIButton) {
+        guard let title = sender.title(for: .normal) else { return }
+        
+        switch title {
+        case "單字測驗":
+            viewModel.currentQuestionType = .wordQuiz
+        case "段落填空":
+            viewModel.currentQuestionType = .paragraph
+        case "閱讀理解":
+            viewModel.currentQuestionType = .reading
+        default:
+            break
+        }
+        
+        // 動畫移動指示器到點擊的按鈕下方
+        UIView.animate(withDuration: 0.3) {
+            self.indicatorView.snp.remakeConstraints { make in
+                make.top.equalTo(self.buttonStackView.snp.bottom)
+                make.height.equalTo(3)
+                make.width.equalTo(sender.snp.width)
+                make.left.equalTo(sender.snp.left)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     @objc func backTap() {
         self.dismiss(animated: true)
     }
@@ -144,169 +182,89 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         return button
     }
     
-    // 按鈕點擊事件
-    @objc private func buttonTapped(_ sender: UIButton) {
-        guard let title = sender.title(for: .normal) else { return }
-
-        var query: Query?
-
-        switch title {
-        case "單字測驗":
-            currentQuestionType = .wordQuiz
-            query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "單字測驗")
-            fetchQuestionsFromFirebase(query: query, type: .wordQuiz)
-
-        case "段落填空":
-            currentQuestionType = .paragraph
-            query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "段落填空")
-            fetchQuestionsFromFirebase(query: query, type: .paragraph)
-
-        case "閱讀理解":
-            currentQuestionType = .reading
-            query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "閱讀理解")
-            fetchQuestionsFromFirebase(query: query, type: .reading)
-
-        default:
-            break
-        }
-
-        // 動畫移動指示器到點擊的按鈕下方
-        UIView.animate(withDuration: 0.3) {
-            self.indicatorView.snp.remakeConstraints { make in
-                make.top.equalTo(self.buttonStackView.snp.bottom)
-                make.height.equalTo(3)
-                make.width.equalTo(sender.snp.width)
-                make.left.equalTo(sender.snp.left)
-            }
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    // 從 Firebase 抓取 .collection("CollectionFolderWrongQuestions") 的資料，只顯示 documentID
-    private func fetchQuestionsFromFirebase(query: Query?, type: QuestionType) {
-        guard let query = query else { return }
-
-        switch type {
-        case .wordQuiz:
-            FirestoreService.shared.getDocuments(query) { [weak self] (questions: [WordFillDocument]) in
-                guard let self = self else { return }
-                self.wordQuestions = questions as! [WordFillDocument]  // 根據需要轉型
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        case .paragraph:
-            FirestoreService.shared.getDocuments(query) { [weak self] (paragraphs: [GetParagraphType]) in
-                guard let self = self else { return }
-                self.paragraphQuestions = paragraphs
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        case .reading:
-            FirestoreService.shared.getDocuments(query) { [weak self] (readings: [GetReadingType]) in
-                guard let self = self else { return }
-                self.readingQuestions = readings as! [GetReadingType]  // 根據需要轉型
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
-    }
-    
     // MARK: - UICollectionViewDataSource Methods
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch currentQuestionType {
+        switch viewModel.currentQuestionType {
         case .wordQuiz:
-            return wordQuestions.count
+            return viewModel.wordQuestions.count
         case .paragraph:
-            return paragraphQuestions.count
+            return viewModel.paragraphQuestions.count
         case .reading:
-            return readingQuestions.count
+            return viewModel.readingQuestions.count
         }
     }
-
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Dequeue cell and configure
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
         cell.backgroundColor = UIColor(named: "viewBackGround")
-        switch currentQuestionType {
+        
+        switch viewModel.currentQuestionType {
         case .wordQuiz:
-            let word = wordQuestions[indexPath.item]
-            cell.configure(with: word.title ?? "No Title", time: word.timestamp)
+            let wordDocument = viewModel.wordQuestions[indexPath.item]
+            cell.configure(with: wordDocument.title ?? "No Title", time: wordDocument.timestamp)
         case .paragraph:
-            let paragraph = paragraphQuestions[indexPath.item]
+            let paragraph = viewModel.paragraphQuestions[indexPath.item]
             cell.configure(with: paragraph.title ?? "No Title", time: paragraph.timestamp)
         case .reading:
-            let reading = readingQuestions[indexPath.item]
+            let reading = viewModel.readingQuestions[indexPath.item]
             cell.configure(with: reading.title ?? "No Title", time: reading.timestamp)
         }
-
+        
         return cell
     }
-
     
     // MARK: - UICollectionViewDelegate Methods
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Handle cell selection
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        var selectedQuestion: Any
         var viewControllerToPresent: UIViewController?
         
-        switch currentQuestionType {
+        switch viewModel.currentQuestionType {
         case .wordQuiz:
-            let selectedWordQuestion = wordQuestions[indexPath.item]
-            selectedQuestion = selectedWordQuestion.questions
+            let selectedWordDocument = viewModel.wordQuestions[indexPath.item]
             let wordFillVC = WrongQuestionWordVC()
-            wordFillVC.questions = selectedWordQuestion.questions
-            wordFillVC.questionsTitle = selectedWordQuestion.title
+            wordFillVC.questions = selectedWordDocument.questions
+            wordFillVC.questionsTitle = selectedWordDocument.title
             viewControllerToPresent = wordFillVC
             
-            wordFillVC.datadismiss = {
-                let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "單字測驗")
-                self.fetchQuestionsFromFirebase(query: query, type: .wordQuiz)
+            wordFillVC.dataDismiss = { [weak self] in
+                self?.viewModel.fetchQuestions()
             }
             
         case .paragraph:
-            let selectedParagraphQuestion = paragraphQuestions[indexPath.item]
-            selectedQuestion = selectedParagraphQuestion.questions
+            let selectedParagraph = viewModel.paragraphQuestions[indexPath.item]
             let paragraphVC = WrongQuestionParagraphVC()
-            paragraphVC.questions = selectedParagraphQuestion
-            paragraphVC.questionsTitle = selectedParagraphQuestion.title
+            paragraphVC.questionData = selectedParagraph
+            paragraphVC.questionsTitle = selectedParagraph.title
             viewControllerToPresent = paragraphVC
             
-            paragraphVC.datadismiss = {
-                let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "段落填空")
-                self.fetchQuestionsFromFirebase(query: query, type: .paragraph)
+            paragraphVC.dataDismiss = { [weak self] in
+                self?.viewModel.fetchQuestions()
             }
             
         case .reading:
-            let selectedReadingQuestion = readingQuestions[indexPath.item]
-            selectedQuestion = selectedReadingQuestion.questions
+            let selectedReading = viewModel.readingQuestions[indexPath.item]
             let readingVC = WrongQuestionReadingVC()
-            readingVC.questions = selectedReadingQuestion
-            readingVC.questionsTitle = selectedReadingQuestion.title
+            readingVC.readingData = selectedReading
+            readingVC.questionsTitle = selectedReading.title
             viewControllerToPresent = readingVC
             
-            //重新抓資料
-            readingVC.datadismiss = {
-                self.currentQuestionType = .reading
-                let query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "閱讀理解")
-                self.fetchQuestionsFromFirebase(query: query, type: .reading)
+            readingVC.dataDismiss = { [weak self] in
+                self?.viewModel.fetchQuestions()
             }
         }
         
-        // 以全屏模式展示相应的 ViewController
-        viewControllerToPresent?.modalPresentationStyle = .fullScreen
-        present(viewControllerToPresent!, animated: true, completion: nil)
+        // Present the view controller
+        if let vc = viewControllerToPresent {
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true, completion: nil)
+        }
     }
-
 }
 
-
-
+// MARK: - QuestionCell
 class QuestionCell: UICollectionViewCell {
     
     private let documentIDLabel: UILabel = {
@@ -348,23 +306,17 @@ class QuestionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func configure(with documentID: String, time timeStamp: Timestamp) {
+    // Updated the configure method to accept optional Timestamp
+    func configure(with documentID: String, time timeStamp: Timestamp?) {
         documentIDLabel.text = documentID
-        let date = timeStamp.dateValue()
-
-
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-           let formattedDate = dateFormatter.string(from: date)
-
-           timeLabel.text = formattedDate
+        if let timeStamp = timeStamp {
+            let date = timeStamp.dateValue()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let formattedDate = dateFormatter.string(from: date)
+            timeLabel.text = formattedDate
+        } else {
+            timeLabel.text = "No Date"
+        }
     }
-}
-
-
-enum QuestionType {
-    case wordQuiz
-    case paragraph
-    case reading
 }

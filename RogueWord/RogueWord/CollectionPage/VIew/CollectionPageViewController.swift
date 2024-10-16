@@ -30,9 +30,6 @@ class CollectionPageViewController: UIViewController {
         button.backgroundColor = UIColor(named: "ButtonColor")
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
-        // 為了調試，暫時添加邊框（完成調試後可移除）
-        // button.layer.borderWidth = 1
-        // button.layer.borderColor = UIColor.red.cgColor
         return button
     }()
 
@@ -151,10 +148,6 @@ class CollectionPageViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func tapWrongButton() {
-        // 此方法已被移除，因為不再有 wrongQuestionButton
-        // 可以考慮移除這個方法或保留以備未來使用
-    }
     
     @objc func updateTag(_ sender: UIButton) {
         guard let tagType = sender.title(for: .normal) else {

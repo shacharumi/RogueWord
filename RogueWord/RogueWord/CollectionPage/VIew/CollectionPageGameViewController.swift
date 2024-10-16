@@ -12,15 +12,13 @@ class CollectionPageGameViewController: UIViewController {
 
     // MARK: - Properties
 
-    var collectionData: [FireBaseWord] = [] // 接收來自 CollectionPageViewController 的資料
+    var collectionData: [FireBaseWord] = [] // 接收来自其他控制器的数据
 
     private var cardView: UIView!
-    private var currentQuestionIndex: Int = 0
-    private var correctCount: Int = 0
-    private var wrongCount: Int = 0
-    private var isCorrect: [Bool] = []
-
     private var hasSelectedAnswer: Bool = false
+
+    // ViewModel
+    private var viewModel: CollectionGameViewModel!
 
     // MARK: - UI Elements
 
@@ -103,13 +101,15 @@ class CollectionPageGameViewController: UIViewController {
         view.backgroundColor = UIColor(named: "PlayViewColor")
         setupUI()
         setupCustomNavigationBar()
+        // 初始化 ViewModel
+        viewModel = CollectionGameViewModel(collectionData: collectionData)
         displayQuestion()
     }
 
     // MARK: - UI Setup
 
     private func setupUI() {
-        // Initialize cardView
+        // 初始化 cardView
         cardView = UIView()
         cardView.backgroundColor = UIColor(named: "PlayCardColor")
         cardView.layer.cornerRadius = 12
@@ -126,7 +126,7 @@ class CollectionPageGameViewController: UIViewController {
         cardView.addSubview(sentenceLabel)
         cardView.addSubview(alertLabel)
         
-        // Set constraints for cardView
+        // 设置 cardView 的约束
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view).offset(-100)
@@ -135,44 +135,44 @@ class CollectionPageGameViewController: UIViewController {
             make.height.equalTo(400)
         }
         
-        // Set constraints for accurencyLabel
+        // 设置 accurencyLabel 的约束
         accurencyLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(50)
             make.centerX.equalTo(cardView)
         }
         
-        // Set constraints for indexLabel
+        // 设置 indexLabel 的约束
         indexLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(100)
             make.centerX.equalTo(cardView)
         }
         
-        // Set constraints for englishLabel
+        // 设置 englishLabel 的约束
         englishLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(150)
             make.centerX.equalTo(cardView)
         }
         
-        // Set constraints for propertyLabel
+        // 设置 propertyLabel 的约束
         propertyLabel.snp.makeConstraints { make in
             make.top.equalTo(englishLabel.snp.bottom).offset(8)
             make.centerX.equalTo(englishLabel)
         }
 
-        // Set constraints for sentenceLabel
+        // 设置 sentenceLabel 的约束
         sentenceLabel.snp.makeConstraints { make in
             make.top.equalTo(propertyLabel.snp.bottom).offset(8)
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
         }
         
-        // Set constraints for alertLabel
+        // 设置 alertLabel 的约束
         alertLabel.snp.makeConstraints { make in
             make.top.equalTo(sentenceLabel.snp.bottom).offset(32)
             make.centerX.equalTo(cardView.snp.centerX)
         }
         
-        // Initialize and set up answerButtons' StackView
+        // 初始化并设置 answerButtons 的 StackView
         let stackView = UIStackView(arrangedSubviews: answerButtons)
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -180,7 +180,7 @@ class CollectionPageGameViewController: UIViewController {
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
 
-        // Set constraints for stackView
+        // 设置 stackView 的约束
         stackView.snp.makeConstraints { make in
             make.top.equalTo(cardView.snp.bottom).offset(16)
             make.left.equalTo(view).offset(32)
@@ -188,7 +188,7 @@ class CollectionPageGameViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
 
-        // Add target actions for each button
+        // 为每个按钮添加目标动作
         for button in answerButtons {
             button.addTarget(self, action: #selector(answerTapped(_:)), for: .touchUpInside)
         }
@@ -250,18 +250,10 @@ class CollectionPageGameViewController: UIViewController {
     }
 
     @objc private func goToPreviousQuestion() {
-        if currentQuestionIndex > 0 {
-            currentQuestionIndex -= 1
+        if viewModel.canMoveToPreviousQuestion() {
+            viewModel.moveToPreviousQuestion()
 
-            // 更新答對和答錯的計數
-            if isCorrect[currentQuestionIndex] {
-                correctCount -= 1
-            } else {
-                wrongCount -= 1
-            }
-            isCorrect.remove(at: currentQuestionIndex)
-
-            // 執行單次翻轉動畫以顯示上一題
+            // 执行翻转动画以显示上一题
             UIView.transition(with: cardView, duration: 0.5, options: .transitionFlipFromLeft, animations: {
                 self.displayQuestion()
             }, completion: nil)
@@ -276,33 +268,28 @@ class CollectionPageGameViewController: UIViewController {
         guard !hasSelectedAnswer, let selectedAnswer = sender.currentTitle else { return }
         hasSelectedAnswer = true
 
-        // 禁用所有按鈕
+        // 禁用所有按钮
         for button in answerButtons {
             button.isEnabled = false
         }
 
-        // 獲取當前題目
-        let currentWord = collectionData[currentQuestionIndex].word
+        let isCorrect = viewModel.checkAnswer(selectedAnswer)
 
-        if selectedAnswer == currentWord.chinese {
-            // 答對
-            correctCount += 1
-            isCorrect.append(true)
+        if isCorrect {
+            // 答对
             sender.backgroundColor = UIColor(named: "CorrectColor")
             updateAccurencyLabel()
 
-            // 執行翻轉動畫
+            // 执行翻转动画
             flipCardAndShowNextQuestion()
         } else {
-            // 答錯
-            wrongCount += 1
-            isCorrect.append(false)
+            // 答错
             sender.backgroundColor = UIColor(named: "FalseColor")
             alertLabel.isHidden = false
-            highlightCorrectAnswer(correctAnswer: currentWord.chinese)
+            highlightCorrectAnswer()
             updateAccurencyLabel()
 
-            // 延遲一秒後執行翻轉動畫
+            // 延迟一秒后执行翻转动画
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.flipCardAndShowNextQuestion()
             }
@@ -312,12 +299,13 @@ class CollectionPageGameViewController: UIViewController {
     // MARK: - Helper Methods
 
     private func updateAccurencyLabel() {
-        let total = correctCount + wrongCount
-        let accuracy = total > 0 ? (Float(correctCount) / Float(total)) * 100 : 0
+        let accuracy = viewModel.getAccuracy()
         accurencyLabel.text = "答對率: \(String(format: "%.0f%%", accuracy))"
     }
 
-    private func highlightCorrectAnswer(correctAnswer: String) {
+    private func highlightCorrectAnswer() {
+        guard let currentWord = viewModel.getCurrentQuestion()?.word else { return }
+        let correctAnswer = currentWord.chinese
         for button in answerButtons {
             if button.currentTitle == correctAnswer {
                 button.backgroundColor = UIColor(named: "CorrectColor")
@@ -333,11 +321,11 @@ class CollectionPageGameViewController: UIViewController {
     }
 
     private func moveToNextQuestion() {
-        currentQuestionIndex += 1
+        viewModel.moveToNextQuestion()
         hasSelectedAnswer = false
 
-        if currentQuestionIndex < collectionData.count {
-            // 隱藏 alertLabel
+        if let _ = viewModel.getCurrentQuestion() {
+            // 隐藏 alertLabel
             alertLabel.isHidden = true
             displayQuestion()
         } else {
@@ -346,40 +334,24 @@ class CollectionPageGameViewController: UIViewController {
     }
 
     private func displayQuestion() {
-        guard currentQuestionIndex < collectionData.count else {
+        guard let currentWord = viewModel.getCurrentQuestion()?.word else {
             showCompletionAlert()
             return
         }
 
-        let currentWord = collectionData[currentQuestionIndex].word
-
-        // 隱藏 alertLabel
+        // 隐藏 alertLabel
         alertLabel.isHidden = true
 
         // 更新 UI 元素
-        indexLabel.text = "當前題數: \(currentQuestionIndex + 1)"
+        indexLabel.text = "當前題數: \(viewModel.currentQuestionIndex + 1)"
         englishLabel.text = currentWord.english
         propertyLabel.text = "(\(currentWord.property))"
         sentenceLabel.text = currentWord.sentence
 
-        // 生成答案選項
-        var answers = [currentWord.chinese]
-        
-        // 收集錯誤答案，確保不重複且不包含正確答案
-        var wrongAnswers = collectionData.filter { $0.word.chinese != currentWord.chinese }.map { $0.word.chinese }
-        wrongAnswers.shuffle()
-        let numberOfWrongAnswers = min(3, wrongAnswers.count)
-        answers.append(contentsOf: wrongAnswers.prefix(numberOfWrongAnswers))
-        
-        // 如果錯誤答案不足3個，補充一些固定的錯誤答案
-        while answers.count < 4 {
-            answers.append("錯誤答案")
-        }
-        
-        // 打亂答案順序
-        answers.shuffle()
-        
-        // 更新按鈕標題並重置按鈕顏色和啟用狀態
+        // 生成答案选项
+        let answers = viewModel.getAnswerOptions()
+
+        // 更新按钮标题并重置按钮颜色和启用状态
         for (index, button) in answerButtons.enumerated() {
             if index < answers.count {
                 button.setTitle(answers[index], for: .normal)
