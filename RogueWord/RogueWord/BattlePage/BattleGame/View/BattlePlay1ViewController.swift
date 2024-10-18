@@ -362,9 +362,9 @@ class BattlePlay1ViewController: UIViewController {
         
         viewModel.gameEndHandler = { [weak self] updatedRank, message in
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                let alert = UIAlertController(title: "结算画面", message: message, preferredStyle: .alert)
+                let alert = UIAlertController(title: "結算畫面", message: message, preferredStyle: .alert)
                 
-                alert.addAction(UIAlertAction(title: "下一场", style: .default, handler: { _ in
+                alert.addAction(UIAlertAction(title: "下一場", style: .default, handler: { _ in
                     self?.dismiss(animated: true) {
                         self?.datadismiss?(updatedRank)
                     }

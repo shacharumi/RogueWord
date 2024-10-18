@@ -106,6 +106,9 @@
 		C7F3EDF82CBF93B90062F9EF /* WrongQuestionWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDF72CBF93B90062F9EF /* WrongQuestionWordViewModel.swift */; };
 		C7F3EDFA2CBFA5E70062F9EF /* WrongQuestionParagraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDF92CBFA5E60062F9EF /* WrongQuestionParagraphViewModel.swift */; };
 		C7F3EDFC2CBFA9590062F9EF /* WrongQuestionReadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFB2CBFA9590062F9EF /* WrongQuestionReadingViewModel.swift */; };
+		C7F3EDFE2CBFF23B0062F9EF /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFD2CBFF23B0062F9EF /* ChatRoomViewController.swift */; };
+		C7F3EE002CBFF9230062F9EF /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */; };
+		C7F3EE022CC25FCE0062F9EF /* ApiList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7F3EE012CC25FCE0062F9EF /* ApiList.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +253,9 @@
 		C7F3EDF72CBF93B90062F9EF /* WrongQuestionWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionWordViewModel.swift; sourceTree = "<group>"; };
 		C7F3EDF92CBFA5E60062F9EF /* WrongQuestionParagraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionParagraphViewModel.swift; sourceTree = "<group>"; };
 		C7F3EDFB2CBFA9590062F9EF /* WrongQuestionReadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongQuestionReadingViewModel.swift; sourceTree = "<group>"; };
+		C7F3EDFD2CBFF23B0062F9EF /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
+		C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		C7F3EE012CC25FCE0062F9EF /* ApiList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ApiList.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +371,7 @@
 				C72544412C91854F00580224 /* LaunchScreen.storyboard */,
 				C72544392C91854D00580224 /* Main.storyboard */,
 				C72544442C91854F00580224 /* Info.plist */,
+				C7F3EE012CC25FCE0062F9EF /* ApiList.plist */,
 				C725443C2C91854D00580224 /* RogueWord.xcdatamodeld */,
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
@@ -608,6 +615,8 @@
 				C70B722A2C96C0F0001011D6 /* QuestionPageCell.swift */,
 				C70B72282C968E37001011D6 /* ExamViewController.swift */,
 				C7432D4B2CAFD969003221E9 /* GameScene.swift */,
+				C7F3EDFD2CBFF23B0062F9EF /* ChatRoomViewController.swift */,
+				C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -854,6 +863,7 @@
 				C70B72452C99EC08001011D6 /* GoogleService-Info.plist in Resources */,
 				C72544432C91854F00580224 /* Base in Resources */,
 				C7432D552CB0F368003221E9 /* LoadingImage.json in Resources */,
+				C7F3EE022CC25FCE0062F9EF /* ApiList.plist in Resources */,
 				C7B3277A2CB589EA006EAC93 /* searchBattle.json in Resources */,
 				C725443B2C91854D00580224 /* Base in Resources */,
 			);
@@ -943,6 +953,7 @@
 				C7E0B0662C9D4B0D003395B3 /* ReadingTestCell.swift in Sources */,
 				C70B72272C968AFE001011D6 /* WordFillInTheBlankPageViewController.swift in Sources */,
 				C7E0B0B92CA284D5003395B3 /* WrongQuestionReadingVC.swift in Sources */,
+				C7F3EE002CBFF9230062F9EF /* ChatViewModel.swift in Sources */,
 				C70B722B2C96C0F0001011D6 /* QuestionPageCell.swift in Sources */,
 				C7432D4C2CAFD969003221E9 /* GameScene.swift in Sources */,
 				C70B722D2C96D55E001011D6 /* ParagraphFillInTheBlanksViewController.swift in Sources */,
@@ -953,6 +964,7 @@
 				C7856BEA2CB834BF00842B94 /* SentenceFillGamePageModel.swift in Sources */,
 				C7F3EDFC2CBFA9590062F9EF /* WrongQuestionReadingViewModel.swift in Sources */,
 				C7432CE92CABCC1A003221E9 /* LoginModel.swift in Sources */,
+				C7F3EDFE2CBFF23B0062F9EF /* ChatRoomViewController.swift in Sources */,
 				C7F3EDF02CBF64240062F9EF /* CollectionGameViewModel.swift in Sources */,
 				C72544842C92BB0F00580224 /* LevelUpGamePageModel.swift in Sources */,
 				C7F3EDF82CBF93B90062F9EF /* WrongQuestionWordViewModel.swift in Sources */,

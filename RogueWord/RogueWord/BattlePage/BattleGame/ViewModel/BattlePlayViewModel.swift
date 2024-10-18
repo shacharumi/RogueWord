@@ -205,7 +205,7 @@ class BattlePlayViewModel {
         ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let self = self else { return }
             
-            if let currentIndex = snapshot.value as? Int, currentIndex < 10 {
+            if let currentIndex = snapshot.value as? Int, currentIndex < 5 {
                 self.currentQuestionIndex = currentIndex + 1
                 
                 self.ref.child("Rooms").child(roomId).updateChildValues([
@@ -225,7 +225,7 @@ class BattlePlayViewModel {
                 }
             } else {
                 // 游戏结束
-                self.currentQuestionIndex = (snapshot.value as? Int) ?? 10
+                self.currentQuestionIndex = (snapshot.value as? Int) ?? 5
                 self.ref.child("Rooms").child(roomId).updateChildValues([
                     "CurrentQuestionIndex": self.currentQuestionIndex
                 ])
@@ -309,7 +309,7 @@ class BattlePlayViewModel {
     }
     
     func handleQuestionIndexChange(_ currentIndex: Int) {
-        if currentIndex > 10 {
+        if currentIndex > 5 {
             self.stopFirebaseCountdown()
             self.calculateFinalScore()
         } else {
@@ -331,12 +331,12 @@ class BattlePlayViewModel {
                 rank.winRate += 1
                 rank.rankScore += 30
                 rank.correct += player1Correct
-                message = "恭喜玩家胜利！！"
+                message = "恭喜玩家勝利！！"
             } else {
                 rank.playTimes += 1
                 rank.rankScore = max(0, rank.rankScore - 30)
                 rank.correct += player1Correct
-                message = "继续加油！！"
+                message = "繼續加油！！"
             }
         } else {
             if player2Score > player1Score {
@@ -344,12 +344,12 @@ class BattlePlayViewModel {
                 rank.winRate += 1
                 rank.rankScore += 30
                 rank.correct += player2Correct
-                message = "恭喜玩家胜利！！"
+                message = "恭喜玩家勝利！！"
             } else {
                 rank.playTimes += 1
                 rank.rankScore = max(0, rank.rankScore - 30)
                 rank.correct += player2Correct
-                message = "继续加油！！"
+                message = "繼續加油！！"
             }
         }
         

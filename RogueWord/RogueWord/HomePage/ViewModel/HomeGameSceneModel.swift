@@ -40,8 +40,8 @@ class HomeGameSceneViewModel {
                fontName: "HelveticaNeue-Bold",
                actionSet: ["Idle", "Run", "Walk", "Jump", "Attack", "Dead"],
                position: CGPoint(x: 0, y: 0),
-               levelRequired: 99,
-               characterID: 99
+               levelRequired: 20,
+               characterID: 20
            )
 
            let musketeer = GameCharacter(
@@ -78,7 +78,7 @@ class HomeGameSceneViewModel {
                 switch character.characterID {
                 case 0:
                     completion(.navigateToLevelUpGame)
-                case 99:
+                case 20:
                     completion(.navigateToSentenceFillGame)
                 default:
                     break

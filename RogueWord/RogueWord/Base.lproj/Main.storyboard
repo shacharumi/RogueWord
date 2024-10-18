@@ -188,10 +188,10 @@
             </objects>
             <point key="canvasLocation" x="1934" y="1421"/>
         </scene>
-        <!--Saying Goes Page View Controller-->
+        <!--Chat Room View Controller-->
         <scene sceneID="5TW-4d-gk5">
             <objects>
-                <viewController id="4OW-6h-eNq" customClass="SayingGoesPageViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatRoomViewController" id="4OW-6h-eNq" customClass="ChatRoomViewController" customModule="RogueWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k7c-G7-8E3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
