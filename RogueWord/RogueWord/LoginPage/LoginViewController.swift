@@ -19,6 +19,8 @@ class LoginViewController: UIViewController {
     var buttonOriginalCenterY: CGFloat = 0
     var isButtonMovedDown: Bool = false
     
+    let authorizationAppleIDButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,18 +36,14 @@ class LoginViewController: UIViewController {
     func setupUI() {
         setupBackground()
         
-      
-        
-        let authorizationAppleIDButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black) 
         authorizationAppleIDButton.addTarget(self, action: #selector(pressSignInWithAppleButton), for: .touchUpInside)
         
         buttonView.addSubview(authorizationAppleIDButton)
         view.addSubview(buttonView)
         
-        
         buttonView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.height.equalTo(40)
+            make.height.equalTo(60)
             make.width.equalTo(200)
             make.bottom.equalTo(view).offset(-100)
         }
@@ -121,9 +119,7 @@ class LoginViewController: UIViewController {
     func animateButton(by deltaY: CGFloat) {
         UIView.animate(withDuration: 0.3, animations: {
             self.buttonView.center.y += deltaY
-        }) { _ in
-        
-        }
+        })
     }
     
     func setupBindings() {
@@ -131,21 +127,19 @@ class LoginViewController: UIViewController {
         viewModel.onUserDataSaved = { [weak self] in
             self?.navigateToMainScreen()
         }
-        
-        viewModel.onError = { [weak self] errorMessage in
-            self?.presentErrorAlert(message: errorMessage)
-        }
-        
-        viewModel.onPromptForUserName = { [weak self] completion in
-            self?.promptForUserName(completion: completion)
-        }
     }
     
     @objc func pressSignInWithAppleButton() {
-        let authorizationAppleIDRequest: ASAuthorizationAppleIDRequest = ASAuthorizationAppleIDProvider().createRequest()
+        authorizationAppleIDButton.isEnabled = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.authorizationAppleIDButton.isEnabled = true
+        }
+        
+        let authorizationAppleIDRequest = ASAuthorizationAppleIDProvider().createRequest()
         authorizationAppleIDRequest.requestedScopes = [.fullName, .email]
         
-        let controller: ASAuthorizationController = ASAuthorizationController(authorizationRequests: [authorizationAppleIDRequest])
+        let controller = ASAuthorizationController(authorizationRequests: [authorizationAppleIDRequest])
         
         controller.delegate = self
         controller.presentationContextProvider = self
@@ -171,36 +165,6 @@ class LoginViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func promptForUserName(completion: @escaping (String) -> Void) {
-        let alertController = UIAlertController(title: "輸入名字", message: "請輸入您的名字", preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "名字"
-        }
-        
-        let confirmAction = UIAlertAction(title: "確認", style: .default) { _ in
-            if let userName = alertController.textFields?.first?.text, !userName.isEmpty {
-                completion(userName)
-            } else {
-                self.presentErrorAlert(message: "名字不能為空")
-                self.promptForUserName(completion: completion)
-            }
-        }
-        alertController.addAction(confirmAction)
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
-            print("使用者取消了輸入名字")
-        }
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func presentErrorAlert(message: String) {
-        let alert = UIAlertController(title: "錯誤", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
 }
 

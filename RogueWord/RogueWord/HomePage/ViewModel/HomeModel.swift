@@ -1,10 +1,17 @@
+//
+//  HomeModel.swift
+//  RogueWord
+//
+//  Created by shachar on 2024/10/6.
+//
+
+
 import Foundation
 import UIKit
 import SpriteKit
 
 class HomeModel { 
     var personData: UserData?
-
 
     func fetchLevelNumber(completion: @escaping (UserData?) -> Void) {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else {

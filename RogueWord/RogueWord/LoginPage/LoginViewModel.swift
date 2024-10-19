@@ -1,12 +1,6 @@
-//
-//  LoginViewModel.swift
-//  RogueWord
-//
-//  Created by shachar on 2024/9/12.
-//
-
 import Foundation
 import AuthenticationServices
+import FirebaseFirestore
 
 class LoginViewModel {
     
@@ -19,8 +13,6 @@ class LoginViewModel {
     
     init() {
         self.jsonFileModel.fetchAndSaveWordsToJSON()
-        self.jsonFileModel.loadWordsFromFile()
-        self.jsonFileModel.readWordsFromJSONFile()
     }
     
     func handleAuthorization(authorization: ASAuthorization) {
@@ -30,19 +22,15 @@ class LoginViewModel {
             print("Email: \(String(describing: appleIDCredential.email))")
             print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
             
-            let fullName = [appleIDCredential.fullName?.givenName, appleIDCredential.fullName?.familyName]
-                .compactMap { $0 }
-                .joined(separator: " ")
-            
-            
             var userData = UserData(
                 userID: appleIDCredential.user,
-                fullName: fullName,
+                fullName: appleIDCredential.fullName?.givenName,
                 userName: "\(UUID())",
                 email: appleIDCredential.email ?? "",
                 realUserStatus: appleIDCredential.realUserStatus.rawValue,
                 tag: ["All"],
                 levelData: LevelData(correct: 0, levelNumber: 0, wrong: 0, isCorrect: []),
+                fillLevelData: LevelData(correct: 0, levelNumber: 0, wrong: 0, isCorrect: []),
                 rank: Rank(correct: 0.0, playTimes: 0.0, winRate: 0.0, rankScore: 0.0),
                 image: "",
                 version: "多益"
@@ -53,35 +41,74 @@ class LoginViewModel {
             let query = FirestoreEndpoint.fetchPersonData.ref.document(appleIDCredential.user)
             FirestoreService.shared.getDocument(query) { (personData: UserData?) in
                 if let personData = personData {
-                    print("DEBUG here \(personData)")
+                    print("DEBUG personData \(personData)")
                     userData = personData
-                    self.model.downloadImageData(path: personData.image ?? "") { [weak self] imageData in
-                        UserDefaults.standard.setValue(imageData, forKey: "imageData")
-                    }
-                    self.saveToUserDefaults(userData)
-                    self.onUserDataSaved?()
-                    print("DEBUG: Document with this userID already exists.")
                     
+                    self.model.downloadImageData(path: personData.image ?? "") { [weak self] imageData in
+                        guard let self = self else { return }
+                        UserDefaults.standard.setValue(imageData, forKey: "imageData")
+                        if let fullName = UserDefaults.standard.string(forKey: "fullName") {
+                            userData.fullName = fullName
+                        }
+                        
+                        self.saveToUserDefaults(userData)
+                        self.onUserDataSaved?()
+                        print("DEBUG: Document with this userID already exists.")
+                    }
                 } else {
                     print("DEBUG: Failed to fetch or decode UserData.")
-                    self.onPromptForUserName? { userName in
-                        userData.userName = userName
-                        
-                        let docRef = FirestoreEndpoint.fetchPersonData.ref.document(userData.userID)
-                        self.model.setData(userData, at: docRef)
-                        
-                        let wordQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
-                        let wordInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 0)
-                        self.model.setData(wordInitData, at: wordQuery)
-                        
-                        let paragraphQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Paragraph")
-                        let paragrphaInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 1)
-                        self.model.setData(paragrphaInitData, at: paragraphQuery)
-                        
-                        let readingQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Reading")
-                        let readingInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 2)
-                        self.model.setData(readingInitData, at: readingQuery)
-                        
+                    
+                    let dispatchGroup = DispatchGroup()
+                    var replacename = ""
+                    if UserDefaults.standard.string(forKey: "fullName") == nil {
+                        guard let fullName = appleIDCredential.fullName?.givenName else { return }
+                        replacename = fullName
+                    } else {
+                        guard let fullName = UserDefaults.standard.string(forKey: "fullName") else { return }
+                        replacename = fullName
+                    }
+                    dispatchGroup.enter()
+                    UserDefaults.standard.set(userData.userID, forKey: "userID")
+                    userData.fullName = replacename
+                    let docRef = FirestoreEndpoint.fetchPersonData.ref.document(userData.userID)
+                    self.model.setData(userData, at: docRef) { error in
+                        if let error = error {
+                            print("Error writing userData: \(error)")
+                        }
+                        dispatchGroup.leave()
+                    }
+                    
+                    dispatchGroup.enter()
+                    let wordQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
+                    let wordInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 0)
+                    self.model.setData(wordInitData, at: wordQuery) { error in
+                        if let error = error {
+                            print("Error writing wordInitData: \(error)")
+                        }
+                        dispatchGroup.leave()
+                    }
+                    
+                    dispatchGroup.enter()
+                    let paragraphQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Paragraph")
+                    let paragrphaInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 1)
+                    self.model.setData(paragrphaInitData, at: paragraphQuery) { error in
+                        if let error = error {
+                            print("Error writing paragrphaInitData: \(error)")
+                        }
+                        dispatchGroup.leave()
+                    }
+                    
+                    dispatchGroup.enter()
+                    let readingQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Reading")
+                    let readingInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 2)
+                    self.model.setData(readingInitData, at: readingQuery) { error in
+                        if let error = error {
+                            print("Error writing readingInitData: \(error)")
+                        }
+                        dispatchGroup.leave()
+                    }
+                    
+                    dispatchGroup.notify(queue: .main) {
                         self.saveToUserDefaults(userData)
                         self.onUserDataSaved?()
                     }
@@ -112,13 +139,13 @@ class LoginViewModel {
     }
     
     private func saveToUserDefaults(_ data: UserData) {
+        guard let fullName = data.fullName else { return }
         let userDefaults = UserDefaults.standard
         userDefaults.set(data.userID, forKey: "userID")
-        userDefaults.set(data.fullName, forKey: "fullName")
+        userDefaults.set(fullName, forKey: "fullName")
         userDefaults.set(data.email, forKey: "email")
-        userDefaults.set(data.realUserStatus, forKey: "realUserStatus")
         userDefaults.set(data.image, forKey: "image")
-        userDefaults.set(data.userName, forKey: "userName")
+        userDefaults.set(fullName, forKey: "userName")
         userDefaults.set(data.version, forKey: "version")
         print("DEBUG: Data saved to UserDefaults.")
     }
