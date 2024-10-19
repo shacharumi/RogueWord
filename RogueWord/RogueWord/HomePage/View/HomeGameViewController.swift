@@ -38,16 +38,22 @@ class HomeGameViewController: UIViewController {
     }
 
     func setupCollectionGameScene() {
-            
-           let skView = SKView(frame: self.view.bounds)
-           skView.backgroundColor = UIColor.clear
-           skView.isOpaque = false
-           self.view.addSubview(skView)
-           let scene = HomeGameScene(size: skView.bounds.size)
-           scene.scaleMode = .aspectFill
-           scene.personData = self.personData
-           scene.viewController = self
-           skView.presentScene(scene)
-       }
+        let skView = SKView()
+        skView.backgroundColor = UIColor.clear
+        skView.isOpaque = false
+        self.view.addSubview(skView)
+        skView.snp.makeConstraints { make in
+            make.left.right.top.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+
+        let sceneSize = CGSize(width: view.bounds.width, height: view.bounds.height)
+        let scene = HomeGameScene(size: sceneSize)
+        scene.scaleMode = .aspectFill
+        scene.personData = self.personData
+        scene.viewController = self
+        skView.presentScene(scene)
+    }
+
 
 }

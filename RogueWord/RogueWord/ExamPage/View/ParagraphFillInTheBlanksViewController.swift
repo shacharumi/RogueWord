@@ -15,7 +15,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     private let animationView = LottieAnimationView(name: "LoadingImage")
     private var answerArray: [String]?
     var wordDatas: Accurency?
-    var datadismiss: ((Accurency?) -> Void)? // 定義 closure，用來傳遞資料
+    var datadismiss: ((Accurency?) -> Void)? 
     let cardView = UIView()
     let questionLabel = UILabel()
     private var isTapCheck: Bool = false
@@ -367,11 +367,29 @@ extension ParagraphType {
 extension ParagraphFillInTheBlanksViewController {
     
     private func callChatGPTAPI() {
-        guard let url = URL(string: urlString) else { return }
-        var request = URLRequest(url: url)
+        var apiKey = ""
+        if let path = Bundle.main.path(forResource: "ApiList", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
+            if let chatgptApi = dict["ChatGptKey"] as? String {
+                apiKey = chatgptApi
+            }
+        }
+        
+        guard !apiKey.isEmpty else {
+            print("未能從 plist 中讀取到 API Key")
+            return
+        }
+        
         guard let version = UserDefaults.standard.string(forKey: "version") else { return }
+        
+        guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
+            print("無效的 URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(ChatGPTAPIKey.key)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
         
         let openAIBody: [String: Any] = [

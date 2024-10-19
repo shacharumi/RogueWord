@@ -15,13 +15,23 @@ class CollectionPageViewController: UIViewController {
     private let headerView = UIView()
     private let backButton = UIButton()
     private let addButton = UIButton()
-    
     private var tableView: UITableView!
-    private var wrongQuestionButton = UIButton()
     private let viewModel = CollectionPageViewModel()
     private var tapCounts: [IndexPath: Int] = [:]
     var characterTag: String = ""
     var onTagComplete: (() -> Void)?
+    
+    // 新增：導航按鈕
+    private let navigateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "gamecontroller.fill"), for: .normal) // 使用填充的遊戲控制器圖示更明顯
+        button.tintColor = UIColor(named: "TextColor")
+        button.backgroundColor = UIColor(named: "ButtonColor")
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
+        return button
+    }()
 
     // MARK: - Lifecycle Methods
     
@@ -32,6 +42,9 @@ class CollectionPageViewController: UIViewController {
         setupViewModel()
         viewModel.fetchDataFromFirebase()
         viewModel.fetchTagFromFirebase()
+        
+        // 確保導航按鈕在視圖層級中位於最前面
+        view.bringSubviewToFront(navigateButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,19 +60,19 @@ class CollectionPageViewController: UIViewController {
         
         // 添加头部视图
         view.addSubview(headerView)
-        headerView.backgroundColor =  UIColor(named: "CollectionBackGround")
+        headerView.backgroundColor = UIColor(named: "CollectionBackGround")
         headerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
             make.height.equalTo(60)
         }
         
-        let titlelabel = UILabel()
-        titlelabel.text = characterTag
-        titlelabel.textColor = UIColor(named: "TextColor")
-        titlelabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        headerView.addSubview(titlelabel)
-        titlelabel.snp.makeConstraints { make in
+        let titleLabel = UILabel()
+        titleLabel.text = characterTag
+        titleLabel.textColor = UIColor(named: "TextColor")
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        headerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
             make.centerY.centerX.equalTo(headerView)
         }
         
@@ -85,16 +98,17 @@ class CollectionPageViewController: UIViewController {
             make.width.height.equalTo(30)
         }
         
-        // 添加错误问题按钮
-        view.addSubview(wrongQuestionButton)
-        wrongQuestionButton.setImage(UIImage(systemName: "questionmark.folder.fill"), for: .normal)
-        wrongQuestionButton.tintColor = .black
-        wrongQuestionButton.addTarget(self, action: #selector(tapWrongButton), for: .touchUpInside)
-        wrongQuestionButton.snp.makeConstraints { make in
+        // 新增：導航按鈕
+        view.addSubview(navigateButton)
+        navigateButton.addTarget(self, action: #selector(navigateToGame), for: .touchUpInside)
+        navigateButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.right.equalTo(view).offset(-16)
+            make.right.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.width.height.equalTo(50)
         }
+        
+        // 確保導航按鈕在視圖層級中位於最前面
+        // 這裡不需要調用 bringSubviewToFront，因為在 viewDidLoad 中已經調用
     }
     
     private func setupTableView() {
@@ -106,10 +120,11 @@ class CollectionPageViewController: UIViewController {
         
         view.addSubview(tableView)
         
+        // 調整 tableView 的底部約束，避免與導航按鈕重叠
         tableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
-            make.bottom.equalTo(view)
             make.left.right.equalTo(view)
+            make.bottom.equalTo(navigateButton.snp.top).offset(-16) // 修改這裡
         }
         
         tableView.dataSource = self
@@ -131,15 +146,8 @@ class CollectionPageViewController: UIViewController {
     
     @objc func tapBackButton() {
         self.dismiss(animated: true, completion: nil)
-        // 如果是通过导航控制器推送的，可以使用以下代码：
-        // self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func tapWrongButton() {
-        let newVC = WrongQuestionsPage()
-        self.present(newVC, animated: true, completion: nil)
-     
-    }
     
     @objc func updateTag(_ sender: UIButton) {
         guard let tagType = sender.title(for: .normal) else {
@@ -155,6 +163,14 @@ class CollectionPageViewController: UIViewController {
     }
     
     @objc func presentAddTagAlert() {
+        if self.viewModel.tags.count > 4 {
+            let limitAlert = UIAlertController(title: nil, message: "Tag數量已達上限\n請先刪除其他Tag", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+            limitAlert.addAction(okAction)
+            self.present(limitAlert, animated: true, completion: nil)
+            return
+        }
+        
         let alert = UIAlertController(title: "新增標籤", message: "請輸入新的標籤名稱", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -175,8 +191,14 @@ class CollectionPageViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    // MARK: - Helper Methods
+
+    // 新增：導航按鈕的動作
+    @objc private func navigateToGame() {
+        let gameVC = CollectionPageGameViewController()
+        gameVC.collectionData = viewModel.words // 傳遞資料
+        gameVC.modalPresentationStyle = .fullScreen
+        self.present(gameVC, animated: true, completion: nil)
+    }
     
     private func updateTableView() {
         print(viewModel.words)

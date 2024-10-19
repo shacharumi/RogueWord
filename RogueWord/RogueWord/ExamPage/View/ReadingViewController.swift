@@ -340,11 +340,29 @@ class ReadingViewController: UIViewController, UITableViewDataSource, UITableVie
 
 extension ReadingViewController {
     private func callChatGPTAPI() {
-        guard let url = URL(string: urlString) else { return }
+        var apiKey = ""
+        if let path = Bundle.main.path(forResource: "ApiList", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
+            if let chatgptApi = dict["ChatGptKey"] as? String {
+                apiKey = chatgptApi
+            }
+        }
+        
+        guard !apiKey.isEmpty else {
+            print("未能從 plist 中讀取到 API Key")
+            return
+        }
+        
         guard let version = UserDefaults.standard.string(forKey: "version") else { return }
+        
+        guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
+            print("無效的 URL")
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(ChatGPTAPIKey.key)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
         
         // 定義 API 請求的 body

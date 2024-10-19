@@ -38,4 +38,3 @@ class ExamViewModel {
         return exams[currentVisibleIndex].title
     }
 }
-

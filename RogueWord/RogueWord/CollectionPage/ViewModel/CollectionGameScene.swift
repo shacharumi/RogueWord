@@ -2,34 +2,43 @@ import SpriteKit
 import UIKit
 
 class CollectionGameScene: SKScene {
-
+    
     var enchantress: SKSpriteNode!
     var knight: SKSpriteNode!
     var musketeer: SKSpriteNode!
     var slime: SKSpriteNode!
+    var wizard: SKSpriteNode!
+    var swordMan: SKSpriteNode!
+    var archer: SKSpriteNode!
     var tags: [String] = []
     var characterArray: [SKSpriteNode] = []
     weak var viewController: UIViewController?
-    var isDragging: Bool = false // 判斷是否正在拖曳
+    var isDragging: Bool = false
     var selectedCharacter: SKSpriteNode?
     let viewModel = CollectionPageViewModel()
     var onDeletionComplete: (() -> Void)?
-
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.backgroundColor = UIColor.clear
-
+        
         enchantress = createCharacter(named: "Enchantress", position: CGPoint(x: frame.midX - 150, y: frame.midY))
         knight = createCharacter(named: "Knight", position: CGPoint(x: frame.midX, y: frame.midY))
         musketeer = createCharacter(named: "Musketeer", position: CGPoint(x: frame.midX + 150, y: frame.midY))
+        swordMan = createCharacter(named: "SwordMan", position: CGPoint(x: frame.midX - 150, y: frame.midY - 150))
+        archer = createCharacter(named: "Archer", position: CGPoint(x: frame.midX + 150, y: frame.midY - 150))
+        wizard = createCharacter(named: "Wizard", position: CGPoint(x: frame.midX, y: frame.midY - 150))
         
         slime = createCharacter(named: "Slime", position: CGPoint(x: frame.maxX - 70, y: frame.minY + 200))
         
-        characterArray.append(contentsOf: [enchantress, knight, musketeer])
-
+        characterArray.append(contentsOf: [enchantress, knight, musketeer, archer, swordMan])
+        
         runRandomAction(for: enchantress, characterName: "Enchantress")
         runRandomAction(for: knight, characterName: "Knight")
         runRandomAction(for: musketeer, characterName: "Musketeer")
+        runRandomAction(for: wizard, characterName: "Wizard")
+        runRandomAction(for: archer, characterName: "Archer")
+        runRandomAction(for: swordMan, characterName: "SwordMan")
         
         runIdleAnimation(for: slime, characterName: "Slime", imageName: "Idle", imageCount: 6)
         
@@ -41,7 +50,7 @@ class CollectionGameScene: SKScene {
             characterArray[i].isHidden = false
         }
     }
-
+    
     func runIdleAnimation(for character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int) {
         var idleTextures: [SKTexture] = []
         for i in 0...imageCount {
@@ -53,62 +62,84 @@ class CollectionGameScene: SKScene {
         let repeatIdleAnimation = SKAction.repeatForever(idleAnimation)
         character.run(repeatIdleAnimation, withKey: "\(imageName)Animation")
     }
-
+    
     func handleCharacterTap(_ characterName: String) {
         if characterName == "Slime" {
-                let text = "1. 想要增加角色請到關卡頁面收藏單字\n2.要刪除Tag的話長按角色拖曳到這裡即可刪除"
-                let alert = UIAlertController(title: "Hint", message: text, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
+            let text = "1. 想要增加角色請到關卡頁面收藏單字\n2.要刪除Tag的話長按角色拖曳到這裡即可刪除 \n Hint:角色在原地才可拖曳"
+            let alert = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
             self.viewController?.present(alert, animated: true, completion: nil)
             
+        } else if characterName == "Wizard" {
+            let wrongPage = WrongQuestionsPage()
+            wrongPage.modalPresentationStyle = .fullScreen
+            self.viewController?.present(wrongPage, animated: true, completion: nil)
+            
         } else {
-                let collectionVC = CollectionPageViewController()
-                collectionVC.characterTag = characterName
-                collectionVC.modalPresentationStyle = .fullScreen
-                collectionVC.onTagComplete = { [weak self] in
-                    self?.onDeletionComplete?()
-                }
-                
+            let collectionVC = CollectionPageViewController()
+            collectionVC.characterTag = characterName
+            collectionVC.modalPresentationStyle = .fullScreen
+            collectionVC.onTagComplete = { [weak self] in
+                self?.onDeletionComplete?()
+            }
+            
             self.viewController?.present(collectionVC, animated: true, completion: nil)
             
         }
     }
-
+    
     func createCharacter(named characterName: String, position: CGPoint) -> SKSpriteNode {
         let character = SKSpriteNode(imageNamed: "\(characterName)Idle0")
         character.position = position
         character.name = characterName
         character.zPosition = 1
         addChild(character)
-
-        let labelText: String
-        let fontName: String
+        
+        var labelText: String
+        var fontName: String
+        
+        
+        
         switch characterName {
         case "Enchantress":
             labelText = tags.count > 0 ? tags[0] : "Enchantress"
             fontName = "Arial-BoldMT"
             character.name = tags.count > 0 ? tags[0] : "Enchantress"
-
+            
         case "Knight":
             labelText = tags.count > 1 ? tags[1] : "Knight"
             fontName = "HelveticaNeue-Bold"
             character.name = tags.count > 1 ? tags[1] : "Knight"
-
+            
         case "Musketeer":
             labelText = tags.count > 2 ? tags[2] : "Musketeer"
             fontName = "Courier-Bold"
             character.name = tags.count > 2 ? tags[2] : "Musketeer"
-
+           
+        case "Archer":
+            labelText = tags.count > 3 ? tags[3] : "Archer"
+            fontName = "Courier-Bold"
+            character.name = tags.count > 3 ? tags[3] : "Archer"
+            
+        case "SwordMan":
+            labelText = tags.count > 4 ? tags[4] : "SwordMan"
+            fontName = "Courier-Bold"
+            character.name = tags.count > 4 ? tags[4] : "SwordMan"
+            
         case "Slime":
             labelText = "DeleteTag"
             fontName = "HelveticaNeue-Bold"
             character.name = "Slime"
+        case "Wizard":
+            labelText = "錯題本"
+            fontName = "Arial-BoldMT"
+            character.name = "Wizard"
             
         default:
             labelText = ""
             fontName = "Helvetica"
         }
-
+        
         if !labelText.isEmpty {
             let label = SKLabelNode(text: labelText)
             label.fontName = fontName
@@ -132,49 +163,60 @@ class CollectionGameScene: SKScene {
             character.addChild(background)
             character.addChild(label)
         }
-
+        
         return character
     }
-
+    
     func runRandomAction(for character: SKSpriteNode, characterName: String) {
         let randomChoice = Int.random(in: 0...5)
         
         switch randomChoice {
         case 0:
-            if characterName == "Enchantress" || characterName == "Musketeer" {
+            if characterName == "Enchantress" || characterName == "Musketeer" || characterName == "Wizard" || characterName == "Archer" || characterName == "SwordMan" {
                 runAnimationAndMove(character, characterName: characterName, imageName: "Run", imageCount: 13)
             } else if characterName == "Knight" {
                 runAnimationAndMove(character, characterName: characterName, imageName: "Run", imageCount: 11)
             }
         case 1:
-            if characterName == "Enchantress" || characterName == "Musketeer" {
+            if characterName == "Enchantress" || characterName == "Musketeer" || characterName == "Archer" || characterName == "SwordMan"{
                 runAnimationAndMove(character, characterName: characterName, imageName: "Walk", imageCount: 13)
             } else if characterName == "Knight" {
                 runAnimationAndMove(character, characterName: characterName, imageName: "Walk", imageCount: 12)
+            } else if characterName == "Wizard" {
+                runAnimationAndMove(character, characterName: characterName, imageName: "Walk", imageCount: 11)
             }
         case 2:
-            if characterName == "Enchantress" {
+            if characterName == "Enchantress" || characterName == "SwordMan"{
                 runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 7)
             } else if characterName == "Knight" {
                 runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 5)
             } else if characterName == "Musketeer" {
                 runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 6)
+            } else if characterName == "Wizard" {
+                runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 10)
+            } else if characterName == "Archer" {
+                runAnimationAndMove(character, characterName: characterName, imageName: "Jump", imageCount: 8)
             }
+            
         case 3:
             if characterName == "Enchantress" {
                 stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 7, timePerFrame: 0.5)
             } else if characterName == "Knight" {
                 stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 5, timePerFrame: 0.5)
-            } else if characterName == "Musketeer" {
+            } else if characterName == "Musketeer" || characterName == "Wizard" {
                 stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 4, timePerFrame: 0.5)
+            } else if characterName == "Archer" {
+                stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 3, timePerFrame: 0.2)
+            } else if characterName == "SwordMan" {
+                stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 2, timePerFrame: 0.2)
             }
         case 4:
-            if characterName == "Enchantress" {
+            if characterName == "Enchantress" || characterName == "SwordMan" {
                 stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 4, timePerFrame: 0.5)
-            } else if characterName == "Knight" {
+            } else if characterName == "Knight" || characterName == "Musketeer" || characterName == "Wizard"{
                 stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 3, timePerFrame: 0.5)
-            } else if  characterName == "Musketeer" {
-                stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 3, timePerFrame: 0.5)
+            } else if characterName == "Archer" {
+                stopAnimation(character, characterName: characterName, imageName: "Dead", imageCount: 2, timePerFrame: 0.2)
             }
         case 5:
             if characterName == "Enchantress" {
@@ -183,13 +225,17 @@ class CollectionGameScene: SKScene {
                 stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 16, timePerFrame: 0.2)
             } else if characterName == "Musketeer" {
                 stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 19, timePerFrame: 0.2)
+            } else if characterName == "Wizard" {
+                stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 20, timePerFrame: 0.2)
+            } else if characterName == "Archer" || characterName == "SwordMan" {
+                stopAnimation(character, characterName: characterName, imageName: "Attack", imageCount: 12, timePerFrame: 0.2)
+
             }
         default:
             break
         }
     }
-
-    // 執行跑步動畫並移動
+    
     func runAnimationAndMove(_ character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int) {
         var runTextures: [SKTexture] = []
         for i in 0...imageCount {
@@ -227,7 +273,7 @@ class CollectionGameScene: SKScene {
         let sequence = SKAction.sequence([moveAction, moveCompletion])
         character.run(sequence)
     }
-
+    
     func stopAnimation(_ character: SKSpriteNode, characterName: String, imageName: String, imageCount: Int, timePerFrame: Double) {
         var idleTextures: [SKTexture] = []
         for i in 0...imageCount {
@@ -242,12 +288,12 @@ class CollectionGameScene: SKScene {
         }])
         character.run(sequence)
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
             let touchedNodes = nodes(at: location)
-
+            
             for node in touchedNodes {
                 if let characterNode = node as? SKSpriteNode {
                     selectedCharacter = characterNode
@@ -257,7 +303,7 @@ class CollectionGameScene: SKScene {
             }
         }
     }
-
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first, let character = selectedCharacter {
             let location = touch.location(in: self)
@@ -270,7 +316,7 @@ class CollectionGameScene: SKScene {
             }
         }
     }
-
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // 如果不是拖曳操作，則處理點擊
         if let character = selectedCharacter, !isDragging {
@@ -278,37 +324,35 @@ class CollectionGameScene: SKScene {
         }
         selectedCharacter = nil
     }
-
-    // 顯示刪除確認的 alert
+    
     func showAlertForDeletion(_ tag: String) {
-        if let viewController = self.view?.window?.rootViewController {
-            let alert = UIAlertController(title: "刪除確認", message: "你確定要刪除嗎？", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "刪除", style: .destructive, handler: { _ in
-                self.selectedCharacter?.removeFromParent()
-                let query = FirestoreEndpoint.fetchFolderWords.ref.whereField("Tag", isEqualTo: tag)
-                let userID = UserDefaults.standard.string(forKey: "userID")
-                let updateQuery = FirestoreEndpoint.fetchPersonData.ref.document(userID ?? "")
-                FirestoreService.shared.deleteDocuments(matching: query) { error in
-                    if let error = error {
-                        print("DEBUG: 删除失败 - \(error.localizedDescription)")
-                    } else {
-                        print("DEBUG: 删除成功。")
-                    }
+        let alert = UIAlertController(title: "刪除確認", message: "你確定要刪除嗎？", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "刪除", style: .destructive, handler: { _ in
+            self.selectedCharacter?.removeFromParent()
+            let query = FirestoreEndpoint.fetchFolderWords.ref.whereField("Tag", isEqualTo: tag)
+            let userID = UserDefaults.standard.string(forKey: "userID")
+            let updateQuery = FirestoreEndpoint.fetchPersonData.ref.document(userID ?? "")
+            FirestoreService.shared.deleteDocuments(matching: query) { error in
+                if let error = error {
+                    print("DEBUG: 删除失败 - \(error.localizedDescription)")
+                } else {
+                    print("DEBUG: 删除成功。")
                 }
-                self.tags.removeAll(){ $0 == tag }
-                
-                FirestoreService.shared.updateData(at: updateQuery, with: ["Tag":self.tags]) { error in
-                    if let error = error {
-                        print("DEBUG: 删除失败 - \(error.localizedDescription)")
-                    } else {
-                        print("DEBUG: 删除成功。")
-                        self.onDeletionComplete?()
-                    }
+            }
+            self.tags.removeAll(){ $0 == tag }
+            
+            FirestoreService.shared.updateData(at: updateQuery, with: ["Tag":self.tags]) { error in
+                if let error = error {
+                    print("DEBUG: 删除失败 - \(error.localizedDescription)")
+                } else {
+                    print("DEBUG: 删除成功。")
+                    self.onDeletionComplete?()
                 }
-            }))
-            viewController.present(alert, animated: true, completion: nil)
-        }
+            }
+        }))
+        self.viewController?.present(alert, animated: true, completion: nil)
     }
-
+    
+    
 }
