@@ -11,7 +11,7 @@
 - **Cross-Platform Support**: Access RogueWord on multiple devices seamlessly.
 ### Vocabulary Challenge
 從單字學習，重新打好單字基礎可以提升解題
-![0x0ss](https://github.com/user-attachments/assets/7fa31c65-8503-40b2-b349-61db2ef9331b)
+<img src="https://github.com/user-attachments/assets/7fa31c65-8503-40b2-b349-61db2ef9331b" width="400" />
 速度。
 ### Exam Challenge
 多種不同的測驗題目，會統計你的測驗次數以及答對率，讓你方便把握自身學習速度。
