@@ -10,18 +10,19 @@
 - **Fullscreen Mode**: Focus on learning in fullscreen mode.
 - **Cross-Platform Support**: Access RogueWord on multiple devices seamlessly.
 ### Vocabulary Challenge
-從單字學習，重新打好單字基礎可以提升解題
+從單字學習，重新打好單字基礎可以提升解題速度。
+
 <img src="https://github.com/user-attachments/assets/7fa31c65-8503-40b2-b349-61db2ef9331b" width="400" />
-速度。
 ### Exam Challenge
 多種不同的測驗題目，會統計你的測驗次數以及答對率，讓你方便把握自身學習速度。
-![0x0ss-2](https://github.com/user-attachments/assets/937ffc8e-3a28-41b3-8c3e-7bb2675b157e)
+
+<img src="https://github.com/user-attachments/assets/937ffc8e-3a28-41b3-8c3e-7bb2675b157e" width="400" />
 ### Collection Page
 如果你對於不熟悉的單字或題目可以收藏在 Collection Page，方便日後複習。
-![0x0ss-3](https://github.com/user-attachments/assets/05f3e9b7-f272-4864-ab9f-c686ab315958)
+<img src="https://github.com/user-attachments/assets/05f3e9b7-f272-4864-ab9f-c686ab315958" width="400" />
 ### Multiplayer Mode
 想與朋友一起複習，或者進行緊張刺激的對戰，都可以在此頁面找到對手。
-![0x0ss-4](https://github.com/user-attachments/assets/1cc881cf-aa67-442c-9062-e778cc01d234)
+<img src="https://github.com/user-attachments/assets/1cc881cf-aa67-442c-9062-e778cc01d234" width="400" />
 
 ---
 ## UX Highlights
