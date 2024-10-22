@@ -36,7 +36,6 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C73EFC3A2CC77A680049EB43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F3EE352CC779F10062F9EF /* XCTest.framework */; platformFilter = ios; };
-		C73EFC3B2CC77AFA0049EB43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F3EE352CC779F10062F9EF /* XCTest.framework */; };
 		C74264A22CB9910A00FCF5D2 /* SayingGoesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264A12CB9910A00FCF5D2 /* SayingGoesPageViewController.swift */; };
 		C74264BA2CBC192000FCF5D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C74264B92CBC192000FCF5D2 /* FirebaseAnalytics */; };
 		C74264BC2CBC192000FCF5D2 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = C74264BB2CBC192000FCF5D2 /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -112,7 +111,6 @@
 		C7F3EE002CBFF9230062F9EF /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */; };
 		C7F3EE022CC25FCE0062F9EF /* ApiList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7F3EE012CC25FCE0062F9EF /* ApiList.plist */; };
 		C7F3EE2C2CC773AA0062F9EF /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE2B2CC773AA0062F9EF /* UnitTest.swift */; };
-		C7F3EE332CC7745D0062F9EF /* LevelUpGamePageModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */; };
 		C7F3EE342CC7789C0062F9EF /* LevelUpGamePageModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -279,7 +277,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C73EFC3B2CC77AFA0049EB43 /* XCTest.framework in Frameworks */,
 				C74264D42CBC192000FCF5D2 /* FirebaseFunctions in Frameworks */,
 				C74264CC2CBC192000FCF5D2 /* FirebaseDatabase in Frameworks */,
 				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
@@ -994,7 +991,6 @@
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
 				C7432D722CB2CC9F003221E9 /* TabBarController.swift in Sources */,
 				C7F3EDE72CBF530E0062F9EF /* BattleViewModel.swift in Sources */,
-				C7F3EE332CC7745D0062F9EF /* LevelUpGamePageModelTests.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
 				C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */,
