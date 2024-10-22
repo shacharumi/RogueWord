@@ -10,17 +10,14 @@ import FirebaseDatabase
 
 class BattlePlayViewModel {
     
-    // MARK: - Properties
     var roomId: String?
     var ref: DatabaseReference!
     var rank: Rank?
     
-    // UI 更新的闭包
     var updateUIHandler: ((BattlePlayUIState) -> Void)?
     var gameEndHandler: ((Rank?, String) -> Void)?
     var dismissHandler: (() -> Void)?
     
-    // 游戏状态变量
     var player2Id: String?
     var player1Id: String?
     var whichPlayer: Int?
@@ -38,7 +35,6 @@ class BattlePlayViewModel {
     var player2Correct: Float = 0
     var countdownTimer: Timer?
     
-    // Firebase 观察者的引用
     var observers: [DatabaseHandle] = []
     
     init(roomId: String, rank: Rank?, whichPlayer: Int) {
@@ -52,12 +48,10 @@ class BattlePlayViewModel {
         removeAllObservers()
     }
     
-    // MARK: - Firebase Setup
     
     func setupFirebaseObservers() {
         guard let roomId = roomId else { return }
         
-        // 观察玩家名称的变化
         let player1NameHandle = ref.child("Rooms").child(roomId).child("Player1Name").observe(.value) { [weak self] snapshot in
             if let player1Name = snapshot.value as? String {
                 self?.updateUIHandler?(.updatePlayer1Name(player1Name))
@@ -70,7 +64,6 @@ class BattlePlayViewModel {
             }
         }
         
-        // 观察游戏进度
         let player1ScoreHandle = ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
             if let player1Score = snapshot.value as? Float {
                 self?.player1Score = player1Score
@@ -85,7 +78,6 @@ class BattlePlayViewModel {
             }
         }
         
-        // 倒计时
         let countdownHandle = ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
             if let countdownValue = snapshot.value as? Float {
                 self?.countdownValue = countdownValue
@@ -98,21 +90,18 @@ class BattlePlayViewModel {
             }
         }
         
-        // 题目数据
         let questionDataHandle = ref.child("Rooms").child(roomId).child("QuestionData").observe(.value) { [weak self] snapshot in
             if let questionData = snapshot.value as? [String: Any] {
                 self?.updateQuestionFromFirebase(questionData: questionData)
             }
         }
         
-        // 当前题目索引
         let currentQuestionIndexHandle = ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
             if let currentIndex = snapshot.value as? Int {
                 self?.handleQuestionIndexChange(currentIndex)
             }
         }
         
-        // 游戏开始标志
         let roomIsStartHandle = ref.child("Rooms").child(roomId).child("RoomIsStart").observe(.value) { [weak self] snapshot in
             if let roomIsStart = snapshot.value as? Bool, roomIsStart {
                 if self?.whichPlayer == 1 {
@@ -124,7 +113,6 @@ class BattlePlayViewModel {
             }
         }
         
-        // 玩家选择
         let player1SelectHandle = ref.child("Rooms").child(roomId).child("Player1Select").observe(.value) { [weak self] snapshot in
             self?.player1CountDown = self?.countdownValue ?? 0
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 1)
@@ -181,21 +169,18 @@ class BattlePlayViewModel {
     func evaluateAnswersAndScore() {
         guard let roomId = roomId, let currentWord = currentWord else { return }
         
-        // 计算玩家1的分数
         if self.player1Select == currentWord.chinese {
             self.player1Score += 1 * self.player1CountDown
             self.player1Correct += 1
             self.ref.child("Rooms").child(roomId).child("Player1Score").setValue(self.player1Score)
         }
         
-        // 计算玩家2的分数
         if self.player2Select == currentWord.chinese {
             self.player2Score += 1 * self.player2CountDown
             self.player2Correct += 1
             self.ref.child("Rooms").child(roomId).child("Player2Score").setValue(self.player2Score)
         }
         
-        // 更新按钮颜色
         self.updateUIHandler?(.updatePlayerSelections)
     }
     
@@ -224,7 +209,6 @@ class BattlePlayViewModel {
                     }
                 }
             } else {
-                // 游戏结束
                 self.currentQuestionIndex = (snapshot.value as? Int) ?? 5
                 self.ref.child("Rooms").child(roomId).updateChildValues([
                     "CurrentQuestionIndex": self.currentQuestionIndex
@@ -356,7 +340,6 @@ class BattlePlayViewModel {
         self.gameEndHandler?(rank, message)
     }
     
-    // MARK: - 选项选择
     
     func selectOption(_ option: String) {
         guard let roomId = roomId else { return }
@@ -365,7 +348,6 @@ class BattlePlayViewModel {
         ref.child("Rooms").child(roomId).updateChildValues([playerKey: option])
     }
     
-    // MARK: - 帮助方法
     
     private func loadWordFromFile(for levelNumber: Int) -> JsonWord? {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -408,7 +390,6 @@ class BattlePlayViewModel {
 }
 
 
-// BattlePlayUIState.swift
 enum BattlePlayUIState {
     case updatePlayer1Name(String)
     case updatePlayer2Name(String)
@@ -417,5 +398,5 @@ enum BattlePlayUIState {
     case updateQuestion(question: String, options: [String])
     case updateQuestionIndex(Int)
     case gameStarted
-    case updatePlayerSelections // 新增的状态，用于更新按钮颜色
+    case updatePlayerSelections
 }

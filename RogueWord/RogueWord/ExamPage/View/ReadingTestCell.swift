@@ -31,7 +31,6 @@ class ReadingTestCell: UITableViewCell {
         label.textColor = .black
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        //label.text = "()"
         return label
     }()
     
@@ -40,7 +39,6 @@ class ReadingTestCell: UITableViewCell {
        label.textColor = .black
        label.numberOfLines = 0
        label.font = UIFont.boldSystemFont(ofSize: 16)
-       //label.text = "()"
        return label
     }()
     
@@ -143,31 +141,31 @@ class ReadingTestCell: UITableViewCell {
         
         questionLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
-            make.left.equalTo(answerSelectLabel.snp.right).offset(8)  // 修正 left 鍵
+            make.left.equalTo(answerSelectLabel.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-16)
         }
         
         optionLabel0.snp.makeConstraints { make in
             make.top.equalTo(questionLabel.snp.bottom).offset(8)
-            make.left.equalTo(answerSelectLabel.snp.right).offset(8)  // 修正 left 鍵
+            make.left.equalTo(answerSelectLabel.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-16)
         }
 
         optionLabel1.snp.makeConstraints { make in
             make.top.equalTo(optionLabel0.snp.bottom).offset(8)
-            make.left.equalTo(answerSelectLabel.snp.right).offset(8)  // 修正 left 鍵
+            make.left.equalTo(answerSelectLabel.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-16)
         }
 
         optionLabel2.snp.makeConstraints { make in
             make.top.equalTo(optionLabel1.snp.bottom).offset(8)
-            make.left.equalTo(answerSelectLabel.snp.right).offset(8)  // 修正 left 鍵
+            make.left.equalTo(answerSelectLabel.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-16)
         }
 
         optionLabel3.snp.makeConstraints { make in
             make.top.equalTo(optionLabel2.snp.bottom).offset(8)
-            make.left.equalTo(answerSelectLabel.snp.right).offset(8)  // 修正 left 鍵
+            make.left.equalTo(answerSelectLabel.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-16)
             make.bottom.equalTo(contentView).offset(-16)
         }

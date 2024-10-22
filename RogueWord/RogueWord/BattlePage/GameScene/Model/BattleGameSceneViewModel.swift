@@ -11,7 +11,6 @@ import SpriteKit
 
 class BattleGameSceneViewModel {
     
-    // MARK: - Closures for Communication
     var showAlert: ((String, String?) -> Void)?
     var navigateToBattle: ((Rank) -> Void)?
     var navigateToRoom: ((String) -> Void)?
@@ -24,9 +23,7 @@ class BattleGameSceneViewModel {
         setupCharacters()
     }
     
-    // MARK: - Setup Characters
     private func setupCharacters() {
-        // 初始化角色列表，根據需要添加更多角色
         gameCharacters = [
             GameCharacter(
                 name: "Enchantress",
@@ -130,7 +127,6 @@ class BattleGameSceneViewModel {
         }
     }
     
-    // MARK: - Room Joining
     func joinRoom(with roomID: String, completion: @escaping (Result<String, Error>) -> Void) {
         let ref = Database.database().reference()
         let email = UserDefaults.standard.string(forKey: "email") ?? "unknownEmail"
@@ -150,7 +146,6 @@ class BattleGameSceneViewModel {
         }
     }
     
-    // MARK: - Helper Methods
     private func encodeEmail(_ email: String) -> String {
         return email.replacingOccurrences(of: ".", with: ",")
     }

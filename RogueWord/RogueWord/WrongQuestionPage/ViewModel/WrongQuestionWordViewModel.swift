@@ -17,9 +17,6 @@ class WrongQuestionWordViewModel {
     var isTapCheck: Bool = false
     var questionsTitle: String?
     
-    // 移除 dataDismiss，因为这是视图控制器的职责
-    // var dataDismiss: (() -> Void)?
-    
     init(questions: [GetWordFillType], questionsTitle: String?) {
         self.questions = questions
         self.selectedAnswers = Array(repeating: "", count: questions.count)

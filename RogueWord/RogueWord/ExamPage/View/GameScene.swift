@@ -1,3 +1,9 @@
+//
+//  GameScene.swift
+//  RogueWord
+//
+//  Created by shachar on 2024/9/15.
+//
 import SpriteKit
 
 class GameScene: SKScene {
@@ -98,7 +104,6 @@ class GameScene: SKScene {
             character.addChild(label)
         }
 
-        // 不为 Enchantress 创建消息框
         if characterName != "Enchantress" {
             let messageBox = SKShapeNode(
                 rectOf: CGSize(width: 150, height: 150),
@@ -173,7 +178,6 @@ class GameScene: SKScene {
             } else if let characterNode = node as? SKSpriteNode,
                       let characterName = characterNode.name {
                 if characterName == "Enchantress" {
-                    // 直接呈现对应的视图控制器
                     presentCorrespondingViewController(for: characterName)
                     return
                 }

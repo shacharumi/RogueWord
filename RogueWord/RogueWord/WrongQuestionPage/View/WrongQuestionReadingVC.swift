@@ -11,9 +11,9 @@ import SnapKit
 
 class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var readingData: GetReadingType?   // 传递过来的问题数据
+    var readingData: GetReadingType?
     var questionsTitle: String?
-    var dataDismiss: (() -> Void)?     // 闭包，用于在视图控制器消失后回调
+    var dataDismiss: (() -> Void)?
     var viewModel: WrongQuestionReadingViewModel!
     
     private let tableView = UITableView()
@@ -27,16 +27,13 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         setupCustomNavBar()
         setupTableView()
         
-        // 初始化 ViewModel
         if let readingData = readingData {
             viewModel = WrongQuestionReadingViewModel(readingData: readingData, questionsTitle: questionsTitle)
         } else {
-            // 处理 readingData 为 nil 的情况
             print("Reading data is nil")
         }
     }
     
-    // 设置自定义导航栏
     private func setupCustomNavBar() {
         customNavBar = UIView()
         customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
@@ -72,22 +69,18 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    // 返回按钮功能
     @objc func backButtonTapped() {
         self.dismiss(animated: true)
     }
     
-    // 菜单按钮功能
     @objc func menuButtonTapped() {
         let alert = UIAlertController(title: "选项", message: nil, preferredStyle: .actionSheet)
         
-        // 解答选项
         let answerAction = UIAlertAction(title: "解答", style: .default) { [weak self] _ in
             self?.viewModel.showAnswers()
             self?.tableView.reloadData()
         }
         
-        // 取消收藏
         let cancelCollection = UIAlertAction(title: "取消收藏", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel.cancelCollection { result in
@@ -96,7 +89,6 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
                     case .success():
                         let successAlert = UIAlertController(title: "取消收藏", message: "取消收藏成功", preferredStyle: .alert)
                         successAlert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
-                            // 在提示框消失后，先关闭当前视图控制器，再调用闭包
                             self.dismiss(animated: true) {
                                 self.dataDismiss?()
                             }
@@ -120,7 +112,6 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         self.present(alert, animated: true, completion: nil)
     }
 
-    // 设置表格视图
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -134,19 +125,14 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    // MARK: - UITableViewDataSource
 
-    // 返回行数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 阅读文章 + 问题数量
         return (viewModel?.readingData.questions.count ?? 0) + 1
     }
 
-    // 配置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if indexPath.row == 0 {
-            // 显示阅读文章
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.backgroundColor = UIColor(named: "CollectionBackGround")
 
@@ -174,7 +160,6 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
 
             return cell
         } else {
-            // 显示问题和选项
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingTestCell", for: indexPath) as? ReadingTestCell else {
                 return UITableViewCell()
             }
@@ -193,13 +178,11 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
             cell.optionLabel2.setTitle(options[2], for: .normal)
             cell.optionLabel3.setTitle(options[3], for: .normal)
 
-            // 设置按钮的 tag，用于区分选项
             cell.optionLabel0.tag = questionIndex * 10 + 0
             cell.optionLabel1.tag = questionIndex * 10 + 1
             cell.optionLabel2.tag = questionIndex * 10 + 2
             cell.optionLabel3.tag = questionIndex * 10 + 3
 
-            // 添加目标动作
             cell.optionLabel0.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
             cell.optionLabel1.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
             cell.optionLabel2.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
@@ -237,9 +220,7 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
-    // MARK: - 用户交互
 
-    // 处理选项按钮的点击事件
     @objc func tapOptions(_ sender: UIButton) {
         let questionIndex = sender.tag / 10
         let optionTag = sender.tag % 10
@@ -261,12 +242,10 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
 
         viewModel.setSelectedAnswer(answer, for: questionIndex)
 
-        // 刷新当前单元格
         let indexPath = IndexPath(row: questionIndex + 1, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
     }
 
-    // 显示答案的详细信息
     @objc private func translateText(_ sender: UIButton) {
         let answerText = viewModel.getAnswerText(for: sender.tag)
         let alert = UIAlertController(title: "Answer Text", message: answerText, preferredStyle: .alert)

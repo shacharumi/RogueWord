@@ -62,8 +62,8 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     }
 
     func showScanningNotSupportedAlert() {
-        let alert = UIAlertController(title: "无法扫描", message: "您的设备不支持扫描此代码类型。", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "确定", style: .default) { _ in
+        let alert = UIAlertController(title: "無法掃描", message: "你的裝置是不配此類型。", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "確定", style: .default) { _ in
             self.dismiss(animated: true, completion: nil)
         })
         present(alert, animated: true)
@@ -78,7 +78,6 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         }
     }
 
-    // MARK: - AVCaptureMetadataOutputObjectsDelegate
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
@@ -89,9 +88,8 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
             delegate?.didScanQRCode(with: scannedRoomID)
             dismiss(animated: true, completion: nil)
         } else {
-            // 处理扫描错误
-            let alert = UIAlertController(title: "扫描错误", message: "无法读取 QR 码。", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "确定", style: .default) { _ in
+            let alert = UIAlertController(title: "掃描錯誤", message: "無法讀取", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "確定", style: .default) { _ in
                 self.dismiss(animated: true, completion: nil)
             })
             present(alert, animated: true)

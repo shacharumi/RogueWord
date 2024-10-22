@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     var isButtonMovedDown: Bool = false
     
     let authorizationAppleIDButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-    
+    let testButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
         
         buttonView.addSubview(authorizationAppleIDButton)
         view.addSubview(buttonView)
-        
+        view.addSubview(testButton)
         buttonView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.height.equalTo(60)
@@ -51,7 +51,13 @@ class LoginViewController: UIViewController {
         authorizationAppleIDButton.snp.makeConstraints { make in
             make.edges.equalTo(buttonView)
         }
-        
+        testButton.addTarget(self, action: #selector(pressMockButton) , for: .touchUpInside)
+        testButton.backgroundColor = .black
+        testButton.setTitle("訪客登陸", for: .normal)
+        testButton.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.centerY.equalTo(view).offset(100)
+        }
         view.layoutIfNeeded()
         buttonOriginalCenterY = buttonView.center.y
     }
@@ -145,6 +151,10 @@ class LoginViewController: UIViewController {
         controller.presentationContextProvider = self
         
         controller.performRequests()
+    }
+    
+    @objc func pressMockButton() {
+        viewModel.mockData()
     }
     
     func navigateToMainScreen() {

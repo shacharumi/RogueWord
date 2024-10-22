@@ -90,23 +90,3 @@ class HomeGameSceneViewModel {
 
 
 
-struct GameCharacter {
-    let name: String
-    let displayName: String
-    let fontName: String
-    let actionSet: [String]
-    let position: CGPoint
-    let levelRequired: Int
-    let characterID: Int
-}
-
-
-struct CharacterAction {
-    let actionName: String
-}
-
-enum GameAction {
-    case showWarning(message: String)
-    case navigateToLevelUpGame
-    case navigateToSentenceFillGame
-}

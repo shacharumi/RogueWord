@@ -16,7 +16,6 @@ class WrongQuestionsViewModel {
         case reading
     }
     
-    // MARK: - Properties
     private(set) var wordQuestions: [WordFillDocument] = []
     private(set) var paragraphQuestions: [GetParagraphType] = []
     private(set) var readingQuestions: [GetReadingType] = []
@@ -29,7 +28,6 @@ class WrongQuestionsViewModel {
     
     var onDataUpdated: (() -> Void)?
     
-    // MARK: - Methods
     
     func fetchQuestions() {
         var query: Query?
@@ -45,7 +43,6 @@ class WrongQuestionsViewModel {
         
         guard let query = query else { return }
         
-        // Fetch data based on currentQuestionType
         switch currentQuestionType {
         case .wordQuiz:
             FirestoreService.shared.getDocuments(query) { [weak self] (questions: [WordFillDocument]) in
@@ -65,4 +62,3 @@ class WrongQuestionsViewModel {
         }
     }
 }
-
