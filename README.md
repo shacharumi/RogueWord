@@ -26,6 +26,7 @@
 ---
 ## UX Highlights
 RogueWord 裡有許多小人物陪伴你度過這段學習時光，讓過程變得更有趣。
+
 <img width="439" alt="截圖 2024-10-18 下午3 49 58" src="https://github.com/user-attachments/assets/a2425ed9-3e48-4e59-b107-cd501de68aa4">
 
 ---
