@@ -36,33 +36,9 @@
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
 		C73EFC3A2CC77A680049EB43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F3EE352CC779F10062F9EF /* XCTest.framework */; platformFilter = ios; };
-		C73EFC3B2CC77AFA0049EB43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F3EE352CC779F10062F9EF /* XCTest.framework */; };
 		C73EFC3D2CC790510049EB43 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
+		C73EFC592CC79BC30049EB43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C73EFC582CC79BC30049EB43 /* Lottie */; };
 		C74264A22CB9910A00FCF5D2 /* SayingGoesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264A12CB9910A00FCF5D2 /* SayingGoesPageViewController.swift */; };
-		C74264BA2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264BC2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264BE2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264C02CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264C22CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264C42CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264C62CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264C82CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264CA2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264CC2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264CE2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264D02CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264D22CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264D42CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264D62CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264D82CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264DA2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264DC2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264DE2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264E02CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264E22CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264E42CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264E62CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C74264E82CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		C74264EA2CBC1DD200FCF5D2 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264E92CBC1DD200FCF5D2 /* RoomViewController.swift */; };
 		C74264EC2CBC1E6900FCF5D2 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264EB2CBC1E6900FCF5D2 /* QRCodeScannerViewController.swift */; };
 		C74264EE2CBC360400FCF5D2 /* CollectionPageGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264ED2CBC360400FCF5D2 /* CollectionPageGameViewController.swift */; };
@@ -81,7 +57,6 @@
 		C7432D702CB27BEA003221E9 /* HomeGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D6F2CB27BEA003221E9 /* HomeGameViewController.swift */; };
 		C7432D722CB2CC9F003221E9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D712CB2CC9F003221E9 /* TabBarController.swift */; };
 		C7432D742CB2E325003221E9 /* BattleGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7432D732CB2E325003221E9 /* BattleGameScene.swift */; };
-		C7856BDD2CB77C8D00842B94 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C7856BDC2CB77C8D00842B94 /* Lottie */; };
 		C7856BE02CB77C9A00842B94 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C7856BDF2CB77C9A00842B94 /* SnapKit */; };
 		C7856BE82CB8337700842B94 /* SentenceFillGamePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7856BE72CB8337700842B94 /* SentenceFillGamePageViewController.swift */; };
 		C7856BEA2CB834BF00842B94 /* SentenceFillGamePageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7856BE92CB834BF00842B94 /* SentenceFillGamePageModel.swift */; };
@@ -138,7 +113,7 @@
 		C7F3EE002CBFF9230062F9EF /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */; };
 		C7F3EE022CC25FCE0062F9EF /* ApiList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7F3EE012CC25FCE0062F9EF /* ApiList.plist */; };
 		C7F3EE2C2CC773AA0062F9EF /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE2B2CC773AA0062F9EF /* UnitTest.swift */; };
-		C7F3EE332CC7745D0062F9EF /* LevelUpGamePageModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */; };
+		C7F3EE342CC7789C0062F9EF /* LevelUpGamePageModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -324,9 +299,6 @@
 				C7B327332CB4C349006EAC93 /* FirebaseStorageCombine-Community in Frameworks */,
 				C7B3272F2CB4C349006EAC93 /* FirebaseRemoteConfig in Frameworks */,
 				C7B327072CB4C349006EAC93 /* FirebaseAnalytics in Frameworks */,
-				C73EFC3B2CC77AFA0049EB43 /* XCTest.framework in Frameworks */,
-				C74264D42CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264CC2CBC192000FCF5D2 /* (null) in Frameworks */,
 				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
 				C7B3272D2CB4C349006EAC93 /* FirebasePerformance in Frameworks */,
 				C7B327172CB4C349006EAC93 /* FirebaseCrashlytics in Frameworks */,
@@ -334,33 +306,9 @@
 				C7B327132CB4C349006EAC93 /* FirebaseAuthCombine-Community in Frameworks */,
 				C7B3272B2CB4C349006EAC93 /* FirebaseMessaging in Frameworks */,
 				C7B327272CB4C349006EAC93 /* FirebaseInstallations in Frameworks */,
-				C74264D42CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264CC2CBC192000FCF5D2 /* (null) in Frameworks */,
 				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
-				C74264E42CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264BE2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264C82CBC192000FCF5D2 /* (null) in Frameworks */,
 				C7856BE02CB77C9A00842B94 /* SnapKit in Frameworks */,
-				C74264DC2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264CE2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264E82CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264BC2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264C42CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264D02CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264D22CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264D82CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264D62CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264C02CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264E62CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264E22CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264BA2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C7856BDD2CB77C8D00842B94 /* Lottie in Frameworks */,
-				C74264E02CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264CA2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264C22CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264C62CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264DE2CBC192000FCF5D2 /* (null) in Frameworks */,
-				C74264DA2CBC192000FCF5D2 /* (null) in Frameworks */,
+				C73EFC592CC79BC30049EB43 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +781,7 @@
 				C7B327302CB4C349006EAC93 /* FirebaseStorage */,
 				C7B327322CB4C349006EAC93 /* FirebaseStorageCombine-Community */,
 				C7B327342CB4C349006EAC93 /* FirebaseVertexAI-Preview */,
+				C73EFC582CC79BC30049EB43 /* Lottie */,
 			);
 			productName = RogueWord;
 			productReference = C72544302C91854D00580224 /* RogueWord.app */;
@@ -1048,7 +997,6 @@
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
 				C7432D722CB2CC9F003221E9 /* TabBarController.swift in Sources */,
 				C7F3EDE72CBF530E0062F9EF /* BattleViewModel.swift in Sources */,
-				C7F3EE332CC7745D0062F9EF /* LevelUpGamePageModelTests.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
 				C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */,
@@ -1127,6 +1075,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7F3EE342CC7789C0062F9EF /* LevelUpGamePageModelTests.swift in Sources */,
 				C7F3EE2C2CC773AA0062F9EF /* UnitTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1559,8 +1508,9 @@
 			package = C725448B2C92BBDF00580224 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		C7856BDC2CB77C8D00842B94 /* Lottie */ = {
+		C73EFC582CC79BC30049EB43 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = C7B386E82CA693950000F9CE /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
 		};
 		C7856BDF2CB77C9A00842B94 /* SnapKit */ = {
