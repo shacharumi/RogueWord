@@ -24,17 +24,14 @@ class BattleGameScene: SKScene {
         let center = CGPoint(x: size.width / 2, y: size.height / 2)
         self.backgroundColor = .clear
 
-        // Create Characters
         enchantress = createCharacter(named: "Enchantress", position: CGPoint(x: center.x - 100, y: center.y + 30))
         knight = createCharacter(named: "Knight", position: CGPoint(x: center.x - 100, y: center.y - 170))
         musketeer = createCharacter(named: "Musketeer", position: CGPoint(x: center.x + 100, y: center.y - 170))
         wizard = createCharacter(named: "Wizard", position: CGPoint(x: center.x + 100, y: center.y + 30))
 
-        // Run animations only for Enchantress and Wizard
         runRandomAction(for: enchantress, characterName: "Enchantress")
         runRandomAction(for: wizard, characterName: "Wizard")
 
-        // Disable Knight and Musketeer
         let disabledCharacters = [knight, musketeer]
         for character in disabledCharacters {
             disableCharacter(character!)
@@ -55,9 +52,7 @@ class BattleGameScene: SKScene {
     }
 
     func handleCharacterTap(_ characterName: String, node: SKSpriteNode) {
-        // Check if the character is disabled
         if let isDisabled = node.userData?["disabled"] as? Bool, isDisabled {
-            // Optionally, provide feedback to the user
             let alert = UIAlertController(title: "不可用", message: "此角色目前不可用。", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
             self.viewController?.present(alert, animated: true, completion: nil)
@@ -69,7 +64,6 @@ class BattleGameScene: SKScene {
         let rankScore = Int(rank.rankScore) ?? 0
 
         if characterName == "Wizard" {
-            // Present alert with options
             let alert = UIAlertController(title: "多人連線", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "創建房間", style: .default, handler: { [weak self] _ in
                 self?.createRoom()
@@ -82,7 +76,6 @@ class BattleGameScene: SKScene {
             return
         }
 
-        // For other characters, proceed as before
         let battlePage = BattleViewController()
         battlePage.rank = rank
         battlePage.modalPresentationStyle = .fullScreen
@@ -115,13 +108,10 @@ class BattleGameScene: SKScene {
         ref.child("rooms").child(roomID).setValue(roomData) { [weak self] (error, _) in
             if let error = error {
                 print("Error creating room: \(error.localizedDescription)")
-                // Show error to user
                 let errorAlert = UIAlertController(title: "错误", message: error.localizedDescription, preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
                 self?.viewController?.present(errorAlert, animated: true, completion: nil)
             } else {
-                // Successfully created room
-                // Navigate to RoomViewController
                 let roomVC = RoomViewController()
                 roomVC.roomID = roomID
                 roomVC.modalPresentationStyle = .fullScreen
@@ -132,7 +122,7 @@ class BattleGameScene: SKScene {
 
     func scanQRCode() {
         let scannerVC = QRCodeScannerViewController()
-        scannerVC.delegate = self  // Set delegate
+        scannerVC.delegate = self
         scannerVC.modalPresentationStyle = .fullScreen
         self.viewController?.present(scannerVC, animated: true, completion: nil)
     }
@@ -238,21 +228,17 @@ class BattleGameScene: SKScene {
         return encodedEmail.replacingOccurrences(of: ",", with: ".")
     }
 
-    // Helper function to disable characters
     func disableCharacter(_ character: SKSpriteNode) {
         character.color = .gray
         character.colorBlendFactor = 1.0
 
-        // Stop all animations
         character.removeAllActions()
 
-        // Mark as disabled using userData
         if character.userData == nil {
             character.userData = [:]
         }
         character.userData?["disabled"] = true
 
-        // Optionally, reduce opacity to emphasize disabled state
         character.alpha = 0.6
 
     }

@@ -19,11 +19,9 @@ class WrongQuestionParagraphViewModel {
         self.questionData = questionData
         self.questionsTitle = questionsTitle
         
-        // 初始化 selectedAnswers，根据 options 的数量来确定
         let optionsCount = questionData.options.count
         self.selectedAnswers = Array(repeating: "", count: optionsCount)
         
-        // 将答案拆分为数组，供翻译使用
         self.answerArray = questionData.answer.components(separatedBy: "。")
     }
     

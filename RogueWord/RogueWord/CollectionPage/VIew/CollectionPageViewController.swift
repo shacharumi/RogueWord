@@ -10,7 +10,6 @@ import SnapKit
 
 class CollectionPageViewController: UIViewController {
     
-    // MARK: - UI Components
     
     private let headerView = UIView()
     private let backButton = UIButton()
@@ -21,7 +20,6 @@ class CollectionPageViewController: UIViewController {
     var characterTag: String = ""
     var onTagComplete: (() -> Void)?
     
-    // 新增：導航按鈕
     private let navigateButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +31,6 @@ class CollectionPageViewController: UIViewController {
         return button
     }()
 
-    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +40,6 @@ class CollectionPageViewController: UIViewController {
         viewModel.fetchDataFromFirebase()
         viewModel.fetchTagFromFirebase()
         
-        // 確保導航按鈕在視圖層級中位於最前面
         view.bringSubviewToFront(navigateButton)
     }
     
@@ -52,13 +48,10 @@ class CollectionPageViewController: UIViewController {
         viewModel.fetchDataFromFirebase()
     }
     
-    // MARK: - Setup Methods
     
     private func setupUI() {
-        // 设置背景颜色
         view.backgroundColor = UIColor(named: "CollectionBackGround")
         
-        // 添加头部视图
         view.addSubview(headerView)
         headerView.backgroundColor = UIColor(named: "CollectionBackGround")
         headerView.snp.makeConstraints { make in
@@ -76,7 +69,6 @@ class CollectionPageViewController: UIViewController {
             make.centerY.centerX.equalTo(headerView)
         }
         
-        // 设置返回按钮
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
@@ -87,7 +79,6 @@ class CollectionPageViewController: UIViewController {
             make.width.height.equalTo(30)
         }
         
-        // 设置添加按钮
         addButton.setImage(UIImage(systemName: "plus.square"), for: .normal)
         addButton.tintColor = UIColor(named: "TextColor")
         addButton.addTarget(self, action: #selector(presentAddTagAlert), for: .touchUpInside)
@@ -98,7 +89,6 @@ class CollectionPageViewController: UIViewController {
             make.width.height.equalTo(30)
         }
         
-        // 新增：導航按鈕
         view.addSubview(navigateButton)
         navigateButton.addTarget(self, action: #selector(navigateToGame), for: .touchUpInside)
         navigateButton.snp.makeConstraints { make in
@@ -106,9 +96,6 @@ class CollectionPageViewController: UIViewController {
             make.right.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.width.height.equalTo(50)
         }
-        
-        // 確保導航按鈕在視圖層級中位於最前面
-        // 這裡不需要調用 bringSubviewToFront，因為在 viewDidLoad 中已經調用
     }
     
     private func setupTableView() {
@@ -120,11 +107,10 @@ class CollectionPageViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        // 調整 tableView 的底部約束，避免與導航按鈕重叠
         tableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.left.right.equalTo(view)
-            make.bottom.equalTo(navigateButton.snp.top).offset(-16) // 修改這裡
+            make.bottom.equalTo(navigateButton.snp.top).offset(-16)
         }
         
         tableView.dataSource = self
@@ -142,7 +128,6 @@ class CollectionPageViewController: UIViewController {
         }
     }
     
-    // MARK: - Action Methods
     
     @objc func tapBackButton() {
         self.dismiss(animated: true, completion: nil)
@@ -192,10 +177,9 @@ class CollectionPageViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    // 新增：導航按鈕的動作
     @objc private func navigateToGame() {
         let gameVC = CollectionPageGameViewController()
-        gameVC.collectionData = viewModel.words // 傳遞資料
+        gameVC.collectionData = viewModel.words
         gameVC.modalPresentationStyle = .fullScreen
         self.present(gameVC, animated: true, completion: nil)
     }
@@ -206,16 +190,13 @@ class CollectionPageViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource & UITableViewDelegate
 
 extension CollectionPageViewController: UITableViewDataSource, UITableViewDelegate {
     
-    // 返回行数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.words.count
     }
     
-    // 配置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionPageCell", for: indexPath) as? CollectionPageCell else {
@@ -241,12 +222,10 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    // 行高
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
-    // 选择行
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            tableView.deselectRow(at: indexPath, animated: true)
 
@@ -279,7 +258,6 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
            }
        }
 
-    // 删除行
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
             

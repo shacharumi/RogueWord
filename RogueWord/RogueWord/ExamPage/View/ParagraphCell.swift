@@ -30,17 +30,16 @@ class ParagraphCell: UITableViewCell {
        let label = UILabel()
        label.textColor = .black
        label.numberOfLines = 0
-       label.font = UIFont.boldSystemFont(ofSize: 18)  // 加大字型
+       label.font = UIFont.boldSystemFont(ofSize: 18)
        return label
     }()
     
-    // 選項按鈕
     var optionLabel0: UIButton = {
        let button = UIButton()
        button.tag = 0
-       button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)  // 調整成深灰色
+       button.setTitleColor(UIColor(named: "HomeTextColor"), for: .normal)
        button.titleLabel?.numberOfLines = 0
-       button.titleLabel?.font = UIFont.systemFont(ofSize: 16)  // 加大字型
+       button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
        button.contentHorizontalAlignment = .left
        button.isUserInteractionEnabled = true
        return button
@@ -79,12 +78,11 @@ class ParagraphCell: UITableViewCell {
         return button
     }()
     
-    // 答案說明
     var answerLabel: UILabel = {
        let label = UILabel()
        label.textColor = .lightGray
        label.numberOfLines = 0
-       label.font = UIFont.italicSystemFont(ofSize: 14)  // 改為斜體字
+       label.font = UIFont.italicSystemFont(ofSize: 14)
        return label
     }()
     
@@ -122,7 +120,7 @@ class ParagraphCell: UITableViewCell {
         answerSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
             make.left.equalTo(contentView).offset(16)
-            make.width.equalTo(60)  // 調整寬度
+            make.width.equalTo(60)  
         }
 
         answerLabel.snp.makeConstraints { make in
@@ -133,12 +131,12 @@ class ParagraphCell: UITableViewCell {
 
         optionLabel0.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
-            make.left.equalTo(answerSelectLabel.snp.right).offset(12)  // 擴大間距
+            make.left.equalTo(answerSelectLabel.snp.right).offset(12)
             make.right.equalTo(contentView).offset(-16)
         }
 
         optionLabel1.snp.makeConstraints { make in
-            make.top.equalTo(optionLabel0.snp.bottom).offset(10)  // 調整上下間距
+            make.top.equalTo(optionLabel0.snp.bottom).offset(10)
             make.left.equalTo(answerSelectLabel.snp.right).offset(12)
             make.right.equalTo(contentView).offset(-16)
         }

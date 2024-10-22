@@ -209,7 +209,6 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    // MARK: -- Doing
     @objc func answerButtonTapped() {
         let menu = UIAlertController(title: "功能", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "對答案", style: .default) { [weak self] _ in

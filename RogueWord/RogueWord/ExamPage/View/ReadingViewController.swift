@@ -365,7 +365,6 @@ extension ReadingViewController {
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
         
-        // 定義 API 請求的 body
         let openAIBody: [String: Any] = [
             "model": "gpt-3.5-turbo",
             "messages": [

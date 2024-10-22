@@ -25,7 +25,6 @@ class QuestionPageCell: UITableViewCell {
         return view
     }()
 
-    
     var questionLabel: UILabel = {
        let label = UILabel()
        label.textColor = .black
@@ -178,6 +177,4 @@ class QuestionPageCell: UITableViewCell {
 
         }
     }
-    
-    
 }

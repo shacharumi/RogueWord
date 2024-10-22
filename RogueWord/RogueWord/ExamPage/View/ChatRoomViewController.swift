@@ -156,7 +156,6 @@ class ChatRoomViewController: UIViewController {
         }
     }
     
-    // MARK: - 鍵盤處理
     
     func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -203,7 +202,6 @@ class ChatRoomViewController: UIViewController {
     
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -216,7 +214,6 @@ extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
        cell.messageLabel.text = message.content
        cell.backgroundColor =  UIColor(named: "CollectionBackGround")
-       // 根據訊息的角色調整外觀
        if message.role == "user" {
            cell.messageLabel.textAlignment = .right
            cell.messageLabel.textColor = .white
@@ -230,18 +227,15 @@ extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
        return cell
    }
 
-   // 設定行高（自動適應內容）
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return UITableView.automaticDimension
    }
 
-   // 設定估計行高
    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
        return 60
    }
 }
 
-// MARK: - UITextFieldDelegate
 
 extension ChatRoomViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -311,6 +305,6 @@ class ChatTableViewCell: UITableViewCell {
 
 
 struct ChatMessage {
-    let role: String  // "user" 或 "assistant"
+    let role: String
     let content: String
 }

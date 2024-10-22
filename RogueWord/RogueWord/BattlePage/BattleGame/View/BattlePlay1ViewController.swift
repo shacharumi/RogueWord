@@ -5,14 +5,12 @@ import FirebaseDatabase
 
 class BattlePlay1ViewController: UIViewController {
     
-    // MARK: - Properties
     var viewModel: BattlePlayViewModel!
     var roomId: String?
     var rank: Rank?
     var whichPlayer: Int?
     var datadismiss: ((Rank?) -> Void)?
     
-    // MARK: - UI Elements
     var countdownLabel: UILabel!
     var questionIndexLabel: UILabel!
     var wordLabel: UILabel!
@@ -26,30 +24,23 @@ class BattlePlay1ViewController: UIViewController {
     var buttonArray: [UIButton] = []
     let animationView = LottieAnimationView(name: "CountDown")
     let waitingAnimationView = LottieAnimationView(name: "searchBattle")
-    
-    // 用于翻转动画的视图
     var questionContainerView: UIView!
     
-    // 遮罩视图
     var overlayView: UIView!
     
-    // 新增：玩家头像
     let player1ImageView = UIImageView()
     let player2ImageView = UIImageView()
     
-    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 初始化 ViewModel
         guard let roomId = roomId, let rank = rank, let whichPlayer = whichPlayer else {
             print("缺少必要的初始化参数")
             return
         }
         viewModel = BattlePlayViewModel(roomId: roomId, rank: rank, whichPlayer: whichPlayer)
         
-        // 设置 UI
         setupUI()
         setupBindings()
         viewModel.setupFirebaseObservers()
@@ -59,7 +50,6 @@ class BattlePlay1ViewController: UIViewController {
         viewModel.removeAllObservers()
     }
     
-    // MARK: - Setup Methods
     
     func setupUI() {
         let backgroundView = UIImageView()
@@ -68,7 +58,6 @@ class BattlePlay1ViewController: UIViewController {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
-        // Player View
         let playerView = UIView()
         playerView.backgroundColor = .clear
         view.addSubview(playerView)
@@ -139,7 +128,6 @@ class BattlePlay1ViewController: UIViewController {
             make.centerX.equalTo(player2ImageView)
         }
         
-        // 用于翻转动画的容器视图
         questionContainerView = UIView()
         questionContainerView.backgroundColor = .clear
         view.addSubview(questionContainerView)
@@ -375,7 +363,6 @@ class BattlePlay1ViewController: UIViewController {
         }
     }
     
-    // MARK: - UI Actions
     
     @objc func optionSelected(_ sender: UIButton) {
         let selectedValue = sender.title(for: .normal) ?? ""
@@ -383,9 +370,7 @@ class BattlePlay1ViewController: UIViewController {
         displayCheckmark(on: sender)
     }
     
-    // 显示勾勾
     func displayCheckmark(on button: UIButton) {
-        // 移除所有按钮上的勾勾
         buttonArray.forEach { btn in
             btn.subviews.forEach { subview in
                 if subview is UIImageView && subview.tag == 999 {
@@ -394,19 +379,16 @@ class BattlePlay1ViewController: UIViewController {
             }
         }
         
-        // 创建勾勾图标
         let checkmarkImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
         checkmarkImageView.tintColor = .white
-        checkmarkImageView.tag = 999 // 用于识别勾勾图标
+        checkmarkImageView.tag = 999
         
         button.addSubview(checkmarkImageView)
         
         checkmarkImageView.snp.makeConstraints { make in
             if viewModel.whichPlayer == 1 {
-                // 对于 Player 1，勾勾显示在左侧
                 make.left.equalTo(button).offset(8)
             } else {
-                // 对于 Player 2，勾勾显示在右侧
                 make.right.equalTo(button).offset(-8)
             }
             make.centerY.equalTo(button)
@@ -428,7 +410,6 @@ class BattlePlay1ViewController: UIViewController {
         }
     }
     
-    // MARK: - Helper Methods
     
     func updatePlayer1Image() {
         if let imageData = UserDefaults.standard.data(forKey: "imageData") {
@@ -452,12 +433,10 @@ class BattlePlay1ViewController: UIViewController {
         for button in buttonArray {
             let buttonTitle = button.title(for: .normal)
             
-            // 如果是正确答案，将按钮背景设为绿色
             if buttonTitle == correctAnswer {
                 button.backgroundColor = UIColor(named: "CorrectColor")
             }
             
-            // 判断玩家的选择
             if viewModel.whichPlayer == 1 && buttonTitle == viewModel.player1Select {
                 if viewModel.player1Select == correctAnswer {
                     button.backgroundColor = UIColor(named: "CorrectColor")

@@ -32,15 +32,15 @@ struct GetReadingType: Decodable {
 }
 
 struct GetWordFillType: Decodable {
-    var question: String  // 單一問題
-    var options: [String]  // 選項數組
-    var answerOptions: String  // 正確答案
-    var answer: String  // 答案解釋
+    var question: String
+    var options: [String]
+    var answerOptions: String
+    var answer: String
 }
 
 struct WordFillDocument: Decodable {
-    var title: String?  // 文檔的標題
-    var tag: String  // 文檔的標籤
-    var questions: [GetWordFillType]  // 包含的問題列表
+    var title: String?
+    var tag: String
+    var questions: [GetWordFillType]  
     var timestamp: Timestamp
 }

@@ -117,6 +117,25 @@ class LoginViewModel {
         }
     }
     
+    func mockData() {
+        var userData = UserData(
+            userID: "testID",
+            fullName: "test",
+            userName: "test",
+            email: "test",
+            realUserStatus: 1,
+            tag: ["All"],
+            levelData: LevelData(correct: 0, levelNumber: 0, wrong: 0, isCorrect: []),
+            fillLevelData: LevelData(correct: 0, levelNumber: 0, wrong: 0, isCorrect: []),
+            rank: Rank(correct: 0.0, playTimes: 0.0, winRate: 0.0, rankScore: 0.0),
+            image: "",
+            version: "多益"
+        )
+        self.saveToUserDefaults(userData)
+        self.onUserDataSaved?()
+    }
+    
+    
     func handleAuthorizationError(error: Error) {
         var errorMessage = ""
         switch (error) {

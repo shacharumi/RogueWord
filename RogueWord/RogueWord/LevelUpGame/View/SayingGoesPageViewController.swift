@@ -152,7 +152,6 @@ class SayingGoesPageViewController: UIViewController {
         englishLabel.text = saying.0
         correctAnswer = saying.1
         
-        // 生成隨機的選項（1 個正確答案 + 3 個錯誤答案）
         shuffledOptions = generateOptions(correctAnswer: correctAnswer)
         for (index, button) in answerButtons.enumerated() {
             button.setTitle(shuffledOptions[index], for: .normal)

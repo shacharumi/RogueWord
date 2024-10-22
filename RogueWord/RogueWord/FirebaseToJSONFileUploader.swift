@@ -11,7 +11,6 @@ import Foundation
 class FirebaseToJSONFileUploader {
     let db = Firestore.firestore().collection("WordsVersion").document("0").collection("wordsCollection")
     
-    // MAKR: --抓資料
     func fetchAndSaveWordsToJSON() {
         db.order(by: "levelNumber", descending: false).getDocuments { (snapshot, error) in
             if let error = error {
@@ -34,7 +33,6 @@ class FirebaseToJSONFileUploader {
         }
     }
     
-    // MARK: --寫進JSON
     func writeToJSONFile(wordsData: [String: [String: Any]]) {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: wordsData, options: .prettyPrinted)
@@ -50,7 +48,6 @@ class FirebaseToJSONFileUploader {
         }
     }
     
-    // 讀檔案轉格式
     func readWordsFromJSONFile() -> [String: [String: Any]]? {
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentDirectory.appendingPathComponent("words.json")

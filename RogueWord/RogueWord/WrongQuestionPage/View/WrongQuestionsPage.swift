@@ -112,9 +112,8 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         layout.minimumLineSpacing = itemSpacing
         
         let itemWidth = (view.bounds.width - totalSpacing) / itemsPerRow
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)  // 設置正方形的單元格
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         
-        // 初始化 UICollectionView
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -122,7 +121,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.backgroundColor = UIColor(named: "CollectionBackGround")
         view.addSubview(collectionView)
         
-        // 使用 SnapKit 設置 UICollectionView 的約束
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom).offset(16)
             make.left.equalTo(view).offset(16)
@@ -139,7 +137,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    // MARK: - Button Actions
     @objc private func buttonTapped(_ sender: UIButton) {
         guard let title = sender.title(for: .normal) else { return }
         
@@ -170,7 +167,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         self.dismiss(animated: true)
     }
     
-    // 工具函數來創建按鈕
     private func createButton(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
@@ -182,7 +178,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         return button
     }
     
-    // MARK: - UICollectionViewDataSource Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch viewModel.currentQuestionType {
         case .wordQuiz:
@@ -195,7 +190,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Dequeue cell and configure
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
         cell.backgroundColor = UIColor(named: "viewBackGround")
         
@@ -214,9 +208,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate Methods
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Handle cell selection
         collectionView.deselectItem(at: indexPath, animated: true)
         
         var viewControllerToPresent: UIViewController?
@@ -256,7 +248,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
         
-        // Present the view controller
         if let vc = viewControllerToPresent {
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
@@ -264,7 +255,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     }
 }
 
-// MARK: - QuestionCell
 class QuestionCell: UICollectionViewCell {
     
     private let documentIDLabel: UILabel = {

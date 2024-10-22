@@ -26,13 +26,11 @@ class CollectionViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        // 初始化 SKView
         skView = SKView(frame: self.view.bounds)
         skView.backgroundColor = UIColor.clear
-        skView.isOpaque = false // 允许透明背景
+        skView.isOpaque = false
         view.addSubview(skView)
         
-        // 获取数据
         viewModel.fetchTagFromFirebase()
         
         viewModel.onTagChange = { [weak self] in
@@ -42,20 +40,17 @@ class CollectionViewController: UIViewController {
     }
     
     func setupCollectionGameScene() {
-        // 移除现有的场景（如果有）
         if let currentScene = currentScene {
             currentScene.removeAllActions()
             currentScene.removeAllChildren()
             skView.presentScene(nil)
         }
         
-        // 创建新的场景
         let scene = CollectionGameScene(size: skView.bounds.size)
         scene.scaleMode = .aspectFill
-        scene.tags = viewModel.tags // 传递数据
+        scene.tags = viewModel.tags
         scene.viewController = self
         
-        // 设置闭包
         scene.onDeletionComplete = { [weak self] in
             DispatchQueue.main.async {
                 self?.viewModel.fetchTagFromFirebase()

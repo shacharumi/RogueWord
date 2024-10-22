@@ -35,6 +35,9 @@
 		C72544862C92BB3E00580224 /* CollectionPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544852C92BB3E00580224 /* CollectionPageCell.swift */; };
 		C72544882C92BB6900580224 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544872C92BB6900580224 /* LoginViewModel.swift */; };
 		C725448A2C92BB8C00580224 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72544892C92BB8C00580224 /* HomeModel.swift */; };
+		C73EFC3A2CC77A680049EB43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F3EE352CC779F10062F9EF /* XCTest.framework */; platformFilter = ios; };
+		C73EFC3B2CC77AFA0049EB43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F3EE352CC779F10062F9EF /* XCTest.framework */; };
+		C73EFC3D2CC790510049EB43 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
 		C74264A22CB9910A00FCF5D2 /* SayingGoesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74264A12CB9910A00FCF5D2 /* SayingGoesPageViewController.swift */; };
 		C74264BA2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		C74264BC2CBC192000FCF5D2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -134,7 +137,8 @@
 		C7F3EDFE2CBFF23B0062F9EF /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFD2CBFF23B0062F9EF /* ChatRoomViewController.swift */; };
 		C7F3EE002CBFF9230062F9EF /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */; };
 		C7F3EE022CC25FCE0062F9EF /* ApiList.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7F3EE012CC25FCE0062F9EF /* ApiList.plist */; };
-		C7F3EE042CC26AC60062F9EF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C725448C2C92BBDF00580224 /* SnapKit */; };
+		C7F3EE2C2CC773AA0062F9EF /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE2B2CC773AA0062F9EF /* UnitTest.swift */; };
+		C7F3EE332CC7745D0062F9EF /* LevelUpGamePageModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +176,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
 			remoteInfo = DropDown;
+		};
+		C7F3EE2D2CC773AA0062F9EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C72544282C91854D00580224 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C725442F2C91854D00580224;
+			remoteInfo = RogueWord;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -282,6 +293,10 @@
 		C7F3EDFD2CBFF23B0062F9EF /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		C7F3EDFF2CBFF9230062F9EF /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		C7F3EE012CC25FCE0062F9EF /* ApiList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ApiList.plist; sourceTree = "<group>"; };
+		C7F3EE292CC773AA0062F9EF /* UnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7F3EE2B2CC773AA0062F9EF /* UnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTest.swift; sourceTree = "<group>"; };
+		C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpGamePageModelTests.swift; sourceTree = "<group>"; };
+		C7F3EE352CC779F10062F9EF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,7 +304,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7F3EE042CC26AC60062F9EF /* SnapKit in Frameworks */,
+				C73EFC3D2CC790510049EB43 /* SnapKit in Frameworks */,
 				C7B327212CB4C349006EAC93 /* FirebaseFunctions in Frameworks */,
 				C7B327192CB4C349006EAC93 /* FirebaseDatabase in Frameworks */,
 				C7B386EA2CA693950000F9CE /* FirebaseVertexAI-Preview in Frameworks */,
@@ -309,6 +324,9 @@
 				C7B327332CB4C349006EAC93 /* FirebaseStorageCombine-Community in Frameworks */,
 				C7B3272F2CB4C349006EAC93 /* FirebaseRemoteConfig in Frameworks */,
 				C7B327072CB4C349006EAC93 /* FirebaseAnalytics in Frameworks */,
+				C73EFC3B2CC77AFA0049EB43 /* XCTest.framework in Frameworks */,
+				C74264D42CBC192000FCF5D2 /* (null) in Frameworks */,
+				C74264CC2CBC192000FCF5D2 /* (null) in Frameworks */,
 				C7432D062CACCF9E003221E9 /* DropDown.framework in Frameworks */,
 				C7B3272D2CB4C349006EAC93 /* FirebasePerformance in Frameworks */,
 				C7B327172CB4C349006EAC93 /* FirebaseCrashlytics in Frameworks */,
@@ -360,6 +378,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7F3EE262CC773AA0062F9EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C73EFC3A2CC77A680049EB43 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -375,6 +401,7 @@
 		C70B72542C9A7AFB001011D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7F3EE352CC779F10062F9EF /* XCTest.framework */,
 				C7432CB62CABBAF3003221E9 /* WidgetKit.framework */,
 				C7432CB82CABBAF3003221E9 /* SwiftUI.framework */,
 			);
@@ -388,6 +415,7 @@
 				C72544322C91854D00580224 /* RogueWord */,
 				C725444C2C91854F00580224 /* RogueWordTests */,
 				C72544562C91854F00580224 /* RogueWordUITests */,
+				C7F3EE2A2CC773AA0062F9EF /* UnitTest */,
 				C72544312C91854D00580224 /* Products */,
 				C70B72542C9A7AFB001011D6 /* Frameworks */,
 			);
@@ -399,6 +427,7 @@
 				C72544302C91854D00580224 /* RogueWord.app */,
 				C72544492C91854F00580224 /* RogueWordTests.xctest */,
 				C72544532C91854F00580224 /* RogueWordUITests.xctest */,
+				C7F3EE292CC773AA0062F9EF /* UnitTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -406,15 +435,15 @@
 		C72544322C91854D00580224 /* RogueWord */ = {
 			isa = PBXGroup;
 			children = (
-				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C7CDBEE52CA7BB070023CF21 /* CollectionPage */,
-				C7432D1F2CAE5FD9003221E9 /* BattlePage */,
+				C7E0B0B42CA2555E003395B3 /* WrongQuestionPage */,
 				C7E0B0A92CA072C5003395B3 /* LevelUpGame */,
-				C7432D0E2CACE9A6003221E9 /* PersonFilePage */,
-				C7432CEC2CABCCC2003221E9 /* LoginPage */,
-				C7E0B0A52CA0727A003395B3 /* HomePage */,
-				C7432D712CB2CC9F003221E9 /* TabBarController.swift */,
 				C7E0B0AC2CA081FD003395B3 /* ExamPage */,
+				C7E0B0A52CA0727A003395B3 /* HomePage */,
+				C7432CEC2CABCCC2003221E9 /* LoginPage */,
+				C7432D1F2CAE5FD9003221E9 /* BattlePage */,
+				C7432D0E2CACE9A6003221E9 /* PersonFilePage */,
+				C7432D712CB2CC9F003221E9 /* TabBarController.swift */,
 				C7B386D92CA43C930000F9CE /* RogueWord.entitlements */,
 				C72544822C92BAF700580224 /* ViewModel */,
 				C725443F2C91854F00580224 /* Assets.xcassets */,
@@ -429,6 +458,7 @@
 				C72544352C91854D00580224 /* SceneDelegate.swift */,
 				C7E0B0672C9D631A003395B3 /* ListeningTestCell.swift */,
 				C72544332C91854D00580224 /* AppDelegate.swift */,
+				C7F3EE322CC7745D0062F9EF /* LevelUpGamePageModelTests.swift */,
 				C7E0B0B02CA1079F003395B3 /* FirestoreService.swift */,
 				C7CDBEEE2CAA6FCF0023CF21 /* Lottie */,
 			);
@@ -597,6 +627,7 @@
 		C7E0B0A52CA0727A003395B3 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				C7F3EE242CC73F030062F9EF /* Model */,
 				C7E0B0A62CA0728E003395B3 /* View */,
 				C7E0B0A72CA07295003395B3 /* ViewModel */,
 			);
@@ -615,7 +646,6 @@
 		C7E0B0A72CA07295003395B3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C72544892C92BB8C00580224 /* HomeModel.swift */,
 				C74264F92CBCF1F900FCF5D2 /* HomeGameSceneModel.swift */,
 			);
 			path = ViewModel;
@@ -741,6 +771,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C7F3EE242CC73F030062F9EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C72544892C92BB8C00580224 /* HomeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7F3EE2A2CC773AA0062F9EF /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				C7F3EE2B2CC773AA0062F9EF /* UnitTest.swift */,
+			);
+			path = UnitTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -828,6 +874,24 @@
 			productReference = C72544532C91854F00580224 /* RogueWordUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C7F3EE282CC773AA0062F9EF /* UnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7F3EE2F2CC773AA0062F9EF /* Build configuration list for PBXNativeTarget "UnitTest" */;
+			buildPhases = (
+				C7F3EE252CC773AA0062F9EF /* Sources */,
+				C7F3EE262CC773AA0062F9EF /* Frameworks */,
+				C7F3EE272CC773AA0062F9EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C7F3EE2E2CC773AA0062F9EF /* PBXTargetDependency */,
+			);
+			name = UnitTest;
+			productName = UnitTest;
+			productReference = C7F3EE292CC773AA0062F9EF /* UnitTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -846,6 +910,10 @@
 						TestTargetID = C725442F2C91854D00580224;
 					};
 					C72544522C91854F00580224 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = C725442F2C91854D00580224;
+					};
+					C7F3EE282CC773AA0062F9EF = {
 						CreatedOnToolsVersion = 15.3;
 						TestTargetID = C725442F2C91854D00580224;
 					};
@@ -878,6 +946,7 @@
 				C725442F2C91854D00580224 /* RogueWord */,
 				C72544482C91854F00580224 /* RogueWordTests */,
 				C72544522C91854F00580224 /* RogueWordUITests */,
+				C7F3EE282CC773AA0062F9EF /* UnitTest */,
 			);
 		};
 /* End PBXProject section */
@@ -936,6 +1005,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7F3EE272CC773AA0062F9EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -972,6 +1048,7 @@
 				C72544812C92BAB500580224 /* LevelUpGamePageViewController.swift in Sources */,
 				C7432D722CB2CC9F003221E9 /* TabBarController.swift in Sources */,
 				C7F3EDE72CBF530E0062F9EF /* BattleViewModel.swift in Sources */,
+				C7F3EE332CC7745D0062F9EF /* LevelUpGamePageModelTests.swift in Sources */,
 				C70B72392C988531001011D6 /* BattleRoomModel.swift in Sources */,
 				C70B72372C97F8BB001011D6 /* BattlePlay1ViewController.swift in Sources */,
 				C7E0B0B32CA170E1003395B3 /* WrongQuestionWordVC.swift in Sources */,
@@ -1046,6 +1123,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7F3EE252CC773AA0062F9EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7F3EE2C2CC773AA0062F9EF /* UnitTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1058,6 +1143,11 @@
 			isa = PBXTargetDependency;
 			target = C725442F2C91854D00580224 /* RogueWord */;
 			targetProxy = C72544542C91854F00580224 /* PBXContainerItemProxy */;
+		};
+		C7F3EE2E2CC773AA0062F9EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C725442F2C91854D00580224 /* RogueWord */;
+			targetProxy = C7F3EE2D2CC773AA0062F9EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1344,6 +1434,40 @@
 			};
 			name = Release;
 		};
+		C7F3EE302CC773AA0062F9EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YuanDongZheng.UnitTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RogueWord.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RogueWord";
+			};
+			name = Debug;
+		};
+		C7F3EE312CC773AA0062F9EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YuanDongZheng.UnitTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RogueWord.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RogueWord";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1379,6 +1503,15 @@
 			buildConfigurations = (
 				C72544642C91854F00580224 /* Debug */,
 				C72544652C91854F00580224 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C7F3EE2F2CC773AA0062F9EF /* Build configuration list for PBXNativeTarget "UnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7F3EE302CC773AA0062F9EF /* Debug */,
+				C7F3EE312CC773AA0062F9EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
