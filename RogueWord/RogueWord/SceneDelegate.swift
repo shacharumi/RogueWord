@@ -19,13 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-        if let userID = UserDefaults.standard.string(forKey: "userID") {
-            let mainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
-            window?.rootViewController = mainTabBarController
+        if UserDefaults.standard.string(forKey: "userID") != nil {
+            if let mainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as? UITabBarController {
+                window?.rootViewController = mainTabBarController
+            }
         } else {
-            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            let navController = UINavigationController(rootViewController: loginVC)
-            window?.rootViewController = navController
+            if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+                let navController = UINavigationController(rootViewController: loginVC)
+                window?.rootViewController = navController
+            }
         }
 
         window?.makeKeyAndVisible()

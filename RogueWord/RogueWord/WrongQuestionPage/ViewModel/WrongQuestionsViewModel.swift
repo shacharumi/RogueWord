@@ -9,29 +9,28 @@ import Foundation
 import FirebaseFirestore
 
 class WrongQuestionsViewModel {
-    
+
     enum QuestionType {
         case wordQuiz
         case paragraph
         case reading
     }
-    
+
     private(set) var wordQuestions: [WordFillDocument] = []
     private(set) var paragraphQuestions: [GetParagraphType] = []
     private(set) var readingQuestions: [GetReadingType] = []
-    
+
     var currentQuestionType: QuestionType = .paragraph {
         didSet {
             fetchQuestions()
         }
     }
-    
+
     var onDataUpdated: (() -> Void)?
-    
-    
+
     func fetchQuestions() {
         var query: Query?
-        
+
         switch currentQuestionType {
         case .wordQuiz:
             query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "單字測驗")
@@ -40,9 +39,9 @@ class WrongQuestionsViewModel {
         case .reading:
             query = FirestoreEndpoint.fetchWrongQuestion.ref.whereField("tag", isEqualTo: "閱讀理解")
         }
-        
+
         guard let query = query else { return }
-        
+
         switch currentQuestionType {
         case .wordQuiz:
             FirestoreService.shared.getDocuments(query) { [weak self] (questions: [WordFillDocument]) in

@@ -13,17 +13,17 @@ class ParagraphCell: UITableViewCell {
 
     var cardView: UIView = {
         let view = UIView()
-        
+
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
-        
+
         view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 10
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-        
+
         return view
     }()
     var answerSelectLabel: UILabel = {
@@ -33,7 +33,7 @@ class ParagraphCell: UITableViewCell {
        label.font = UIFont.boldSystemFont(ofSize: 18)
        return label
     }()
-    
+
     var optionLabel0: UIButton = {
        let button = UIButton()
        button.tag = 0
@@ -44,7 +44,7 @@ class ParagraphCell: UITableViewCell {
        button.isUserInteractionEnabled = true
        return button
     }()
-    
+
     var optionLabel1: UIButton = {
         let button = UIButton()
         button.tag = 1
@@ -55,7 +55,7 @@ class ParagraphCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var optionLabel2: UIButton = {
         let button = UIButton()
         button.tag = 2
@@ -66,7 +66,7 @@ class ParagraphCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var optionLabel3: UIButton = {
         let button = UIButton()
         button.tag = 3
@@ -77,7 +77,7 @@ class ParagraphCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var answerLabel: UILabel = {
        let label = UILabel()
        label.textColor = .lightGray
@@ -85,7 +85,7 @@ class ParagraphCell: UITableViewCell {
        label.font = UIFont.italicSystemFont(ofSize: 14)
        return label
     }()
-    
+
     var translateButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("解答", for: .normal)
@@ -93,7 +93,7 @@ class ParagraphCell: UITableViewCell {
         button.isHidden = true
         return button
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(cardView)
@@ -106,21 +106,21 @@ class ParagraphCell: UITableViewCell {
         contentView.addSubview(translateButton)
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private func setupConstraints() {
         cardView.snp.makeConstraints { make in
             make.top.left.equalTo(contentView).offset(8)
             make.right.bottom.equalTo(-8)
         }
-        
+
         answerSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
             make.left.equalTo(contentView).offset(16)
-            make.width.equalTo(60)  
+            make.width.equalTo(60)
         }
 
         answerLabel.snp.makeConstraints { make in
@@ -153,7 +153,7 @@ class ParagraphCell: UITableViewCell {
             make.right.equalTo(contentView).offset(-16)
             make.bottom.equalTo(contentView).offset(-16)
         }
-        
+
         translateButton.snp.makeConstraints { make in
             make.right.equalTo(contentView).offset(-16)
             make.height.equalTo(40)

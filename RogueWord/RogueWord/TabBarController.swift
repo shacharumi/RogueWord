@@ -60,7 +60,7 @@ class TabBarController: UITabBarController {
 
         let fromView = selectedViewController?.view
         let toView = viewControllers?[sender.tag].view
-        
+
         guard let fromView = fromView, let toView = toView, fromView != toView else { return }
 
         UIView.transition(from: fromView, to: toView, duration: 0.3, options: [.transitionCrossDissolve]) { finished in

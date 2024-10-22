@@ -9,15 +9,15 @@ import Foundation
 import FirebaseDatabase
 
 class BattlePlayViewModel {
-    
+
     var roomId: String?
     var ref: DatabaseReference!
     var rank: Rank?
-    
+
     var updateUIHandler: ((BattlePlayUIState) -> Void)?
     var gameEndHandler: ((Rank?, String) -> Void)?
     var dismissHandler: (() -> Void)?
-    
+
     var player2Id: String?
     var player1Id: String?
     var whichPlayer: Int?
@@ -34,50 +34,49 @@ class BattlePlayViewModel {
     var player1Correct: Float = 0
     var player2Correct: Float = 0
     var countdownTimer: Timer?
-    
+
     var observers: [DatabaseHandle] = []
-    
+
     init(roomId: String, rank: Rank?, whichPlayer: Int) {
         self.roomId = roomId
         self.rank = rank
         self.whichPlayer = whichPlayer
         ref = Database.database().reference()
     }
-    
+
     deinit {
         removeAllObservers()
     }
-    
-    
+
     func setupFirebaseObservers() {
         guard let roomId = roomId else { return }
-        
+
         let player1NameHandle = ref.child("Rooms").child(roomId).child("Player1Name").observe(.value) { [weak self] snapshot in
             if let player1Name = snapshot.value as? String {
                 self?.updateUIHandler?(.updatePlayer1Name(player1Name))
             }
         }
-        
+
         let player2NameHandle = ref.child("Rooms").child(roomId).child("Player2Name").observe(.value) { [weak self] snapshot in
             if let player2Name = snapshot.value as? String {
                 self?.updateUIHandler?(.updatePlayer2Name(player2Name))
             }
         }
-        
+
         let player1ScoreHandle = ref.child("Rooms").child(roomId).child("Player1Score").observe(.value) { [weak self] snapshot in
             if let player1Score = snapshot.value as? Float {
                 self?.player1Score = player1Score
                 self?.updateUIHandler?(.updatePlayer1Score(player1Score))
             }
         }
-        
+
         let player2ScoreHandle = ref.child("Rooms").child(roomId).child("Player2Score").observe(.value) { [weak self] snapshot in
             if let player2Score = snapshot.value as? Float {
                 self?.player2Score = player2Score
                 self?.updateUIHandler?(.updatePlayer2Score(player2Score))
             }
         }
-        
+
         let countdownHandle = ref.child("Rooms").child(roomId).child("PlayCounting").observe(.value) { [weak self] snapshot in
             if let countdownValue = snapshot.value as? Float {
                 self?.countdownValue = countdownValue
@@ -89,19 +88,19 @@ class BattlePlayViewModel {
                 }
             }
         }
-        
+
         let questionDataHandle = ref.child("Rooms").child(roomId).child("QuestionData").observe(.value) { [weak self] snapshot in
             if let questionData = snapshot.value as? [String: Any] {
                 self?.updateQuestionFromFirebase(questionData: questionData)
             }
         }
-        
+
         let currentQuestionIndexHandle = ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observe(.value) { [weak self] snapshot in
             if let currentIndex = snapshot.value as? Int {
                 self?.handleQuestionIndexChange(currentIndex)
             }
         }
-        
+
         let roomIsStartHandle = ref.child("Rooms").child(roomId).child("RoomIsStart").observe(.value) { [weak self] snapshot in
             if let roomIsStart = snapshot.value as? Bool, roomIsStart {
                 if self?.whichPlayer == 1 {
@@ -112,48 +111,48 @@ class BattlePlayViewModel {
                 self?.updateUIHandler?(.gameStarted)
             }
         }
-        
+
         let player1SelectHandle = ref.child("Rooms").child(roomId).child("Player1Select").observe(.value) { [weak self] snapshot in
             self?.player1CountDown = self?.countdownValue ?? 0
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 1)
         }
-        
+
         let player2SelectHandle = ref.child("Rooms").child(roomId).child("Player2Select").observe(.value) { [weak self] snapshot in
             self?.player2CountDown = self?.countdownValue ?? 0
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 2)
         }
-        
+
         // 保存观察者的句柄以便后续移除
         observers.append(contentsOf: [player1NameHandle, player2NameHandle, player1ScoreHandle, player2ScoreHandle, countdownHandle, questionDataHandle, currentQuestionIndexHandle, roomIsStartHandle, player1SelectHandle, player2SelectHandle])
     }
-    
+
     func removeAllObservers() {
         guard let roomId = roomId else { return }
         for handle in observers {
             ref.child("Rooms").child(roomId).removeObserver(withHandle: handle)
         }
     }
-    
+
     // MARK: - 游戏逻辑方法
-    
+
     func startFirebaseCountdown() {
         guard whichPlayer == 1 else { return }
-        
+
         countdownTimer?.invalidate()
         countdownValue = 10
-        
+
         if let roomId = roomId {
             ref.child("Rooms").child(roomId).child("PlayCounting").setValue(countdownValue)
         }
-        
+
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             guard let self = self else { return }
             self.countdownValue -= 1
-            
+
             if let roomId = self.roomId {
                 self.ref.child("Rooms").child(roomId).child("PlayCounting").setValue(self.countdownValue)
             }
-            
+
             if self.countdownValue <= 0 {
                 timer.invalidate()
                 self.evaluateAnswersAndScore()
@@ -161,38 +160,38 @@ class BattlePlayViewModel {
             }
         }
     }
-    
+
     func stopFirebaseCountdown() {
         countdownTimer?.invalidate()
     }
-    
+
     func evaluateAnswersAndScore() {
         guard let roomId = roomId, let currentWord = currentWord else { return }
-        
+
         if self.player1Select == currentWord.chinese {
             self.player1Score += 1 * self.player1CountDown
             self.player1Correct += 1
             self.ref.child("Rooms").child(roomId).child("Player1Score").setValue(self.player1Score)
         }
-        
+
         if self.player2Select == currentWord.chinese {
             self.player2Score += 1 * self.player2CountDown
             self.player2Correct += 1
             self.ref.child("Rooms").child(roomId).child("Player2Score").setValue(self.player2Score)
         }
-        
+
         self.updateUIHandler?(.updatePlayerSelections)
     }
-    
+
     func updateQuestionAndResetValues() {
         guard let roomId = roomId else { return }
-        
+
         ref.child("Rooms").child(roomId).child("CurrentQuestionIndex").observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let self = self else { return }
-            
+
             if let currentIndex = snapshot.value as? Int, currentIndex < 5 {
                 self.currentQuestionIndex = currentIndex + 1
-                
+
                 self.ref.child("Rooms").child(roomId).updateChildValues([
                     "CurrentQuestionIndex": self.currentQuestionIndex,
                     "Player1Select": "",
@@ -217,21 +216,21 @@ class BattlePlayViewModel {
             }
         }
     }
-    
+
     func checkIfBothPlayersSelected(snapshot: DataSnapshot, whichSelect: Int) {
         guard let roomData = snapshot.value as? String else { return }
-        
+
         if whichSelect == 1 {
             player1Select = roomData
         } else {
             player2Select = roomData
         }
-        
+
         if !player1Select.isEmpty && !player2Select.isEmpty {
             if whichPlayer == 1 {
                 self.stopFirebaseCountdown()
                 self.evaluateAnswersAndScore()
-                
+
                 // 延迟一段时间后更新题目，让玩家有时间查看答案
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.updateQuestionAndResetValues()
@@ -239,14 +238,14 @@ class BattlePlayViewModel {
             }
         }
     }
-    
+
     func randomizeWordAndOptions() {
         let randomIndex = Int.random(in: 0...999)
-        
+
         if let jsonWord = loadWordFromFile(for: randomIndex) {
             self.currentWord = jsonWord
             let correctAnswer = jsonWord.chinese
-            
+
             var randomOptions = [correctAnswer]
             while randomOptions.count < 4 {
                 let randomOptionIndex = Int.random(in: 0...999)
@@ -255,7 +254,7 @@ class BattlePlayViewModel {
                 }
             }
             randomOptions.shuffle()
-            
+
             let questionData: [String: Any] = [
                 "Question": jsonWord.english,
                 "Options": [
@@ -266,7 +265,7 @@ class BattlePlayViewModel {
                 ],
                 "CorrectAnswer": correctAnswer
             ]
-            
+
             if let roomId = roomId {
                 ref.child("Rooms").child(roomId).child("QuestionData").setValue(questionData)
             }
@@ -274,14 +273,14 @@ class BattlePlayViewModel {
             print("No data found in JSON for level \(randomIndex)")
         }
     }
-    
+
     func updateQuestionFromFirebase(questionData: [String: Any]) {
         if let question = questionData["Question"] as? String,
            let options = questionData["Options"] as? [String: String],
            let correctAnswer = questionData["CorrectAnswer"] as? String {
-            
+
             self.currentWord = JsonWord(levelNumber: 0, english: question, chinese: correctAnswer, property: "", sentence: "")
-            
+
             let uiState = BattlePlayUIState.updateQuestion(question: question, options: [
                 options["Option0"] ?? "",
                 options["Option1"] ?? "",
@@ -291,7 +290,7 @@ class BattlePlayViewModel {
             self.updateUIHandler?(uiState)
         }
     }
-    
+
     func handleQuestionIndexChange(_ currentIndex: Int) {
         if currentIndex > 5 {
             self.stopFirebaseCountdown()
@@ -302,13 +301,13 @@ class BattlePlayViewModel {
             }
         }
     }
-    
+
     func calculateFinalScore() {
         guard let whichPlayer = self.whichPlayer,
               var rank = self.rank else { return }
-        
+
         var message = ""
-        
+
         if whichPlayer == 1 {
             if player1Score > player2Score {
                 rank.playTimes += 1
@@ -336,32 +335,30 @@ class BattlePlayViewModel {
                 message = "繼續加油！！"
             }
         }
-        
+
         self.gameEndHandler?(rank, message)
     }
-    
-    
+
     func selectOption(_ option: String) {
         guard let roomId = roomId else { return }
-        
+
         let playerKey = whichPlayer == 1 ? "Player1Select" : "Player2Select"
         ref.child("Rooms").child(roomId).updateChildValues([playerKey: option])
     }
-    
-    
+
     private func loadWordFromFile(for levelNumber: Int) -> JsonWord? {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Error: Could not find the documents directory.")
             return nil
         }
-        
+
         let fileURL = documentDirectory.appendingPathComponent("words.json")
-        
+
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
             print("Error: words.json file not found in the documents directory.")
             return nil
         }
-        
+
         do {
             let data = try Data(contentsOf: fileURL)
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
@@ -371,7 +368,7 @@ class BattlePlayViewModel {
                    let chinese = wordData["chinese"] as? String,
                    let property = wordData["property"] as? String,
                    let sentence = wordData["sentence"] as? String {
-                    
+
                     let jsonWord = JsonWord(levelNumber: levelNumber, english: english, chinese: chinese, property: property, sentence: sentence)
                     return jsonWord
                 } else {
@@ -388,7 +385,6 @@ class BattlePlayViewModel {
         }
     }
 }
-
 
 enum BattlePlayUIState {
     case updatePlayer1Name(String)

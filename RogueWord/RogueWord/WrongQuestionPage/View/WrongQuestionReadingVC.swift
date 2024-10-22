@@ -10,83 +10,83 @@ import UIKit
 import SnapKit
 
 class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     var readingData: GetReadingType?
     var questionsTitle: String?
     var dataDismiss: (() -> Void)?
     var viewModel: WrongQuestionReadingViewModel!
-    
+
     private let tableView = UITableView()
     private var customNavBar: UIView!
     private let menuButton = UIButton(type: .system)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = UIColor(named: "CollectionBackGround")
         setupCustomNavBar()
         setupTableView()
-        
+
         if let readingData = readingData {
             viewModel = WrongQuestionReadingViewModel(readingData: readingData, questionsTitle: questionsTitle)
         } else {
             print("Reading data is nil")
         }
     }
-    
+
     private func setupCustomNavBar() {
         customNavBar = UIView()
         customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
-        
+
         view.addSubview(customNavBar)
-        
+
         customNavBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
             make.height.equalTo(60)
         }
-        
+
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
-        
+
         backButton.snp.makeConstraints { make in
             make.leading.equalTo(customNavBar).offset(16)
             make.centerY.equalTo(customNavBar)
         }
-        
+
         menuButton.setTitle("...", for: .normal)
         menuButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
-        
+
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar)
         }
     }
-    
+
     @objc func backButtonTapped() {
         self.dismiss(animated: true)
     }
-    
+
     @objc func menuButtonTapped() {
         let alert = UIAlertController(title: "选项", message: nil, preferredStyle: .actionSheet)
-        
+
         let answerAction = UIAlertAction(title: "解答", style: .default) { [weak self] _ in
             self?.viewModel.showAnswers()
             self?.tableView.reloadData()
         }
-        
+
         let cancelCollection = UIAlertAction(title: "取消收藏", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel.cancelCollection { result in
                 DispatchQueue.main.async {
                     switch result {
-                    case .success():
+                    case .success:
                         let successAlert = UIAlertController(title: "取消收藏", message: "取消收藏成功", preferredStyle: .alert)
                         successAlert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
                             self.dismiss(animated: true) {
@@ -102,13 +102,13 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
+
         alert.addAction(answerAction)
         alert.addAction(cancelCollection)
         alert.addAction(cancelAction)
-        
+
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -124,7 +124,6 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (viewModel?.readingData.questions.count ?? 0) + 1
@@ -219,7 +218,6 @@ class WrongQuestionReadingVC: UIViewController, UITableViewDataSource, UITableVi
             return cell
         }
     }
-
 
     @objc func tapOptions(_ sender: UIButton) {
         let questionIndex = sender.tag / 10

@@ -10,7 +10,7 @@ import SnapKit
 import Lottie
 
 class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     private let urlString = "https://api.openai.com/v1/chat/completions"
     private var questions: [WordFillType] = []
     private let tableView = UITableView()
@@ -21,7 +21,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     private let menuButton = UIButton(type: .system)
     var wordDatas: Accurency?
     private var isTapCheck: Bool = false
-    var datadismiss: ((Accurency?) -> Void)? 
+    var datadismiss: ((Accurency?) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,19 +30,19 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         setupTableView()
         callChatGPTAPI()
     }
-    
+
     private func setupCustomNavBar() {
         customNavBar = UIView()
         customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
-        
+
         view.addSubview(customNavBar)
-        
+
         customNavBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
             make.height.equalTo(60)
         }
-        
+
         let navLabel = UILabel()
         navLabel.text = "單字填空"
         navLabel.textColor = UIColor(named: "TextColor")
@@ -51,19 +51,19 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         navLabel.snp.makeConstraints { make in
             make.centerY.centerX.equalTo(customNavBar)
         }
-        
+
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.setTitleColor(.white, for: .normal)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
-        
+
         backButton.snp.makeConstraints { make in
             make.leading.equalTo(customNavBar).offset(16)
             make.centerY.equalTo(customNavBar)
         }
-        
+
         menuButton.isUserInteractionEnabled = false
         menuButton.alpha = 0.5
         menuButton.setTitle("...", for: .normal)
@@ -71,23 +71,23 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
-        
+
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar).offset(-5)
         }
-        
+
     }
-    
+
     @objc func backButtonTapped() {
         self.dismiss(animated: true) {
             self.datadismiss?(self.wordDatas)
         }
     }
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
-        
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(QuestionPageCell.self, forCellReuseIdentifier: "QuestionPageCell")
@@ -100,14 +100,14 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             make.right.equalTo(view).offset(-16)
             make.bottom.equalTo(view)
         }
-        
+
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
         animationView.center = self.view.center
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.play()
         tableView.addSubview(animationView)
-        
+
         animateLabel.text = "正在Loading，請稍等"
         animateLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         animateLabel.textColor = .black
@@ -118,15 +118,15 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
             make.centerX.equalTo(view)
         }
         DispatchQueue.main.async {
-            
+
             self.startFlashingLabel(self.animateLabel)
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return questions.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionPageCell", for: indexPath) as? QuestionPageCell {
             let question = questions[indexPath.row]
@@ -152,7 +152,7 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                 let finalQuestion = questions[indexPath.row]
                 let selectedAnswer = finalQuestion.selectNumber
                 let correctAnswer = finalQuestion.answerOptions
-                
+
                 cell.translateButton.isHidden = false
                 if selectedAnswer == correctAnswer {
                     cell.answerSelectLabel.textColor = .green
@@ -168,42 +168,41 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                 self.updateAccurency()
 
             }
-            
-            
+
             return cell
         } else {
             return UITableViewCell()
         }
     }
-    
+
     @objc func tapOptions(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? QuestionPageCell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        
+
         switch sender.tag {
         case 0:
             answerSelect = "A"
             questions[indexPath.row].selectNumber = answerSelect
-            
+
         case 1:
             answerSelect = "B"
             questions[indexPath.row].selectNumber = answerSelect
-            
+
         case 2:
             answerSelect = "C"
             questions[indexPath.row].selectNumber = answerSelect
-            
+
         case 3:
             answerSelect = "D"
             questions[indexPath.row].selectNumber = answerSelect
-            
+
         default:
             print("answer error")
         }
-        
+
         tableView.reloadRows(at: [indexPath], with: .none)
     }
-    
+
     @objc private func translateText(_ sender: UIButton) {
         let alert = UIAlertController(title: "Answer Text", message: questions[sender.tag].answer, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -217,35 +216,34 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         }
         let action2 = UIAlertAction(title: "收藏", style: .default) { [weak self] _ in
             guard let self = self else { return }
-            
+
             var allQuestionsData: [[String: Any]] = []
-            
+
             for question in self.questions {
                 let questionData: [String: Any] = [
                     "question": question.question,
                     "options": question.options,
                     "answerOptions": question.answerOptions,
-                    "answer": question.answer,
+                    "answer": question.answer
                 ]
                 allQuestionsData.append(questionData)
             }
-            
+
             self.saveQuestionToFirebase(allQuestionsData: allQuestionsData)
-            
+
             let successAlert = UIAlertController(title: "收藏成功", message: "所有問題已成功被收藏為一個整體！", preferredStyle: .alert)
             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(successAlert, animated: true, completion: nil)
         }
 
-        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
+
         menu.addAction(action1)
         menu.addAction(action2)
         menu.addAction(cancelAction)
         present(menu, animated: true, completion: nil)
     }
-    
+
     func saveQuestionToFirebase(allQuestionsData: [[String: Any]]) {
         let alert = UIAlertController(title: "輸入收藏名稱", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
@@ -271,13 +269,13 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
                     .setData(combinedData) { error in
                         if let error = error {
                             print("Error adding document: \(error)")
-                            
+
                             let errorAlert = UIAlertController(title: "錯誤", message: "問題收藏失敗，請重試！", preferredStyle: .alert)
                             errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(errorAlert, animated: true, completion: nil)
                         } else {
                             print("Document added successfully to CollectionFolderWrongQuestions")
-                            
+
                             let successAlert = UIAlertController(title: "收藏成功", message: "所有問題已成功被收藏！", preferredStyle: .alert)
                             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(successAlert, animated: true, completion: nil)
@@ -298,26 +296,24 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
         present(alert, animated: true, completion: nil)
     }
 
-
-    
     func updateAccurency() {
         let query = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
         let fieldsToUpdate: [String: Any] = [
-            "Corrects": wordDatas?.corrects,
-            "Wrongs": wordDatas?.wrongs,
+            "Corrects": wordDatas?.corrects ?? 0,
+            "Wrongs": wordDatas?.wrongs ?? 0,
             "Times": (wordDatas?.times ?? 0) - 4,
-            "Title": wordDatas?.title
+            "Title": wordDatas?.title ?? 0
         ]
-        
+
         FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
             if let error = error {
                 print("DEBUG: Failed to update wordData -", error.localizedDescription)
             } else {
-                print("DEBUG: Successfully updated wordData to \(self.wordDatas)")
+                print("DEBUG: Successfully updated wordData to \(String(describing: self.wordDatas))")
             }
         }
     }
-    
+
     func startFlashingLabel(_ label: UILabel) {
         label.alpha = 1.0
         UIView.animate(withDuration: 1,
@@ -329,11 +325,8 @@ class WordFillInTheBlankPageViewController: UIViewController, UITableViewDataSou
     }
 }
 
-
-
-
 extension WordFillInTheBlankPageViewController {
-    
+
     private func callChatGPTAPI() {
         var apiKey = ""
         if let path = Bundle.main.path(forResource: "ApiList", ofType: "plist"),
@@ -342,31 +335,31 @@ extension WordFillInTheBlankPageViewController {
                 apiKey = chatgptApi
             }
         }
-        
+
         guard !apiKey.isEmpty else {
             print("未能從 plist 中讀取到 API Key")
             return
         }
-        
+
         guard let version = UserDefaults.standard.string(forKey: "version") else { return }
-        
+
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             print("無效的 URL")
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
-        
+
         let openAIBody: [String: Any] = [
             "model": "gpt-3.5-turbo",
             "messages": [
                 ["role": "system", "content": "You are a helpful assistant."],
                 ["role": "user", "content": """
                    請幫我生成五題\(version)單字填空，內容難度為\(version)高階的題目，不用理會範例題目內容，但請嚴格遵循我以下的Json格式，並且在最後回傳給我Json格式就好，不要有多餘的字，請每次都給出不同問題。
-                   
+
                    The format should be as follows:
                    [
                    {
@@ -386,27 +379,27 @@ extension WordFillInTheBlankPageViewController {
                    """]
             ]
         ]
-        
+
         request.httpBody = try? JSONSerialization.data(withJSONObject: openAIBody)
-        
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             if let error = error {
                 print("API請求錯誤: \(error)")
                 return
             }
-            
+
             guard let data = data else {
                 print("無效的數據")
                 return
             }
-            
+
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let choices = json["choices"] as? [[String: Any]],
                    let firstChoice = choices.first,
                    let message = firstChoice["message"] as? [String: Any],
                    let content = message["content"] as? String {
-                    
+
                     let cleanedContent = content.replacingOccurrences(of: "\\n", with: "")
                         .replacingOccurrences(of: "\\", with: "")
                         .replacingOccurrences(of: "```", with: "" )
@@ -415,7 +408,7 @@ extension WordFillInTheBlankPageViewController {
                         do {
                             if let jsonArray = try JSONSerialization.jsonObject(with: contentData, options: []) as? [[String: Any]] {
                                 let parsedQuestions = self?.parseResponse(jsonArray: jsonArray) ?? []
-                                
+
                                 DispatchQueue.main.async {
                                     self?.menuButton.isUserInteractionEnabled = true
                                     self?.menuButton.alpha = 1
@@ -438,27 +431,26 @@ extension WordFillInTheBlankPageViewController {
         }.resume()
     }
 
-    
     private func parseResponse(jsonArray: [[String: Any]]) -> [WordFillType] {
         var questionsArray: [WordFillType] = []
-        
+
         for jsonObject in jsonArray {
             if let question = jsonObject["question"] as? String,
                let options = jsonObject["options"] as? [String],
                let answerOption = jsonObject["AnswerOption"] as? String,
                let answerExplanation = jsonObject["Answer"] as? String {
-                
+
                 let wordFillType = WordFillType(
                     question: question,
                     options: options,
                     answerOptions: answerOption,
                     answer: answerExplanation
                 )
-                
+
                 questionsArray.append(wordFillType)
             }
         }
-        
+
         return questionsArray
     }
 }
@@ -476,7 +468,7 @@ struct Accurency: Decodable, Encodable {
     var wrongs: Int
     var times: Int
     var title: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case corrects = "Corrects"
         case wrongs = "Wrongs"

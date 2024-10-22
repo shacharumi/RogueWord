@@ -11,10 +11,10 @@ class ListeningTestCell: UIViewController {
 
     private let viewModel = HomeModel()
     var rank: Rank?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let backGroundView = UIImageView()
         backGroundView.image = UIImage(named: "battle")
         view.addSubview(backGroundView)
@@ -25,10 +25,10 @@ class ListeningTestCell: UIViewController {
     }
 
     func setupCollectionGameScene() {
-            
+
            let skView = SKView(frame: self.view.bounds)
            skView.backgroundColor = UIColor.clear
-           skView.isOpaque = false 
+           skView.isOpaque = false
            self.view.addSubview(skView)
 
            let scene = BattleGameScene(size: skView.bounds.size)
@@ -38,7 +38,7 @@ class ListeningTestCell: UIViewController {
 
            skView.presentScene(scene)
        }
-    
+
     func fectchRank() {
         guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
                 let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)

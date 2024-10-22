@@ -5,31 +5,29 @@
 //  Created by shachar on 2024/10/16.
 //
 
-
-
 import Foundation
 import FirebaseDatabase
 
 class BattleViewModel {
-    
+
     var ref: DatabaseReference!
     var rank: Rank?
     var userID: String?
     var userName: String?
-    
+
     var onRankFetched: ((Rank?) -> Void)?
     var onError: ((Error) -> Void)?
-    
+
     init() {
         ref = Database.database().reference()
         self.userID = UserDefaults.standard.string(forKey: "userID")
         self.userName = UserDefaults.standard.string(forKey: "userName")
     }
-    
+
     func fetchRank() {
         guard let userID = self.userID else { return }
         let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
-        
+
         FirestoreService.shared.getDocument(query) { [weak self] (personData: UserData?) in
             if let personData = personData {
                 self?.rank = personData.rank
@@ -40,7 +38,7 @@ class BattleViewModel {
             }
         }
     }
-    
+
     func handleRoomAction(completion: @escaping (BattlePlay1ViewController) -> Void) {
         ref.child("Rooms").observeSingleEvent(of: .value) { snapshot in
             if let roomsData = snapshot.value as? [String: [String: Any]] {
@@ -50,7 +48,7 @@ class BattleViewModel {
                     }
                     return false
                 }
-                
+
                 if let randomRoom = availableRooms.randomElement() {
                     self.joinRoom(roomId: randomRoom.key, roomData: randomRoom.value, completion: completion)
                 } else {
@@ -61,7 +59,7 @@ class BattleViewModel {
             }
         }
     }
-    
+
     func createRoom(completion: @escaping (BattlePlay1ViewController) -> Void) {
         let roomId = UUID().uuidString
         guard let userName = self.userName else { return }
@@ -86,7 +84,7 @@ class BattleViewModel {
                 "CorrectAnswer": ""
             ]
         ]
-        
+
         ref.child("Rooms").child(roomId).setValue(roomData) { [weak self] error, _ in
             if let error = error {
                 self?.onError?(error)
@@ -105,12 +103,12 @@ class BattleViewModel {
             }
         }
     }
-    
+
     func joinRoom(roomId: String, roomData: [String: Any], completion: @escaping (BattlePlay1ViewController) -> Void) {
         var updatedRoomData = roomData
         guard let userName = self.userName else { return }
         updatedRoomData["Player2Name"] = userName
-        
+
         ref.child("Rooms").child(roomId).updateChildValues(updatedRoomData) { [weak self] error, _ in
             if let error = error {
                 self?.onError?(error)
@@ -126,7 +124,7 @@ class BattleViewModel {
                     self?.onRankFetched?(rank)
                 }
                 completion(battlePage)
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self?.ref.child("Rooms").child(roomId).updateChildValues(["RoomIsStart": true]) { error, _ in
                         if error == nil {
@@ -140,7 +138,7 @@ class BattleViewModel {
             }
         }
     }
-    
+
     func updateRankInFirestore(_ rank: Rank?) {
         guard let rank = rank else { return }
         let newRank = [

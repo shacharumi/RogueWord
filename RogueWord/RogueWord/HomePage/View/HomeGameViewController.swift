@@ -13,11 +13,11 @@ class HomeGameViewController: UIViewController {
 
     private let viewModel = HomeModel()
     var personData: UserData?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
-        
+
         let backGroundView = UIImageView()
         backGroundView.image = UIImage(named: "Home")
         view.addSubview(backGroundView)
@@ -54,6 +54,5 @@ class HomeGameViewController: UIViewController {
         scene.viewController = self
         skView.presentScene(scene)
     }
-
 
 }

@@ -17,7 +17,7 @@ class ChatRoomViewController: UIViewController {
     private var customNavBar: UIView!
 
     let viewModel = ChatViewModel()
-    
+
     override func viewDidLoad() {
             super.viewDidLoad()
             setupUI()
@@ -25,32 +25,32 @@ class ChatRoomViewController: UIViewController {
             setupConstraints()
             setupBindings()
             setupNotifications()
-            addDoneButtonOnKeyboard() 
+            addDoneButtonOnKeyboard()
         }
-    
+
     private func setupCustomNavBar() {
         customNavBar = UIView()
         customNavBar.backgroundColor = .clear
-        
+
         view.addSubview(customNavBar)
-        
+
         customNavBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
             make.height.equalTo(60)
         }
-        
+
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
-        
+
         backButton.snp.makeConstraints { make in
             make.leading.equalTo(customNavBar).offset(16)
             make.centerY.equalTo(customNavBar)
         }
-        
+
         let titleLabel = UILabel()
         titleLabel.text = "解答室"
         titleLabel.textColor = UIColor(named: "TextColor")
@@ -62,11 +62,11 @@ class ChatRoomViewController: UIViewController {
         }
 
     }
-    
+
     @objc func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     func setupUI() {
         view.backgroundColor = UIColor(named: "CollectionBackGround")
 
@@ -76,18 +76,18 @@ class ChatRoomViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(named: "CollectionBackGround")
         tableView.allowsSelection = false
-        
+
         messageTextField.placeholder = "輸入訊息..."
         messageTextField.borderStyle = .roundedRect
         messageTextField.delegate = self
-        
+
         sendButton.setTitle("發送", for: .normal)
         sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
         sendButton.tintColor = .white
         sendButton.layer.cornerRadius = 10
         sendButton.layer.masksToBounds = false
         sendButton.backgroundColor = .systemBlue
-        
+
         initLabel.text = "目前沒有任何對話，說點什麼吧"
         initLabel.textColor = UIColor(named: "TextColor")
         initLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -96,21 +96,21 @@ class ChatRoomViewController: UIViewController {
         view.addSubview(sendButton)
         view.addSubview(initLabel)
     }
-    
+
     func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(customNavBar.snp.bottom)
             make.left.right.equalToSuperview()
             make.bottom.equalTo(messageTextField.snp.top).offset(-10)
         }
-        
+
         messageTextField.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(32)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
             make.right.equalTo(sendButton.snp.left).offset(-10)
             make.height.equalTo(40)
         }
-        
+
         sendButton.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-10)
             make.centerY.equalTo(messageTextField)
@@ -121,16 +121,16 @@ class ChatRoomViewController: UIViewController {
             make.centerX.centerY.equalTo(view)
         }
     }
-    
+
     func setupBindings() {
         viewModel.reloadTableViewClosure = { [weak self] in
             self?.tableView.reloadData()
         }
-        
+
         viewModel.scrollToBottomClosure = { [weak self] in
             self?.scrollToBottom()
         }
-        
+
         viewModel.showErrorClosure = { [weak self] errorMessage in
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: "錯誤", message: errorMessage, preferredStyle: .alert)
@@ -139,14 +139,14 @@ class ChatRoomViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func sendMessage() {
         initLabel.isHidden = true
         guard let text = messageTextField.text, !text.isEmpty else { return }
         messageTextField.text = ""
         viewModel.sendMessage(text)
     }
-    
+
     func scrollToBottom() {
         if viewModel.messages.count > 0 {
             let indexPath = IndexPath(row: viewModel.messages.count - 1, section: 0)
@@ -155,14 +155,13 @@ class ChatRoomViewController: UIViewController {
             }
         }
     }
-    
-    
+
     func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let keyboardHeight = keyboardFrame.height
@@ -175,7 +174,7 @@ class ChatRoomViewController: UIViewController {
             scrollToBottom()
         }
     }
-    
+
     @objc func keyboardWillHide(notification: Notification) {
         messageTextField.snp.updateConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
@@ -184,14 +183,14 @@ class ChatRoomViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
+
     func addDoneButtonOnKeyboard() {
            let toolbar = UIToolbar()
            toolbar.sizeToFit()
-           
+
            let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
            let doneButton = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(doneButtonAction))
-           
+
            toolbar.items = [flexSpace, doneButton]
            messageTextField.inputAccessoryView = toolbar
        }
@@ -199,9 +198,8 @@ class ChatRoomViewController: UIViewController {
        @objc func doneButtonAction() {
            messageTextField.resignFirstResponder()
        }
-    
-}
 
+}
 
 extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -211,20 +209,21 @@ extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
        let message = viewModel.messages[indexPath.row]
-       let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
-       cell.messageLabel.text = message.content
-       cell.backgroundColor =  UIColor(named: "CollectionBackGround")
-       if message.role == "user" {
-           cell.messageLabel.textAlignment = .right
-           cell.messageLabel.textColor = .white
-           cell.bubbleView.backgroundColor = .systemBlue
-       } else {
-           cell.messageLabel.textAlignment = .left
-           cell.messageLabel.textColor = .black
-           cell.bubbleView.backgroundColor = UIColor.systemGray5
+       if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatTableViewCell {
+           cell.messageLabel.text = message.content
+           cell.backgroundColor =  UIColor(named: "CollectionBackGround")
+           if message.role == "user" {
+               cell.messageLabel.textAlignment = .right
+               cell.messageLabel.textColor = .white
+               cell.bubbleView.backgroundColor = .systemBlue
+           } else {
+               cell.messageLabel.textAlignment = .left
+               cell.messageLabel.textColor = .black
+               cell.bubbleView.backgroundColor = UIColor.systemGray5
+           }
+           return cell
        }
-
-       return cell
+       return UITableViewCell()
    }
 
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -236,14 +235,12 @@ extension ChatRoomViewController: UITableViewDataSource, UITableViewDelegate {
    }
 }
 
-
 extension ChatRoomViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         sendMessage()
         return true
     }
 }
-
 
 class ChatTableViewCell: UITableViewCell {
 
@@ -302,7 +299,6 @@ class ChatTableViewCell: UITableViewCell {
         }
     }
 }
-
 
 struct ChatMessage {
     let role: String

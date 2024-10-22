@@ -10,12 +10,10 @@ import UIKit
 
 class HomeGameScene: SKScene {
 
-
     var viewModel: HomeGameSceneViewModel!
     weak var viewController: UIViewController?
     var characterNodes: [Int: SKSpriteNode] = [:]
     var personData: UserData?
-
 
     override func didMove(to view: SKView) {
            super.didMove(to: view)
@@ -29,7 +27,6 @@ class HomeGameScene: SKScene {
 
            viewModel.createCharacters()
        }
-
 
     func setupCharacters() {
         for node in characterNodes.values {
@@ -46,7 +43,6 @@ class HomeGameScene: SKScene {
             runRandomAction(for: characterNode, character: character)
         }
     }
-
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -107,7 +103,6 @@ class HomeGameScene: SKScene {
         }
     }
 
-
     func createCharacterNode(for character: GameCharacter) -> SKSpriteNode {
         let characterNode = SKSpriteNode(imageNamed: "\(character.name)Idle0")
         characterNode.name = "\(character.characterID)"
@@ -161,27 +156,26 @@ class HomeGameScene: SKScene {
         return characterNode
     }
 
-
     func showWarning(message: String, on characterNode: SKSpriteNode) {
         if let warningBox = characterNode.childNode(withName: "warningBox") as? SKShapeNode,
            let warningLabel = warningBox.childNode(withName: "warningLabel") as? SKLabelNode {
-            
+
             warningLabel.text = message
-            
+
             let padding: CGFloat = 20
             let warningBoxWidth = warningLabel.frame.width + padding
             let warningBoxHeight = warningLabel.frame.height + padding
-            
+
             let newRect = CGRect(x: -warningBoxWidth / 2, y: -warningBoxHeight / 2, width: warningBoxWidth, height: warningBoxHeight)
             let newPath = UIBezierPath(roundedRect: newRect, cornerRadius: 10).cgPath
             warningBox.path = newPath
-            
+
             warningLabel.position = CGPoint(x: 0, y: 0)
-            
+
             warningBox.xScale = 1 / characterNode.xScale
-            
+
             warningBox.isHidden = false
-            
+
             let fadeIn = SKAction.fadeIn(withDuration: 0.3)
             let wait = SKAction.wait(forDuration: 2.0)
             let fadeOut = SKAction.fadeOut(withDuration: 0.3)
@@ -192,7 +186,6 @@ class HomeGameScene: SKScene {
             warningBox.run(sequence)
         }
     }
-
 
     func runRandomAction(for characterNode: SKSpriteNode, character: GameCharacter) {
         let action = viewModel.getRandomAction(for: character)

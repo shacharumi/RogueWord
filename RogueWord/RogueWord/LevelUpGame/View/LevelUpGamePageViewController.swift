@@ -16,9 +16,9 @@ class LevelUpGamePageViewController: UIViewController {
     var correctCount: Int = 0
     var wrongCount: Int = 0
     var isCorrect: [Bool] = []
-    
+
     var returnLevelNumber: ((Int) -> Void)?
-    
+
     var hasSelectedAnswer: Bool = false
 
     private let accurencyLabel: UILabel = {
@@ -28,7 +28,7 @@ class LevelUpGamePageViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
+
     private let indexLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ class LevelUpGamePageViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
+
     private let englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
         return buttons
     }()
-    
+
     private let alertLabel: UILabel = {
         let label = UILabel()
         label.text = "左滑收藏單字，右滑進入下一題"
@@ -87,7 +87,6 @@ class LevelUpGamePageViewController: UIViewController {
         label.numberOfLines = 2
         return label
     }()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +108,7 @@ class LevelUpGamePageViewController: UIViewController {
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.2
         cardView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        
+
         cardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardView)
         cardView.addSubview(accurencyLabel)
@@ -118,9 +117,9 @@ class LevelUpGamePageViewController: UIViewController {
         cardView.addSubview(propertyLabel)
         cardView.addSubview(sentenceLabel)
         cardView.addSubview(alertLabel)
-        
+
         alertLabel.isHidden = true
-        
+
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view).offset(-100)
@@ -128,18 +127,18 @@ class LevelUpGamePageViewController: UIViewController {
             make.right.equalTo(view).offset(-32)
             make.height.equalTo(400)
         }
-        
+
         accurencyLabel.text = "\(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100))"
         accurencyLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(50)
             make.centerX.equalTo(cardView)
         }
-        
+
         indexLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(100)
             make.centerX.equalTo(cardView)
         }
-        
+
         englishLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(150)
             make.centerX.equalTo(cardView)
@@ -154,12 +153,12 @@ class LevelUpGamePageViewController: UIViewController {
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
         }
-        
+
         alertLabel.snp.makeConstraints { make in
             make.top.equalTo(sentenceLabel.snp.bottom).offset(32)
             make.centerX.equalTo(cardView.snp.centerX)
         }
-        
+
         let stackView = UIStackView(arrangedSubviews: answerButtons)
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -213,20 +212,20 @@ class LevelUpGamePageViewController: UIViewController {
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar)
         }
-        
+
         let titleLabel = UILabel()
         titleLabel.text = "英翻中選擇題"
         titleLabel.textColor = UIColor(named: "TextColor")
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         titleLabel.textAlignment = .center
         customNavBar.addSubview(titleLabel)
-        
+
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(backButton.snp.right)
             make.right.equalTo(previousButton.snp.left)
             make.centerY.equalTo(customNavBar)
         }
-        
+
     }
 
     private func addPanGestureToCard() {
@@ -294,12 +293,11 @@ class LevelUpGamePageViewController: UIViewController {
 
     private func highlightCorrectAnswer() {
         guard let question = viewModel.getCurrentQuestion() else { return }
+        
+        for button in answerButtons where button.currentTitle == question.chinese {
+            button.backgroundColor = UIColor(named: "CorrectColor")
+            break
 
-        for button in answerButtons {
-            if button.currentTitle == question.chinese {
-                button.backgroundColor = UIColor(named: "CorrectColor")
-                break
-            }
         }
     }
 
@@ -309,16 +307,14 @@ class LevelUpGamePageViewController: UIViewController {
 
     private func animateCardOffScreen(direction: SlideDirection) {
         let offScreenX: CGFloat = direction == .right ? UIScreen.main.bounds.width * 1.5 : -UIScreen.main.bounds.width * 1.5
-        
+
         if direction == .left {
             self.viewModel.addToFavorites()
         }
-        
+
         UIView.animate(withDuration: 0.3, animations: {
             self.cardView.center.x = offScreenX
             self.cardView.alpha = 0
-            
-            
         }) { _ in
             self.resetCardPosition()
             if self.viewModel.moveToNextQuestion() {
@@ -344,7 +340,7 @@ class LevelUpGamePageViewController: UIViewController {
         }
 
         hasSelectedAnswer = false
-       
+
         self.viewModel.updateLevelNumber()
         accurencyLabel.text = "答對率: \(String(format: "%.0f%%", (Float(viewModel.currentCorrect) / Float(viewModel.currentQuestionIndex)) * 100)) "
         indexLabel.text = "當前題數: \(viewModel.currentQuestionIndex)"
@@ -356,12 +352,10 @@ class LevelUpGamePageViewController: UIViewController {
         answers.append(contentsOf: viewModel.generateWrongAnswers(for: question.chinese))
         answers.shuffle()
 
-        for (index, button) in answerButtons.enumerated() {
-            if index < answers.count {
-                button.setTitle(answers[index], for: .normal)
-                button.backgroundColor = UIColor(named: "ButtonColor")
-                button.isEnabled = true
-            }
+        for (index, button) in answerButtons.enumerated() where index < answers.count {
+            button.setTitle(answers[index], for: .normal)
+            button.backgroundColor = UIColor(named: "ButtonColor")
+            button.isEnabled = true
         }
     }
 
@@ -398,7 +392,7 @@ class LevelUpGamePageViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
+
     private func startFlashingAlertLabel() {
         alertLabel.alpha = 1.0
         UIView.animate(withDuration: 1, delay: 0.0, options: [.repeat, .autoreverse], animations: {

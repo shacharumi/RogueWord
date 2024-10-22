@@ -3,7 +3,7 @@ import SnapKit
 import AVFoundation
 
 class PersonFileViewController: UIViewController {
-    
+
     let tableView = UITableView()
     let headerView = UIView()
 
@@ -13,7 +13,7 @@ class PersonFileViewController: UIViewController {
         imageView.image = UIImage(named: "personBackGround")
         return imageView
     }()
-    
+
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "default_avatar")
@@ -35,14 +35,14 @@ class PersonFileViewController: UIViewController {
         label.isUserInteractionEnabled = true
         return label
     }()
-    
+
     let tableViewCard: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "viewBackGround")
         view.alpha = 0.7
         return view
     }()
-    
+
     let catImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "cat0")
@@ -60,11 +60,11 @@ class PersonFileViewController: UIViewController {
         viewModel.requestNotificationAuthorization()
 
         loadUserData()
-        
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(catImageTapped))
         catImage.isUserInteractionEnabled = true
         catImage.addGestureRecognizer(tapGestureRecognizer)
-        
+
         startImageSlideshow()
     }
 
@@ -72,7 +72,7 @@ class PersonFileViewController: UIViewController {
         super.viewDidLayoutSubviews()
         roundTopCorners(view: tableViewCard, radius: 60)
     }
-    
+
     @objc func catImageTapped() {
         if catImage.image == UIImage(named: "cat0") {
             catImage.image = UIImage(named: "cat1")
@@ -92,7 +92,7 @@ class PersonFileViewController: UIViewController {
             catImage.image = UIImage(named: "cat0")
         }
     }
-    
+
     func setupNavigationBar() {
         navigationItem.title = "個人頁面"
         self.navigationController?.navigationBar.isTranslucent = true
@@ -120,7 +120,7 @@ class PersonFileViewController: UIViewController {
         backGroudView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
-        
+
         headerView.backgroundColor = .clear
         view.addSubview(headerView)
 
@@ -155,7 +155,7 @@ class PersonFileViewController: UIViewController {
             make.top.equalTo(headerView.snp.bottom).offset(8)
             make.left.right.bottom.equalTo(view)
         }
-        
+
         view.addSubview(tableView)
         tableView.register(PersonFileCell.self, forCellReuseIdentifier: "PersonFileCell")
         tableView.delegate = self
@@ -169,7 +169,7 @@ class PersonFileViewController: UIViewController {
             make.right.equalTo(tableViewCard).offset(-24)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
         }
-        
+
         view.addSubview(catImage)
         catImage.snp.makeConstraints { make in
             make.bottom.equalTo(tableViewCard.snp.top).offset(50)
@@ -177,7 +177,7 @@ class PersonFileViewController: UIViewController {
             make.width.height.equalTo(80)
         }
     }
-    
+
     func roundTopCorners(view: UIView, radius: CGFloat) {
         let path = UIBezierPath(
             roundedRect: view.bounds,
@@ -188,7 +188,7 @@ class PersonFileViewController: UIViewController {
         maskLayer.path = path.cgPath
         view.layer.mask = maskLayer
     }
-    
+
     @objc func changeProfileImage() {
         showEditProfileAlert()
     }
@@ -280,7 +280,7 @@ class PersonFileViewController: UIViewController {
     func showImagePicker(sourceType: UIImagePickerController.SourceType) {
         if sourceType == .camera {
             let cameraAuthStatus = AVCaptureDevice.authorizationStatus(for: .video)
-            
+
             switch cameraAuthStatus {
             case .authorized:
                 presentImagePicker(sourceType: sourceType)
@@ -309,7 +309,7 @@ class PersonFileViewController: UIViewController {
             print("該功能在此裝置不適用")
             return
         }
-        
+
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
@@ -318,21 +318,21 @@ class PersonFileViewController: UIViewController {
 
     func showTimePicker() {
         let alertController = UIAlertController(title: "選擇時間", message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
-        
+
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.minuteInterval = 1
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         alertController.view.addSubview(datePicker)
-        
+
         datePicker.snp.makeConstraints { make in
             make.leading.equalTo(alertController.view).offset(20)
             make.trailing.equalTo(alertController.view).offset(-20)
             make.top.equalTo(alertController.view).offset(50)
             make.height.equalTo(150)
         }
-        
+
         let confirmAction = UIAlertAction(title: "確認", style: .default) { _ in
             let selectedDate = datePicker.date
             self.viewModel.scheduleNotification(for: selectedDate)
@@ -340,7 +340,7 @@ class PersonFileViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
-        
+
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = self.view
             popoverController.sourceRect = CGRect(
@@ -423,7 +423,7 @@ class PersonFileViewController: UIViewController {
                     window.makeKeyAndVisible()
                     guard let userId = UserDefaults.standard.string(forKey: "userID") else { return }
                     let query = FirestoreEndpoint.fetchPersonData.ref.document(userId)
-                    FirestoreService.shared.deleteDocument(at: query) { error in
+                    FirestoreService.shared.deleteDocument(at: query) { _ in
                         print("delete")
                     }
                 }
@@ -450,7 +450,7 @@ extension PersonFileViewController: UITableViewDelegate, UITableViewDataSource {
 
         let option = viewModel.settingsOptions[indexPath.row]
         cell.configureCell(with: option.0, icon: option.1)
-        
+
         let last = viewModel.settingsOptions.count
         if indexPath.row + 1 == last {
             cell.titleLabel.textColor = .red

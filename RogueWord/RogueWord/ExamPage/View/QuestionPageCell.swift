@@ -11,17 +11,17 @@ import SnapKit
 class QuestionPageCell: UITableViewCell {
     var cardView: UIView = {
         let view = UIView()
-        
+
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
-        
+
         view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 10
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-        
+
         return view
     }()
 
@@ -32,7 +32,7 @@ class QuestionPageCell: UITableViewCell {
        label.font = UIFont.boldSystemFont(ofSize: 16)
        return label
     }()
-    
+
     var answerSelectLabel: UILabel = {
        let label = UILabel()
        label.textColor = .black
@@ -40,7 +40,7 @@ class QuestionPageCell: UITableViewCell {
        label.font = UIFont.boldSystemFont(ofSize: 16)
        return label
     }()
-    
+
     var optionLabel0: UIButton = {
        let button = UIButton()
         button.tag = 0
@@ -48,11 +48,10 @@ class QuestionPageCell: UITableViewCell {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
        return button
     }()
-    
+
     var optionLabel1: UIButton = {
         let button = UIButton()
         button.tag = 1
@@ -60,11 +59,10 @@ class QuestionPageCell: UITableViewCell {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var optionLabel2: UIButton = {
         let button = UIButton()
         button.tag = 2
@@ -72,11 +70,10 @@ class QuestionPageCell: UITableViewCell {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var optionLabel3: UIButton = {
         let button = UIButton()
         button.tag = 3
@@ -84,11 +81,10 @@ class QuestionPageCell: UITableViewCell {
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.contentHorizontalAlignment = .left
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var answerLabel: UILabel = {
        let label = UILabel()
        label.textColor = .lightGray
@@ -96,7 +92,7 @@ class QuestionPageCell: UITableViewCell {
        label.font = UIFont.systemFont(ofSize: 14)
        return label
     }()
-    
+
     var translateButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("解答", for: .normal)
@@ -104,7 +100,7 @@ class QuestionPageCell: UITableViewCell {
         button.isHidden = true
         return button
     }()
-    
+
     var translatedLabel: UILabel = {
         let label = UILabel()
         label.textColor = .blue
@@ -113,8 +109,7 @@ class QuestionPageCell: UITableViewCell {
         label.isHidden = false
         return label
     }()
-    
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(cardView)
@@ -126,14 +121,14 @@ class QuestionPageCell: UITableViewCell {
         contentView.addSubview(optionLabel3)
         contentView.addSubview(answerLabel)
         contentView.addSubview(translateButton)
-        
+
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private func setupConstraints() {
         cardView.snp.makeConstraints { make in
             make.top.left.equalTo(contentView).offset(8)

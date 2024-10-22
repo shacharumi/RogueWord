@@ -9,33 +9,32 @@ import UIKit
 import FirebaseFirestore
 import SnapKit
 
-
 class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
     // MARK: - Properties
     private var collectionView: UICollectionView!
     private let buttonStackView = UIStackView()
     private let indicatorView = UIView()
     private let navView = UIView()
     private let navButton = UIButton()
-    
+
     private let viewModel = WrongQuestionsViewModel()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupUI()
         setupBindings()
         viewModel.fetchQuestions()
     }
-    
+
     // MARK: - Setup Methods
     private func setupUI() {
         view.backgroundColor = UIColor(named: "CollectionBackGround")
         setupButtons()
         setupCollectionView()
     }
-    
+
     private func setupButtons() {
         navView.backgroundColor = .clear
         view.addSubview(navView)
@@ -44,7 +43,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.right.equalTo(view)
             make.height.equalTo(32)
         }
-        
+
         navButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         navButton.tintColor = UIColor(named: "TextColor")
         navButton.addTarget(self, action: #selector(backTap), for: .touchUpInside)
@@ -54,7 +53,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.equalTo(navView).offset(16)
             make.width.height.equalTo(30)
         }
-        
+
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 0
@@ -71,14 +70,14 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         let wordQuizButton = createButton(title: "單字測驗")
         let paragraphButton = createButton(title: "段落填空")
         let readingButton = createButton(title: "閱讀理解")
-        
+
         buttonStackView.addArrangedSubview(wordQuizButton)
         buttonStackView.addArrangedSubview(paragraphButton)
         buttonStackView.addArrangedSubview(readingButton)
-        
+
         // 將 StackView 添加到 view 中
         view.addSubview(buttonStackView)
-        
+
         // 使用 SnapKit 設置 StackView 的約束，位於 navigationBar 下方
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(navView.snp.bottom)
@@ -86,11 +85,11 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.right.equalTo(view).offset(-16)
             make.height.equalTo(44)
         }
-        
+
         // 添加指示器到 stackView 下方
         indicatorView.backgroundColor = UIColor(named: "TextColor")
         view.addSubview(indicatorView)
-        
+
         // 設置指示器初始位置在段落填空按鈕下方
         indicatorView.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom)
@@ -99,7 +98,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.equalTo(paragraphButton.snp.left)
         }
     }
-    
+
     private func setupCollectionView() {
         // 設置 UICollectionViewFlowLayout 來實現兩列佈局
         let layout = UICollectionViewFlowLayout()
@@ -107,20 +106,20 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         let itemsPerRow: CGFloat = 2
         let padding: CGFloat = 16
         let totalSpacing = (itemsPerRow - 1) * itemSpacing + padding * 2
-        
+
         layout.minimumInteritemSpacing = itemSpacing
         layout.minimumLineSpacing = itemSpacing
-        
+
         let itemWidth = (view.bounds.width - totalSpacing) / itemsPerRow
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
-        
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(QuestionCell.self, forCellWithReuseIdentifier: "QuestionCell")
         collectionView.backgroundColor = UIColor(named: "CollectionBackGround")
         view.addSubview(collectionView)
-        
+
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom).offset(16)
             make.left.equalTo(view).offset(16)
@@ -128,7 +127,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.bottom.equalTo(view)
         }
     }
-    
+
     private func setupBindings() {
         viewModel.onDataUpdated = { [weak self] in
             DispatchQueue.main.async {
@@ -136,10 +135,10 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
-    
+
     @objc private func buttonTapped(_ sender: UIButton) {
         guard let title = sender.title(for: .normal) else { return }
-        
+
         switch title {
         case "單字測驗":
             viewModel.currentQuestionType = .wordQuiz
@@ -150,7 +149,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         default:
             break
         }
-        
+
         // 動畫移動指示器到點擊的按鈕下方
         UIView.animate(withDuration: 0.3) {
             self.indicatorView.snp.remakeConstraints { make in
@@ -162,11 +161,11 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             self.view.layoutIfNeeded()
         }
     }
-    
+
     @objc func backTap() {
         self.dismiss(animated: true)
     }
-    
+
     private func createButton(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
@@ -174,10 +173,10 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         button.backgroundColor = UIColor(named: "CollectionBackGround")
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        
+
         return button
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch viewModel.currentQuestionType {
         case .wordQuiz:
@@ -188,31 +187,32 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             return viewModel.readingQuestions.count
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
-        cell.backgroundColor = UIColor(named: "viewBackGround")
-        
-        switch viewModel.currentQuestionType {
-        case .wordQuiz:
-            let wordDocument = viewModel.wordQuestions[indexPath.item]
-            cell.configure(with: wordDocument.title ?? "No Title", time: wordDocument.timestamp)
-        case .paragraph:
-            let paragraph = viewModel.paragraphQuestions[indexPath.item]
-            cell.configure(with: paragraph.title ?? "No Title", time: paragraph.timestamp)
-        case .reading:
-            let reading = viewModel.readingQuestions[indexPath.item]
-            cell.configure(with: reading.title ?? "No Title", time: reading.timestamp)
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as? QuestionCell {
+            cell.backgroundColor = UIColor(named: "viewBackGround")
+
+            switch viewModel.currentQuestionType {
+            case .wordQuiz:
+                let wordDocument = viewModel.wordQuestions[indexPath.item]
+                cell.configure(with: wordDocument.title ?? "No Title", time: wordDocument.timestamp)
+            case .paragraph:
+                let paragraph = viewModel.paragraphQuestions[indexPath.item]
+                cell.configure(with: paragraph.title ?? "No Title", time: paragraph.timestamp)
+            case .reading:
+                let reading = viewModel.readingQuestions[indexPath.item]
+                cell.configure(with: reading.title ?? "No Title", time: reading.timestamp)
+            }
+            return cell
         }
-        
-        return cell
+            return UICollectionViewCell()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+
         var viewControllerToPresent: UIViewController?
-        
+
         switch viewModel.currentQuestionType {
         case .wordQuiz:
             let selectedWordDocument = viewModel.wordQuestions[indexPath.item]
@@ -220,34 +220,34 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             wordFillVC.questions = selectedWordDocument.questions
             wordFillVC.questionsTitle = selectedWordDocument.title
             viewControllerToPresent = wordFillVC
-            
+
             wordFillVC.dataDismiss = { [weak self] in
                 self?.viewModel.fetchQuestions()
             }
-            
+
         case .paragraph:
             let selectedParagraph = viewModel.paragraphQuestions[indexPath.item]
             let paragraphVC = WrongQuestionParagraphVC()
             paragraphVC.questionData = selectedParagraph
             paragraphVC.questionsTitle = selectedParagraph.title
             viewControllerToPresent = paragraphVC
-            
+
             paragraphVC.dataDismiss = { [weak self] in
                 self?.viewModel.fetchQuestions()
             }
-            
+
         case .reading:
             let selectedReading = viewModel.readingQuestions[indexPath.item]
             let readingVC = WrongQuestionReadingVC()
             readingVC.readingData = selectedReading
             readingVC.questionsTitle = selectedReading.title
             viewControllerToPresent = readingVC
-            
+
             readingVC.dataDismiss = { [weak self] in
                 self?.viewModel.fetchQuestions()
             }
         }
-        
+
         if let vc = viewControllerToPresent {
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
@@ -256,7 +256,7 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
 }
 
 class QuestionCell: UICollectionViewCell {
-    
+
     private let documentIDLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -264,15 +264,14 @@ class QuestionCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    let timeLabel : UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(documentIDLabel)
@@ -281,18 +280,18 @@ class QuestionCell: UICollectionViewCell {
             make.centerX.equalTo(contentView)
             make.centerY.equalTo(contentView).offset(-25)
         }
-        
+
         timeLabel.snp.makeConstraints { make in
             make.centerX.equalTo(contentView)
             make.centerY.equalTo(contentView).offset(25)
         }
-        
+
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.layer.cornerRadius = 8
         contentView.backgroundColor = .white
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

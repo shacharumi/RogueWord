@@ -4,7 +4,7 @@ import Firebase
 import Lottie
 
 class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     private var questions: [ParagraphType]? = []
     private let tableView = UITableView()
     let animateLabel = UILabel()
@@ -15,12 +15,11 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
     private let animationView = LottieAnimationView(name: "LoadingImage")
     private var answerArray: [String]?
     var wordDatas: Accurency?
-    var datadismiss: ((Accurency?) -> Void)? 
+    var datadismiss: ((Accurency?) -> Void)?
     let cardView = UIView()
     let questionLabel = UILabel()
     private var isTapCheck: Bool = false
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "CollectionBackGround")
@@ -29,7 +28,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         setupTableView()
         callChatGPTAPI()
     }
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -44,14 +43,14 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
             make.right.equalTo(view).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
+
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
         animationView.center = self.view.center
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.play()
         tableView.addSubview(animationView)
-        
+
         animateLabel.text = "正在Loading，請稍等"
         animateLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         animateLabel.textColor = .black
@@ -62,17 +61,17 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
             make.centerX.equalTo(view)
         }
         DispatchQueue.main.async {
-            
+
             self.startFlashingLabel(self.animateLabel)
         }
     }
-    
+
     private func setupCustomNavBar() {
         customNavBar = UIView()
         customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
-        
+
         view.addSubview(customNavBar)
-        
+
         customNavBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalTo(view)
@@ -86,19 +85,19 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         navLabel.snp.makeConstraints { make in
             make.centerY.centerX.equalTo(customNavBar)
         }
-        
+
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.setTitleColor(.white, for: .normal)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         customNavBar.addSubview(backButton)
-        
+
         backButton.snp.makeConstraints { make in
             make.leading.equalTo(customNavBar).offset(16)
             make.centerY.equalTo(customNavBar)
         }
-        
+
         menuButton.isUserInteractionEnabled = false
         menuButton.alpha = 0.5
         menuButton.setTitle("...", for: .normal)
@@ -106,46 +105,46 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         menuButton.setTitleColor(UIColor(named: "TextColor"), for: .normal)
         menuButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside)
         customNavBar.addSubview(menuButton)
-        
+
         menuButton.snp.makeConstraints { make in
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar).offset(-5)
         }
-        
+
     }
-    
+
     @objc func backButtonTapped() {
         self.dismiss(animated: true) {
             self.datadismiss?(self.wordDatas)
         }
     }
-    
+
     @objc private func didTapMenu() {
         let menu = UIAlertController(title: "功能", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "對答案", style: .default) { [weak self] _ in
             self?.isTapCheck = true
-            
+
             self?.tableView.reloadData()
         }
         let action2 = UIAlertAction(title: "收藏", style: .default) { [weak self] _ in
             guard let self = self, let question = self.questions?[0] else { return }
             self.saveQuestionToFirebase(paragraph: question)
         }
-        
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
+
         menu.addAction(action1)
         menu.addAction(action2)
         menu.addAction(cancelAction)
         present(menu, animated: true, completion: nil)
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (questions?.first?.options.count ?? 0) + 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {  
+        if indexPath.row == 0 {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.backgroundColor = UIColor(named: "CollectionBackGround")
             cardView.backgroundColor = .white
@@ -155,26 +154,26 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
             cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
             cardView.layer.shadowRadius = 4
             cell.contentView.addSubview(cardView)
-            
+
             questionLabel.text = questions?.first?.question
             questionLabel.numberOfLines = 0
             questionLabel.font = UIFont.systemFont(ofSize: 20)
             cardView.addSubview(questionLabel)
-            
+
             cardView.snp.makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp.top).offset(10)
                 make.leading.equalTo(cell.contentView.snp.leading).offset(10)
                 make.trailing.equalTo(cell.contentView.snp.trailing).offset(-10)
                 make.bottom.equalTo(cell.contentView.snp.bottom).offset(-10)
             }
-            
+
             questionLabel.snp.makeConstraints { make in
                 make.top.equalTo(cardView.snp.top).offset(15)
                 make.leading.equalTo(cardView.snp.leading).offset(15)
                 make.trailing.equalTo(cardView.snp.trailing).offset(-15)
                 make.bottom.equalTo(cardView.snp.bottom).offset(-15)
             }
-            
+
             return cell
         } else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ParagraphCell", for: indexPath) as? ParagraphCell {
@@ -200,13 +199,13 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                     cell.optionLabel1.isUserInteractionEnabled = false
                     cell.optionLabel2.isUserInteractionEnabled = false
                     cell.optionLabel3.isUserInteractionEnabled = false
-                    //cell.translateButton.isUserInteractionEnabled
+                    // cell.translateButton.isUserInteractionEnabled
 
                     if selectedAnswer == correctAnswer {
                         cell.answerSelectLabel.textColor = .green
                         cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
                         self.wordDatas?.corrects += 1
-                        
+
                     } else {
                         cell.answerSelectLabel.textColor = .red
                         cell.answerSelectLabel.text = "( \(selectedAnswer ?? "") )"
@@ -214,33 +213,31 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                     }
                     self.wordDatas?.times += 1
                     self.updateAccurency()
-                    
+
                 }
-                
-                
+
                 return cell
             } else {
                 return UITableViewCell()
             }
         }
     }
-    
-    
+
     func saveQuestionToFirebase(paragraph: ParagraphType) {
         var mutableParagraph = paragraph
-        
+
         let alert = UIAlertController(title: "輸入錯題名稱", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "輸入名稱"
         }
-        
+
         let confirmAction = UIAlertAction(title: "確認", style: .default) { [weak self] _ in
             if let documentName = alert.textFields?.first?.text, !documentName.isEmpty {
                 let db = Firestore.firestore()
                 mutableParagraph.title = documentName
                 let paragraphData = mutableParagraph.toDictionary()
                 guard let userID = UserDefaults.standard.string(forKey: "userID") else {return}
-                
+
                 db.collection("PersonAccount")
                     .document(userID)
                     .collection("CollectionFolderWrongQuestions")
@@ -250,7 +247,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                             print("Error adding document: \(error)")
                         } else {
                             print("Document added successfully to CollectionFolderWrongQuestions")
-                            
+
                             let successAlert = UIAlertController(title: "收藏成功", message: "問題已成功被收藏！", preferredStyle: .alert)
                             successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                             self?.present(successAlert, animated: true, completion: nil)
@@ -262,42 +259,40 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
                 self?.present(errorAlert, animated: true, completion: nil)
             }
         }
-        
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
+
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
-        
+
         present(alert, animated: true, completion: nil)
     }
-    
-    
+
     func updateAccurency() {
         let query = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Paragraph")
         let fieldsToUpdate: [String: Any] = [
-            "Corrects": wordDatas?.corrects,
-            "Wrongs": wordDatas?.wrongs,
-            "Times": wordDatas?.times,
-            "Title": wordDatas?.title
+            "Corrects": wordDatas?.corrects ?? 0,
+            "Wrongs": wordDatas?.wrongs ?? 0,
+            "Times": wordDatas?.times ?? 0,
+            "Title": wordDatas?.title ?? 0
         ]
-        
+
         FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
             if let error = error {
                 print("DEBUG: Failed to update wordData -", error.localizedDescription)
             } else {
-                print("DEBUG: Successfully updated wordData to \(self.wordDatas)")
+                print("DEBUG: Successfully updated wordData to \(String(describing: self.wordDatas))")
             }
         }
     }
-    
-    
+
     @objc private func translateText(_ sender: UIButton) {
         print("aa")
         let alert = UIAlertController(title: "Answer Text", message: answerArray?[sender.tag - 1], preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     @objc func tapOptions(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? ParagraphCell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
@@ -319,7 +314,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         }
         tableView.reloadRows(at: [indexPath], with: .none)
     }
-    
+
     func startFlashingLabel(_ label: UILabel) {
         label.alpha = 1.0
         UIView.animate(withDuration: 1,
@@ -336,12 +331,11 @@ struct ParagraphType: Decodable {
     var options: [[String]]
     var answerOptions: [String]
     var answer: String
-    
+
     var selectNumber: [String?]
     var title: String?
     var tag: String?
 }
-
 
 extension ParagraphType {
     func toDictionary() -> [String: Any] {
@@ -349,23 +343,21 @@ extension ParagraphType {
         for (index, optionSet) in options.enumerated() {
             optionsDict["option_set_\(index)"] = optionSet
         }
-        
+
         return [
             "questions": self.question,
             "options": optionsDict,
             "answerOptions": self.answerOptions,
             "answer": self.answer,
-            "title": self.title,
+            "title": self.title ?? "",
             "tag": "段落填空",
             "timestamp": Timestamp()
         ]
     }
 }
 
-
-
 extension ParagraphFillInTheBlanksViewController {
-    
+
     private func callChatGPTAPI() {
         var apiKey = ""
         if let path = Bundle.main.path(forResource: "ApiList", ofType: "plist"),
@@ -374,24 +366,24 @@ extension ParagraphFillInTheBlanksViewController {
                 apiKey = chatgptApi
             }
         }
-        
+
         guard !apiKey.isEmpty else {
             print("未能從 plist 中讀取到 API Key")
             return
         }
-        
+
         guard let version = UserDefaults.standard.string(forKey: "version") else { return }
-        
+
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             print("無效的 URL")
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
-        
+
         let openAIBody: [String: Any] = [
             "model": "gpt-3.5-turbo",
             "messages": [
@@ -414,36 +406,36 @@ extension ParagraphFillInTheBlanksViewController {
                 }
                 ]
                 請確保有五題
-                
+
                 """]
             ]
         ]
-        
+
         request.httpBody = try? JSONSerialization.data(withJSONObject: openAIBody)
-        
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             if let error = error {
                 print("API請求錯誤: \(error)")
                 return
             }
-            
+
             guard let data = data else {
                 print("無效的數據")
                 return
             }
-            
+
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let choices = json["choices"] as? [[String: Any]],
                    let firstChoice = choices.first,
                    let message = firstChoice["message"] as? [String: Any],
                    let content = message["content"] as? String {
-                    
+
                     let cleanedContent = content.replacingOccurrences(of: "\\n", with: "")
                         .replacingOccurrences(of: "\\", with: "")
                         .replacingOccurrences(of: "```", with: "" )
                         .replacingOccurrences(of: "json", with: "")
-                    
+
                     if let contentData = cleanedContent.data(using: .utf8) {
                         do {
                             if let jsonArray = try JSONSerialization.jsonObject(with: contentData, options: []) as? [[String: Any]] {
@@ -470,21 +462,21 @@ extension ParagraphFillInTheBlanksViewController {
                 }
             } catch {
                 print("JSON解析錯誤: \(error)")
-                //self?.callChatGPTAPI()
+                // self?.callChatGPTAPI()
             }
         }.resume()
     }
-    
+
     private func parseResponse(jsonArray: [[String: Any]]) -> [ParagraphType] {
         var questionsArray: [ParagraphType] = []
-        
+
         for jsonObject in jsonArray {
             if let question = jsonObject["question"] as? String,
                let options = jsonObject["options"] as? [[String]],
                let answerOption = jsonObject["AnswerOption"] as? [String],
                let answerExplanation = jsonObject["Answer"] as? String {
                 let selectNumber = Array(repeating: "", count: options.count)
-                
+
                 let paragraphType = ParagraphType(
                     question: question,
                     options: options,
@@ -492,7 +484,7 @@ extension ParagraphFillInTheBlanksViewController {
                     answer: answerExplanation,
                     selectNumber: selectNumber
                 )
-                
+
                 questionsArray.append(paragraphType)
             }
         }
