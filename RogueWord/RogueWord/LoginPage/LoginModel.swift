@@ -12,7 +12,7 @@ struct LevelData: Codable {
     var levelNumber: Int
     var wrong: Int
     var isCorrect: [Bool]
-    
+
     enum CodingKeys: String, CodingKey {
         case correct = "Correct"
         case levelNumber = "LevelNumber"
@@ -40,7 +40,7 @@ struct UserData: Codable {
     var rank: Rank?
     var image: String?
     var version: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case userID
         case fullName = "fullName"

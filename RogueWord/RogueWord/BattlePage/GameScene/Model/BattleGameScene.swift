@@ -54,14 +54,14 @@ class BattleGameScene: SKScene {
     func handleCharacterTap(_ characterName: String, node: SKSpriteNode) {
         if let isDisabled = node.userData?["disabled"] as? Bool, isDisabled {
             let alert = UIAlertController(title: "不可用", message: "此角色目前不可用。", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
             self.viewController?.present(alert, animated: true, completion: nil)
             return
         }
 
         guard let rank = self.rank else { return }
-        guard let requiredLevel = node.userData?["requiredLevel"] as? Int else { return }
-        let rankScore = Int(rank.rankScore) ?? 0
+        guard node.userData?["requiredLevel"] is Int else { return }
+        _ = Int(rank.rankScore)
 
         if characterName == "Wizard" {
             let alert = UIAlertController(title: "多人連線", message: nil, preferredStyle: .alert)
@@ -200,7 +200,7 @@ class BattleGameScene: SKScene {
             stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 7, timePerFrame: 0.4)
         } else if characterName == "Knight" {
             stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 5, timePerFrame: 0.4)
-        } else if characterName == "Musketeer" || characterName == "Wizard"  {
+        } else if characterName == "Musketeer" || characterName == "Wizard" {
             stopAnimation(character, characterName: characterName, imageName: "Idle", imageCount: 4, timePerFrame: 0.4)
         }
     }

@@ -5,12 +5,11 @@
 //  Created by shachar on 2024/10/6.
 //
 
-
 import Foundation
 import UIKit
 import SpriteKit
 
-class HomeModel { 
+class HomeModel {
     var personData: UserData?
 
     func fetchLevelNumber(completion: @escaping (UserData?) -> Void) {
@@ -43,7 +42,6 @@ struct GameCharacter {
     let levelRequired: Int
     let characterID: Int
 }
-
 
 struct CharacterAction {
     let actionName: String

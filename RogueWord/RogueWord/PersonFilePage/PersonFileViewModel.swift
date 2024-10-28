@@ -4,9 +4,9 @@ import UIKit
 import UserNotifications
 
 class PersonFileViewModel {
-    
+
     var user = PersonPageModel()
-    
+
     let settingsOptions = [
         ("修改名稱 & 大頭貼", UIImage(systemName: "person.crop.circle.fill")),
         ("分享APP给朋友", UIImage(systemName: "square.and.arrow.up")),
@@ -15,11 +15,11 @@ class PersonFileViewModel {
         ("登出", UIImage(systemName: "arrowshape.turn.up.left.fill")),
         ("刪除帳號", UIImage(systemName: "trash.fill"))
     ]
-    
+
     func shareApp(from viewController: UIViewController) {
         let appLink = "沒有連結QQ"
         let activityVC = UIActivityViewController(activityItems: ["快點下載這個好用APP", appLink], applicationActivities: nil)
-        
+
         if let popoverController = activityVC.popoverPresentationController {
             popoverController.sourceView = viewController.view
             popoverController.sourceRect = CGRect(
@@ -30,21 +30,21 @@ class PersonFileViewModel {
             )
             popoverController.permittedArrowDirections = []
         }
-        
+
         viewController.present(activityVC, animated: true, completion: nil)
     }
-    
+
     func scheduleNotification(for date: Date) {
         let content = UNMutableNotificationContent()
         content.title = "時間到了！"
         content.body = "快點來複習拉！！"
         content.sound = UNNotificationSound.default
-        
+
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: date)
-        
+
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        
+
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
@@ -54,7 +54,7 @@ class PersonFileViewModel {
             }
         }
     }
-    
+
     func requestNotificationAuthorization() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
             if granted {
@@ -64,7 +64,7 @@ class PersonFileViewModel {
             }
         }
     }
-    
+
     func clearUserData() {
         user.clearUserData()
     }
@@ -80,9 +80,9 @@ class PersonPageModel {
             guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
             let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
             let fieldsToUpdate: [String: Any] = [
-                "userName": newValue,
+                "userName": newValue
             ]
-            
+
             FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
                 if let error = error {
                     print("DEBUG: Failed to update userName -", error.localizedDescription)
@@ -92,7 +92,7 @@ class PersonPageModel {
             }
         }
     }
-    
+
     var profileImage: UIImage {
         get {
             if let imageData = UserDefaults.standard.data(forKey: "imageData"),
@@ -102,7 +102,7 @@ class PersonPageModel {
                 return UIImage(named: "default_avatar") ?? UIImage()
             }
         }
-        
+
         set {
             if let imageData = newValue.pngData() {
                 UserDefaults.standard.set(imageData, forKey: "imageData")
@@ -110,33 +110,33 @@ class PersonPageModel {
             uploadImageToFirebase(image: newValue)
         }
     }
-    
+
     func uploadImageToFirebase(image: UIImage) {
         guard let imageData = image.pngData() else {
             print("DEBUG 無法將圖片轉換為 PNG")
             return
         }
-        
+
         let fileName = UserDefaults.standard.string(forKey: "userID") ?? "預設用戶"
         let storageRef = Storage.storage().reference().child("\(fileName)/userImage.png")
-        
-        storageRef.putData(imageData, metadata: nil) { metadata, error in
+
+        storageRef.putData(imageData, metadata: nil) { _, error in
             if let error = error {
                 print("圖片上傳失敗: \(error.localizedDescription)")
                 return
             }
-            
+
             storageRef.downloadURL { url, error in
                 if let error = error {
                     print("DEBUG 獲取圖片 URL 失敗: \(error.localizedDescription)")
                 } else if let downloadURL = url {
                     UserDefaults.standard.set(downloadURL, forKey: "userImageURL")
                     print("圖片上傳成功，下載 URL: \(downloadURL)")
-                    
+
                     guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
                     let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
                     let fieldsToUpdate: [String: Any] = [
-                        "image": "\(fileName)/userImage.png",
+                        "image": "\(fileName)/userImage.png"
                     ]
                     FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
                         if let error = error {
@@ -149,7 +149,7 @@ class PersonPageModel {
             }
         }
     }
-    
+
     var selectedVersion: String {
         get {
             return UserDefaults.standard.string(forKey: "userVersion") ?? "多益"
@@ -159,9 +159,9 @@ class PersonPageModel {
             guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
             let query = FirestoreEndpoint.fetchPersonData.ref.document(userID)
             let fieldsToUpdate: [String: Any] = [
-                "version": newValue,
+                "version": newValue
             ]
-            
+
             FirestoreService.shared.updateData(at: query, with: fieldsToUpdate) { error in
                 if let error = error {
                     print("DEBUG: Failed to update version -", error.localizedDescription)
@@ -171,7 +171,7 @@ class PersonPageModel {
             }
         }
     }
-    
+
     func clearUserData() {
         UserDefaults.standard.removeObject(forKey: "userName")
         UserDefaults.standard.removeObject(forKey: "email")
