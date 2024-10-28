@@ -11,9 +11,9 @@ import SnapKit
 
 class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var questionData: GetParagraphType?   // 传递过来的问题数据
+    var questionData: GetParagraphType?
     var questionsTitle: String?
-    var dataDismiss: (() -> Void)?        // 闭包，用于在视图控制器消失后回调
+    var dataDismiss: (() -> Void)?
     var viewModel: WrongQuestionParagraphViewModel!
 
     private let tableView = UITableView()
@@ -27,16 +27,13 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         setupCustomNavBar()
         setupTableView()
 
-        // 初始化 ViewModel
         if let questionData = questionData {
             viewModel = WrongQuestionParagraphViewModel(questionData: questionData, questionsTitle: questionsTitle)
         } else {
-            // 处理 questionData 为 nil 的情况
             print("Question data is nil")
         }
     }
 
-    // 设置自定义导航栏
     private func setupCustomNavBar() {
         customNavBar = UIView()
         customNavBar.backgroundColor = UIColor(named: "CollectionBackGround")
@@ -72,22 +69,18 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-    // 返回按钮功能
     @objc func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
 
-    // 菜单按钮功能
     @objc func menuButtonTapped() {
         let alert = UIAlertController(title: "选项", message: nil, preferredStyle: .actionSheet)
 
-        // 解答选项
         let answerAction = UIAlertAction(title: "解答", style: .default) { [weak self] _ in
             self?.viewModel.showAnswers()
             self?.tableView.reloadData()
         }
 
-        // 取消收藏
         let cancelCollection = UIAlertAction(title: "取消收藏", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel.cancelCollection { result in
@@ -96,7 +89,6 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
                     case .success:
                         let successAlert = UIAlertController(title: "取消收藏", message: "取消收藏成功", preferredStyle: .alert)
                         successAlert.addAction(UIAlertAction(title: "确定", style: .default, handler: { _ in
-                            // 在提示框消失后，先关闭当前视图控制器，再调用闭包
                             self.dismiss(animated: true) {
                                 self.dataDismiss?()
                             }
@@ -120,7 +112,6 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         self.present(alert, animated: true, completion: nil)
     }
 
-    // 设置表格视图
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -135,23 +126,17 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-    // MARK: - UITableViewDataSource
 
-    // 返回行数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 问题段落 + 选项数量
         return (viewModel?.questionData.options.count ?? 0) + 1
     }
 
-    // 配置单元格
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if indexPath.row == 0 {
-            // 显示问题段落
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.backgroundColor = UIColor(named: "CollectionBackGround")
 
-            // 创建卡片样式的 view
             let cardView = UIView()
             cardView.backgroundColor = .white
             cardView.layer.cornerRadius = 10
@@ -161,13 +146,11 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
             cardView.layer.shadowRadius = 4
             cell.contentView.addSubview(cardView)
 
-            // 添加 label 到卡片内
             let questionLabel = UILabel()
             questionLabel.text = viewModel.getQuestionText()
             questionLabel.numberOfLines = 0
             cardView.addSubview(questionLabel)
 
-            // 使用 SnapKit 设置卡片的 Auto Layout 约束
             cardView.snp.makeConstraints { make in
                 make.top.equalTo(cell.contentView.snp.top).offset(10)
                 make.leading.equalTo(cell.contentView.snp.leading).offset(10)
@@ -175,7 +158,6 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
                 make.bottom.equalTo(cell.contentView.snp.bottom).offset(-10)
             }
 
-            // 设置 label 的约束
             questionLabel.snp.makeConstraints { make in
                 make.top.equalTo(cardView.snp.top).offset(15)
                 make.leading.equalTo(cardView.snp.leading).offset(15)
@@ -185,7 +167,6 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
 
             return cell
         } else {
-            // 显示选项
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ParagraphCell", for: indexPath) as? ParagraphCell else {
                 return UITableViewCell()
             }
@@ -202,13 +183,11 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
             cell.optionLabel2.setTitle(options[2], for: .normal)
             cell.optionLabel3.setTitle(options[3], for: .normal)
 
-            // 设置按钮的 tag，用于区分选项
             cell.optionLabel0.tag = optionIndex * 10 + 0
             cell.optionLabel1.tag = optionIndex * 10 + 1
             cell.optionLabel2.tag = optionIndex * 10 + 2
             cell.optionLabel3.tag = optionIndex * 10 + 3
 
-            // 添加目标动作
             cell.optionLabel0.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
             cell.optionLabel1.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
             cell.optionLabel2.addTarget(self, action: #selector(tapOptions(_:)), for: .touchUpInside)
@@ -245,10 +224,7 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
             return cell
         }
     }
-
-    // MARK: - 用户交互
-
-    // 处理选项按钮的点击事件
+    
     @objc func tapOptions(_ sender: UIButton) {
         let optionIndex = sender.tag / 10
         let optionTag = sender.tag % 10
@@ -270,12 +246,10 @@ class WrongQuestionParagraphVC: UIViewController, UITableViewDataSource, UITable
 
         viewModel.setSelectedAnswer(answer, for: optionIndex)
 
-        // 刷新当前单元格
         let indexPath = IndexPath(row: optionIndex + 1, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
     }
 
-    // 显示答案的详细信息
     @objc private func translateText(_ sender: UIButton) {
         let answerText = viewModel.getAnswerText(for: sender.tag)
         let alert = UIAlertController(title: "Answer Text", message: answerText, preferredStyle: .alert)

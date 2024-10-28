@@ -75,10 +75,8 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
         buttonStackView.addArrangedSubview(paragraphButton)
         buttonStackView.addArrangedSubview(readingButton)
 
-        // 將 StackView 添加到 view 中
         view.addSubview(buttonStackView)
 
-        // 使用 SnapKit 設置 StackView 的約束，位於 navigationBar 下方
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(navView.snp.bottom)
             make.left.equalTo(view).offset(16)
@@ -86,11 +84,9 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             make.height.equalTo(44)
         }
 
-        // 添加指示器到 stackView 下方
         indicatorView.backgroundColor = UIColor(named: "TextColor")
         view.addSubview(indicatorView)
 
-        // 設置指示器初始位置在段落填空按鈕下方
         indicatorView.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom)
             make.height.equalTo(3)
@@ -100,7 +96,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
     private func setupCollectionView() {
-        // 設置 UICollectionViewFlowLayout 來實現兩列佈局
         let layout = UICollectionViewFlowLayout()
         let itemSpacing: CGFloat = 10
         let itemsPerRow: CGFloat = 2
@@ -150,7 +145,6 @@ class WrongQuestionsPage: UIViewController, UICollectionViewDelegate, UICollecti
             break
         }
 
-        // 動畫移動指示器到點擊的按鈕下方
         UIView.animate(withDuration: 0.3) {
             self.indicatorView.snp.remakeConstraints { make in
                 make.top.equalTo(self.buttonStackView.snp.bottom)
@@ -295,7 +289,6 @@ class QuestionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // Updated the configure method to accept optional Timestamp
     func configure(with documentID: String, time timeStamp: Timestamp?) {
         documentIDLabel.text = documentID
         if let timeStamp = timeStamp {

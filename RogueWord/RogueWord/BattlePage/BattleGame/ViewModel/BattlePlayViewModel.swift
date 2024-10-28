@@ -122,7 +122,6 @@ class BattlePlayViewModel {
             self?.checkIfBothPlayersSelected(snapshot: snapshot, whichSelect: 2)
         }
 
-        // 保存观察者的句柄以便后续移除
         observers.append(contentsOf: [player1NameHandle, player2NameHandle, player1ScoreHandle, player2ScoreHandle, countdownHandle, questionDataHandle, currentQuestionIndexHandle, roomIsStartHandle, player1SelectHandle, player2SelectHandle])
     }
 
@@ -133,7 +132,6 @@ class BattlePlayViewModel {
         }
     }
 
-    // MARK: - 游戏逻辑方法
 
     func startFirebaseCountdown() {
         guard whichPlayer == 1 else { return }
@@ -231,7 +229,6 @@ class BattlePlayViewModel {
                 self.stopFirebaseCountdown()
                 self.evaluateAnswersAndScore()
 
-                // 延迟一段时间后更新题目，让玩家有时间查看答案
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.updateQuestionAndResetValues()
                 }

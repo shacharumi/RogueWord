@@ -25,9 +25,9 @@ class SentenceFillGamePageModel: LevelUpGamePageModel {
     }
 
     func getFillCurrentQuestion() -> String? {
-        guard currentQuestionIndex < questions.count else { return nil }
+        guard currentQuestionIndex < words.count else { return nil }
 
-        let currentWord = questions[currentQuestionIndex]
+        let currentWord = words[currentQuestionIndex]
         missingWord = currentWord.english
         let sentenceWithBlank = currentWord.sentence.replacingOccurrences(of: currentWord.english, with: "____")
         return sentenceWithBlank

@@ -299,7 +299,7 @@ class ParagraphFillInTheBlanksViewController: UIViewController, UITableViewDataS
         switch sender.tag {
         case 0:
             answerSelect = "A"
-            questions?[0].selectNumber[indexPath.row - 1] = answerSelect  // 現在 indexPath.row - 1，因為第一個 row 是問題段落
+            questions?[0].selectNumber[indexPath.row - 1] = answerSelect  
         case 1:
             answerSelect = "B"
             questions?[0].selectNumber[indexPath.row - 1] = answerSelect

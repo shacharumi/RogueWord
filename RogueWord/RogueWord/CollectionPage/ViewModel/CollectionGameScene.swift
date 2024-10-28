@@ -295,7 +295,7 @@ class CollectionGameScene: SKScene {
             for node in touchedNodes {
                 if let characterNode = node as? SKSpriteNode {
                     selectedCharacter = characterNode
-                    isDragging = false // 重置拖曳標誌
+                    isDragging = false 
                     break
                 }
             }
@@ -306,9 +306,8 @@ class CollectionGameScene: SKScene {
         if let touch = touches.first, let character = selectedCharacter {
             let location = touch.location(in: self)
             character.position = location
-            isDragging = true // 當角色移動時，設置拖曳標誌
+            isDragging = true
 
-            // 檢查角色是否與 slime 發生碰撞
             if character.frame.intersects(slime.frame) {
                 showAlertForDeletion(character.name ?? "")
             }
@@ -316,7 +315,6 @@ class CollectionGameScene: SKScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // 如果不是拖曳操作，則處理點擊
         if let character = selectedCharacter, !isDragging {
             handleCharacterTap(character.name ?? "")
         }

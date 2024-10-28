@@ -289,7 +289,6 @@ class BattleViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    // 更新准确率标签
     func updateAccuracyLabel() {
         if let rank = viewModel.rank {
             let totalQuestions = rank.playTimes * 10

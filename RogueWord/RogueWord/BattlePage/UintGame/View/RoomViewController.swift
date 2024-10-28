@@ -298,7 +298,6 @@ class RoomViewController: UIViewController, UITableViewDelegate, UITableViewData
                     sentence: "His perfunctory response indicated a lack of interest."
                 )
             ),
-            // 新增五個高難度項目
             FireBaseWord(
                 levelNumber: 900,
                 tag: "Advanced",

@@ -11,7 +11,6 @@ import Firebase
 class LevelUpGamePageModel {
 
     var words: [JsonWord] = []
-    var questions: [JsonWord] = []
     var currentQuestionIndex: Int = 0
     var currentCorrect: Int = 0
     var currentWrong: Int = 0
@@ -27,12 +26,11 @@ class LevelUpGamePageModel {
 
     private func loadWords() {
         words = loadWordsFromFile()
-        questions = words
     }
 
     func getCurrentQuestion() -> JsonWord? {
-        guard currentQuestionIndex < questions.count else { return nil }
-        return questions[currentQuestionIndex]
+        guard currentQuestionIndex < words.count else { return nil }
+        return words[currentQuestionIndex]
     }
 
     func generateWrongAnswers(for correctAnswer: String) -> [String] {
@@ -47,7 +45,7 @@ class LevelUpGamePageModel {
     }
 
     func moveToNextQuestion() -> Bool {
-        if currentQuestionIndex < questions.count - 1 {
+        if currentQuestionIndex < words.count - 1 {
             currentQuestionIndex += 1
             updateLevelNumber()
             return true

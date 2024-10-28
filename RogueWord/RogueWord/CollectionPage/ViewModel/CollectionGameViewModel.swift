@@ -52,7 +52,6 @@ class CollectionGameViewModel {
     func moveToPreviousQuestion() {
         if currentQuestionIndex > 0 {
             currentQuestionIndex -= 1
-            // 更新计数
             if isCorrect[currentQuestionIndex] {
                 correctCount -= 1
             } else {
