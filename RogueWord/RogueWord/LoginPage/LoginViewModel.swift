@@ -3,25 +3,25 @@ import AuthenticationServices
 import FirebaseFirestore
 
 class LoginViewModel {
-    
+
     private let model = FirestoreService()
     private let jsonFileModel = FirebaseToJSONFileUploader()
-    
+
     var onUserDataSaved: (() -> Void)?
     var onError: ((String) -> Void)?
     var onPromptForUserName: ((@escaping (String) -> Void) -> Void)?
-    
+
     init() {
         self.jsonFileModel.fetchAndSaveWordsToJSON()
     }
-    
+
     func handleAuthorization(authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             print("user: \(appleIDCredential.user)")
             print("fullName: \(String(describing: appleIDCredential.fullName))")
             print("Email: \(String(describing: appleIDCredential.email))")
             print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
-            
+
             var userData = UserData(
                 userID: appleIDCredential.user,
                 fullName: appleIDCredential.fullName?.givenName,
@@ -35,29 +35,27 @@ class LoginViewModel {
                 image: "",
                 version: "多益"
             )
-            
-            
-            
+
             let query = FirestoreEndpoint.fetchPersonData.ref.document(appleIDCredential.user)
             FirestoreService.shared.getDocument(query) { (personData: UserData?) in
                 if let personData = personData {
                     print("DEBUG personData \(personData)")
                     userData = personData
-                    
+
                     self.model.downloadImageData(path: personData.image ?? "") { [weak self] imageData in
                         guard let self = self else { return }
                         UserDefaults.standard.setValue(imageData, forKey: "imageData")
                         if let fullName = UserDefaults.standard.string(forKey: "fullName") {
                             userData.fullName = fullName
                         }
-                        
+
                         self.saveToUserDefaults(userData)
                         self.onUserDataSaved?()
                         print("DEBUG: Document with this userID already exists.")
                     }
                 } else {
                     print("DEBUG: Failed to fetch or decode UserData.")
-                    
+
                     let dispatchGroup = DispatchGroup()
                     var replacename = ""
                     if UserDefaults.standard.string(forKey: "fullName") == nil {
@@ -77,7 +75,7 @@ class LoginViewModel {
                         }
                         dispatchGroup.leave()
                     }
-                    
+
                     dispatchGroup.enter()
                     let wordQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Word")
                     let wordInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 0)
@@ -87,7 +85,7 @@ class LoginViewModel {
                         }
                         dispatchGroup.leave()
                     }
-                    
+
                     dispatchGroup.enter()
                     let paragraphQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Paragraph")
                     let paragrphaInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 1)
@@ -97,7 +95,7 @@ class LoginViewModel {
                         }
                         dispatchGroup.leave()
                     }
-                    
+
                     dispatchGroup.enter()
                     let readingQuery = FirestoreEndpoint.fetchAccurencyRecords.ref.document("Reading")
                     let readingInitData = Accurency(corrects: 0, wrongs: 0, times: 0, title: 2)
@@ -107,7 +105,7 @@ class LoginViewModel {
                         }
                         dispatchGroup.leave()
                     }
-                    
+
                     dispatchGroup.notify(queue: .main) {
                         self.saveToUserDefaults(userData)
                         self.onUserDataSaved?()
@@ -116,9 +114,9 @@ class LoginViewModel {
             }
         }
     }
-    
+
     func mockData() {
-        var userData = UserData(
+        let userData = UserData(
             userID: "testID",
             fullName: "test",
             userName: "test",
@@ -134,11 +132,10 @@ class LoginViewModel {
         self.saveToUserDefaults(userData)
         self.onUserDataSaved?()
     }
-    
-    
+
     func handleAuthorizationError(error: Error) {
         var errorMessage = ""
-        switch (error) {
+        switch error {
         case ASAuthorizationError.canceled:
             errorMessage = "用戶取消了授權請求"
         case ASAuthorizationError.failed:
@@ -152,11 +149,11 @@ class LoginViewModel {
         default:
             errorMessage = "其他錯誤: \(error.localizedDescription)"
         }
-        
+
         print(errorMessage)
         self.onError?(errorMessage)
     }
-    
+
     private func saveToUserDefaults(_ data: UserData) {
         guard let fullName = data.fullName else { return }
         let userDefaults = UserDefaults.standard

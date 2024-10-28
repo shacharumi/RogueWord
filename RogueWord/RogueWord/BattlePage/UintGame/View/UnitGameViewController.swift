@@ -12,7 +12,6 @@ import FirebaseDatabaseInternal
 
 class UnitGameViewController: UIViewController {
 
-
     var collectionData: [FireBaseWord] = []
     var roomID: String?
 
@@ -99,7 +98,6 @@ class UnitGameViewController: UIViewController {
         return label
     }()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "PlayViewColor")
@@ -108,7 +106,6 @@ class UnitGameViewController: UIViewController {
         startTimer()
         displayQuestion()
     }
-
 
     private func startTimer() {
         startTime = Date()
@@ -252,11 +249,9 @@ class UnitGameViewController: UIViewController {
         }
     }
 
-
     @objc private func goBack() {
         self.dismiss(animated: true, completion: nil)
     }
-
 
     @objc private func answerTapped(_ sender: UIButton) {
         guard !hasSelectedAnswer, let selectedAnswer = sender.currentTitle else { return }
@@ -289,7 +284,6 @@ class UnitGameViewController: UIViewController {
         }
     }
 
-
     private func updateAccurencyLabel() {
         let total = correctCount + wrongCount
         let accuracy = total > 0 ? (Float(correctCount) / Float(total)) * 100 : 0
@@ -297,11 +291,9 @@ class UnitGameViewController: UIViewController {
     }
 
     private func highlightCorrectAnswer(correctAnswer: String) {
-        for button in answerButtons {
-            if button.currentTitle == correctAnswer {
+        for button in answerButtons where button.currentTitle == correctAnswer {
                 button.backgroundColor = UIColor(named: "CorrectColor")
                 break
-            }
         }
     }
 
@@ -351,14 +343,12 @@ class UnitGameViewController: UIViewController {
 
         answers.shuffle()
 
-        for (index, button) in answerButtons.enumerated() {
-            if index < answers.count {
-                button.setTitle(answers[index], for: .normal)
-                button.backgroundColor = UIColor(named: "ButtonColor")
-                button.isEnabled = true
-            }
+        for (index, button) in answerButtons.enumerated() where index < answers.count {
+            button.setTitle(answers[index], for: .normal)
+            button.backgroundColor = UIColor(named: "ButtonColor")
+            button.isEnabled = true
         }
-
+        
         updateAccurencyLabel()
     }
 

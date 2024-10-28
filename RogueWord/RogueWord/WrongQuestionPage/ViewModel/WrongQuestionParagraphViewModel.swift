@@ -14,41 +14,41 @@ class WrongQuestionParagraphViewModel {
     var isTapCheck: Bool = false
     var questionsTitle: String?
     var answerArray: [String]
-    
+
     init(questionData: GetParagraphType, questionsTitle: String?) {
         self.questionData = questionData
         self.questionsTitle = questionsTitle
-        
+
         let optionsCount = questionData.options.count
         self.selectedAnswers = Array(repeating: "", count: optionsCount)
-        
+
         self.answerArray = questionData.answer.components(separatedBy: "。")
     }
-    
+
     func getQuestionText() -> String {
         return questionData.questions
     }
-    
+
     func getOptions(for index: Int) -> [String] {
         return questionData.options["option_set_\(index)"] ?? []
     }
-    
+
     func getSelectedAnswer(for index: Int) -> String {
         return selectedAnswers[index]
     }
-    
+
     func setSelectedAnswer(_ answer: String, for index: Int) {
         selectedAnswers[index] = answer
     }
-    
+
     func getCorrectAnswer(for index: Int) -> String {
         return questionData.answerOptions[index]
     }
-    
+
     func showAnswers() {
         isTapCheck = true
     }
-    
+
     func getAnswerText(for index: Int) -> String {
         if index < answerArray.count {
             return answerArray[index]
@@ -56,7 +56,7 @@ class WrongQuestionParagraphViewModel {
             return "No answer available"
         }
     }
-    
+
     func cancelCollection(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let title = questionsTitle else {
             completion(.failure(NSError(domain: "No title", code: -1, userInfo: nil)))

@@ -8,8 +8,6 @@
 import Foundation
 import FirebaseCore
 
-
-
 struct GetParagraphType: Decodable {
     var questions: String
     var options: [String: [String]]
@@ -17,8 +15,7 @@ struct GetParagraphType: Decodable {
     var answer: String
     var title: String?
     var timestamp: Timestamp
-    
-    
+
 }
 
 struct GetReadingType: Decodable {
@@ -41,6 +38,6 @@ struct GetWordFillType: Decodable {
 struct WordFillDocument: Decodable {
     var title: String?
     var tag: String
-    var questions: [GetWordFillType]  
+    var questions: [GetWordFillType]
     var timestamp: Timestamp
 }

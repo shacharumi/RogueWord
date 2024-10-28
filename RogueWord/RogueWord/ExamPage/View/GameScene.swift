@@ -209,13 +209,9 @@ class GameScene: SKScene {
 
     func hideAllMessageBoxes(except characterToKeep: SKSpriteNode? = nil) {
         let characters = [enchantress, knight, musketeer]
-        for character in characters {
-            if character != characterToKeep {
-                if let messageBox = character?.childNode(
-                    withName: "messageBox"
-                ) as? SKShapeNode {
-                    messageBox.isHidden = true
-                }
+        for character in characters where character != characterToKeep {
+            if let messageBox = character?.childNode(withName: "messageBox") as? SKShapeNode {
+                messageBox.isHidden = true
             }
         }
     }

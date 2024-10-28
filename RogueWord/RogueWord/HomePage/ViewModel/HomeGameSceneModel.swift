@@ -20,7 +20,6 @@ class HomeGameSceneViewModel {
         createCharacters()
     }
 
-
     func createCharacters() {
            characters.removeAll()
 
@@ -59,7 +58,6 @@ class HomeGameSceneViewModel {
            onCharactersUpdated?()
        }
 
-
     func getRandomAction(for character: GameCharacter) -> CharacterAction {
         let randomIndex = Int.random(in: 0..<character.actionSet.count)
         let actionName = character.actionSet[randomIndex]
@@ -87,6 +85,3 @@ class HomeGameSceneViewModel {
         }
     }
 }
-
-
-

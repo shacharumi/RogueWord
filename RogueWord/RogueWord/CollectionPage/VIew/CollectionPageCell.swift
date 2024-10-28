@@ -6,26 +6,26 @@ class CollectionPageCell: UITableViewCell {
 
     let dropDownButton: DropDown = {
        let dropDown = DropDown()
-        
+
         return dropDown
     }()
-    
+
     var cardView: UIView = {
         let view = UIView()
-        
+
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
-        
+
         view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 10
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-        
+
         return view
     }()
-    
+
     let testView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -36,11 +36,11 @@ class CollectionPageCell: UITableViewCell {
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-        
+
         view.backgroundColor = .lightGray
         return view
     }()
-    
+
     let tagLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -48,54 +48,51 @@ class CollectionPageCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
-    
+
     var cellID: Int = 0
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
     }
-   
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
-    
-    
-    
+
     func registerOptionButton(_ tags: [String]) {
         dropDownButton.dataSource = tags
     }
-    
+
     private func setupView() {
         contentView.addSubview(cardView)
         contentView.addSubview(testView)
         testView.addSubview(tagLabel)
         dropDownButton.anchorView = testView
         dropDownButton.direction = .bottom
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTestViewTap))
         testView.addGestureRecognizer(tapGesture)
-        
+
         cardView.snp.makeConstraints { make in
             make.left.equalTo(contentView).offset(16)
             make.top.equalTo(contentView)
             make.right.equalTo(contentView).offset(-16)
             make.bottom.equalTo(contentView)
         }
-        
+
         testView.snp.makeConstraints { make in
             make.right.equalTo(cardView).offset(-16)
             make.centerY.equalTo(contentView)
             make.height.equalTo(24)
             make.width.equalTo(50)
         }
-        
+
         tagLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
     }
 
     @objc private func handleTestViewTap() {
@@ -105,7 +102,7 @@ class CollectionPageCell: UITableViewCell {
             dropDownButton.hide()
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
 

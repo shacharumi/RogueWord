@@ -16,33 +16,33 @@ class WrongQuestionWordViewModel {
     var selectedAnswers: [String]
     var isTapCheck: Bool = false
     var questionsTitle: String?
-    
+
     init(questions: [GetWordFillType], questionsTitle: String?) {
         self.questions = questions
         self.selectedAnswers = Array(repeating: "", count: questions.count)
         self.questionsTitle = questionsTitle
     }
-    
+
     func getQuestion(at index: Int) -> GetWordFillType {
         return questions[index]
     }
-    
+
     func getSelectedAnswer(for index: Int) -> String {
         return selectedAnswers[index]
     }
-    
+
     func setSelectedAnswer(_ answer: String, for index: Int) {
         selectedAnswers[index] = answer
     }
-    
+
     func isAnswerCorrect(at index: Int) -> Bool {
         return selectedAnswers[index] == questions[index].answerOptions
     }
-    
+
     func showAnswers() {
         isTapCheck = true
     }
-    
+
     func cancelCollection(completion: @escaping (Result<Void, Error>) -> Void) {
         guard let title = questionsTitle else {
             completion(.failure(NSError(domain: "No title", code: -1, userInfo: nil)))

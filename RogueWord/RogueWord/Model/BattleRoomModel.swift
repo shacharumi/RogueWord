@@ -17,7 +17,7 @@ struct Room {
     var player2Select: Int
     var player1Prepare: Bool
     var player2Prepare: Bool
-    
+
 }
 
 struct FireBaseWord {

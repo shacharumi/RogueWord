@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 
 class CollectionPageViewController: UIViewController {
-    
-    
     private let headerView = UIView()
     private let backButton = UIButton()
     private let addButton = UIButton()
@@ -19,11 +17,11 @@ class CollectionPageViewController: UIViewController {
     private var tapCounts: [IndexPath: Int] = [:]
     var characterTag: String = ""
     var onTagComplete: (() -> Void)?
-    
+
     private let navigateButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "gamecontroller.fill"), for: .normal) // 使用填充的遊戲控制器圖示更明顯
+        button.setImage(UIImage(systemName: "gamecontroller.fill"), for: .normal)
         button.tintColor = UIColor(named: "TextColor")
         button.backgroundColor = UIColor(named: "ButtonColor")
         button.layer.cornerRadius = 25
@@ -31,7 +29,6 @@ class CollectionPageViewController: UIViewController {
         return button
     }()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -39,19 +36,18 @@ class CollectionPageViewController: UIViewController {
         setupViewModel()
         viewModel.fetchDataFromFirebase()
         viewModel.fetchTagFromFirebase()
-        
+
         view.bringSubviewToFront(navigateButton)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchDataFromFirebase()
     }
-    
-    
+
     private func setupUI() {
         view.backgroundColor = UIColor(named: "CollectionBackGround")
-        
+
         view.addSubview(headerView)
         headerView.backgroundColor = UIColor(named: "CollectionBackGround")
         headerView.snp.makeConstraints { make in
@@ -59,7 +55,7 @@ class CollectionPageViewController: UIViewController {
             make.left.right.equalTo(view)
             make.height.equalTo(60)
         }
-        
+
         let titleLabel = UILabel()
         titleLabel.text = characterTag
         titleLabel.textColor = UIColor(named: "TextColor")
@@ -68,7 +64,7 @@ class CollectionPageViewController: UIViewController {
         titleLabel.snp.makeConstraints { make in
             make.centerY.centerX.equalTo(headerView)
         }
-        
+
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.2.fill"), for: .normal)
         backButton.tintColor = UIColor(named: "TextColor")
         backButton.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
@@ -78,7 +74,7 @@ class CollectionPageViewController: UIViewController {
             make.left.equalTo(headerView).offset(16)
             make.width.height.equalTo(30)
         }
-        
+
         addButton.setImage(UIImage(systemName: "plus.square"), for: .normal)
         addButton.tintColor = UIColor(named: "TextColor")
         addButton.addTarget(self, action: #selector(presentAddTagAlert), for: .touchUpInside)
@@ -88,7 +84,7 @@ class CollectionPageViewController: UIViewController {
             make.right.equalTo(headerView).offset(-16)
             make.width.height.equalTo(30)
         }
-        
+
         view.addSubview(navigateButton)
         navigateButton.addTarget(self, action: #selector(navigateToGame), for: .touchUpInside)
         navigateButton.snp.makeConstraints { make in
@@ -97,56 +93,54 @@ class CollectionPageViewController: UIViewController {
             make.width.height.equalTo(50)
         }
     }
-    
+
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(named: "CollectionBackGround")
         tableView.register(CollectionPageCell.self, forCellReuseIdentifier: "CollectionPageCell")
-        
+
         view.addSubview(tableView)
-        
+
         tableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.left.right.equalTo(view)
             make.bottom.equalTo(navigateButton.snp.top).offset(-16)
         }
-        
+
         tableView.dataSource = self
         tableView.delegate = self
     }
-    
+
     private func setupViewModel() {
         viewModel.viewModelTag = characterTag
         viewModel.onDataChange = { [weak self] in
             self?.updateTableView()
         }
-        
+
         viewModel.onTagChange = { [weak self] in
             self?.updateTableView()
         }
     }
-    
-    
+
     @objc func tapBackButton() {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+
     @objc func updateTag(_ sender: UIButton) {
         guard let tagType = sender.title(for: .normal) else {
             print("按鈕沒有標題")
             return
         }
-        
+
         let tagIndex = sender.tag
-        
+
         viewModel.updateWordTag(tagType, tagIndex)
-        
+
         print("更新標籤: \(tagType), 索引: \(tagIndex)")
     }
-    
+
     @objc func presentAddTagAlert() {
         if self.viewModel.tags.count > 4 {
             let limitAlert = UIAlertController(title: nil, message: "Tag數量已達上限\n請先刪除其他Tag", preferredStyle: .alert)
@@ -155,25 +149,25 @@ class CollectionPageViewController: UIViewController {
             self.present(limitAlert, animated: true, completion: nil)
             return
         }
-        
+
         let alert = UIAlertController(title: "新增標籤", message: "請輸入新的標籤名稱", preferredStyle: .alert)
-        
+
         alert.addTextField { (textField) in
             textField.placeholder = "標籤名稱"
         }
-        
+
         let addAction = UIAlertAction(title: "新增", style: .default) { [weak self] (_) in
             if let tagName = alert.textFields?.first?.text, !tagName.isEmpty {
                 self?.viewModel.addTag(tagName)
                 self?.onTagComplete?()
             }
         }
-        
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
+
         alert.addAction(addAction)
         alert.addAction(cancelAction)
-        
+
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -183,26 +177,25 @@ class CollectionPageViewController: UIViewController {
         gameVC.modalPresentationStyle = .fullScreen
         self.present(gameVC, animated: true, completion: nil)
     }
-    
+
     private func updateTableView() {
         print(viewModel.words)
         tableView.reloadData()
     }
 }
 
-
 extension CollectionPageViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.words.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionPageCell", for: indexPath) as? CollectionPageCell else {
             return UITableViewCell()
         }
-        
+
         let word = viewModel.words[indexPath.row]
         cell.backgroundColor = UIColor(named: "CollectionBackGround")
         cell.textLabel?.text = word.word.english
@@ -215,23 +208,23 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
         cell.registerOptionButton(viewModel.tags)
         cell.cellID = word.levelNumber
         cell.tagLabel.text = word.tag
-        cell.dropDownButton.selectionAction = { [weak self] (index: Int, item: String) in
+        cell.dropDownButton.selectionAction = { [weak self] (_: Int, item: String) in
             cell.tagLabel.text = item
             self?.viewModel.updateWordTag(item, word.levelNumber)
         }
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            tableView.deselectRow(at: indexPath, animated: true)
 
            let word = viewModel.words[indexPath.row]
            if let cell = tableView.cellForRow(at: indexPath) {
-               
+
                let currentTapCount = tapCounts[indexPath] ?? 0
                let newLabel: String
                switch currentTapCount {
@@ -244,7 +237,7 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
                default:
                    newLabel = word.word.english
                }
-               
+
                UIView.animate(withDuration: 0.3, animations: {
                    cell.textLabel?.alpha = 0.0
                }, completion: { _ in
@@ -253,14 +246,14 @@ extension CollectionPageViewController: UITableViewDataSource, UITableViewDelega
                        cell.textLabel?.alpha = 1.0
                    })
                })
-               
+
                tapCounts[indexPath] = (currentTapCount + 1) % 3
            }
        }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (action, view, completion) in
-            
+        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] (_, _, completion) in
+
             self?.viewModel.removeWord(at: indexPath.row)
             self?.updateTableView()
             completion(true)

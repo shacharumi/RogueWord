@@ -10,7 +10,6 @@ import SnapKit
 
 class CollectionPageGameViewController: UIViewController {
 
-
     var collectionData: [FireBaseWord] = []
 
     private var cardView: UIView!
@@ -26,7 +25,7 @@ class CollectionPageGameViewController: UIViewController {
         label.text = "答對率: 0%"
         return label
     }()
-    
+
     private let indexLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +34,7 @@ class CollectionPageGameViewController: UIViewController {
         label.text = "當前題數: 0"
         return label
     }()
-    
+
     private let englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +77,7 @@ class CollectionPageGameViewController: UIViewController {
         }
         return buttons
     }()
-    
+
     private let alertLabel: UILabel = {
         let label = UILabel()
         label.text = "答錯了！即將進入下一題..."
@@ -90,7 +89,6 @@ class CollectionPageGameViewController: UIViewController {
         return label
     }()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "PlayViewColor")
@@ -100,7 +98,6 @@ class CollectionPageGameViewController: UIViewController {
         displayQuestion()
     }
 
-
     private func setupUI() {
         cardView = UIView()
         cardView.backgroundColor = UIColor(named: "PlayCardColor")
@@ -108,7 +105,7 @@ class CollectionPageGameViewController: UIViewController {
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = 0.2
         cardView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        
+
         cardView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardView)
         cardView.addSubview(accurencyLabel)
@@ -117,7 +114,7 @@ class CollectionPageGameViewController: UIViewController {
         cardView.addSubview(propertyLabel)
         cardView.addSubview(sentenceLabel)
         cardView.addSubview(alertLabel)
-        
+
         cardView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view).offset(-100)
@@ -125,22 +122,22 @@ class CollectionPageGameViewController: UIViewController {
             make.right.equalTo(view).offset(-32)
             make.height.equalTo(400)
         }
-        
+
         accurencyLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(50)
             make.centerX.equalTo(cardView)
         }
-        
+
         indexLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(100)
             make.centerX.equalTo(cardView)
         }
-        
+
         englishLabel.snp.makeConstraints { make in
             make.top.equalTo(cardView).offset(150)
             make.centerX.equalTo(cardView)
         }
-        
+
         propertyLabel.snp.makeConstraints { make in
             make.top.equalTo(englishLabel.snp.bottom).offset(8)
             make.centerX.equalTo(englishLabel)
@@ -151,12 +148,12 @@ class CollectionPageGameViewController: UIViewController {
             make.left.equalTo(cardView).offset(16)
             make.right.equalTo(cardView).offset(-16)
         }
-        
+
         alertLabel.snp.makeConstraints { make in
             make.top.equalTo(sentenceLabel.snp.bottom).offset(32)
             make.centerX.equalTo(cardView.snp.centerX)
         }
-        
+
         let stackView = UIStackView(arrangedSubviews: answerButtons)
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -210,21 +207,20 @@ class CollectionPageGameViewController: UIViewController {
             make.right.equalTo(customNavBar).offset(-16)
             make.centerY.equalTo(customNavBar)
         }
-        
+
         let titleLabel = UILabel()
         titleLabel.text = "英翻中選擇題"
         titleLabel.textColor = UIColor(named: "TextColor")
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         titleLabel.textAlignment = .center
         customNavBar.addSubview(titleLabel)
-        
+
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(backButton.snp.right)
             make.right.equalTo(previousButton.snp.left)
             make.centerY.equalTo(customNavBar)
         }
     }
-
 
     @objc private func goBack() {
         self.dismiss(animated: true, completion: nil)
@@ -279,11 +275,9 @@ class CollectionPageGameViewController: UIViewController {
     private func highlightCorrectAnswer() {
         guard let currentWord = viewModel.getCurrentQuestion()?.word else { return }
         let correctAnswer = currentWord.chinese
-        for button in answerButtons {
-            if button.currentTitle == correctAnswer {
-                button.backgroundColor = UIColor(named: "CorrectColor")
-                break
-            }
+        for button in answerButtons where button.currentTitle == correctAnswer {
+            button.backgroundColor = UIColor(named: "CorrectColor")
+            break
         }
     }
 
@@ -297,7 +291,7 @@ class CollectionPageGameViewController: UIViewController {
         viewModel.moveToNextQuestion()
         hasSelectedAnswer = false
 
-        if let _ = viewModel.getCurrentQuestion() {
+        if viewModel.getCurrentQuestion() != nil {
             alertLabel.isHidden = true
             displayQuestion()
         } else {
@@ -320,12 +314,10 @@ class CollectionPageGameViewController: UIViewController {
 
         let answers = viewModel.getAnswerOptions()
 
-        for (index, button) in answerButtons.enumerated() {
-            if index < answers.count {
-                button.setTitle(answers[index], for: .normal)
-                button.backgroundColor = UIColor(named: "ButtonColor")
-                button.isEnabled = true
-            }
+        for (index, button) in answerButtons.enumerated() where index < answers.count {
+            button.setTitle(answers[index], for: .normal)
+            button.backgroundColor = UIColor(named: "ButtonColor")
+            button.isEnabled = true
         }
 
         updateAccurencyLabel()

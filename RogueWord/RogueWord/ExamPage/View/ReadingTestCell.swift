@@ -12,20 +12,20 @@ import SnapKit
 class ReadingTestCell: UITableViewCell {
     var cardView: UIView = {
         let view = UIView()
-        
+
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
-        
+
         view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 10
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-        
+
         return view
     }()
-    
+
     var questionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -33,7 +33,7 @@ class ReadingTestCell: UITableViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
-    
+
     var answerSelectLabel: UILabel = {
        let label = UILabel()
        label.textColor = .black
@@ -41,7 +41,7 @@ class ReadingTestCell: UITableViewCell {
        label.font = UIFont.boldSystemFont(ofSize: 16)
        return label
     }()
-    
+
     var optionLabel0: UIButton = {
        let button = UIButton()
         button.tag = 0
@@ -52,7 +52,7 @@ class ReadingTestCell: UITableViewCell {
         button.isUserInteractionEnabled = true
        return button
     }()
-    
+
     var optionLabel1: UIButton = {
         let button = UIButton()
         button.tag = 1
@@ -63,7 +63,7 @@ class ReadingTestCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var optionLabel2: UIButton = {
         let button = UIButton()
         button.tag = 2
@@ -74,7 +74,7 @@ class ReadingTestCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var optionLabel3: UIButton = {
         let button = UIButton()
         button.tag = 3
@@ -85,7 +85,7 @@ class ReadingTestCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         return button
     }()
-    
+
     var answerLabel: UILabel = {
        let label = UILabel()
        label.textColor = .lightGray
@@ -93,7 +93,7 @@ class ReadingTestCell: UITableViewCell {
        label.font = UIFont.systemFont(ofSize: 14)
        return label
     }()
-    
+
     var translateButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("翻譯", for: .normal)
@@ -101,7 +101,7 @@ class ReadingTestCell: UITableViewCell {
         button.isHidden = true
         return button
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(cardView)
@@ -116,17 +116,17 @@ class ReadingTestCell: UITableViewCell {
 
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private func setupConstraints() {
         cardView.snp.makeConstraints { make in
             make.top.left.equalTo(contentView).offset(8)
             make.right.bottom.equalTo(-8)
         }
-        
+
         answerSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
             make.left.equalTo(contentView).offset(16)
@@ -138,13 +138,13 @@ class ReadingTestCell: UITableViewCell {
             make.left.equalTo(contentView).offset(16)
             make.width.equalTo(50)
         }
-        
+
         questionLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(16)
             make.left.equalTo(answerSelectLabel.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-16)
         }
-        
+
         optionLabel0.snp.makeConstraints { make in
             make.top.equalTo(questionLabel.snp.bottom).offset(8)
             make.left.equalTo(answerSelectLabel.snp.right).offset(8)
